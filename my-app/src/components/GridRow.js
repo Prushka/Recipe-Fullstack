@@ -1,19 +1,19 @@
 import * as React from 'react';
 
-export default function GridRow({values, isHeader}) {
+export default function GridRow({uid, values, isHeader}) {
 
     GridRow.defaultProps = {
         isHeader: false
     }
 
     return (
-        <tr>
+        <tr key={uid}>
             {
-                values.map(value => {
+                values.map((value, index) => {
                     if(isHeader){
-                        return <th>{value}</th>
+                        return <th key={`${uid}_${index}`}>{value}</th>
                     }
-                    return <td>{value}</td>
+                    return <td key={`${uid}_${index}`}>{value}</td>
                 })
             }
         </tr>
