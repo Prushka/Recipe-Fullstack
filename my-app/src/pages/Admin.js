@@ -21,12 +21,24 @@ export default function Admin({}) {
             "Last Edit": "10 days ago",
             "Created By": "TestUser1",
             "rowId": 2
+        },
+        {
+            "Recipe Name": "Apple",
+            "Category": "Fruit",
+            "Views": 3,
+            "Review": 4.2,
+            "Created By": "TestUser3",
+            "rowId": 3
         }
     ])
 
+    function test(header, value, rowId, cellId, isHeader){
+        console.log(`header: [${header}], value: [${value}], rowId: [${rowId}], cellId: [${cellId}], isHeader: [${isHeader}]`)
+    }
+
     return (
         <>
-            <Grid tableData={tableData} />
+            <Grid tableData={tableData} onClickHandler={test}/>
         </>
     );
 }
