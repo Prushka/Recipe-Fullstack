@@ -1,14 +1,11 @@
-.grid{
+
+.grid {
 }
 
 hr.grid--divider {
     border: 0;
     border-top: 2px solid #A8A8A8;
     display: block;
-}
-
-[class*="col-"] {
-    float: left;
 }
 
 table {
@@ -19,14 +16,16 @@ table {
 td {
     border: 0;
     border-top: 2px solid #A8A8A8;
+    font-weight: 600;
+    color: var(--dgray-text)
+}
+
+th {
+    font-weight: 700;
+    color: var(--dgray-text)
 }
 
 th, td {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 15px 20px;
+    font-size: 17px;
 }
-
-.col-1 {width: 8.33%;}
-.col-1 {width: 19.33%;}
