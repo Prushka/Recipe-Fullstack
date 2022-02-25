@@ -38,7 +38,7 @@ export default function Admin({}) {
 
     return (
         <>
-            <Grid tableData={tableData} onClickHandler={test}/>
+            <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}/>
         </>
     );
 }

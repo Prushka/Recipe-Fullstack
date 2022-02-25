@@ -2,13 +2,15 @@ import * as React from 'react';
 import '../styles/Grid.css';
 import GridRow from "./GridRow";
 
-export default function Grid({tableData, onClickHandler, excludeHeader}) {
+export default function Grid({tableData, onClickHandler, excludeHeader=[]}) {
     const headers = []
     tableData.forEach((item) => {
         if(Object.keys(item).length > headers.length){
             headers.length = 0
             for (let key in item) {
-                headers.push(key)
+                if(!excludeHeader.includes(key)){
+                    headers.push(key)
+                }
             }
         }
     })
