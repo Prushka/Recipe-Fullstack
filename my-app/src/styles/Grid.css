@@ -27,3 +27,7 @@ th, td {
     font-size: 17px;
     min-width: 10px;
 }
+
+.grid--clickable{
+    cursor: pointer;
+}
