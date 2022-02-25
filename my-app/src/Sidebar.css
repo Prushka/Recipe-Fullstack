@@ -1,0 +1,37 @@
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  background-color: #EB7777;
+}
+
+.sidebar button {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Comfortaa';
+  color: white;
+  background-color: #EB7777;
+  display: block;
+  width: 250px;
+  margin-bottom: 5px;
+  border: none;
+  text-align: left;
+}
+
+.sidebar button:hover {
+  background-color: black;
+}
+
+.sidebar img {
+  border-radius: 50%;
+  height:150px;
+  width:150px;
+  padding:50px;
+}
+
+#log-out {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

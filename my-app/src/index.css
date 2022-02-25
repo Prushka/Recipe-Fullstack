@@ -1,0 +1,14 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-image: linear-gradient(to bottom right, rgba(249, 229, 232, 0.3), rgba(151, 225, 212, 0.3), rgba(98, 132, 255, 0.3), rgba(255, 114, 182, 0.3));
+  font-family: 'Comfortaa';
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
