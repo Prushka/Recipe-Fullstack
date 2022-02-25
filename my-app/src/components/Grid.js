@@ -2,7 +2,7 @@ import * as React from 'react';
 import '../styles/Grid.css';
 import GridRow from "./GridRow";
 
-export default function Grid({tableData, onClickHandlers}) {
+export default function Grid({tableData, onClickHandler}) {
     const headers = []
     tableData.forEach((item) => {
         if(Object.keys(item).length > headers.length){
@@ -16,7 +16,7 @@ export default function Grid({tableData, onClickHandlers}) {
         <div className="grid">
             <table>
                 <tbody>
-                <GridRow key={-1} uid={-1} values={headers} isHeader={true} onClickHandlers={onClickHandlers}/>
+                <GridRow key={-1} rowId={-1} headers={headers} values={headers} isHeader={true} onClickHandler={onClickHandler}/>
                 {tableData.map(value => {
                     const rowValues = []
                     headers.forEach((item) => {
@@ -26,8 +26,9 @@ export default function Grid({tableData, onClickHandlers}) {
                             rowValues.push("")
                         }
                     })
-                    return <GridRow key={value["rowId"]} uid={value["rowId"]} values={rowValues}
-                                    onClickHandlers={onClickHandlers}/>
+                    return <GridRow key={value["rowId"]} rowId={value["rowId"]} values={rowValues}
+                                    headers={headers}
+                                    onClickHandler={onClickHandler}/>
                 })}
                 </tbody>
             </table>
