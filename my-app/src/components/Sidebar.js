@@ -1,7 +1,7 @@
 import food from './food.jpg';
 import {CgProfile, CgSearch, CgHomeAlt, CgHeart, CgPen, CgLogOut} from 'react-icons/cg'
 import React from 'react';
-import './Sidebar.css';
+import '../styles/Sidebar.css';
 
 function Sidebar() {
   return (
