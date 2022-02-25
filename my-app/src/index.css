@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 
+:root {
+  --dgray-text: #414141;
+}
+
 html {
   height: 100%;
 }
@@ -7,7 +11,7 @@ html {
 body {
   margin: 0;
   background-image: linear-gradient(to bottom right, rgba(249, 229, 232, 0.3), rgba(151, 225, 212, 0.3), rgba(98, 132, 255, 0.3), rgba(255, 114, 182, 0.3));
-  font-family: 'Comfortaa';
+  font-family: 'Comfortaa', cursive;
 }
 
 code {
