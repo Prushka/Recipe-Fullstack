@@ -1,12 +1,24 @@
-import React from 'react'; 
-import Sidebar from './Sidebar.js'
+import React from 'react';
 
-function Login() {
-    return (
-        <React.Fragment>
-            <Sidebar />
-        </React.Fragment>
-    );
+class Login extends React.Component {
+    state = {
+        username:'',
+        pwd:''
+
+    }
+    render() {
+        return (
+            <div>
+                <div>
+                    <form>
+                        <input type='username' name='username' placeholder='username...' required />
+                        <input type='password' name='pwd' placeholder='password...' required />
+                        <button>Log-in</button>
+                    </form>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default Login;
