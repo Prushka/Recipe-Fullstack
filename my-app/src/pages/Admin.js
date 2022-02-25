@@ -38,7 +38,8 @@ export default function Admin({}) {
 
     return (
         <>
-            <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}/>
+            <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
+            clickableHeader={["Created By"]}/>
         </>
     );
 }

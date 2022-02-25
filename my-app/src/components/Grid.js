@@ -2,7 +2,8 @@ import * as React from 'react';
 import '../styles/Grid.css';
 import GridRow from "./GridRow";
 
-export default function Grid({tableData, onClickHandler, excludeHeader = []}) {
+export default function Grid({tableData, onClickHandler, excludeHeader = [],
+                                 clickableHeader=[]}) {
     const headers = []
     tableData.forEach((item) => {
         if (Object.keys(item).length > headers.length) {
@@ -30,7 +31,8 @@ export default function Grid({tableData, onClickHandler, excludeHeader = []}) {
                 })
                 return <GridRow key={value["rowId"]} rowId={value["rowId"]} values={rowValues}
                                 headers={headers}
-                                onClickHandler={onClickHandler}/>
+                                onClickHandler={onClickHandler}
+                                clickableHeader={clickableHeader}/>
             })}
             </tbody>
         </table>
