@@ -24,10 +24,13 @@ th {
 
 th, td {
     padding: 15px 20px;
-    font-size: 17px;
+    font-size: 18px;
     min-width: 10px;
 }
 
 .grid--clickable{
+    color: var(--theme-1);
+    font-weight: 700;
+    text-decoration: underline;
     cursor: pointer;
 }
