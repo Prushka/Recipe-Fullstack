@@ -11,18 +11,18 @@ import {FiSearch} from "react-icons/fi";
 
 
 export default function AdvancedGrid({
-                                        displayData,
-                                        userData,
-                                        setUserData,
-                                        setDisplayData,
-                                        editingUser,
-                                        setUserDialogOpen,
-                                        userDialogOpen,
-                                        cellCallback,
-                                        clickableHeader,
-                                        searchableHeaders = [],
-                                        excludeHeader = ['id']
-                                    }) {
+                                         displayData,
+                                         userData,
+                                         setUserData,
+                                         setDisplayData,
+                                         editingUser,
+                                         setUserDialogOpen,
+                                         userDialogOpen,
+                                         cellCallback,
+                                         clickableHeader,
+                                         searchableHeaders = [],
+                                         excludeHeader = ['id']
+                                     }) {
 
     let _displayData = []
     if (!Array.isArray(displayData)) {
@@ -74,14 +74,16 @@ export default function AdvancedGrid({
                             return (
                                 <TextField onChange={(e) => {
                                     setLocalDisplayData(displayData.filter((i) => {
-                                        if(!i[searchHeader]){
-                                            return !e.target.value;
+                                        if (!e.target.value) {
+                                            return true
                                         }
-                                        else if(typeof i[searchHeader] === 'string'){
+                                        if (!i[searchHeader]) {
+                                            return !e.target.value
+                                        }
+                                        if (typeof i[searchHeader] === 'string') {
                                             return i[searchHeader].toLowerCase().includes(e.target.value.toLowerCase())
-                                        }else{
-                                            return i[searchHeader].toString() === e.target.value
                                         }
+                                        return i[searchHeader].toString() === e.target.value
                                     }));
                                 }} label={`Search ${searchHeader}`} key={searchHeader}/>)
                         })
