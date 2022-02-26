@@ -12,8 +12,8 @@ export default function Grid({headers, tableData, onClickHandler,
             {tableData.map(value => {
                 const rowValues = []
                 headers.forEach((item) => {
-                    if (value[item]) {
-                        rowValues.push(value[item])
+                    if (value[item] != null) {
+                        rowValues.push(value[item].toString())
                     } else {
                         rowValues.push("")
                     }
