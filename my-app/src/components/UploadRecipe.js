@@ -1,5 +1,5 @@
 import React from 'react'; 
-import Sidebar from './Sidebar.js'
+import Sidebar from '../pages/Sidebar.js'
 
 function UploadRecipe() {
     return (
