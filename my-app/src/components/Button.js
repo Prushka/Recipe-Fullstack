@@ -4,8 +4,8 @@ import {useState} from "react";
 
 export function RedBGButton({children, onClick}) {
     return (<Button
-        buttonBackgroundColor={'#FC5185'}
-        buttonHoverBackgroundColor={'#dc4674'}
+        buttonBackgroundColor={'var(--theme-red)'}
+        buttonHoverBackgroundColor={'var(--theme-dark-red)'}
         onClick={onClick}
     > {children} </Button>);
 }
@@ -13,8 +13,8 @@ export function RedBGButton({children, onClick}) {
 
 export function GreyBorderRedButton({children, onClick}) {
     return (<Button
-        buttonBorderColor={'#979797'}
-        buttonHoverBorderColor={'#777777'}
+        buttonBorderColor={'var(--theme-gray)'}
+        buttonHoverBorderColor={'var(--theme-dark-gray)'}
         onClick={onClick}
         shadowOnHover={false}
         textColor={'var(--theme-1)'}
@@ -24,8 +24,8 @@ export function GreyBorderRedButton({children, onClick}) {
 export function BlueBGButton({children, onClick}) {
     return (
         <Button
-            buttonBackgroundColor={'#8688BC'}
-            buttonHoverBackgroundColor={'#7677ad'}
+            buttonBackgroundColor={'var(--theme-purple)'}
+            buttonHoverBackgroundColor={'var(--theme-dark-purple)'}
             onClick={onClick}
         > {children} </Button>
     );
