@@ -16,6 +16,11 @@ export default function Dialog({onClose, open, size = 'm',
                      minWidth: minWidth, maxHeight: maxHeight,
                      maxWidth: maxWidth
                  }}>
+                <div className={'modal--top-bar'}>
+                    <h1 className={'modal--title'}>
+                        test
+                    </h1>
+                </div>
             </div>
         </div> : <></>
     );

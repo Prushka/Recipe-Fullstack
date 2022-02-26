@@ -31,3 +31,19 @@
     width: 92vw;
     height: 92vh;
 }
+
+.modal--top-bar{
+    display: flex;
+    padding-left: 53px;
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
+.modal--title{
+    font-size: 48px;
+}
+
+.close-button{
+    margin-left: auto;
+
+}
