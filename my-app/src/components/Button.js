@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
 import * as React from 'react';
 import '../styles/Input.css';
 import {useState} from "react";

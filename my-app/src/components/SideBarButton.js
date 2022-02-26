@@ -1,6 +1,8 @@
-import food from '../resources/food.jpg';
-import {CgProfile, CgSearch, CgHomeAlt, CgHeart, CgPen, CgLogOut} from 'react-icons/cg'
-import React, {useState} from 'react';
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
+import React from 'react';
 import '../styles/Sidebar.css';
 import {useNavigate} from 'react-router-dom';
 

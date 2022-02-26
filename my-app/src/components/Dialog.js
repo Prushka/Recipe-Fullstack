@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
 import * as React from 'react';
 import '../styles/Dialog.css';
 import {IoClose} from "react-icons/io5";

@@ -1,6 +1,9 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
 import * as React from 'react';
 import '../styles/Input.css';
-import GridRow from "./GridRow";
 
 export function RadioButtonGroup({
                                      title,
