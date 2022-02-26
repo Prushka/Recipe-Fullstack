@@ -8,8 +8,8 @@ export default function Dialog({
                                    content, bottom, style
                                }) {
     return (
-        open ? <div className='dialog' onClick={onClose}>
-            <div onClick={(e) => {
+        open ? <div className='dialog' onMouseDown={onClose}>
+            <div onMouseDown={(e) => {
                 e.stopPropagation();
             }} className={`modal modal--${size}`}
                  style={{
