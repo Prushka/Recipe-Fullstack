@@ -1,8 +1,9 @@
 .sidebar {
     height: 100%;
     width: 250px;
-    position: fixed;
     background-color: #EB7777;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar button {
@@ -30,10 +31,4 @@
     height: 150px;
     width: 150px;
     padding: 50px;
-}
-
-#log-out {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
 }

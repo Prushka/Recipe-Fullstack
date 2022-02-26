@@ -25,9 +25,7 @@ function Sidebar({userIsAdmin = true, currentSelected='/'}) {
                     <SideBarButton title='Manage Reviews' path={'/manage/reviews'} isSelected={isSelected} icon={<MdOutlinePreview/>}/>
                 </>
                 }
-                <div id='log-out'>
-                    <button><CgLogOut/> Log-out</button>
-                </div>
+                <SideBarButton style={{alignSelf: 'end', marginTop: 'auto'}} title='Log-out' path={'/5'} isSelected={isSelected} icon={<CgLogOut/>}/>
             </div>
         </>
     );
