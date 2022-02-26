@@ -33,6 +33,7 @@ export function BlueBGButton({children, onClick}) {
 
 
 export function Button({
+                           children,
                            textColor = 'white',
                            buttonBackgroundColor = '',
                            buttonHoverBackgroundColor = '',
@@ -71,7 +72,7 @@ export function Button({
                  }
              }}
              onClick={onClick}>
-            sometext
+            {children}
         </div>
     );
 }
