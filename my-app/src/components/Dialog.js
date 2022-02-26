@@ -1,5 +1,6 @@
 import * as React from 'react';
 import '../styles/Dialog.css';
+import {MdClose} from "react-icons/all";
 
 export default function Dialog({onClose, open, size = 'm',
                                    minHeight = 'auto',
@@ -17,9 +18,12 @@ export default function Dialog({onClose, open, size = 'm',
                      maxWidth: maxWidth
                  }}>
                 <div className={'modal--top-bar'}>
-                    <h1 className={'modal--title'}>
+                    <span className={'modal--title'}>
                         test
-                    </h1>
+                    </span>
+                    <span className={'modal--close'}>
+                        <MdClose style={{cursor: 'pointer'}} onClick={onClose} size={50}/>
+                    </span>
                 </div>
             </div>
         </div> : <></>

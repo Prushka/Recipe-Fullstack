@@ -35,15 +35,17 @@
 .modal--top-bar{
     display: flex;
     padding-left: 53px;
-    padding-right: 10px;
-    margin-top: 20px;
+    padding-right: 45px;
 }
 
 .modal--title{
-    font-size: 48px;
+
+    margin-top: 40px;
+    font-weight: bolder;
+    font-size: 50px;
 }
 
-.close-button{
+.modal--close{
+    margin-top: 36px;
     margin-left: auto;
-
 }
