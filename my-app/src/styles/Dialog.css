@@ -34,18 +34,17 @@
 
 .modal--top-bar{
     display: flex;
-    padding-left: 53px;
+    padding-left: 45px;
     padding-right: 45px;
 }
 
 .modal--title{
-
     margin-top: 40px;
     font-weight: bolder;
-    font-size: 50px;
+    font-size: 40px;
 }
 
 .modal--close{
-    margin-top: 36px;
+    margin-top: 32px;
     margin-left: auto;
 }

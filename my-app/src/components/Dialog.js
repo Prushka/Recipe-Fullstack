@@ -2,7 +2,8 @@ import * as React from 'react';
 import '../styles/Dialog.css';
 import {IoClose} from "react-icons/all";
 
-export default function Dialog({onClose, open, size = 'm',
+export default function Dialog({title='',
+                                   onClose, open, size = 'm',
                                    minHeight = 'auto',
                                    minWidth = 'auto',
                                    maxHeight = 'auto',
@@ -19,7 +20,7 @@ export default function Dialog({onClose, open, size = 'm',
                  }}>
                 <div className={'modal--top-bar'}>
                     <span className={'modal--title'}>
-                        test
+                        {title}
                     </span>
                     <span className={'modal--close'}>
                         <IoClose style={{cursor: 'pointer'}} onClick={onClose} size={50}/>
