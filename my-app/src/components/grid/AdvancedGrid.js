@@ -3,14 +3,14 @@
  */
 
 import * as React from 'react';
-import Grid from "../components/Grid";
+import Grid from "./Grid";
 import {useEffect, useState} from "react";
-import Dialog from "../components/Dialog";
-import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
-import {TextField} from "../components/TextField";
-import {SortFilterBar} from "../components/SortFilterBar";
-import {RadioButtonGroup} from "../components/RadioButtonGroup";
-import '../styles/Admin.css';
+import Dialog from "../dialog/Dialog";
+import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../input/Button";
+import {TextField} from "../input/TextField";
+import {SortFilterBar} from "../SortFilterBar";
+import {RadioButtonGroup} from "../input/RadioButtonGroup";
+import '../../styles/Admin.css';
 
 
 export default function AdvancedGrid({

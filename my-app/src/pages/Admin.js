@@ -5,11 +5,11 @@
 import * as React from 'react';
 import {useState} from "react";
 import '../styles/Admin.css';
-import AdvancedGrid from "./AdvancedGrid";
+import AdvancedGrid from "../components/grid/AdvancedGrid";
 import {defaultUser, recipes, reviews, users} from "../MockupData";
-import {TextField} from "../components/TextField";
-import {RadioButtonGroup} from "../components/RadioButtonGroup";
-import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
+import {TextField} from "../components/input/TextField";
+import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
+import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/input/Button";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
 

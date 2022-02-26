@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import '../styles/Input.css';
+import './Input.css';
 
 export function TextField(props) {
     return (

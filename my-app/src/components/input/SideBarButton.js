@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import '../styles/Sidebar.css';
+import '../../styles/Sidebar.css';
 import {useNavigate} from 'react-router-dom';
 
 export default function SideBarButton({title, icon, path, isSelected, style}) {

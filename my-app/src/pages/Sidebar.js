@@ -2,7 +2,7 @@ import food from '../resources/food.jpg';
 import {CgProfile, CgSearch, CgHomeAlt, CgHeart, CgPen, CgLogOut} from 'react-icons/cg'
 import React from 'react';
 import '../styles/Sidebar.css';
-import SideBarButton from "../components/SideBarButton";
+import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
 

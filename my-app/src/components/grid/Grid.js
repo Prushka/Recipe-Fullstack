@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import '../styles/Grid.css';
+import './Grid.css';
 import GridRow from "./GridRow";
 
 export default function Grid({headers, tableData, onClickHandler,
