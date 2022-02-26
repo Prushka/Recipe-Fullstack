@@ -1,11 +1,11 @@
 .button {
     text-align: center;
     align-self: center;
-    border-radius: 5%;
     font-weight: bold;
     font-size: 19px;
     cursor: pointer;
     transition-duration: 0.3s;
+    border-radius: 4px;
 }
 
 .button--shadow {
