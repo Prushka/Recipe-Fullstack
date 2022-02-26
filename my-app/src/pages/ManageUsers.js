@@ -10,10 +10,28 @@ import '../styles/Admin.css';
 import {FiSearch} from "react-icons/fi";
 
 
-export default function ManageUsers({displayData, userData, setUserData, editingUser, setUserDialogOpen, userDialogOpen, cellCallback,
-                                    clickableHeader}) {
+export default function ManageUsers({
+                                        displayData,
+                                        userData,
+                                        setUserData,
+                                        setDisplayData,
+                                        editingUser,
+                                        setUserDialogOpen,
+                                        userDialogOpen,
+                                        cellCallback,
+                                        clickableHeader,
+                                        searchableHeaders = []
+                                    }) {
 
-
+    const [searchValue, setSearchValue] = useState({});
+    let _displayData = []
+    if (!Array.isArray(displayData)) {
+        for (let key in displayData) {
+            _displayData.push(displayData[key])
+        }
+        displayData = _displayData
+    }
+    const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     return (
         <>
             <Dialog title={`Managing ${editingUser["Username"]}`} size={'m'} open={userDialogOpen}
@@ -38,16 +56,23 @@ export default function ManageUsers({displayData, userData, setUserData, editing
                             </spaced-horizontal-preferred>
                         </>
                     }/>
-            <div style={{padding:"30px"}}>
-                <div style={{display:'flex', marginBottom:'10px'}}>
-                    <TextField style={{minWidth: "300px"}} label={'Search Recipe Name'}/>
-                    <FiSearch className={'button-icon'} style={{marginTop: "40px", marginLeft:"30px"}} size={'40'}/>
+            <div style={{padding: "30px"}}>
+                <div style={{display: 'flex', marginBottom: '10px'}}>
+                    {
+                        searchableHeaders.map((searchHeader) => {
+                            return (
+                                <TextField value={searchValue[searchHeader]} onChange={(e) => {
+                                    setLocalDisplayData(displayData.filter((i) => i[searchHeader].includes(e.target.value)));
+                                }} style={{minWidth: "300px"}} label={`Search ${searchHeader}`} key={searchHeader}/>)
+                        })
+                    }
                 </div>
-                <SortFilterBar style={{marginBottom:'20px'}}/>
-                <Grid tableData={displayData} onClickHandler={cellCallback} excludeHeader={["id"]}
+                <SortFilterBar style={{marginBottom: '20px'}}/>
+                <Grid tableData={localDisplayData} onClickHandler={cellCallback} excludeHeader={["id"]}
                       clickableHeader={clickableHeader}/>
             </div>
 
         </>
     );
 }
+// <FiSearch className={'button-icon'} style={{marginTop: "40px", marginLeft: "30px"}} size={'40'}/>

@@ -5,13 +5,6 @@ import GridRow from "./GridRow";
 export default function Grid({tableData, onClickHandler, excludeHeader = [],
                                  clickableHeader=[]}) {
     const headers = []
-    const _tableData = []
-    if(!Array.isArray(tableData)){
-        for (let key in tableData) {
-            _tableData.push(tableData[key])
-        }
-        tableData = _tableData
-    }
     tableData.forEach((item) => {
         if (Object.keys(item).length > headers.length) {
             headers.length = 0
