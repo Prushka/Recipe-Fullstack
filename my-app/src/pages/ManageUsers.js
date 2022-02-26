@@ -7,77 +7,16 @@ import {TextField} from "../components/TextField";
 import {SortFilterBar} from "../components/SortFilterBar";
 import {RadioButtonGroup} from "../components/RadioButtonGroup";
 import '../styles/Admin.css';
-import {FiSearch} from "react-icons/all";
+import {FiSearch} from "react-icons/fi";
 
 
-export default function ManageUsers({}) {
-    const [userDialogOpen, setUserDialogOpen] = useState(false)
-    const [editingUser, setEditingUser] = useState({
-        "Username": "None",
-        "Permission": "None",
-        "id": -1
-    })
-    const [userData, setUserData] = useState({
-        "TestUser1": {
-            "Username": "TestUser1",
-            "Permission": "Guest",
-            "id": 1
-        },
-        "TestUser2": {
-            "Username":
-                "TestUser2",
-            "Permission":
-                "User",
-            "id": 2
-        }
-        ,
-        "TestUser3": {
-            "Username":
-                "TestUser3",
-            "Permission":
-                "Admin",
-            "id": 3
-        }
-    })
-    const [recipeData, setRecipeData] = useState([
-        {
-            "Recipe Name": "Water",
-            "Category": "Mystery",
-            "Last Edit": "122 days ago",
-            "Created By": "TestUser2",
-            "id": 1
-        },
-        {
-            "Recipe Name": "Sushi",
-            "Category": "Japanese",
-            "Views": 3,
-            "Review": 4.2,
-            "Steps": 10,
-            "Last Edit": "10 days ago",
-            "Created By": "TestUser1",
-            "id": 2
-        },
-        {
-            "Recipe Name": "Apple",
-            "Category": "Fruit",
-            "Views": 3,
-            "Review": 4.2,
-            "Created By": "TestUser3",
-            "id": 3
-        }
-    ])
+export default function ManageUsers({displayData, userData, setUserData, editingUser, setUserDialogOpen, userDialogOpen, cellCallback,
+                                    clickableHeader}) {
 
-    function test(header, value, id, cellId, isHeader) {
-        if (header === 'Created By') {
-            setEditingUser(userData[value])
-            setUserDialogOpen(true)
-        }
-        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
-    }
 
     return (
         <>
-            <Dialog title={`Managing ${editingUser}`} size={'m'} open={userDialogOpen}
+            <Dialog title={`Managing ${editingUser["Username"]}`} size={'m'} open={userDialogOpen}
                     onClose={() => setUserDialogOpen(false)}
                     content={
                         <spaced-horizontal-preferred>
@@ -105,8 +44,8 @@ export default function ManageUsers({}) {
                     <FiSearch className={'button-icon'} style={{marginTop: "40px", marginLeft:"30px"}} size={'40'}/>
                 </div>
                 <SortFilterBar style={{marginBottom:'20px'}}/>
-                <Grid tableData={recipeData} onClickHandler={test} excludeHeader={["id"]}
-                      clickableHeader={["Created By"]}/>
+                <Grid tableData={displayData} onClickHandler={cellCallback} excludeHeader={["id"]}
+                      clickableHeader={clickableHeader}/>
             </div>
 
         </>

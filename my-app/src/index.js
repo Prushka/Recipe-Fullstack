@@ -8,20 +8,20 @@ import BrowseRecipe from "./components/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe";
 import UploadRecipe from "./components/UploadRecipe";
 import Sidebar from "./pages/Sidebar";
-import Admin from "./pages/Admin";
+import {AdminManageRecipes, AdminManageUsers} from "./pages/Admin";
 
 ReactDOM.render(
     <>
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<><Sidebar currentSelected={"/manage/users"} userIsAdmin={true}/><Home/></>}/>
+                <Route path='/' element={<><Sidebar currentSelected={"/"} userIsAdmin={true}/><Home/></>}/>
                 <Route path="profile" element={<Profile/>}/>
                 <Route path="browse" element={<BrowseRecipe/>}/>
                 <Route path="saved" element={<SavedRecipe/>}/>
                 <Route path="upload" element={<UploadRecipe/>}/>
-                <Route path="/manage/users" element={<><Sidebar currentSelected={"/manage/users"} userIsAdmin={true}/><Admin/></>}/>
-                <Route path="/manage/recipes" element={<><Sidebar currentSelected={"/manage/recipes"} userIsAdmin={true}/><Admin/></>}/>
-                <Route path="/manage/reviews" element={<><Sidebar currentSelected={"/manage/reviews"} userIsAdmin={true}/><Admin/></>}/>
+                <Route path="/manage/users" element={<><Sidebar currentSelected={"/manage/users"} userIsAdmin={true}/><AdminManageUsers/></>}/>
+                <Route path="/manage/recipes" element={<><Sidebar currentSelected={"/manage/recipes"} userIsAdmin={true}/><AdminManageRecipes/></>}/>
+                <Route path="/manage/reviews" element={<><Sidebar currentSelected={"/manage/reviews"} userIsAdmin={true}/></>}/>
             </Routes>
         </BrowserRouter>
     </>,
