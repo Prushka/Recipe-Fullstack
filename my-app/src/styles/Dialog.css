@@ -3,7 +3,7 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 40%);
     position: absolute;
-    z-index: 1300;
+    z-index: 1250;
 }
 
 .modal{
@@ -14,4 +14,20 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    z-index: 1300;
+}
+
+.modal--s{
+    width: 42vw;
+    height: 62vh;
+}
+
+.modal--m{
+    width: 63vw;
+    height: 73vh;
+}
+
+.modal--l{
+    width: 92vw;
+    height: 92vh;
 }
