@@ -11,24 +11,20 @@ import '../styles/Admin.css';
 
 export default function AdvancedGrid({
                                          displayData,
-                                         userData,
-                                         setUserData,
-                                         setDisplayData,
-                                         editingUser,
-                                         setUserDialogOpen,
-                                         userDialogOpen,
+                                         headerDialogs,
                                          cellCallback,
                                          clickableHeader,
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
     const [searchValues, setSearchValues] = useState({});
+    const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     useEffect(() => {
         setLocalDisplayData(displayData.filter((i) => {
             let pass = true
             for (let searchKey in searchValues) {
                 if (searchValues[searchKey]) {
-                    if(!i[searchKey]){
+                    if (!i[searchKey]) {
                         return false
                     }
                     pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
@@ -37,6 +33,8 @@ export default function AdvancedGrid({
             return pass
         }))
     }, [displayData, searchValues])
+
+
     let _displayData = []
     if (!Array.isArray(displayData)) {
         for (let key in displayData) {
@@ -55,31 +53,27 @@ export default function AdvancedGrid({
             }
         }
     })
-    const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
+
+
     return (
         <>
-            <Dialog title={`Managing ${editingUser["Username"]}`} size={'m'} open={userDialogOpen}
-                    onClose={() => setUserDialogOpen(false)}
-                    content={
-                        <spaced-horizontal-preferred>
-                            <TextField defaultValue={editingUser["Username"]} label={'Username'}/>
-                            <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
-                                              options={['Guest', 'User', 'Admin']}
-                                              selected={editingUser["Permission"]}/>
-                        </spaced-horizontal-preferred>
-                    }
-                    bottom={
-                        <>
-                            <spaced-horizontal-preferred>
-                                <RedBGButton>Delete User</RedBGButton>
-                                <div className={'dialog-right-button-group'}>
-                                    <GreyBorderRedButton
-                                        onClick={() => setUserDialogOpen(false)}>Cancel</GreyBorderRedButton>
-                                    <BlueBGButton>Save</BlueBGButton>
-                                </div>
-                            </spaced-horizontal-preferred>
-                        </>
-                    }/>
+            {
+                headerDialogs.map((dialog) => {
+                    return (
+                        <Dialog key={dialog.titleGetter()} title={`Managing ${dialog.titleGetter()}`} size={'m'}
+                                open={dialog.open}
+                                onClose={() => dialog.setOpen(false)}
+                                content={
+                                    dialog.contentGetter()
+                                }
+                                footer={
+                                    dialog.footerGetter()
+                                }
+                        />
+                    )
+                })
+            }
+
             <right-pane>
                 <div style={{display: 'flex', marginBottom: '10px'}}>
                     {
