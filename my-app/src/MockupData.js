@@ -21,6 +21,14 @@ const users = {
         "avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png",
         "Email": "testuser3@example.com",
         "Uploaded Recipes": 3
+    },
+    "TestUser4": {
+        "Username": "TestUser4",
+        "Permission": "Admin",
+        "id": 4,
+        "avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png",
+        "Email": "testuser3@example.com",
+        "Uploaded Recipes": 3
     }
 }
 
@@ -60,7 +68,8 @@ const reviews = [
         "Rating Author": "TestUser3",
         "Report Count": 20,
         "Posted At": "2022-01-20",
-        "id": 0
+        "id": 0,
+        "public": false
     },
     {
         "Recipe": "Sushi",
@@ -69,6 +78,24 @@ const reviews = [
         "Rating Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
+        "id": 1,
+        "public": true
+    }
+]
+
+const reports = [
+    {
+        "Report Author": "TestUser2",
+        "Recipe Reason": "Spam",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-01",
+        "id": 0
+    },
+    {
+        "Report Author": "TestUser2",
+        "Recipe Reason": "Spam",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
         "id": 1
     }
 ]
@@ -79,4 +106,4 @@ const defaultUser = {
     "id": -1
 }
 
-export {recipes, users, defaultUser, reviews}
+export {recipes, users, defaultUser, reviews, reports}
