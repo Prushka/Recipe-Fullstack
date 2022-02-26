@@ -11,10 +11,11 @@ import {TextField} from "../components/TextField";
 import {RadioButtonGroup} from "../components/RadioButtonGroup";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
 
-const clickable = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
+const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
 
 class Dialog {
-    constructor(data, setData, open, setOpen, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter) {
+    constructor(data, setData, open, setOpen, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
+                supportedHeaders) {
         this.data = data
         this.setData = setData
         this.open = open
@@ -22,11 +23,12 @@ class Dialog {
         this.contentGetter = contentGetter
         this.footerGetter = footerGetter
         this.titleGetter = titleGetter
+        this.supportedHeaders = supportedHeaders
     }
 }
 
 function getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-                              editingUser, setEditingUser) {
+                              editingUser, setEditingUser, userHeaders) {
     return new Dialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
         editingUser, setEditingUser, () => {
             return (
@@ -51,7 +53,7 @@ function getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDial
         },
         () => {
             return editingUser["Username"]
-        })
+        }, userHeaders)
 }
 
 export function AdminReviews() {
@@ -70,10 +72,10 @@ export function AdminReviews() {
 
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-            editingUser, setEditingUser)]}
+            editingUser, setEditingUser, userHeaders)]}
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Rating Author", "Public"]}
         displayData={reviewsData} setDisplayData={setReviewsData}
-        clickableHeader={clickable} cellCallback={cellCallback}/>
+        cellCallback={cellCallback}/>
 }
 
 
@@ -91,9 +93,9 @@ export function AdminManageUsers() {
     }
 
     return <AdvancedGrid searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
-                         displayData={userData} setDisplayData={setUserData} clickableHeader={clickable}
+                         displayData={userData} setDisplayData={setUserData}
                          headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-                             editingUser, setEditingUser)]} cellCallback={cellCallback}/>
+                             editingUser, setEditingUser, userHeaders)]} cellCallback={cellCallback}/>
 }
 
 export function AdminManageRecipes() {
@@ -110,8 +112,9 @@ export function AdminManageRecipes() {
         console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
     }
 
-    return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-        editingUser, setEditingUser)]}
-                         searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
-                         setDisplayData={setRecipeData} clickableHeader={clickable} cellCallback={cellCallback}/>
+    return <AdvancedGrid
+        headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+            editingUser, setEditingUser, userHeaders)]}
+        searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
+        setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }

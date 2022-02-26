@@ -17,7 +17,6 @@ export default function AdvancedGrid({
                                          displayData,
                                          headerDialogs,
                                          cellCallback,
-                                         clickableHeader,
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
@@ -57,12 +56,12 @@ export default function AdvancedGrid({
             }
         }
     })
-
-
+    let clickableHeader = []
     return (
         <>
             {
                 headerDialogs.map((dialog) => {
+                    clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
                     return (
                         <Dialog key={dialog.titleGetter()} title={`Managing ${dialog.titleGetter()}`} size={'m'}
                                 open={dialog.open}
