@@ -1,4 +1,13 @@
-
+.button {
+    text-align: center;
+    padding: 15px 23px 15px 23px;
+    align-self: center;
+    border-radius: 5%;
+    font-weight: bold;
+    font-size: 19px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
 
 .button--shadow {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
