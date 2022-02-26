@@ -5,6 +5,7 @@ import Dialog from "../components/Dialog";
 
 
 export default function Admin({}) {
+    const [testModalOpen, setTestModalOpen] = useState(true)
     const [tableData, setTableData] = useState([
         {
             "Recipe Name": "Water",
@@ -39,7 +40,7 @@ export default function Admin({}) {
 
     return (
         <>
-            <Dialog />
+            <Dialog open={testModalOpen} onClose={()=>setTestModalOpen(false)}/>
             <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
             clickableHeader={["Created By"]}/>
         </>
