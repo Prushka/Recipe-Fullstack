@@ -1,0 +1,13 @@
+input{
+    width: 100%;
+    padding: 14px 20px 13px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid var(--dgray-text);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+input::placeholder{
+    font-size: 15px
+}
