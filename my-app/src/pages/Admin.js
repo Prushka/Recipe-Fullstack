@@ -3,6 +3,7 @@ import Grid from "../components/Grid";
 import {useState} from "react";
 import Dialog from "../components/Dialog";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
+import {TextField} from "../components/TextField";
 
 
 export default function Admin({}) {
@@ -46,14 +47,14 @@ export default function Admin({}) {
         <>
             <Dialog title='Managing User' open={testModalOpen} onClose={() => setTestModalOpen(false)}
                 content={
-                'test'
+                'content'
             }
                 bottom={
                 <>
                     <div style={{display:"flex"}}>
-                        <BlueBGButton>SAVE</BlueBGButton>
-                        <RedBGButton minWidth={'300px'}>Delete User</RedBGButton>
-                        <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
+                        <BlueBGButton style={{marginRight:'20px'}}>SAVE</BlueBGButton>
+                        <RedBGButton  style={{marginRight:'20px'}} minWidth={'300px'}>Delete User</RedBGButton>
+                        <GreyBorderRedButton  style={{marginRight:'20px'}} onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
                     </div>
                 </>
             } />
