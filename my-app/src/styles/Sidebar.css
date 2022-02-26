@@ -9,18 +9,19 @@
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
-  font-family: 'Comfortaa';
+  font-family: 'Comfortaa', serif;
   color: white;
-  background-color: #EB7777;
+  background-color: var(--theme-1);
   display: block;
   width: 250px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border: none;
   text-align: left;
+  cursor: pointer;
 }
 
 .sidebar button:hover {
-  background-color: black;
+  background-color: var(--theme-dark-gray);
 }
 
 .sidebar img {
