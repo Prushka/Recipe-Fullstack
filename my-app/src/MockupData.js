@@ -86,14 +86,14 @@ const reviews = [
 const reports = [
     {
         "Report Author": "TestUser2",
-        "Recipe Reason": "Spam",
+        "Report Reason": "Spam",
         "User Total Reports": 2,
         "Reported At": "2022-01-01",
         "id": 0
     },
     {
         "Report Author": "TestUser2",
-        "Recipe Reason": "Spam",
+        "Report Reason": "Some Reason",
         "User Total Reports": 2,
         "Reported At": "2022-01-02",
         "id": 1
@@ -106,4 +106,9 @@ const defaultUser = {
     "id": -1
 }
 
-export {recipes, users, defaultUser, reviews, reports}
+const defaultReview = {
+    "Report Author": "None",
+    "id": -1
+}
+
+export {recipes, users, defaultUser, defaultReview, reviews, reports}

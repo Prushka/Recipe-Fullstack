@@ -65,11 +65,11 @@ export default function AdvancedGrid({
     return (
         <>
             {
-                headerDialogs.map((dialog) => {
+                headerDialogs && headerDialogs.map((dialog) => {
                     clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
                     cellCallbacks.push(dialog.callBackHandlers)
                     return (
-                        <Dialog key={dialog.titleGetter()} title={`Managing ${dialog.titleGetter()}`} size={'m'}
+                        <Dialog key={dialog.titleGetter()} title={dialog.titleGetter()} size={'m'}
                                 open={dialog.open}
                                 onClose={() => dialog.setOpen(false)}
                                 content={

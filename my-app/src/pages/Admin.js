@@ -6,7 +6,7 @@ import * as React from 'react';
 import {useState} from "react";
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
-import {defaultUser, recipes, reviews, users} from "../MockupData";
+import {defaultReview, defaultUser, recipes, reports, reviews, users} from "../MockupData";
 import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/input/Button";
@@ -33,16 +33,42 @@ class Dialog {
     }
 }
 
-function getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-                              editingUser, setEditingUser, userHeaders) {
-    return new Dialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-        editingUser, setEditingUser, () => {
+function getReportEditingDialog(data, setData, open, setOpen,
+                              editingEntity, setEditingEntity, userHeaders) {
+    return new Dialog(data, setData, open, setOpen,
+        editingEntity, setEditingEntity, () => {
             return (
                 <spaced-horizontal-preferred>
-                    <TextField defaultValue={editingUser["Username"]} label={'Username'}/>
+                    <AdvancedGrid
+                        searchableHeaders={['Report', 'Report Reason']} displayData={data}
+                        setDisplayData={setData} cellCallback={cellCallback}/>
+                </spaced-horizontal-preferred>
+            )
+        }, () => {
+            return (
+                <spaced-horizontal-preferred>
+                    <div className={'dialog-right-button-group'}>
+                        <GreyBorderRedButton
+                            onClick={() => setOpen(false)}>Cancel</GreyBorderRedButton>
+                    </div>
+                </spaced-horizontal-preferred>
+            )
+        },
+        () => {
+            return `Reports on Someone's review'`
+        }, userHeaders)
+}
+
+function getUserEditingDialog(data, setData, open, setOpen,
+                              editingEntity, setEditingEntity, userHeaders) {
+    return new Dialog(data, setData, open, setOpen,
+        editingEntity, setEditingEntity, () => {
+            return (
+                <spaced-horizontal-preferred>
+                    <TextField defaultValue={editingEntity["Username"]} label={'Username'}/>
                     <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
                                       options={['Guest', 'User', 'Admin']}
-                                      selected={editingUser["Permission"]}/>
+                                      selected={editingEntity["Permission"]}/>
                 </spaced-horizontal-preferred>
             )
         }, () => {
@@ -51,14 +77,14 @@ function getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDial
                     <RedBGButton>Delete User</RedBGButton>
                     <div className={'dialog-right-button-group'}>
                         <GreyBorderRedButton
-                            onClick={() => setUserDialogOpen(false)}>Cancel</GreyBorderRedButton>
+                            onClick={() => setOpen(false)}>Cancel</GreyBorderRedButton>
                         <BlueBGButton>Save</BlueBGButton>
                     </div>
                 </spaced-horizontal-preferred>
             )
         },
         () => {
-            return editingUser["Username"]
+            return `Managing ${editingEntity["Username"]}`
         }, userHeaders)
 }
 
@@ -68,14 +94,18 @@ function cellCallback(header, value, id, cellId, isHeader) {
 
 export function AdminReviews() {
     const [userDialogOpen, setUserDialogOpen] = useState(false)
+    const [reportDialogOpen, setReportDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState(defaultUser)
+    const [editingReview, setEditingReview] = useState(defaultReview)
     const [userData, setUserData] = useState(users)
     const [reviewsData, setReviewsData] = useState(reviews)
-
+    const [reportData, setReportData] = useState(reports)
 
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-            editingUser, setEditingUser, userHeaders)]}
+            editingUser, setEditingUser, userHeaders),
+            getReportEditingDialog(reportData, setReportData, reportDialogOpen, setReportDialogOpen,
+                editingReview, setEditingReview, ["Posted At"])]}
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Rating Author", "Public"]}
         displayData={reviewsData} setDisplayData={setReviewsData}
         cellCallback={cellCallback}/>
