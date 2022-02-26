@@ -15,7 +15,7 @@ const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
 
 class Dialog {
     constructor(data, setData, open, setOpen, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
-                supportedHeaders) {
+                supportedHeaders, size='m') {
         this.data = data
         this.setData = setData
         this.open = open
@@ -30,6 +30,7 @@ class Dialog {
                 setOpen(true)
             }
         }
+        this.size = size
     }
 }
 
@@ -56,7 +57,7 @@ function getReportEditingDialog(data, setData, open, setOpen,
         },
         () => {
             return `Reports on Someone's review'`
-        }, userHeaders)
+        }, userHeaders, 'l')
 }
 
 function getUserEditingDialog(data, setData, open, setOpen,
