@@ -13,6 +13,32 @@ import {RadioButtonGroup} from "../input/RadioButtonGroup";
 import '../../styles/Admin.css';
 
 
+let clickableHeader = []
+const cellCallbacks = []
+
+export function AdDialog({dialog}) {
+    const [dialogOpen, setDialogOpen] = useState(false)
+    clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
+    cellCallbacks.push((header, value, id, cellId, isHeader) => {
+        if (dialog.supportedHeaders.includes(header)) {
+            dialog.setEditingEntity(dialog.data[value])
+            setDialogOpen(true)
+        }
+    })
+    return (
+        <Dialog size={dialog.size} key={dialog.titleGetter()} title={dialog.titleGetter()}
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                content={
+                    dialog.contentGetter()
+                }
+                footer={
+                    dialog.footerGetter()
+                }
+        />
+    )
+}
+
 export default function AdvancedGrid({
                                          displayData,
                                          headerDialogs,
@@ -20,7 +46,7 @@ export default function AdvancedGrid({
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
-    const cellCallbacks = []
+
     if (cellCallback) {
         cellCallbacks.push(cellCallback)
     }
@@ -61,25 +87,12 @@ export default function AdvancedGrid({
             }
         }
     })
-    let clickableHeader = []
+
     return (
         <>
             {
                 headerDialogs && headerDialogs.map((dialog) => {
-                    clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
-                    cellCallbacks.push(dialog.callBackHandlers)
-                    return (
-                        <Dialog size={dialog.size} key={dialog.titleGetter()} title={dialog.titleGetter()}
-                                open={dialog.open}
-                                onClose={() => dialog.setOpen(false)}
-                                content={
-                                    dialog.contentGetter()
-                                }
-                                footer={
-                                    dialog.footerGetter()
-                                }
-                        />
-                    )
+                    return <AdDialog dialog={dialog}/>
                 })
             }
 
@@ -98,9 +111,10 @@ export default function AdvancedGrid({
                     }
                 </div>
                 <SortFilterBar style={{marginBottom: '20px'}}/>
-                <Grid headers={headers} tableData={localDisplayData} onClickHandler={(header, value, id, cellId, isHeader) => {
-                    cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader))
-                }}
+                <Grid headers={headers} tableData={localDisplayData}
+                      onClickHandler={(header, value, id, cellId, isHeader) => {
+                          cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader))
+                      }}
                       clickableHeader={clickableHeader}/>
             </right-pane>
 
