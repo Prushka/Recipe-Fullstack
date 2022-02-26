@@ -25,10 +25,12 @@ export default function AdvancedGrid({
     const [searchValues, setSearchValues] = useState({});
     useEffect(() => {
         setLocalDisplayData(displayData.filter((i) => {
-            console.log(searchValues)
             let pass = true
             for (let searchKey in searchValues) {
-                if (searchValues[searchKey] && i[searchKey]) {
+                if (searchValues[searchKey]) {
+                    if(!i[searchKey]){
+                        return false
+                    }
                     pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
                 }
             }
