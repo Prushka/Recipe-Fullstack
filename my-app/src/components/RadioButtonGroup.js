@@ -19,7 +19,7 @@ export function RadioButtonGroup({
                         }
                         return (
                             <radio-option key={option}>
-                                <span><input checked={checked} type={"radio"} id={option} name={title}/></span>
+                                <span><input defaultChecked={checked} type={"radio"} id={option} name={title}/></span>
                                 <radio-label>{option}</radio-label>
                             </radio-option>
                         )
