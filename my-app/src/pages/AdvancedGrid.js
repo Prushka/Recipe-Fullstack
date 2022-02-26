@@ -20,6 +20,14 @@ export default function AdvancedGrid({
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
+    let _displayData = []
+    if (!Array.isArray(displayData)) {
+        for (let key in displayData) {
+            _displayData.push(displayData[key])
+        }
+        displayData = _displayData
+    }
+
     const [searchValues, setSearchValues] = useState({});
     const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     useEffect(() => {
@@ -38,13 +46,7 @@ export default function AdvancedGrid({
     }, [displayData, searchValues])
 
 
-    let _displayData = []
-    if (!Array.isArray(displayData)) {
-        for (let key in displayData) {
-            _displayData.push(displayData[key])
-        }
-        displayData = _displayData
-    }
+
     const headers = []
     displayData.forEach((item) => {
         if (Object.keys(item).length > headers.length) {

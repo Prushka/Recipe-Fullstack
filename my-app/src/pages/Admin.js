@@ -92,10 +92,11 @@ export function AdminManageUsers() {
         console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
     }
 
-    return <AdvancedGrid searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
+    return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+        editingUser, setEditingUser, userHeaders)]}
+                         searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
                          displayData={userData} setDisplayData={setUserData}
-                         headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-                             editingUser, setEditingUser, userHeaders)]} cellCallback={cellCallback}/>
+                         cellCallback={cellCallback}/>
 }
 
 export function AdminManageRecipes() {
