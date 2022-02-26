@@ -34,3 +34,13 @@ th, td {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.grid--avatar-container{
+    padding: 8px 20px;
+}
+
+.grid--avatar{
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+}

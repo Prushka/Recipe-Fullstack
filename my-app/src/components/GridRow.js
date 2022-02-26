@@ -17,7 +17,7 @@ export default function GridRow({
                             child = <img className={'grid--avatar'} src={value} alt={value}/>
                         }
                     })
-                    return <CTag className={`cellClass`}
+                    return <CTag className={`cellClass ${child !== value && 'grid--avatar-container'}`}
                                  onClick={() => onClickHandler(headers[index], value, id, index, isHeader)}
                                  key={`${id}_${index}`}>{child}</CTag>
                 })
