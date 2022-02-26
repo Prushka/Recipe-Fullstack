@@ -13,7 +13,7 @@ export default function GridRow({
                     const cellClass = clickableHeader.includes(headers[index]) ? 'grid--clickable' : ''
                     let child = value
                     images.forEach((image) => {
-                        if (value.endsWith(image)) {
+                        if (typeof value === 'string' && value.endsWith(image)) {
                             child = <img className={'grid--avatar'} src={value} alt={value}/>
                         }
                     })
