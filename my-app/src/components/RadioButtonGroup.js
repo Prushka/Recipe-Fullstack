@@ -11,7 +11,7 @@ export function RadioButtonGroup({
         <>
             <radio-section style={{...style}}>
                 <radio-section-title>{title}</radio-section-title>
-                <radio-group>
+                <spaced-horizontal-preferred>
                     {options.map(option => {
                         return (
                             <radio-option>
@@ -21,7 +21,7 @@ export function RadioButtonGroup({
                         )
 
                     })}
-                </radio-group>
+                </spaced-horizontal-preferred>
             </radio-section>
 
         </>

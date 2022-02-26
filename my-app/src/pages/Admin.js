@@ -4,6 +4,8 @@ import {useState} from "react";
 import Dialog from "../components/Dialog";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
 import {TextField} from "../components/TextField";
+import {SortFilterBar} from "../components/SortFilterBar";
+import {RadioButtonGroup} from "../components/RadioButtonGroup";
 
 
 export default function Admin({}) {
@@ -47,17 +49,21 @@ export default function Admin({}) {
         <>
             <Dialog title='Managing User' open={testModalOpen} onClose={() => setTestModalOpen(false)}
                 content={
-                'content'
+                    <spaced-horizontal-preferred>
+                        <TextField placeholder={'User3'} label={'Username'}/>
+                        <RadioButtonGroup style={{minWidth:'300px', marginLeft:'60px'}} title={'Role/Permission Set'} options={['Guest', 'User', 'Admin']}/>
+                    </spaced-horizontal-preferred>
             }
                 bottom={
                 <>
                     <div style={{display:"flex"}}>
-                        <BlueBGButton style={{marginRight:'20px'}}>SAVE</BlueBGButton>
+                        <BlueBGButton style={{marginRight:'20px'}}>Save</BlueBGButton>
                         <RedBGButton  style={{marginRight:'20px'}} minWidth={'300px'}>Delete User</RedBGButton>
                         <GreyBorderRedButton  style={{marginRight:'20px'}} onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
                     </div>
                 </>
             } />
+            <SortFilterBar/>
             <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
                   clickableHeader={["Created By"]}/>
         </>

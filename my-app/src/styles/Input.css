@@ -8,13 +8,23 @@
     border-radius: 4px;
 }
 
+.button span{
+    font-family: Roboto, serif;
+    font-weight: 500;
+}
+
 .focus--shadow {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
 }
 
-.input--text-group{
+textfield-section{
+    font-family: Roboto, serif;
+    font-weight: 500;
     display: flex;
     flex-direction: column;
+}
+
+textfield-section label{
 }
 
 input[type=text]{
@@ -45,6 +55,8 @@ input[type=text], input::placeholder{
 
 
 radio-section{
+    font-family: Roboto, serif;
+    font-weight: 500;
     display: flex;
     flex-direction: column;
     border: 2px solid black;
@@ -54,21 +66,10 @@ radio-section{
 }
 
 radio-section-title{
-    font-weight: 700;
     margin-bottom: 16px;
     font-size: 20px;
 }
 
-.input--text-group label{
-    font-weight: 600;
-}
-
-radio-group{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-}
 
 radio-option{
     align-items: center;

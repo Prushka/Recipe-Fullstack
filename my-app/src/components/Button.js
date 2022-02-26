@@ -35,7 +35,6 @@ export function BlueBGButton(props) {
 
 export function Button({
                            minWidth = '',
-                           children = '',
                            textColor = 'white',
                            buttonBackgroundColor = '',
                            buttonHoverBackgroundColor = '',
@@ -45,7 +44,7 @@ export function Button({
                            onHover = () => {
                            }, onClick = () => {
     }
-                           , style
+                           , style, children
                        }) {
 
 
@@ -78,7 +77,7 @@ export function Button({
                  }
              }}
              onClick={onClick}>
-            {children}
+            <span>{children}</span>
         </div>
     );
 }
