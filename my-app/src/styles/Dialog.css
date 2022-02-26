@@ -4,6 +4,8 @@
     background-color: rgba(0, 0, 0, 40%);
     position: absolute;
     z-index: 1250;
+    max-height:100%;
+    max-width:100%;
 }
 
 .modal {
@@ -50,8 +52,7 @@
 }
 
 .modal--container {
-    padding-left: 41px;
-    padding-right: 41px;
+    padding: 0 33px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -60,11 +61,31 @@
 .modal--title {
     margin-top: 35px;
     font-weight: bolder;
-    font-size: 40px;
+    font-size: 37px;
 }
 
 .modal--close {
-    margin-top: 28px;
+    margin-top: 24px;
     margin-left: auto;
 }
 
+@media (max-width: 900px) {
+    .modal--container {
+        padding: 0 26px;
+    }
+
+    .modal--s {
+        width: 69vw;
+        height: 73vh;
+    }
+
+    .modal--m {
+        width: 90vw;
+        height: 90vh;
+    }
+
+    .modal--l {
+        width: 96vw;
+        height: 96vh;
+    }
+}

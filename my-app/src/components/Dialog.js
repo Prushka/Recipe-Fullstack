@@ -5,21 +5,15 @@ import {IoClose} from "react-icons/all";
 export default function Dialog({
                                    title = '',
                                    onClose, open, size = 'm',
-                                   minHeight = 'auto',
-                                   minWidth = 'auto',
-                                   maxHeight = 'auto',
-                                   maxWidth = 'auto',
-                                   content, bottom
+                                   content, bottom, style
                                }) {
     return (
-        open ? <div className='dialog' onClick={onClose}>
-            <div onClick={(e) => {
+        open ? <div className='dialog' onMouseDown={onClose}>
+            <div onMouseDown={(e) => {
                 e.stopPropagation();
             }} className={`modal modal--${size}`}
                  style={{
-                     minHeight: minHeight,
-                     minWidth: minWidth, maxHeight: maxHeight,
-                     maxWidth: maxWidth
+                     ...style
                  }}>
                 <div className={'modal--container'}>
                     <div className={'modal--top-bar'}>

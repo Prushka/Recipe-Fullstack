@@ -1,0 +1,14 @@
+.dialog-right-button-group{
+    align-self: end;
+    display: flex;
+}
+
+
+@media (max-width: 900px) {
+
+    .dialog-right-button-group{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
