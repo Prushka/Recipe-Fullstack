@@ -24,7 +24,6 @@ export default function ManageUsers({
                                         excludeHeader = ['id']
                                     }) {
 
-    const [searchValue, setSearchValue] = useState({});
     let _displayData = []
     if (!Array.isArray(displayData)) {
         for (let key in displayData) {
@@ -68,21 +67,21 @@ export default function ManageUsers({
                             </spaced-horizontal-preferred>
                         </>
                     }/>
-            <div style={{padding: "30px"}}>
+            <right-pane>
                 <div style={{display: 'flex', marginBottom: '10px'}}>
                     {
                         searchableHeaders.map((searchHeader) => {
                             return (
-                                <TextField value={searchValue[searchHeader]} onChange={(e) => {
-                                    setLocalDisplayData(displayData.filter((i) => i[searchHeader].includes(e.target.value)));
-                                }} style={{minWidth: "300px"}} label={`Search ${searchHeader}`} key={searchHeader}/>)
+                                <TextField onChange={(e) => {
+                                    setLocalDisplayData(displayData.filter((i) => i[searchHeader].toLowerCase().includes(e.target.value.toLowerCase())));
+                                }} label={`Search ${searchHeader}`} key={searchHeader}/>)
                         })
                     }
                 </div>
                 <SortFilterBar style={{marginBottom: '20px'}}/>
                 <Grid headers={headers} tableData={localDisplayData} onClickHandler={cellCallback}
                       clickableHeader={clickableHeader}/>
-            </div>
+            </right-pane>
 
         </>
     );
