@@ -2,6 +2,7 @@ import * as React from 'react';
 import Grid from "../components/Grid";
 import {useState} from "react";
 import Dialog from "../components/Dialog";
+import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
 
 
 export default function Admin({}) {
@@ -48,7 +49,13 @@ export default function Admin({}) {
                 'test'
             }
                 bottom={
-                'test'
+                <>
+                    <div style={{display:"flex"}}>
+                        <BlueBGButton>SAVE</BlueBGButton>
+                        <RedBGButton minWidth={'300px'}>Delete User</RedBGButton>
+                        <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
+                    </div>
+                </>
             } />
             <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
                   clickableHeader={["Created By"]}/>
