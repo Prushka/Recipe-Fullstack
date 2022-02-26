@@ -20,7 +20,7 @@ export function AdminManageUsers() {
         console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
     }
 
-    return <ManageUsers searchableHeaders={["Username", "Permission"]} displayData={userData} setDisplayData={setUserData} clickableHeader={['Username']} userData={userData}
+    return <ManageUsers searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]} displayData={userData} setDisplayData={setUserData} clickableHeader={['Username']} userData={userData}
                         setUserData={setUserData} userDialogOpen={userDialogOpen} setUserDialogOpen={setUserDialogOpen}
                         editingUser={editingUser} cellCallback={cellCallback}/>
 }

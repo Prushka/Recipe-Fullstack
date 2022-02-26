@@ -73,7 +73,16 @@ export default function ManageUsers({
                         searchableHeaders.map((searchHeader) => {
                             return (
                                 <TextField onChange={(e) => {
-                                    setLocalDisplayData(displayData.filter((i) => i[searchHeader].toLowerCase().includes(e.target.value.toLowerCase())));
+                                    setLocalDisplayData(displayData.filter((i) => {
+                                        if(!i[searchHeader]){
+                                            return !e.target.value;
+                                        }
+                                        else if(typeof i[searchHeader] === 'string'){
+                                            return i[searchHeader].toLowerCase().includes(e.target.value.toLowerCase())
+                                        }else{
+                                            return i[searchHeader].toString() === e.target.value
+                                        }
+                                    }));
                                 }} label={`Search ${searchHeader}`} key={searchHeader}/>)
                         })
                     }
