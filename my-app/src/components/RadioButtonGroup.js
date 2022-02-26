@@ -14,7 +14,7 @@ export function RadioButtonGroup({
                 <spaced-horizontal-preferred>
                     {options.map(option => {
                         return (
-                            <radio-option>
+                            <radio-option key={option}>
                                 <span><input type={"radio"} id={option} name={title}/></span>
                                 <radio-label>{option}</radio-label>
                             </radio-option>
