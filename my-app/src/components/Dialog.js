@@ -9,7 +9,7 @@ export default function Dialog({
                                    minWidth = 'auto',
                                    maxHeight = 'auto',
                                    maxWidth = 'auto',
-                                   children
+                                   content, bottom
                                }) {
     return (
         open ? <div className='dialog' onClick={onClose}>
@@ -31,7 +31,10 @@ export default function Dialog({
                     </span>
                     </div>
                     <div className='modal--content'>
-                        {children}
+                        {content}
+                    </div>
+                    <div className='modal--bottom-bar'>
+                        {bottom}
                     </div>
                 </div>
             </div>
