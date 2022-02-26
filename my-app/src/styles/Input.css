@@ -16,12 +16,18 @@ input{
     width: 100%;
     padding: 16px 20px 15px 20px;
     margin: 8px 0;
+    outline: none;
     display: inline-block;
     border: 2px solid var(--dgray-text);
     border-radius: 8px;
     box-sizing: border-box;
 }
 
-input::placeholder{
+
+input[type=text]:focus {
+    border: 2px solid var(--theme-dark-purple);
+}
+
+input[type=text], input::placeholder{
     font-size: 15px
 }
