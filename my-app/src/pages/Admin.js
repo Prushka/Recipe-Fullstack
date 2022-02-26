@@ -8,15 +8,25 @@ import {SortFilterBar} from "../components/SortFilterBar";
 import {RadioButtonGroup} from "../components/RadioButtonGroup";
 import '../styles/Admin.css';
 import {FiSearch} from "react-icons/fi";
+import ManageUsers from "./ManageUsers";
 
 
-export default function Admin({}) {
+export default function Admin({page = 'Manage Users'}) {
     const [userDialogOpen, setUserDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState({
         "Username": "None",
         "Permission": "None",
         "id": -1
     })
+
+    function cellCallback(header, value, id, cellId, isHeader) {
+        if (header === 'Created By' || header === 'Username') {
+            setEditingUser(userData[value])
+            setUserDialogOpen(true)
+        }
+        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
+    }
+
     const [userData, setUserData] = useState({
         "TestUser1": {
             "Username": "TestUser1",
@@ -24,19 +34,17 @@ export default function Admin({}) {
             "id": 1
         },
         "TestUser2": {
-            "Username":
-                "TestUser2",
-            "Permission":
-                "User",
-            "id": 2
+            "Username": "TestUser2",
+            "Permission": "User",
+            "id": 2,
+            "avatar": "https://s2.loli.net/2022/02/11/1IV4f92WzuUYKcm.jpg"
         }
         ,
         "TestUser3": {
-            "Username":
-                "TestUser3",
-            "Permission":
-                "Admin",
-            "id": 3
+            "Username": "TestUser3",
+            "Permission": "Admin",
+            "id": 3,
+            "avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png"
         }
     })
     const [recipeData, setRecipeData] = useState([
@@ -67,48 +75,11 @@ export default function Admin({}) {
         }
     ])
 
-    function test(header, value, id, cellId, isHeader) {
-        if (header === 'Created By') {
-            setEditingUser(userData[value])
-            setUserDialogOpen(true)
-        }
-        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
-    }
 
     return (
         <>
-            <Dialog title={`Managing ${editingUser}`} size={'m'} open={userDialogOpen}
-                    onClose={() => setUserDialogOpen(false)}
-                    content={
-                        <spaced-horizontal-preferred>
-                            <TextField defaultValue={editingUser["Username"]} label={'Username'}/>
-                            <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
-                                              options={['Guest', 'User', 'Admin']}
-                                              selected={editingUser["Permission"]}/>
-                        </spaced-horizontal-preferred>
-                    }
-                    bottom={
-                        <>
-                            <spaced-horizontal-preferred>
-                                <RedBGButton>Delete User</RedBGButton>
-                                <div className={'dialog-right-button-group'}>
-                                    <GreyBorderRedButton
-                                        onClick={() => setUserDialogOpen(false)}>Cancel</GreyBorderRedButton>
-                                    <BlueBGButton>Save</BlueBGButton>
-                                </div>
-                            </spaced-horizontal-preferred>
-                        </>
-                    }/>
-            <div style={{padding:"30px"}}>
-                <div style={{display:'flex', marginBottom:'10px'}}>
-                    <TextField style={{minWidth: "300px"}} label={'Search Recipe Name'}/>
-                    <FiSearch className={'button-icon'} style={{marginTop: "40px", marginLeft:"30px"}} size={'40'}/>
-                </div>
-                <SortFilterBar style={{marginBottom:'20px'}}/>
-                <Grid tableData={recipeData} onClickHandler={test} excludeHeader={["id"]}
-                      clickableHeader={["Created By"]}/>
-            </div>
-
+            <ManageUsers userData={userData} setUserData={setUserData} userDialogOpen={userDialogOpen} setUserDialogOpen={setUserDialogOpen}
+            editingUser={editingUser} cellCallback={cellCallback}/>
         </>
     );
 }
