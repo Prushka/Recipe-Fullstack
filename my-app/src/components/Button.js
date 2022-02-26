@@ -45,6 +45,7 @@ export function Button({
                            onHover = () => {
                            }, onClick = () => {
     }
+                           , style
                        }) {
 
 
@@ -53,6 +54,7 @@ export function Button({
     const [buttonShadow, setButtonShadow] = useState('')
     return (
         <div className={`button ${buttonShadow}`} style={{
+            ...style,
             minWidth: minWidth ? minWidth : 'auto',
             color: textColor,
             backgroundColor: buttonBGColor,
