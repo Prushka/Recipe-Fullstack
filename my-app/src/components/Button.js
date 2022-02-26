@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../styles/Button.css';
+import '../styles/Input.css';
 import {useState} from "react";
 
 
@@ -17,7 +17,7 @@ export function GreyBorderRedButton(props) {
         {...props}
         buttonBorderColor={'var(--theme-gray)'}
         buttonHoverBorderColor={'var(--theme-dark-gray)'}
-        shadowOnHover={false}
+        buttonBackgroundColor={'rgba(0,0,0,0)'}
         textColor={'var(--theme-1)'}
     > {props.children} </Button>);
 }
@@ -66,7 +66,7 @@ export function Button({
                  setButtonBGColor(buttonHoverBackgroundColor ? buttonHoverBackgroundColor : buttonBackgroundColor)
                  setButtonBColor(buttonHoverBorderColor ? buttonHoverBorderColor : buttonBorderColor)
                  if (shadowOnHover) {
-                     setButtonShadow('button--shadow')
+                     setButtonShadow('focus--shadow')
                  }
                  onHover()
              }}
