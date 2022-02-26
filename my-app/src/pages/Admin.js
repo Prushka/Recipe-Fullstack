@@ -6,6 +6,8 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Butt
 import {TextField} from "../components/TextField";
 import {SortFilterBar} from "../components/SortFilterBar";
 import {RadioButtonGroup} from "../components/RadioButtonGroup";
+import '../styles/Admin.css';
+
 
 
 export default function Admin({}) {
@@ -58,7 +60,7 @@ export default function Admin({}) {
                 <>
                     <spaced-horizontal-preferred>
                         <RedBGButton>Delete User</RedBGButton>
-                        <div style={{alignSelf: 'end', display: "flex", flexDirection: 'row'}}>
+                        <div className={'dialog-right-button-group'}>
                             <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
                             <BlueBGButton>Save</BlueBGButton>
                         </div>
