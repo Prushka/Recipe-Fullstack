@@ -20,7 +20,8 @@ export default function ManageUsers({
                                         userDialogOpen,
                                         cellCallback,
                                         clickableHeader,
-                                        searchableHeaders = []
+                                        searchableHeaders = [],
+                                        excludeHeader = ['id']
                                     }) {
 
     const [searchValue, setSearchValue] = useState({});
@@ -31,6 +32,17 @@ export default function ManageUsers({
         }
         displayData = _displayData
     }
+    const headers = []
+    displayData.forEach((item) => {
+        if (Object.keys(item).length > headers.length) {
+            headers.length = 0
+            for (let key in item) {
+                if (!excludeHeader.includes(key)) {
+                    headers.push(key)
+                }
+            }
+        }
+    })
     const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     return (
         <>
@@ -68,7 +80,7 @@ export default function ManageUsers({
                     }
                 </div>
                 <SortFilterBar style={{marginBottom: '20px'}}/>
-                <Grid tableData={localDisplayData} onClickHandler={cellCallback} excludeHeader={["id"]}
+                <Grid headers={headers} tableData={localDisplayData} onClickHandler={cellCallback}
                       clickableHeader={clickableHeader}/>
             </div>
 
