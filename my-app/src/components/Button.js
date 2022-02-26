@@ -2,38 +2,40 @@ import * as React from 'react';
 import '../styles/Button.css';
 import {useState} from "react";
 
-export function RedBGButton({children, onClick}) {
+
+export function RedBGButton(props) {
     return (<Button
+        {...props}
         buttonBackgroundColor={'var(--theme-red)'}
         buttonHoverBackgroundColor={'var(--theme-dark-red)'}
-        onClick={onClick}
-    > {children} </Button>);
+    > {props.children} </Button>);
 }
 
 
-export function GreyBorderRedButton({children, onClick}) {
+export function GreyBorderRedButton(props) {
     return (<Button
+        {...props}
         buttonBorderColor={'var(--theme-gray)'}
         buttonHoverBorderColor={'var(--theme-dark-gray)'}
-        onClick={onClick}
         shadowOnHover={false}
         textColor={'var(--theme-1)'}
-    > {children} </Button>);
+    > {props.children} </Button>);
 }
 
-export function BlueBGButton({children, onClick}) {
+export function BlueBGButton(props) {
     return (
         <Button
-            buttonBackgroundColor={'var(--theme-purple)'}
-            buttonHoverBackgroundColor={'var(--theme-dark-purple)'}
-            onClick={onClick}
-        > {children} </Button>
+            {...props}
+            buttonBackgroundColor='var(--theme-purple)'
+            buttonHoverBackgroundColor='var(--theme-dark-purple)'
+        > {props.children} </Button>
     );
 }
 
 
 export function Button({
-                           children,
+                           minWidth = '',
+                           children = '',
                            textColor = 'white',
                            buttonBackgroundColor = '',
                            buttonHoverBackgroundColor = '',
@@ -51,6 +53,7 @@ export function Button({
     const [buttonShadow, setButtonShadow] = useState('')
     return (
         <div className={`button ${buttonShadow}`} style={{
+            minWidth: minWidth ? minWidth : 'auto',
             color: textColor,
             backgroundColor: buttonBGColor,
             boxShadow: buttonShadow,
