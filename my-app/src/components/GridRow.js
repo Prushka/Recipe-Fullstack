@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
 import * as React from 'react';
 
 export default function GridRow({
@@ -12,6 +16,7 @@ export default function GridRow({
                     const CTag = isHeader ? `th` : `td`;
                     const cellClass = clickableHeader.includes(headers[index]) ? 'grid--clickable' : ''
                     let child = value
+                    // TODO: use checkbox for boolean
                     images.forEach((image) => {
                         if (typeof value === 'string' && value.endsWith(image)) {
                             child = <img className={'grid--avatar'} src={value} alt={value}/>

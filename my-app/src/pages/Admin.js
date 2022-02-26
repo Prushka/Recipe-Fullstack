@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
 import * as React from 'react';
 import {useState} from "react";
 import '../styles/Admin.css';
@@ -21,6 +25,35 @@ class Dialog {
     }
 }
 
+function getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+                              editingUser, setEditingUser) {
+    return new Dialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+        editingUser, setEditingUser, () => {
+            return (
+                <spaced-horizontal-preferred>
+                    <TextField defaultValue={editingUser["Username"]} label={'Username'}/>
+                    <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
+                                      options={['Guest', 'User', 'Admin']}
+                                      selected={editingUser["Permission"]}/>
+                </spaced-horizontal-preferred>
+            )
+        }, () => {
+            return (
+                <spaced-horizontal-preferred>
+                    <RedBGButton>Delete User</RedBGButton>
+                    <div className={'dialog-right-button-group'}>
+                        <GreyBorderRedButton
+                            onClick={() => setUserDialogOpen(false)}>Cancel</GreyBorderRedButton>
+                        <BlueBGButton>Save</BlueBGButton>
+                    </div>
+                </spaced-horizontal-preferred>
+            )
+        },
+        () => {
+            return editingUser["Username"]
+        })
+}
+
 export function AdminReviews() {
     const [userDialogOpen, setUserDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState(defaultUser)
@@ -36,31 +69,8 @@ export function AdminReviews() {
     }
 
     return <AdvancedGrid
-        headerDialogs={[new Dialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
-            editingUser, setEditingUser, () => {
-                return (
-                    <spaced-horizontal-preferred>
-                        <TextField defaultValue={editingUser["Username"]} label={'Username'}/>
-                        <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
-                                          options={['Guest', 'User', 'Admin']}
-                                          selected={editingUser["Permission"]}/>
-                    </spaced-horizontal-preferred>
-                )
-            }, () => {
-                return (
-                    <spaced-horizontal-preferred>
-                        <RedBGButton>Delete User</RedBGButton>
-                        <div className={'dialog-right-button-group'}>
-                            <GreyBorderRedButton
-                                onClick={() => setUserDialogOpen(false)}>Cancel</GreyBorderRedButton>
-                            <BlueBGButton>Save</BlueBGButton>
-                        </div>
-                    </spaced-horizontal-preferred>
-                )
-            },
-            () => {
-                return editingUser["Username"]
-            })]}
+        headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+            editingUser, setEditingUser)]}
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Rating Author", "Public"]}
         displayData={reviewsData} setDisplayData={setReviewsData}
         clickableHeader={clickable} cellCallback={cellCallback}/>
@@ -82,9 +92,8 @@ export function AdminManageUsers() {
 
     return <AdvancedGrid searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
                          displayData={userData} setDisplayData={setUserData} clickableHeader={clickable}
-                         userData={userData}
-                         setUserData={setUserData} userDialogOpen={userDialogOpen} setUserDialogOpen={setUserDialogOpen}
-                         editingUser={editingUser} cellCallback={cellCallback}/>
+                         headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+                             editingUser, setEditingUser)]} cellCallback={cellCallback}/>
 }
 
 export function AdminManageRecipes() {
@@ -101,8 +110,8 @@ export function AdminManageRecipes() {
         console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
     }
 
-    return <AdvancedGrid searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
-                         setDisplayData={setRecipeData} clickableHeader={clickable} userData={userData}
-                         setUserData={setUserData} userDialogOpen={userDialogOpen} setUserDialogOpen={setUserDialogOpen}
-                         editingUser={editingUser} cellCallback={cellCallback}/>
+    return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+        editingUser, setEditingUser)]}
+                         searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
+                         setDisplayData={setRecipeData} clickableHeader={clickable} cellCallback={cellCallback}/>
 }

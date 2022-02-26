@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
 import * as React from 'react';
 import Grid from "../components/Grid";
 import {useEffect, useState} from "react";
