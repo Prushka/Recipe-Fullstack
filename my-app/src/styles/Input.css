@@ -6,6 +6,7 @@
     cursor: pointer;
     transition-duration: 0.3s;
     border-radius: 4px;
+    margin: 7px
 }
 
 .button span{
@@ -22,6 +23,7 @@ textfield-section{
     font-weight: 500;
     display: flex;
     flex-direction: column;
+    margin: 7px
 }
 
 textfield-section label{
@@ -63,6 +65,7 @@ radio-section{
     border-radius: 8px;
     padding: 18px 20px;
     align-items: center;
+    margin: 7px
 }
 
 radio-section-title{

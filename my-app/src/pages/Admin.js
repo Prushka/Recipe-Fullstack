@@ -47,20 +47,20 @@ export default function Admin({}) {
 
     return (
         <>
-            <Dialog title='Managing User' open={testModalOpen} onClose={() => setTestModalOpen(false)}
+            <Dialog title='Managing User' size={'m'} open={testModalOpen} onClose={() => setTestModalOpen(false)}
                 content={
                     <spaced-horizontal-preferred>
                         <TextField placeholder={'User3'} label={'Username'}/>
-                        <RadioButtonGroup style={{minWidth:'300px', marginLeft:'60px'}} title={'Role/Permission Set'} options={['Guest', 'User', 'Admin']}/>
+                        <RadioButtonGroup style={{minWidth:'300px'}} title={'Role/Permission Set'} options={['Guest', 'User', 'Admin']}/>
                     </spaced-horizontal-preferred>
             }
                 bottom={
                 <>
-                    <div style={{display:"flex"}}>
-                        <BlueBGButton style={{marginRight:'20px'}}>Save</BlueBGButton>
-                        <RedBGButton  style={{marginRight:'20px'}} minWidth={'300px'}>Delete User</RedBGButton>
-                        <GreyBorderRedButton  style={{marginRight:'20px'}} onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
-                    </div>
+                    <spaced-horizontal-preferred>
+                        <RedBGButton>Delete User</RedBGButton>
+                        <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
+                        <BlueBGButton>Save</BlueBGButton>
+                    </spaced-horizontal-preferred>
                 </>
             } />
             <SortFilterBar/>

@@ -39,9 +39,17 @@ spaced-horizontal-preferred{
   justify-content: space-between;
 }
 
+.mobile-full-width{
+
+}
+
 @media (max-width: 900px) {
   spaced-horizontal-preferred{
     flex-direction: column;
     align-items: center;
+  }
+
+  .mobile-full-width{
+    width: 90%;
   }
 }

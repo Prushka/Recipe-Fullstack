@@ -4,6 +4,8 @@
     background-color: rgba(0, 0, 0, 40%);
     position: absolute;
     z-index: 1250;
+    max-height:100%;
+    max-width:100%;
 }
 
 .modal {
@@ -50,8 +52,7 @@
 }
 
 .modal--container {
-    padding-left: 41px;
-    padding-right: 41px;
+    padding: 0 41px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -69,6 +70,10 @@
 }
 
 @media (max-width: 900px) {
+    .modal--container {
+        padding: 0 26px;
+    }
+
     .modal--s {
         width: 69vw;
         height: 73vh;

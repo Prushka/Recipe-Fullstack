@@ -34,6 +34,7 @@ export function BlueBGButton(props) {
 
 
 export function Button({
+    className, mobileFullWidth=true,
                            minWidth = '',
                            textColor = 'white',
                            buttonBackgroundColor = '',
@@ -52,7 +53,7 @@ export function Button({
     const [buttonBColor, setButtonBColor] = useState(buttonBorderColor)
     const [buttonShadow, setButtonShadow] = useState('')
     return (
-        <div className={`button ${buttonShadow}`} style={{
+        <div className={`button ${buttonShadow} ${mobileFullWidth &&'mobile-full-width'}`} style={{
             ...style,
             minWidth: minWidth ? minWidth : 'auto',
             color: textColor,
