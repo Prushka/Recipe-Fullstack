@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../styles/SortFilter.css';
-import {useState} from "react";
-import {BiSort, FiFilter} from "react-icons/all";
+import {BiSort} from "react-icons/bi";
+import {FiFilter} from "react-icons/fi";
 
 export function SortFilterBar(props) {
 

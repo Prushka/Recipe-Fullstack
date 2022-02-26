@@ -1,6 +1,6 @@
 import * as React from 'react';
 import '../styles/Dialog.css';
-import {IoClose} from "react-icons/all";
+import {IoClose} from "react-icons/io5";
 
 export default function Dialog({
                                    title = '',
