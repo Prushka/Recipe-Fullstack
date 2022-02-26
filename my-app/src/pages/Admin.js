@@ -58,8 +58,10 @@ export default function Admin({}) {
                 <>
                     <spaced-horizontal-preferred>
                         <RedBGButton>Delete User</RedBGButton>
-                        <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
-                        <BlueBGButton>Save</BlueBGButton>
+                        <div style={{alignSelf: 'end', display: "flex", flexDirection: 'row'}}>
+                            <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
+                            <BlueBGButton>Save</BlueBGButton>
+                        </div>
                     </spaced-horizontal-preferred>
                 </>
             } />

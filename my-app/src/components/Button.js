@@ -8,6 +8,7 @@ export function RedBGButton(props) {
         {...props}
         buttonBackgroundColor={'var(--theme-red)'}
         buttonHoverBackgroundColor={'var(--theme-dark-red)'}
+        shadowOnHover={false}
     > {props.children} </Button>);
 }
 
@@ -17,8 +18,8 @@ export function GreyBorderRedButton(props) {
         {...props}
         buttonBorderColor={'var(--theme-gray)'}
         buttonHoverBorderColor={'var(--theme-dark-gray)'}
-        buttonBackgroundColor={'rgba(0,0,0,0)'}
         textColor={'var(--theme-1)'}
+        shadowOnHover={false}
     > {props.children} </Button>);
 }
 
@@ -28,6 +29,7 @@ export function BlueBGButton(props) {
             {...props}
             buttonBackgroundColor='var(--theme-purple)'
             buttonHoverBackgroundColor='var(--theme-dark-purple)'
+            shadowOnHover={false}
         > {props.children} </Button>
     );
 }
@@ -59,7 +61,7 @@ export function Button({
             color: textColor,
             backgroundColor: buttonBGColor,
             boxShadow: buttonShadow,
-            padding: (buttonBorderColor || buttonHoverBorderColor) ? '13px 21px 13px 21px' : '15px 23px 15px 23px',
+            padding: (buttonBorderColor || buttonHoverBorderColor) ? '13px 24px' : '15px 26px',
             border: (buttonBorderColor || buttonHoverBorderColor) ? `2px solid ${buttonBColor}` : ''
         }}
              onMouseOver={() => {
