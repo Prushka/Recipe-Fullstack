@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Grid from "../components/Grid";
 import {useState} from "react";
+import Dialog from "../components/Dialog";
 
 
 export default function Admin({}) {
@@ -38,6 +39,7 @@ export default function Admin({}) {
 
     return (
         <>
+            <Dialog />
             <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
             clickableHeader={["Created By"]}/>
         </>
