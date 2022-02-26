@@ -49,13 +49,13 @@ radio-section{
     flex-direction: column;
     border: 2px solid black;
     border-radius: 8px;
-    padding: 20px;
+    padding: 18px 20px;
     align-items: center;
 }
 
 radio-section-title{
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     font-size: 20px;
 }
 
@@ -78,6 +78,7 @@ radio-option{
 
 radio-label{
     font-size: 15px;
+    font-weight: 600;
 }
 
 input[type="radio"] {
