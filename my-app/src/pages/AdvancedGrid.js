@@ -1,13 +1,12 @@
 import * as React from 'react';
 import Grid from "../components/Grid";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Dialog from "../components/Dialog";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/Button";
 import {TextField} from "../components/TextField";
 import {SortFilterBar} from "../components/SortFilterBar";
 import {RadioButtonGroup} from "../components/RadioButtonGroup";
 import '../styles/Admin.css';
-import {FiSearch} from "react-icons/fi";
 
 
 export default function AdvancedGrid({
@@ -23,7 +22,19 @@ export default function AdvancedGrid({
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
-
+    const [searchValues, setSearchValues] = useState({});
+    useEffect(() => {
+        setLocalDisplayData(displayData.filter((i) => {
+            console.log(searchValues)
+            let pass = true
+            for (let searchKey in searchValues) {
+                if (searchValues[searchKey] && i[searchKey]) {
+                    pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
+                }
+            }
+            return pass
+        }))
+    }, [displayData, searchValues])
     let _displayData = []
     if (!Array.isArray(displayData)) {
         for (let key in displayData) {
@@ -73,19 +84,11 @@ export default function AdvancedGrid({
                         searchableHeaders.map((searchHeader) => {
                             return (
                                 <TextField onChange={(e) => {
-                                    setLocalDisplayData(displayData.filter((i) => {
-                                        if (!e.target.value) {
-                                            return true
-                                        }
-                                        if (!i[searchHeader]) {
-                                            return !e.target.value
-                                        }
-                                        if (typeof i[searchHeader] === 'string') {
-                                            return i[searchHeader].toLowerCase().includes(e.target.value.toLowerCase())
-                                        }
-                                        return i[searchHeader].toString() === e.target.value
-                                    }));
-                                }} label={`Search ${searchHeader}`} key={searchHeader}/>)
+                                    const newSearchValues = Object.assign({}, searchValues)
+                                    newSearchValues[searchHeader] = e.target.value
+                                    setSearchValues(newSearchValues)
+                                }}
+                                           label={`Search ${searchHeader}`} key={searchHeader}/>)
                         })
                     }
                 </div>
