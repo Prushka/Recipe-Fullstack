@@ -5,7 +5,7 @@ import GridRow from "./GridRow";
 export function RadioButtonGroup({
                                      title,
                                      options,
-     style
+     style, selected
                                  }) {
     return (
         <>
@@ -13,9 +13,13 @@ export function RadioButtonGroup({
                 <radio-section-title>{title}</radio-section-title>
                 <spaced-horizontal-preferred>
                     {options.map(option => {
+                        let checked = false
+                        if(selected === option){
+                            checked = true
+                        }
                         return (
                             <radio-option key={option}>
-                                <span><input type={"radio"} id={option} name={title}/></span>
+                                <span><input checked={checked} type={"radio"} id={option} name={title}/></span>
                                 <radio-label>{option}</radio-label>
                             </radio-option>
                         )
