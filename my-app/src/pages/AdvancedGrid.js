@@ -10,7 +10,7 @@ import '../styles/Admin.css';
 import {FiSearch} from "react-icons/fi";
 
 
-export default function ManageUsers({
+export default function AdvancedGrid({
                                         displayData,
                                         userData,
                                         setUserData,
