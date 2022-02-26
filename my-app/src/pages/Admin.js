@@ -35,12 +35,17 @@ export default function Admin({}) {
     ])
 
     function test(header, value, rowId, cellId, isHeader){
+        if(header==='Created By'){
+            setTestModalOpen(true)
+        }
         console.log(`header: [${header}], value: [${value}], rowId: [${rowId}], cellId: [${cellId}], isHeader: [${isHeader}]`)
     }
 
     return (
         <>
-            <Dialog open={testModalOpen} onClose={()=>setTestModalOpen(false)}/>
+            <Dialog title='Managing User' open={testModalOpen} onClose={()=>setTestModalOpen(false)}>
+                test
+            </Dialog>
             <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
             clickableHeader={["Created By"]}/>
         </>
