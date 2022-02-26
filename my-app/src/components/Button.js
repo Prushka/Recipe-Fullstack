@@ -57,6 +57,7 @@ export function Button({
             color: textColor,
             backgroundColor: buttonBGColor,
             boxShadow: buttonShadow,
+            padding: (buttonBorderColor || buttonHoverBorderColor) ? '13px 21px 13px 21px' : '15px 23px 15px 23px',
             border: (buttonBorderColor || buttonHoverBorderColor) ? `2px solid ${buttonBColor}` : ''
         }}
              onMouseOver={() => {
