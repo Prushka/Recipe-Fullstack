@@ -3,6 +3,13 @@
 :root {
   --dgray-text: #3A3A3A;
   --theme-1: #EB7777;
+  --theme-2: #8688BC;
+  --theme-red: #FC5185;
+  --theme-dark-red: #FC5185;
+  --theme-gray: #979797;
+  --theme-dark-gray: #777777;
+  --theme-purple: #8688BC;
+  --theme-dark-purple: #7677ad;
 }
 
 html {
