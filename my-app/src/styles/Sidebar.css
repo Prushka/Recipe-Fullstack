@@ -1,38 +1,39 @@
 .sidebar {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  background-color: #EB7777;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    background-color: #EB7777;
 }
 
 .sidebar button {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  font-family: 'Comfortaa', serif;
-  color: white;
-  background-color: var(--theme-1);
-  display: block;
-  width: 250px;
-  margin-bottom: 10px;
-  border: none;
-  text-align: left;
-  cursor: pointer;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Comfortaa', serif;
+    color: white;
+    background-color: var(--theme-1);
+    display: block;
+    width: 250px;
+    margin-bottom: 7px;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    min-height: 42px;
 }
 
-.sidebar button:hover {
-  background-color: var(--theme-dark-gray);
+.sidebar > button:hover, .sidebar > .selected {
+    background-color: var(--theme-dark-gray);
 }
 
 .sidebar img {
-  border-radius: 50%;
-  height:150px;
-  width:150px;
-  padding:50px;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    padding: 50px;
 }
 
 #log-out {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
