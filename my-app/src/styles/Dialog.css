@@ -68,3 +68,19 @@
     margin-left: auto;
 }
 
+@media (max-width: 900px) {
+    .modal--s {
+        width: 69vw;
+        height: 73vh;
+    }
+
+    .modal--m {
+        width: 90vw;
+        height: 90vh;
+    }
+
+    .modal--l {
+        width: 96vw;
+        height: 96vh;
+    }
+}
