@@ -10,15 +10,33 @@ import '../styles/Admin.css';
 
 
 
-export default function Admin({}) {
-    const [testModalOpen, setTestModalOpen] = useState(true)
-    const [tableData, setTableData] = useState([
+export default function ManageUsers({}) {
+    const [userDialogOpen, setUserDialogOpen] = useState(false)
+    const [editingUserName, setEditingUserName] = useState('')
+    const [userData, setUserData] = useState([
+        {
+            "Username": "TestUser1",
+            "Permission": "Guest",
+            "id": 1
+        },
+        {
+            "Username": "TestUser2",
+            "Permission": "User",
+            "id": 2
+        },
+        {
+            "Username": "TestUser3",
+            "Permission": "Admin",
+            "id": 3
+        }
+    ])
+    const [recipeData, setRecipeData] = useState([
         {
             "Recipe Name": "Water",
             "Category": "Mystery",
             "Last Edit": "122 days ago",
             "Created By": "TestUser2",
-            "rowId": 1
+            "id": 1
         },
         {
             "Recipe Name": "Sushi",
@@ -28,7 +46,7 @@ export default function Admin({}) {
             "Steps": 10,
             "Last Edit": "10 days ago",
             "Created By": "TestUser1",
-            "rowId": 2
+            "id": 2
         },
         {
             "Recipe Name": "Apple",
@@ -36,23 +54,24 @@ export default function Admin({}) {
             "Views": 3,
             "Review": 4.2,
             "Created By": "TestUser3",
-            "rowId": 3
+            "id": 3
         }
     ])
 
-    function test(header, value, rowId, cellId, isHeader) {
+    function test(header, value, id, cellId, isHeader) {
         if (header === 'Created By') {
-            setTestModalOpen(true)
+            setEditingUserName(value)
+            setUserDialogOpen(true)
         }
-        console.log(`header: [${header}], value: [${value}], rowId: [${rowId}], cellId: [${cellId}], isHeader: [${isHeader}]`)
+        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
     }
 
     return (
         <>
-            <Dialog title='Managing User' size={'m'} open={testModalOpen} onClose={() => setTestModalOpen(false)}
+            <Dialog title={`Managing ${editingUserName}`} size={'m'} open={userDialogOpen} onClose={() => setUserDialogOpen(false)}
                 content={
                     <spaced-horizontal-preferred>
-                        <TextField placeholder={'User3'} label={'Username'}/>
+                        <TextField defaultValue={editingUserName} label={'Username'}/>
                         <RadioButtonGroup style={{minWidth:'300px'}} title={'Role/Permission Set'} options={['Guest', 'User', 'Admin']}/>
                     </spaced-horizontal-preferred>
             }
@@ -61,14 +80,14 @@ export default function Admin({}) {
                     <spaced-horizontal-preferred>
                         <RedBGButton>Delete User</RedBGButton>
                         <div className={'dialog-right-button-group'}>
-                            <GreyBorderRedButton onClick={()=>setTestModalOpen(false)}>Cancel</GreyBorderRedButton>
+                            <GreyBorderRedButton onClick={()=>setUserDialogOpen(false)}>Cancel</GreyBorderRedButton>
                             <BlueBGButton>Save</BlueBGButton>
                         </div>
                     </spaced-horizontal-preferred>
                 </>
             } />
             <SortFilterBar/>
-            <Grid tableData={tableData} onClickHandler={test} excludeHeader={["rowId"]}
+            <Grid tableData={recipeData} onClickHandler={test} excludeHeader={["id"]}
                   clickableHeader={["Created By"]}/>
         </>
     );

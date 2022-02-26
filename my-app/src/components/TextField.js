@@ -6,7 +6,7 @@ export function TextField(props) {
         <textfield-section style={{...props.style}}>
             {props.label && <label htmlFor={props.id}>{props.label}</label>}
             <input id={props.id} type="text" name="name"
-                   placeholder={props.placeholder}
+                   placeholder={props.placeholder} {...props}
                    />
         </textfield-section>
     );

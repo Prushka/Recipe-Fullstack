@@ -18,7 +18,7 @@ export default function Grid({tableData, onClickHandler, excludeHeader = [],
     return (
         <table>
             <tbody>
-            <GridRow key={-1} rowId={-1} headers={headers} values={headers} isHeader={true}
+            <GridRow key={-1} id={-1} headers={headers} values={headers} isHeader={true}
                      onClickHandler={onClickHandler}/>
             {tableData.map(value => {
                 const rowValues = []
@@ -29,7 +29,7 @@ export default function Grid({tableData, onClickHandler, excludeHeader = [],
                         rowValues.push("")
                     }
                 })
-                return <GridRow key={value["rowId"]} rowId={value["rowId"]} values={rowValues}
+                return <GridRow key={value["id"]} id={value["id"]} values={rowValues}
                                 headers={headers}
                                 onClickHandler={onClickHandler}
                                 clickableHeader={clickableHeader}/>
