@@ -20,6 +20,10 @@ export default function AdvancedGrid({
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
+    const cellCallbacks = []
+    if (cellCallback) {
+        cellCallbacks.push(cellCallback)
+    }
     let _displayData = []
     if (!Array.isArray(displayData)) {
         for (let key in displayData) {
@@ -46,7 +50,6 @@ export default function AdvancedGrid({
     }, [displayData, searchValues])
 
 
-
     const headers = []
     displayData.forEach((item) => {
         if (Object.keys(item).length > headers.length) {
@@ -64,6 +67,7 @@ export default function AdvancedGrid({
             {
                 headerDialogs.map((dialog) => {
                     clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
+                    cellCallbacks.push(dialog.callBackHandlers)
                     return (
                         <Dialog key={dialog.titleGetter()} title={`Managing ${dialog.titleGetter()}`} size={'m'}
                                 open={dialog.open}
@@ -94,7 +98,9 @@ export default function AdvancedGrid({
                     }
                 </div>
                 <SortFilterBar style={{marginBottom: '20px'}}/>
-                <Grid headers={headers} tableData={localDisplayData} onClickHandler={cellCallback}
+                <Grid headers={headers} tableData={localDisplayData} onClickHandler={(header, value, id, cellId, isHeader) => {
+                    cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader))
+                }}
                       clickableHeader={clickableHeader}/>
             </right-pane>
 

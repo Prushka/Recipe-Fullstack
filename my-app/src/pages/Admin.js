@@ -24,6 +24,12 @@ class Dialog {
         this.footerGetter = footerGetter
         this.titleGetter = titleGetter
         this.supportedHeaders = supportedHeaders
+        this.callBackHandlers = (header, value, id, cellId, isHeader) => {
+            if (supportedHeaders.includes(header)) {
+                setEditingEntity(data[value])
+                setOpen(true)
+            }
+        }
     }
 }
 
@@ -56,19 +62,16 @@ function getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDial
         }, userHeaders)
 }
 
+function cellCallback(header, value, id, cellId, isHeader) {
+    console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
+}
+
 export function AdminReviews() {
     const [userDialogOpen, setUserDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
     const [reviewsData, setReviewsData] = useState(reviews)
 
-    function cellCallback(header, value, id, cellId, isHeader) {
-        if (header === 'Created By' || header === 'Username' || header === 'Recipe Author' || header === 'Rating Author') {
-            setEditingUser(userData[value])
-            setUserDialogOpen(true)
-        }
-        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
-    }
 
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
@@ -84,14 +87,6 @@ export function AdminManageUsers() {
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
 
-    function cellCallback(header, value, id, cellId, isHeader) {
-        if (header === 'Created By' || header === 'Username') {
-            setEditingUser(userData[value])
-            setUserDialogOpen(true)
-        }
-        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
-    }
-
     return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
         editingUser, setEditingUser, userHeaders)]}
                          searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
@@ -104,14 +99,6 @@ export function AdminManageRecipes() {
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
-
-    function cellCallback(header, value, id, cellId, isHeader) {
-        if (header === 'Created By' || header === 'Username') {
-            setEditingUser(userData[value])
-            setUserDialogOpen(true)
-        }
-        console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
-    }
 
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
