@@ -1,0 +1,72 @@
+
+.login_banner{
+  position: relative;
+  height: 61px;
+  background-color: #EB7777;
+  
+}
+.login_banner p{
+  position: relative;
+  width:139px;
+  height: 30px;
+  left: 573px;
+  top: 11px;
+  color: white;
+  font-family: Comfortaa;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 35px;
+  line-height: 39px;
+  align-items:center;
+  display: flex;
+}
+.login form{
+  position:relative;
+  height: 80px;
+  left: 380px;
+  top: 80px;
+}
+.login h1 {
+  position: relative;
+  width:139px;
+  height: 39px;
+  left: 380px;
+  top: 50px;
+  font-family: Comfortaa;
+  font-style: normal;
+  font-size: 42px;
+  align-items: center;
+  color: #000;
+}
+
+/*ref https://www.w3schools.com/css/css3_buttons.asp*/
+.login button {
+  position:relative;
+  background-color: #8688BC;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  width: 490px;
+  height: 60px;
+  border-radius: 4px;
+  left: 380px;
+  top: 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+  
+input{
+  widows: 80%;
+  border: 1px solid rgb(90, 38, 114);
+  padding: 20px;
+  margin: 2px 0;
+  border-radius: 5px;
+  width: 447px;
+
+
+}
+
