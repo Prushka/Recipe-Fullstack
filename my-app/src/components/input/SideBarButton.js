@@ -10,12 +10,12 @@ export default function SideBarButton({setSideBarOpen, title, icon, path, isSele
     const navigate = useNavigate()
     return (
         <>
-            <button style={{...style}} className={isSelected(path) && 'selected'}
+            <div style={{...style}} className={`side-bar-button ${isSelected(path) && 'selected'}`}
                     onClick={() => {
                         setSideBarOpen(false)
                         navigate(path)
-                    }}>{icon} {title}
-            </button>
+                    }}><div style={{marginRight:"6px"}}>{icon}</div>{title}
+            </div>
         </>
 
     );

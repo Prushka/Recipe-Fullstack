@@ -17,20 +17,27 @@ function SideBar(props) {
         <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} onClick={(e) => {
             e.stopPropagation();
         }}>
-            <img src={food} alt='Food'/>
-            <WrappedSideBarButton title='home' path='/' icon={<CgHomeAlt/>}/>
-            <WrappedSideBarButton title='My Profile' path='/' icon={<CgProfile/>}/>
-            <WrappedSideBarButton title='Browse Recipes' path='/' icon={<CgSearch/>}/>
-            <WrappedSideBarButton title='Saved Recipes' path='/' icon={<CgHeart/>}/>
-            <WrappedSideBarButton title='Uploaded Recipes' path='/' icon={<CgPen/>}/>
-            {props.userIsAdmin && <>
-                <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
-                <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>
-                <WrappedSideBarButton title='Manage Reviews' path='/manage/reviews' icon={<MdOutlinePreview/>}/>
-            </>
-            }
-            <SideBarButton style={{alignSelf: 'end', marginTop: 'auto'}} title='Log-out' path={'/5'}
-                           isSelected={isSelected} icon={<CgLogOut/>}/>
+            <div className={'side-bar-img-group'}>
+                <img src={food} alt='Food'/>
+            </div>
+            <div className={'side-bar-top-group'}>
+                <WrappedSideBarButton title='home' path='/' icon={<CgHomeAlt/>}/>
+                <WrappedSideBarButton title='My Profile' path='/' icon={<CgProfile/>}/>
+                <WrappedSideBarButton title='Browse Recipes' path='/' icon={<CgSearch/>}/>
+                <WrappedSideBarButton title='Saved Recipes' path='/' icon={<CgHeart/>}/>
+                <WrappedSideBarButton title='Uploaded Recipes' path='/' icon={<CgPen/>}/>
+                {props.userIsAdmin && <>
+                    <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
+                    <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>
+                    <WrappedSideBarButton title='Manage Reviews' path='/manage/reviews' icon={<MdOutlinePreview/>}/>
+                </>
+                }
+            </div>
+            <div className={'side-bar-bottom-group'}>
+
+                <SideBarButton title='Log-out' path={'/5'}
+                               isSelected={isSelected} icon={<CgLogOut/>}/>
+            </div>
         </div>
     );
 }
