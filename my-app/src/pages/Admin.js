@@ -44,6 +44,33 @@ class Dialog {
     }
 }
 
+function getReviewsViewDialog(data, setData,
+                              editingEntity, setEditingEntity, supportedHeaders) {
+    const dialog = new Dialog("ReviewsView", data, setData,
+        editingEntity, setEditingEntity, () => {
+            return (
+                <>
+                    <AdvancedGrid
+                        searchableHeaders={['Recipe Author', 'Rating Author']} displayData={
+                        data.filter((i) => {
+                            return i["Recipe"] === editingEntity["Recipe Name"]
+                        })
+                    }
+                        cellCallback={cellCallback}/>
+                </>
+            )
+        }, () => {
+            return (<></>)
+        },
+        () => {
+            return `Reports on ${editingEntity["Recipe Author"]}'s review`
+        }, supportedHeaders, 'l')
+    dialog.addCallback((e) => {
+        setEditingEntity(e.entity)
+    })
+    return dialog
+}
+
 function getRecipesViewDialog(data, setData,
                               editingEntity, setEditingEntity, supportedHeaders) {
     const dialog = new Dialog("RecipesView", data, setData,
@@ -109,7 +136,7 @@ function getRecipeEditingDialog(data, setData,
         }, () => {
             return (
                 <spaced-horizontal-preferred>
-                    <RedBGButton>Delete User</RedBGButton>
+                    <RedBGButton>Delete Recipe</RedBGButton>
                     <div className={'dialog-right-button-group'}>
                         <BlueBGButton onClick={() => {
                         }}>Save</BlueBGButton>
@@ -207,6 +234,8 @@ export function AdminManageRecipes() {
     const [editingRecipe, setEditingRecipe] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
+    const [editingReview, setEditingReview] = useState(defaultReview)
+    const [reviewsData, setReviewsData] = useState(reviews)
     const recipeEditingDialog = getRecipeEditingDialog(recipeData, setRecipeData, editingRecipe, setEditingRecipe, recipeHeaders)
     recipeEditingDialog.addCallback((e) => {
         recipeEditingDialog.setEditingEntity(e.entity)
@@ -214,7 +243,9 @@ export function AdminManageRecipes() {
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData,
             editingUser, setEditingUser, userHeaders),
-            recipeEditingDialog]}
+            recipeEditingDialog,
+        getReviewsViewDialog(reviewsData, setReviewsData, editingReview, setEditingReview,
+            ["Reviews"])]}
         searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
         setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }
