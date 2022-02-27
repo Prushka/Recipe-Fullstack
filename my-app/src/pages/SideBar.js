@@ -34,9 +34,7 @@ function SideBar(props) {
                 }
             </div>
             <div className={'side-bar-bottom-group'}>
-
-                <SideBarButton title='Log-out' path={'/5'}
-                               isSelected={isSelected} icon={<CgLogOut/>}/>
+                <WrappedSideBarButton title='Log-out' path='/logout' icon={<CgLogOut/>}/>
             </div>
         </div>
     );

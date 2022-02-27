@@ -21,6 +21,7 @@
     align-items: center;
     justify-content: left;
     box-sizing: border-box;
+    transition: 0.1s;
 }
 
 .side-bar-img-group img{
@@ -29,7 +30,7 @@
     border-radius: 50%;
 }
 
-.side-bar-top-group > div:hover, .side-bar-top-group > .selected {
+.side-bar-button:hover, .side-bar-button-selected {
     background-color: var(--theme-dark-gray);
 }
 
