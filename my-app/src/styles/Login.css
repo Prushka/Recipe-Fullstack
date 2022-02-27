@@ -6,6 +6,7 @@
   
 }
 .login_banner p{
+  
   position: relative;
   width:139px;
   height: 30px;
@@ -18,19 +19,20 @@
   font-size: 35px;
   line-height: 39px;
   align-items:center;
+  justify-content: center;
   display: flex;
 }
 .login form{
   position:relative;
   height: 80px;
-  left: 380px;
+  left: 400px;
   top: 80px;
 }
 .login h1 {
   position: relative;
   width:139px;
   height: 39px;
-  left: 380px;
+  left: 400px;
   top: 50px;
   font-family: Comfortaa;
   font-style: normal;
@@ -49,7 +51,7 @@
   width: 490px;
   height: 60px;
   border-radius: 4px;
-  left: 380px;
+  left: 400px;
   top: 100px;
   text-align: center;
   text-decoration: none;
@@ -69,4 +71,3 @@ input{
 
 
 }
-

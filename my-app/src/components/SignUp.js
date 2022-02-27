@@ -17,6 +17,9 @@ class SignUp extends React.Component {
                     <div className="login_banner">
                         <p>Recipe...</p>
                     </div>
+                    <div>
+                        <h1>Sign-Up</h1>
+                    </div>
                     <div className="login_box">
                         <form>
                             <input

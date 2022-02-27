@@ -1,12 +1,24 @@
 .back button {
-    position: relative;
-    width: 200px;
-    height: 19px;
-    left: 530px;
-    top: 120px;
-    bottom: 50px;
-  
-    color:black;
-    background-color:white;
-  }
-  
+  position: relative;
+  width: 200px;
+  height: 19px;
+  left: 550px;
+  top: 120px;
+  bottom: 50px;
+
+  color: black;
+  background-color: white;
+}
+
+.login h1 {
+  width: 300px;
+  top: 10px;
+}
+
+.login form {
+  top: 30px;
+}
+
+.login button {
+  top: 50px;
+}

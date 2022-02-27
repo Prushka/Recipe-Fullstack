@@ -12,6 +12,7 @@ class Login extends React.Component {
                     <div className="login_banner">
                         <p>Recipe...</p>
                     </div>
+                    <div><h1>Log-in</h1></div>
                     <div className="login_box">
                         <form>
                             <input
