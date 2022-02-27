@@ -9,7 +9,7 @@ hr.grid--divider {
 }
 
 table {
-    overflow: scroll;
+    overflow: auto;
     display: block;
     width: 100%;
     border-collapse: collapse;
@@ -33,7 +33,7 @@ th {
 
 th, td {
     color: var(--dgray-text);
-    padding: 15px 20px;
+    padding: 14px 19px;
     font-size: 18px;
     min-width: 10px;
 }
@@ -85,4 +85,7 @@ grid-search-bar {
 }
 
 @media (max-width: 900px) {
+    th, td {
+        padding: 10px 15px;
+    }
 }
