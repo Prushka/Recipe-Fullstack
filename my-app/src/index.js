@@ -5,7 +5,7 @@ import Home from './components/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from "./components/Profile";
 import BrowseRecipe from "./components/BrowseRecipe";
-import SavedRecipe from "./components/SavedRecipe";
+import SavedRecipe from "../src/components/SavedRecipe/SavedRecipe";
 import UploadRecipe from "./components/UploadRecipe";
 import Login from "./components/LogIn_SignUp/Login";
 import SignUp from "./components/LogIn_SignUp/SignUp";
