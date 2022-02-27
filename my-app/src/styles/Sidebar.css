@@ -59,7 +59,7 @@
         display: none;
     }
     .opened {
-        display: unset;
+        display: flex;
     }
     .top-bar{
         display: unset;
