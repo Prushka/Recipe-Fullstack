@@ -44,7 +44,7 @@ function getReportEditingDialog(data, setData,
             return (<></>)
         },
         () => {
-            return `Reports on Someone's review'`
+            return `Reports on ${editingEntity["Recipe Author"]}'s review`
         }, userHeaders, 'l')
 }
 
