@@ -6,7 +6,7 @@ import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
 
-function Sidebar({userIsAdmin = true, currentSelected='/'}) {
+function SideBar({userIsAdmin = true, currentSelected='/'}) {
     const isSelected = (path) => {
         return currentSelected===path ? 'selected':''
     }
@@ -31,4 +31,4 @@ function Sidebar({userIsAdmin = true, currentSelected='/'}) {
     );
 }
 
-export default Sidebar;
+export default SideBar;

@@ -32,3 +32,14 @@
     width: 150px;
     padding: 50px;
 }
+
+top-bar {
+    padding: 15px 25px;
+    background-color: white;
+}
+
+@media (max-width: 900px) {
+    .sidebar{
+        display: none;
+    }
+}
