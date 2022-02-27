@@ -21,7 +21,7 @@ dialog-modal {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 1300;
-    padding: 0 33px;
+    padding: 33px 33px 20px 33px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -51,22 +51,24 @@ modal-content {
     display: flex;
     overflow: auto;
     min-height: 0;
+    flex-direction: column;
 }
 
 modal-footer {
     display: flex;
     flex-direction: column-reverse;
-    margin-bottom: 20px;
+    align-self: end;
+    margin-top: auto;
+    width: 100%;
 }
 
 .modal--title {
-    margin-top: 35px;
+    margin-top: 8px;
     font-weight: bolder;
     font-size: 37px;
 }
 
 .modal--close {
-    margin-top: 24px;
     margin-left: auto;
 }
 
