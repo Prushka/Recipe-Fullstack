@@ -36,18 +36,38 @@ export default function AdvancedGrid({
     const [sortValues, setSortValues] = useState({});
     const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     useEffect(() => {
-        setLocalDisplayData(displayData.filter((i) => {
-            let pass = true
-            for (let searchKey in searchValues) {
-                if (searchValues[searchKey]) {
-                    if (!i[searchKey]) {
-                        return false
-                    }
-                    pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
-                }
+        const _displayData = [...displayData]
+
+        let sortHeader = null
+        let sortDirection = -1
+        for (let key in sortValues) {
+            if (sortValues[key] !== 2) {
+                sortHeader = key
+                sortDirection = sortValues[key]
             }
-            return pass
-        }))
+        }
+        console.log(`sortHeader: ${sortHeader}`)
+        _displayData.sort(function (a, b) {
+            if (a[sortHeader] < b[sortHeader]) return sortDirection === 1 ? 1 : -1;
+            if (a[sortHeader] > b[sortHeader]) return sortDirection === 1 ? -1 : 1;
+            return 0;
+        });
+        console.log(_displayData)
+        setLocalDisplayData(_displayData)
+
+        // setLocalDisplayData(displayData.filter((i) => {
+        //     let pass = true
+        //     for (let searchKey in searchValues) {
+        //         if (searchValues[searchKey]) {
+        //             if (!i[searchKey]) {
+        //                 return false
+        //             }
+        //             pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
+        //         }
+        //     }
+        //     return pass
+        // }))
+
 
     }, [searchValues, sortValues])
 
