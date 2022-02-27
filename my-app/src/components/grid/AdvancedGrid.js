@@ -73,9 +73,9 @@ export default function AdvancedGrid({
             {
                 headerDialogs.map((dialog) => {
                     clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
-                    cellCallbacks.push((header, value, id, cellId, isHeader, entity) => {
-                        if (dialog.supportedHeaders.includes(header)) {
-                            dialog.setEditingEntity(entity)
+                    cellCallbacks.push((e) => {
+                        if (dialog.supportedHeaders.includes(e.header)) {
+                            dialog.setEditingEntity(e.entity)
                             setAddDialog(dialog.uid, true)
                         }
                     })
@@ -109,8 +109,8 @@ export default function AdvancedGrid({
             </grid-search-bar>
             <SortFilterBar style={{marginBottom: '20px'}}/>
             <Grid headers={headers} tableData={localDisplayData}
-                  onClickHandler={(header, value, id, cellId, isHeader, entity) => {
-                      cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader, entity))
+                  onClickHandler={(e) => {
+                      cellCallbacks.forEach((callback) => callback(e))
                   }}
                   clickableHeader={clickableHeader}/>
 

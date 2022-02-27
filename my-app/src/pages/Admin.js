@@ -87,9 +87,9 @@ function getUserEditingDialog(data, setData,
         }, userHeaders)
 }
 
-function cellCallback(header, value, id, cellId, isHeader, entity) {
-    console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]]`)
-    console.log(entity)
+function cellCallback(e) {
+    console.log(`header: [${e.header}], value: [${e.value}], id: [${e.id}], cellId: [${e.cellId}], isHeader: [${e.isHeader}]]`)
+    console.log(e.entity)
 }
 
 export function AdminManageReviews() {

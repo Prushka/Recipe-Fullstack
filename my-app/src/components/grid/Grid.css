@@ -25,7 +25,8 @@ td {
 
 th {
     font-weight: 700;
-    color: var(--dgray-text)
+    color: var(--theme-red);
+    cursor: pointer;
 }
 
 th, td {
