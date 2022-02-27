@@ -1,10 +1,10 @@
 import React from 'react'; 
-import Sidebar from '../pages/Sidebar.js'
+import SideBar from '../pages/SideBar.js'
 
 function BrowseRecipe() {
     return (
         <React.Fragment>
-            <Sidebar />
+            <SideBar />
         </React.Fragment>
     );
 }

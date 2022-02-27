@@ -33,19 +33,14 @@ function getReportEditingDialog(data, setData,
     return new Dialog(data, setData,
         editingEntity, setEditingEntity, () => {
             return (
-                <spaced-horizontal-preferred>
+                <>
                     <AdvancedGrid
                         searchableHeaders={['Report', 'Report Reason']} displayData={data}
                         setDisplayData={setData} cellCallback={cellCallback}/>
-                </spaced-horizontal-preferred>
+                </>
             )
         }, () => {
-            return (
-                <spaced-horizontal-preferred>
-                    <div className={'dialog-right-button-group'}>
-                    </div>
-                </spaced-horizontal-preferred>
-            )
+            return (<></>)
         },
         () => {
             return `Reports on Someone's review'`
@@ -57,12 +52,12 @@ function getUserEditingDialog(data, setData,
     return new Dialog(data, setData,
         editingEntity, setEditingEntity, () => {
             return (
-                <spaced-horizontal-preferred>
+                <>
                     <TextField defaultValue={editingEntity["Username"]} label={'Username'}/>
                     <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
                                       options={['Guest', 'User', 'Admin']}
                                       selected={editingEntity["Permission"]}/>
-                </spaced-horizontal-preferred>
+                </>
             )
         }, () => {
             return (

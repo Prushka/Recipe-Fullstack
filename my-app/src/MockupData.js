@@ -80,6 +80,126 @@ const reviews = [
         "Posted At": "2022-01-21",
         "id": 1,
         "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 2,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 3,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 4,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 5,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 6,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 7,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 8,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 9,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 10,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 11,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 12,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 13,
+        "public": true
     }
 ]
 
@@ -97,6 +217,132 @@ const reports = [
         "User Total Reports": 2,
         "Reported At": "2022-01-02",
         "id": 1
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 2
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 3
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 4
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 5
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 6
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 7
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 8
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 9
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 10
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 11
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 12
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 13
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 14
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 15
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 16
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 17
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 18
+    },
+    {
+        "Report Author": "TestUser2",
+        "Report Reason": "Some Reason",
+        "User Total Reports": 2,
+        "Reported At": "2022-01-02",
+        "id": 19
     }
 ]
 
