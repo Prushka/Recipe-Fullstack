@@ -6,10 +6,8 @@ import * as React from 'react';
 import Grid from "./Grid";
 import {useEffect, useState} from "react";
 import Dialog from "../dialog/Dialog";
-import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../input/Button";
 import {TextField} from "../input/TextField";
 import {SortFilterBar} from "../SortFilterBar";
-import {RadioButtonGroup} from "../input/RadioButtonGroup";
 import './Grid.css';
 
 
@@ -75,9 +73,9 @@ export default function AdvancedGrid({
             {
                 headerDialogs.map((dialog) => {
                     clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
-                    cellCallbacks.push((header, value, id, cellId, isHeader) => {
+                    cellCallbacks.push((header, value, id, cellId, isHeader, entity) => {
                         if (dialog.supportedHeaders.includes(header)) {
-                            dialog.setEditingEntity(dialog.data[value])
+                            dialog.setEditingEntity(entity)
                             setAddDialog(dialog.uid, true)
                         }
                     })
@@ -111,8 +109,8 @@ export default function AdvancedGrid({
             </grid-search-bar>
             <SortFilterBar style={{marginBottom: '20px'}}/>
             <Grid headers={headers} tableData={localDisplayData}
-                  onClickHandler={(header, value, id, cellId, isHeader) => {
-                      cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader))
+                  onClickHandler={(header, value, id, cellId, isHeader, entity) => {
+                      cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader, entity))
                   }}
                   clickableHeader={clickableHeader}/>
 

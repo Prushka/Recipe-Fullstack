@@ -1,12 +1,12 @@
-const users = {
-    "TestUser1": {
+const users = [
+    {
         "Username": "TestUser1",
         "Permission": "Guest",
         "id": 1,
         "Email": "testuser1@example.com",
         "Uploaded Recipes": null
     },
-    "TestUser2": {
+    {
         "Username": "TestUser2",
         "Permission": "User",
         "id": 2,
@@ -14,7 +14,7 @@ const users = {
         "Uploaded Recipes": 6
     }
     ,
-    "TestUser3": {
+    {
         "Username": "TestUser3",
         "Permission": "Admin",
         "id": 3,
@@ -22,7 +22,7 @@ const users = {
         "Email": "testuser3@example.com",
         "Uploaded Recipes": 3
     },
-    "TestUser4": {
+    {
         "Username": "TestUser4",
         "Permission": "Admin",
         "id": 4,
@@ -30,7 +30,7 @@ const users = {
         "Email": "testuser3@example.com",
         "Uploaded Recipes": 3
     }
-}
+]
 
 const recipes = [
     {

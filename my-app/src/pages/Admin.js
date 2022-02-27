@@ -15,7 +15,7 @@ const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
 
 class Dialog {
     constructor(uid, data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
-                supportedHeaders, size='m') {
+                supportedHeaders, size = 'm') {
         this.uid = uid
         this.data = data
         this.setData = setData
@@ -30,7 +30,7 @@ class Dialog {
 }
 
 function getReportEditingDialog(data, setData,
-                              editingEntity, setEditingEntity, userHeaders) {
+                                editingEntity, setEditingEntity, userHeaders) {
     return new Dialog("Report", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
@@ -65,7 +65,9 @@ function getUserEditingDialog(data, setData,
                 <spaced-horizontal-preferred>
                     <RedBGButton>Delete User</RedBGButton>
                     <div className={'dialog-right-button-group'}>
-                        <BlueBGButton>Save</BlueBGButton>
+                        <BlueBGButton onClick={() => {
+
+                        }}>Save</BlueBGButton>
                     </div>
                 </spaced-horizontal-preferred>
             )
@@ -75,8 +77,9 @@ function getUserEditingDialog(data, setData,
         }, userHeaders)
 }
 
-function cellCallback(header, value, id, cellId, isHeader) {
-    console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
+function cellCallback(header, value, id, cellId, isHeader, entity) {
+    console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]]`)
+    console.log(entity)
 }
 
 export function AdminManageReviews() {

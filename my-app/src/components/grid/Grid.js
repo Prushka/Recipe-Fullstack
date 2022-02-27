@@ -12,7 +12,7 @@ export default function Grid({headers, tableData, onClickHandler,
         <table>
             <tbody>
             <GridRow key={-1} id={-1} headers={headers} values={headers} isHeader={true}
-                     onClickHandler={onClickHandler}/>
+                     onClickHandler={onClickHandler} entity={headers}/>
             {tableData.map(value => {
                 const rowValues = []
                 headers.forEach((item) => {
@@ -22,7 +22,7 @@ export default function Grid({headers, tableData, onClickHandler,
                         rowValues.push("")
                     }
                 })
-                return <GridRow key={value["id"]} id={value["id"]} values={rowValues}
+                return <GridRow key={value["id"]} id={value["id"]} entity={value} values={rowValues}
                                 headers={headers}
                                 onClickHandler={onClickHandler}
                                 clickableHeader={clickableHeader}/>

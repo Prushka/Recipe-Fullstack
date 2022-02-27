@@ -6,6 +6,7 @@ import * as React from 'react';
 
 export default function GridRow({
                                     id, values, headers, isHeader = false,
+                                    entity,
                                     onClickHandler, clickableHeader = []
                                 }) {
     const images = ['.jpg', '.png']
@@ -23,7 +24,10 @@ export default function GridRow({
                         }
                     })
                     return <CTag className={`${cellClass} ${child !== value && 'grid--avatar-container'}`}
-                                 onClick={() => onClickHandler(headers[index], value, id, index, isHeader)}
+                                 onClick={() => {
+                                 onClickHandler(headers[index], value, id, index, isHeader, entity)
+                                 }
+                                 }
                                  key={`${id}_${index}`}>{child}</CTag>
                 })
             }
