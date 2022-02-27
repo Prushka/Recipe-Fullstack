@@ -22,7 +22,7 @@ html {
     flex-direction: column;
 }
 
-page-body {
+.page-body {
     display: flex;
     margin: 0;
     height: 100%;

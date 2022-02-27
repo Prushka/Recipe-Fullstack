@@ -6,28 +6,30 @@ import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
 
-function SideBar({sideBarOpen, setSideBarOpen, userIsAdmin = true, currentSelected='/'}) {
+function SideBar(props) {
     const isSelected = (path) => {
-        return currentSelected===path ? 'selected':''
+        return props.currentSelected === path ? 'selected' : ''
     }
     return (
-        <>
-            <div className={`side-bar ${sideBarOpen?'opened':'closed'}`}>
-                <img src={food} alt='Food'/>
-                <SideBarButton title='Home' path={'/'} isSelected={isSelected} icon={<CgHomeAlt/>}/>
-                <SideBarButton title='My Profile' path={'/1'} isSelected={isSelected} icon={<CgProfile/>}/>
-                <SideBarButton title='Browse Recipes' path={'/2'} isSelected={isSelected} icon={<CgSearch/>}/>
-                <SideBarButton title='Saved Recipes' path={'/3'} isSelected={isSelected} icon={<CgHeart/>}/>
-                <SideBarButton title='Uploaded Recipes' path={'/4'} isSelected={isSelected} icon={<CgPen/>}/>
-                {userIsAdmin && <>
-                    <SideBarButton title='Manage Users' path={'/manage/users'} isSelected={isSelected} icon={<MdManageAccounts/>}/>
-                    <SideBarButton title='Manage Recipes' path={'/manage/recipes'} isSelected={isSelected} icon={<IoFastFood/>}/>
-                    <SideBarButton title='Manage Reviews' path={'/manage/reviews'} isSelected={isSelected} icon={<MdOutlinePreview/>}/>
-                </>
-                }
-                <SideBarButton style={{alignSelf: 'end', marginTop: 'auto'}} title='Log-out' path={'/5'} isSelected={isSelected} icon={<CgLogOut/>}/>
-            </div>
-        </>
+        <div className={`side-bar ${props.sideBarOpen ? 'opened' : 'closed'}`} {...props}>
+            <img src={food} alt='Food'/>
+            <SideBarButton title='Home' path={'/'} isSelected={isSelected} icon={<CgHomeAlt/>}/>
+            <SideBarButton title='My Profile' path={'/1'} isSelected={isSelected} icon={<CgProfile/>}/>
+            <SideBarButton title='Browse Recipes' path={'/2'} isSelected={isSelected} icon={<CgSearch/>}/>
+            <SideBarButton title='Saved Recipes' path={'/3'} isSelected={isSelected} icon={<CgHeart/>}/>
+            <SideBarButton title='Uploaded Recipes' path={'/4'} isSelected={isSelected} icon={<CgPen/>}/>
+            {props.userIsAdmin && <>
+                <SideBarButton title='Manage Users' path={'/manage/users'} isSelected={isSelected}
+                               icon={<MdManageAccounts/>}/>
+                <SideBarButton title='Manage Recipes' path={'/manage/recipes'} isSelected={isSelected}
+                               icon={<IoFastFood/>}/>
+                <SideBarButton title='Manage Reviews' path={'/manage/reviews'} isSelected={isSelected}
+                               icon={<MdOutlinePreview/>}/>
+            </>
+            }
+            <SideBarButton style={{alignSelf: 'end', marginTop: 'auto'}} title='Log-out' path={'/5'}
+                           isSelected={isSelected} icon={<CgLogOut/>}/>
+        </div>
     );
 }
 

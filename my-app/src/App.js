@@ -20,11 +20,13 @@ export default function App() {
     const PageComponent = ({path, children}) => {
         return (<>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
-            <page-body>
-                <SideBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} currentSelected={path}
+            <div className={'page-body'} onClick={()=>setSideBarOpen(false)}>
+                <SideBar onClick={(e) => {
+                    e.stopPropagation();
+                }} sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} currentSelected={path}
                          userIsAdmin={true}/>
                 <right-pane>{children}</right-pane>
-            </page-body>
+            </div>
         </>)
     }
     return (<>
