@@ -10,7 +10,7 @@ const users = [
         "Username": "TestUser2",
         "Permission": "User",
         "id": 2,
-        "avatar": "https://s2.loli.net/2022/02/11/1IV4f92WzuUYKcm.jpg",
+        "Avatar": "https://s2.loli.net/2022/02/11/1IV4f92WzuUYKcm.jpg",
         "Uploaded Recipes": 6
     }
     ,
@@ -18,7 +18,7 @@ const users = [
         "Username": "TestUser3",
         "Permission": "Admin",
         "id": 3,
-        "avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png",
+        "Avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png",
         "Email": "testuser3@example.com",
         "Uploaded Recipes": 3
     },
@@ -26,7 +26,7 @@ const users = [
         "Username": "TestUser4",
         "Permission": "Admin",
         "id": 4,
-        "avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png",
+        "Avatar": "https://s2.loli.net/2022/02/10/grldkO4LeDjxmY8.png",
         "Email": "testuser3@example.com",
         "Uploaded Recipes": 3
     }
@@ -360,8 +360,16 @@ const defaultReview = {
 const findUserByName = (userName) => {
     for (let i = 0; i < users.length; i++) {
         if(users[i]["Username"] === userName){
-            console.log(users[i]["Username"])
             return users[i]
+        }
+    }
+    return null
+}
+
+const findRecipeById = (id) => {
+    for (let i = 0; i < recipes.length; i++) {
+        if(recipes[i]["id"] === id){
+            return recipes[i]
         }
     }
     return null
