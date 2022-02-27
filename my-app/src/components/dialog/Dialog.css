@@ -1,4 +1,8 @@
-.dialog {
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
+dialog-modal {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 40%);
@@ -17,45 +21,41 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 1300;
-    display: flex;
-}
-
-.modal--s {
-    width: 52vw;
-    height: 62vh;
-}
-
-.modal--m {
-    width: 69vw;
-    height: 73vh;
-}
-
-.modal--l {
-    width: 92vw;
-    height: 92vh;
-}
-
-.modal--top-bar {
-    display: flex;
-}
-
-.modal--content {
-    margin-top: 30px;
-    display: flex;
-}
-
-.modal--bottom-bar {
-    flex: 1;
-    display: flex;
-    flex-direction: column-reverse;
-    margin-bottom: 20px;
-}
-
-.modal--container {
     padding: 0 33px;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal--s {
+    width: 52%;
+    height: 62%;
+}
+
+.modal--m {
+    width: 69%;
+    height: 73%;
+}
+
+.modal--l {
+    width: 92%;
+    height: 92%;
+}
+
+modal-header {
+    display: flex;
+}
+
+modal-content {
+    margin-top: 30px;
+    display: flex;
+    overflow: auto;
+}
+
+modal-footer {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 20px;
 }
 
 .modal--title {
@@ -70,22 +70,22 @@
 }
 
 @media (max-width: 900px) {
-    .modal--container {
+    .modal {
         padding: 0 26px;
     }
 
     .modal--s {
-        width: 69vw;
-        height: 73vh;
+        width: 69%;
+        height: 73%;
     }
 
     .modal--m {
-        width: 90vw;
-        height: 90vh;
+        width: 90%;
+        height: 90%;
     }
 
     .modal--l {
-        width: 96vw;
-        height: 96vh;
+        width: 96%;
+        height: 96%;
     }
 }
