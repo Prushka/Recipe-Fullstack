@@ -13,9 +13,6 @@ import {RadioButtonGroup} from "../input/RadioButtonGroup";
 import './Grid.css';
 
 
-let clickableHeader = []
-const cellCallbacks = []
-
 export default function AdvancedGrid({
                                          displayData,
                                          headerDialogs = [],
@@ -23,7 +20,8 @@ export default function AdvancedGrid({
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
                                      }) {
-
+    let clickableHeader = []
+    const cellCallbacks = []
     if (cellCallback) {
         cellCallbacks.push(cellCallback)
     }
@@ -51,7 +49,6 @@ export default function AdvancedGrid({
             return pass
         }))
     }, [searchValues])
-
 
     const headers = []
     displayData.forEach((item) => {
