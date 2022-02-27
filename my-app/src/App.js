@@ -1,7 +1,3 @@
-/*
- * Copyright 2022 Dan Lyu.
- */
-
 import React, {useState} from 'react';
 import './index.css';
 import Home from './components/Home';
@@ -19,8 +15,7 @@ export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const PageComponent = ({path, children}) => {
         return (<>
-
-            <div className={`${sideBarOpen?'side-bar-overlay':''}`} onClick={()=>setSideBarOpen(false)}/>
+            <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>
                 <SideBar onClick={(e) => {
@@ -34,21 +29,18 @@ export default function App() {
     return (<>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<><SideBar currentSelected={"/"} userIsAdmin={true}/><Home/></>}/>
+                    <Route path={"/"}
+                           element={<PageComponent path={"/"}><Home/></PageComponent>}/>
                     <Route path="profile" element={<Profile/>}/>
                     <Route path="browse" element={<BrowseRecipe/>}/>
                     <Route path="saved" element={<SavedRecipe/>}/>
                     <Route path="upload" element={<UploadRecipe/>}/>
-                    <Route path="/manage/users"
-                           element={<PageComponent path={"/manage/users"}> <AdminManageUsers/></PageComponent>}/>
-                    <Route path="/manage/recipes" element={<><SideBar currentSelected={"/manage/recipes"}
-                                                                      userIsAdmin={true}/>
-                        <right-pane><AdminManageRecipes/></right-pane>
-                    </>}/>
-                    <Route path="/manage/reviews"
-                           element={<><SideBar currentSelected={"/manage/reviews"} userIsAdmin={true}/>
-                               <right-pane><AdminManageReviews/></right-pane>
-                           </>}/>
+                    <Route path={"/manage/users"}
+                           element={<PageComponent path={"/manage/users"}><AdminManageUsers/></PageComponent>}/>
+                    <Route path={"/manage/recipes"}
+                           element={<PageComponent path={"/manage/recipes"}><AdminManageRecipes/></PageComponent>}/>
+                    <Route path={"/manage/reviews"}
+                           element={<PageComponent path={"/manage/reviews"}><AdminManageReviews/></PageComponent>}/>
                 </Routes>
             </BrowserRouter>
         </>
