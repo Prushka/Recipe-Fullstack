@@ -1,9 +1,14 @@
 import React from 'react';
-import './login.css';
-class Login extends React.Component {
+import './Login.css';
+import './SignUp.css';
+
+
+class SignUp extends React.Component {
     state = {
         username: "",
-        pwd: ""
+        email:"",
+        pwd: "",
+        repeat_pwd:""
     };
     render() {
         return (
@@ -12,7 +17,9 @@ class Login extends React.Component {
                     <div className="login_banner">
                         <p>Recipe...</p>
                     </div>
-                    <div><h1>Log-in</h1></div>
+                    <div>
+                        <h1>Sign-Up</h1>
+                    </div>
                     <div className="login_box">
                         <form>
                             <input
@@ -24,15 +31,34 @@ class Login extends React.Component {
                         </form>
                         <form>
                             <input
+                                type="email"
+                                name="email"
+                                placeholder="email..."
+                                required
+                            />
+                        </form>
+                        <form>
+                            <input
                                 type="password"
                                 name="pwd"
                                 placeholder="password..."
                                 required
                             />
                         </form>
+                        <form>
+                            <input
+                                type="repeat password"
+                                name="repeat_pwd"
+                                placeholder="repeat password..."
+                                required
+                            />
+                        </form>
                     </div>
                     <div>
-                        <button>LOGIN</button>
+                        <button>SUBMIT</button>
+                    </div>
+                    <div className='back'>
+                      <button>Back to login</button>
                     </div>
                 </div>
             </React.Fragment>
@@ -40,4 +66,6 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default SignUp;
+
+
