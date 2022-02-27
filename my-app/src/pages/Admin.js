@@ -3,13 +3,13 @@
  */
 
 import * as React from 'react';
-import {useState} from "react";
+import {useState} from 'react';
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
 import {
     defaultReview,
     defaultUser,
-    findRecipesByUsername,
+    findRecipesByRecipeName,
     findUserByName,
     recipes,
     reports,
@@ -21,7 +21,7 @@ import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
-const recipeHeaders = ['Recipe Name']
+const recipeHeaders = ['Recipe Name', 'Recipe']
 
 class Dialog {
     constructor(uid, data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
@@ -45,7 +45,7 @@ class Dialog {
 }
 
 function getRecipesViewDialog(data, setData,
-                                editingEntity, setEditingEntity, supportedHeaders) {
+                              editingEntity, setEditingEntity, supportedHeaders) {
     const dialog = new Dialog("RecipesView", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
@@ -97,13 +97,13 @@ function getReportEditingDialog(data, setData,
 function getRecipeEditingDialog(data, setData,
                                 editingEntity, setEditingEntity, supportedHeaders) {
 
-    const dialog = new Dialog("Recipe", data, setData,
+    return new Dialog("Recipe", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
                     <TextField defaultValue={editingEntity["Recipe Name"]} label={'Recipe Name'}/>
                     <TextField defaultValue={editingEntity["Category"]} label={'Category'}/>
-                    <TextField defaultValue={editingEntity["Review"]} label={'Review'}/>
+                    <TextField defaultValue={editingEntity["Reviews"]} label={'Reviews'}/>
                 </>
             )
         }, () => {
@@ -120,10 +120,6 @@ function getRecipeEditingDialog(data, setData,
         () => {
             return `Managing ${editingEntity["Recipe Name"]}`
         }, supportedHeaders)
-    dialog.addCallback((e) => {
-        setEditingEntity(e.entity)
-    })
-    return dialog
 }
 
 function getUserEditingDialog(data, setData,
@@ -171,15 +167,22 @@ function cellCallback(e) {
 export function AdminManageReviews() {
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [editingReview, setEditingReview] = useState(defaultReview)
+    const [editingRecipe, setEditingRecipe] = useState(defaultReview)
     const [userData, setUserData] = useState(users)
     const [reviewsData, setReviewsData] = useState(reviews)
     const [reportData, setReportData] = useState(reports)
-
+    const [recipeData, setRecipeData] = useState(recipes)
+    const recipeEditingDialog = getRecipeEditingDialog(recipeData, setRecipeData,
+        editingRecipe, setEditingRecipe, recipeHeaders)
+    recipeEditingDialog.addCallback((e) => {
+        recipeEditingDialog.setEditingEntity(findRecipesByRecipeName(e.value))
+    })
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData,
             editingUser, setEditingUser, userHeaders),
             getReportEditingDialog(reportData, setReportData,
-                editingReview, setEditingReview, ["Posted At"])]}
+                editingReview, setEditingReview, ["Report Count"]),
+            recipeEditingDialog]}
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Rating Author", "Public"]}
         displayData={reviewsData} setDisplayData={setReviewsData}
         cellCallback={cellCallback}/>
@@ -193,7 +196,7 @@ export function AdminManageUsers() {
 
     return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData,
         editingUser, setEditingUser, userHeaders),
-    getRecipesViewDialog(recipeData, setRecipeData, editingUser, setEditingUser, ["Uploaded Recipes"])]}
+        getRecipesViewDialog(recipeData, setRecipeData, editingUser, setEditingUser, ["Uploaded Recipes"])]}
                          searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
                          displayData={userData} setDisplayData={setUserData}
                          cellCallback={cellCallback}/>
@@ -204,11 +207,14 @@ export function AdminManageRecipes() {
     const [editingRecipe, setEditingRecipe] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
-
+    const recipeEditingDialog = getRecipeEditingDialog(recipeData, setRecipeData, editingRecipe, setEditingRecipe, recipeHeaders)
+    recipeEditingDialog.addCallback((e) => {
+        recipeEditingDialog.setEditingEntity(e.entity)
+    })
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData,
             editingUser, setEditingUser, userHeaders),
-            getRecipeEditingDialog(recipeData, setRecipeData, editingRecipe, setEditingRecipe, recipeHeaders)]}
+            recipeEditingDialog]}
         searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
         setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }
