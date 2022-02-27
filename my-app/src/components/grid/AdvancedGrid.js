@@ -3,12 +3,13 @@
  */
 
 import * as React from 'react';
-import Grid from "./Grid";
 import {useEffect, useState} from "react";
 import Dialog from "../dialog/Dialog";
 import {TextField} from "../input/TextField";
 import {SortFilterBar} from "../SortFilterBar";
 import './Grid.css';
+import {setAddState} from "../../util";
+import Grid from "./Grid";
 
 
 export default function AdvancedGrid({
@@ -32,8 +33,10 @@ export default function AdvancedGrid({
     }
 
     const [searchValues, setSearchValues] = useState({});
+    const [sortValues, setSortValues] = useState({});
     const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     useEffect(() => {
+        console.log(sortValues)
         setLocalDisplayData(displayData.filter((i) => {
             let pass = true
             for (let searchKey in searchValues) {
@@ -46,7 +49,7 @@ export default function AdvancedGrid({
             }
             return pass
         }))
-    }, [searchValues])
+    }, [searchValues, sortValues])
 
     const headers = []
     displayData.forEach((item) => {
@@ -62,11 +65,6 @@ export default function AdvancedGrid({
 
     const [dialogsOpen, setDialogsOpen] = useState({})
 
-    const setAddDialog = (uid, value) => {
-        const newDialogsOpen = {...dialogsOpen};
-        newDialogsOpen[uid] = value;
-        setDialogsOpen(newDialogsOpen);
-    }
 
     return (
         <>
@@ -76,13 +74,13 @@ export default function AdvancedGrid({
                     cellCallbacks.push((e) => {
                         if (dialog.supportedHeaders.includes(e.header)) {
                             dialog.setEditingEntity(e.entity)
-                            setAddDialog(dialog.uid, true)
+                            setAddState(dialog.uid, true, dialogsOpen, setDialogsOpen)
                         }
                     })
                     return (
                         <Dialog size={dialog.size} key={dialog.uid} title={dialog.titleGetter()}
                                 open={dialogsOpen[dialog.uid]}
-                                onClose={() => setAddDialog(dialog.uid, false)}
+                                onClose={() => setAddState(dialog.uid, false, dialogsOpen, setDialogsOpen)}
                                 content={
                                     dialog.contentGetter()
                                 }
@@ -99,16 +97,14 @@ export default function AdvancedGrid({
                     searchableHeaders.map((searchHeader) => {
                         return (
                             <TextField onChange={(e) => {
-                                const newSearchValues = Object.assign({}, searchValues)
-                                newSearchValues[searchHeader] = e.target.value
-                                setSearchValues(newSearchValues)
+                                setAddState(searchHeader, e.target.value, searchValues, setSearchValues)
                             }}
                                        label={`Search ${searchHeader}`} key={searchHeader}/>)
                     })
                 }
             </grid-search-bar>
             <SortFilterBar style={{marginBottom: '20px'}}/>
-            <Grid headers={headers} tableData={localDisplayData}
+            <Grid sortValues={sortValues} setSortValues={setSortValues} headers={headers} tableData={localDisplayData}
                   onClickHandler={(e) => {
                       cellCallbacks.forEach((callback) => callback(e))
                   }}

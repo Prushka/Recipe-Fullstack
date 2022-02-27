@@ -6,12 +6,15 @@ import * as React from 'react';
 import './Grid.css';
 import GridRow from "./GridRow";
 
-export default function Grid({headers, tableData, onClickHandler,
-                                 clickableHeader=[]}) {
+
+export default function Grid({
+                                 headers, tableData, sortValues, setSortValues, onClickHandler,
+                                 clickableHeader = []
+                             }) {
     return (
         <table>
             <tbody>
-            <GridRow key={-1} id={-1} headers={headers} values={headers} isHeader={true}
+            <GridRow sortValues={sortValues} setSortValues={setSortValues} key={-1} id={-1} headers={headers} values={headers} isHeader={true}
                      onClickHandler={onClickHandler} entity={headers}/>
             {tableData.map(value => {
                 const rowValues = []
