@@ -18,9 +18,7 @@ export default function App() {
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>
-                <SideBar onClick={(e) => {
-                    e.stopPropagation();
-                }} sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} currentSelected={path}
+                <SideBar sideBarOpen={sideBarOpen} currentSelected={path}
                          userIsAdmin={true}/>
                 <right-pane>{children}</right-pane>
             </div>

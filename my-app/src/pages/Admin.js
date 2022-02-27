@@ -14,8 +14,9 @@ import {BlueBGButton, RedBGButton} from "../components/input/Button";
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
 
 class Dialog {
-    constructor(data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
+    constructor(uid, data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
                 supportedHeaders, size='m') {
+        this.uid = uid
         this.data = data
         this.setData = setData
         this.editingEntity = editingEntity
@@ -30,7 +31,7 @@ class Dialog {
 
 function getReportEditingDialog(data, setData,
                               editingEntity, setEditingEntity, userHeaders) {
-    return new Dialog(data, setData,
+    return new Dialog("Report", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -49,7 +50,7 @@ function getReportEditingDialog(data, setData,
 
 function getUserEditingDialog(data, setData,
                               editingEntity, setEditingEntity, userHeaders) {
-    return new Dialog(data, setData,
+    return new Dialog("User", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>

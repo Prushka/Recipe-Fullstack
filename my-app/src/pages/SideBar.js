@@ -11,7 +11,9 @@ function SideBar(props) {
         return props.currentSelected === path ? 'selected' : ''
     }
     return (
-        <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} {...props}>
+        <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} onClick={(e) => {
+            e.stopPropagation();
+        }}>
             <img src={food} alt='Food'/>
             <SideBarButton title='Home' path={'/'} isSelected={isSelected} icon={<CgHomeAlt/>}/>
             <SideBarButton title='My Profile' path={'/1'} isSelected={isSelected} icon={<CgProfile/>}/>

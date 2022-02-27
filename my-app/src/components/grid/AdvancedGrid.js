@@ -16,32 +16,9 @@ import './Grid.css';
 let clickableHeader = []
 const cellCallbacks = []
 
-export function AdDialog({dialog}) {
-    const [dialogOpen, setDialogOpen] = useState(false)
-    clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
-    cellCallbacks.push((header, value, id, cellId, isHeader) => {
-        if (dialog.supportedHeaders.includes(header)) {
-            dialog.setEditingEntity(dialog.data[value])
-            setDialogOpen(true)
-        }
-    })
-    return (
-        <Dialog size={dialog.size} key={dialog.titleGetter()} title={dialog.titleGetter()}
-                open={dialogOpen}
-                onClose={() => setDialogOpen(false)}
-                content={
-                    dialog.contentGetter()
-                }
-                footer={
-                    dialog.footerGetter()
-                }
-        />
-    )
-}
-
 export default function AdvancedGrid({
                                          displayData,
-                                         headerDialogs,
+                                         headerDialogs = [],
                                          cellCallback,
                                          searchableHeaders = [],
                                          excludeHeader = ['id']
@@ -88,11 +65,37 @@ export default function AdvancedGrid({
         }
     })
 
+    const [dialogsOpen, setDialogsOpen] = useState({})
+
+    const setAddDialog = (uid, value) => {
+        const newDialogsOpen = {...dialogsOpen};
+        newDialogsOpen[uid] = value;
+        setDialogsOpen(newDialogsOpen);
+    }
+
     return (
         <>
             {
-                headerDialogs && headerDialogs.map((dialog) => {
-                    return <AdDialog dialog={dialog}/>
+                headerDialogs.map((dialog) => {
+                    clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
+                    cellCallbacks.push((header, value, id, cellId, isHeader) => {
+                        if (dialog.supportedHeaders.includes(header)) {
+                            dialog.setEditingEntity(dialog.data[value])
+                            setAddDialog(dialog.uid, true)
+                        }
+                    })
+                    return (
+                        <Dialog size={dialog.size} key={dialog.uid} title={dialog.titleGetter()}
+                                open={dialogsOpen[dialog.uid]}
+                                onClose={() => setAddDialog(dialog.uid, false)}
+                                content={
+                                    dialog.contentGetter()
+                                }
+                                footer={
+                                    dialog.footerGetter()
+                                }
+                        />
+                    )
                 })
             }
 

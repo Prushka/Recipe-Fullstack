@@ -12,7 +12,7 @@ export default function Dialog({
                                    content, footer, style
                                }) {
     return (
-        open ? <dialog-modal onMouseDown={onClose}>
+        open ? <div className={'dialog-modal'} onMouseDown={onClose}>
             <div onMouseDown={(e) => {
                 e.stopPropagation();
             }} className={`modal modal--${size}`}
@@ -34,6 +34,6 @@ export default function Dialog({
                         {footer}
                     </modal-footer>
             </div>
-        </dialog-modal> : <></>
+        </div> : <></>
     );
 }
