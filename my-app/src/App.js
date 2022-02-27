@@ -19,8 +19,10 @@ export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const PageComponent = ({path, children}) => {
         return (<>
+
+            <div className={`${sideBarOpen?'side-bar-overlay':''}`} onClick={()=>setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
-            <div className={'page-body'} onClick={()=>setSideBarOpen(false)}>
+            <div className={'page-body'}>
                 <SideBar onClick={(e) => {
                     e.stopPropagation();
                 }} sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} currentSelected={path}

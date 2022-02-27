@@ -42,7 +42,17 @@
 
 
 @media (max-width: 900px) {
+    .side-bar-overlay {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 40%);
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
     .side-bar {
+        top: 0;
+        left: 0;
         position: fixed;
     }
     .closed{
