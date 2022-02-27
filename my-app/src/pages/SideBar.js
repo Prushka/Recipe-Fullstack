@@ -10,23 +10,23 @@ function SideBar(props) {
     const isSelected = (path) => {
         return props.currentSelected === path ? 'selected' : ''
     }
+    const WrappedSideBarButton = ({title, path, icon}) => {
+        return (<SideBarButton setSideBarOpen={props.setSideBarOpen} title={title} path={path} isSelected={isSelected} icon={icon}/>)
+    }
     return (
         <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} onClick={(e) => {
             e.stopPropagation();
         }}>
             <img src={food} alt='Food'/>
-            <SideBarButton title='Home' path={'/'} isSelected={isSelected} icon={<CgHomeAlt/>}/>
-            <SideBarButton title='My Profile' path={'/1'} isSelected={isSelected} icon={<CgProfile/>}/>
-            <SideBarButton title='Browse Recipes' path={'/2'} isSelected={isSelected} icon={<CgSearch/>}/>
-            <SideBarButton title='Saved Recipes' path={'/3'} isSelected={isSelected} icon={<CgHeart/>}/>
-            <SideBarButton title='Uploaded Recipes' path={'/4'} isSelected={isSelected} icon={<CgPen/>}/>
+            <WrappedSideBarButton title='home' path='/' icon={<CgHomeAlt/>}/>
+            <WrappedSideBarButton title='My Profile' path='/' icon={<CgProfile/>}/>
+            <WrappedSideBarButton title='Browse Recipes' path='/' icon={<CgSearch/>}/>
+            <WrappedSideBarButton title='Saved Recipes' path='/' icon={<CgHeart/>}/>
+            <WrappedSideBarButton title='Uploaded Recipes' path='/' icon={<CgPen/>}/>
             {props.userIsAdmin && <>
-                <SideBarButton title='Manage Users' path={'/manage/users'} isSelected={isSelected}
-                               icon={<MdManageAccounts/>}/>
-                <SideBarButton title='Manage Recipes' path={'/manage/recipes'} isSelected={isSelected}
-                               icon={<IoFastFood/>}/>
-                <SideBarButton title='Manage Reviews' path={'/manage/reviews'} isSelected={isSelected}
-                               icon={<MdOutlinePreview/>}/>
+                <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
+                <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>
+                <WrappedSideBarButton title='Manage Reviews' path='/manage/reviews' icon={<MdOutlinePreview/>}/>
             </>
             }
             <SideBarButton style={{alignSelf: 'end', marginTop: 'auto'}} title='Log-out' path={'/5'}
