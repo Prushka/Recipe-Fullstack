@@ -89,9 +89,10 @@ export default function AdvancedGrid({
                         if (dialog.supportedHeaders.includes(e.header)) {
                             // dialog.setEditingEntity(e.entity)
                             setAddState(dialog.uid, true, dialogsOpen, setDialogsOpen)
+                            dialog.callbacks.forEach((callback) => callback(e))
+                            console.log(`Opened Dialog: ${dialog.uid}`)
                         }
                     })
-                    cellCallbacks = cellCallbacks.concat(dialog.callbacks)
                     return (
                         <Dialog size={dialog.size} key={dialog.uid} title={dialog.titleGetter()}
                                 open={dialogsOpen[dialog.uid]}

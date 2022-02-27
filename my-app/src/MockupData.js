@@ -150,16 +150,6 @@ const reviews = [
         "Rating Author": "TestUser3",
         "Report Count": 10,
         "Posted At": "2022-01-21",
-        "id": 2,
-        "public": true
-    },
-    {
-        "Recipe": "Sushi",
-        "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
-        "Report Count": 0,
-        "Posted At": "2022-01-21",
         "id": 3,
         "public": true
     },
@@ -261,6 +251,16 @@ const reviews = [
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 13,
+        "public": true
+    },
+    {
+        "Recipe": "Sushi",
+        "Recipe Author": "TestUser1",
+        "Rating": 5,
+        "Rating Author": "TestUser3",
+        "Report Count": 0,
+        "Posted At": "2022-01-21",
+        "id": 14,
         "public": true
     }
 ]
@@ -421,7 +421,7 @@ const defaultReview = {
 
 const findUserByName = (userName) => {
     for (let i = 0; i < users.length; i++) {
-        if(users[i]["Username"] === userName){
+        if (users[i]["Username"] === userName) {
             return users[i]
         }
     }
@@ -430,7 +430,7 @@ const findUserByName = (userName) => {
 
 const findRecipeById = (id) => {
     for (let i = 0; i < recipes.length; i++) {
-        if(recipes[i]["id"] === id){
+        if (recipes[i]["id"] === id) {
             return recipes[i]
         }
     }
@@ -440,11 +440,30 @@ const findRecipeById = (id) => {
 const findRecipesByUsername = (userName) => {
     const _recipes = []
     for (let i = 0; i < recipes.length; i++) {
-        if(recipes[i]["Created By"] === userName){
+        if (recipes[i]["Created By"] === userName) {
             _recipes.push(recipes[i])
         }
     }
     return _recipes
 }
 
-export {findUserByName, findRecipesByUsername, recipes, users, defaultUser, defaultReview, reviews, reports}
+const findRecipesByRecipeName = (recipeName) => {
+    for (let i = 0; i < recipes.length; i++) {
+        if (recipes[i]["Recipe Name"] === recipeName) {
+            return recipes[i]
+        }
+    }
+    return null
+}
+
+export {
+    findRecipesByRecipeName,
+    findUserByName,
+    findRecipesByUsername,
+    recipes,
+    users,
+    defaultUser,
+    defaultReview,
+    reviews,
+    reports
+}
