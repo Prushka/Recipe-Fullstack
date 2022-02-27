@@ -118,7 +118,6 @@ export default function AdvancedGrid({
                     })
                 }
             </grid-search-bar>
-            <SortFilterBar style={{marginBottom: '20px'}}/>
             <Grid sortValues={sortValues} setSortValues={setSortValues} headers={headers} tableData={localDisplayData}
                   onClickHandler={(e) => {
                       cellCallbacks.forEach((callback) => callback(e))
@@ -128,4 +127,5 @@ export default function AdvancedGrid({
         </>
     );
 }
+// <SortFilterBar style={{marginBottom: '20px'}}/>
 // <FiSearch className={'button-icon'} style={{marginTop: "40px", marginLeft: "30px"}} size={'40'}/>

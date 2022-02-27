@@ -39,11 +39,14 @@ export default function GridRow({
                         }
                     })
                     let icon = <></>;
+                    let isSorting = false;
                     if (isHeader) {
                         if (sortValues[value] === 0) {
                             icon = <RiSortDesc className={'grid-header-icon'}/>
+                            isSorting = true
                         } else if (sortValues[value] === 1) {
                             icon = <RiSortAsc className={'grid-header-icon'}/>
+                            isSorting = true
                         } else {
                             icon = <BiSortAlt2 className={'grid-header-icon'}/>
                         }
@@ -52,20 +55,23 @@ export default function GridRow({
                                   onClick={() => {
                                       if (sortValues && isHeader) {
                                           let newValue = sortValues[value] < 2 ? sortValues[value] + 1 : 0
-                                          if(newValue !== 2){
+                                          if (newValue !== 2) {
                                               setAddState(value, newValue, {}, setSortValues)
-                                          }else{
+                                          } else {
                                               setAddState(value, newValue, sortValues, setSortValues)
                                           }
                                       }
-                                      onClickHandler(new ClickEvent(headers[index], value, id, index, isHeader, entity))
+                                      if (!isHeader) {
+                                          onClickHandler(new ClickEvent(headers[index], value, id, index, isHeader, entity))
+                                      }
                                   }
                                   }
                                   key={`${id}_${index}`}>
-                        <div className={'grid-header-group'}>
+                        <div className={`grid-header-group ${isSorting ? 'grid-header-sorting' : ''}`}>
                             {icon}
                             {child}
-                        </div> </CTag>)
+                        </div>
+                    </CTag>)
                 })
             }
         </tr>
