@@ -10,7 +10,7 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../input/Button";
 import {TextField} from "../input/TextField";
 import {SortFilterBar} from "../SortFilterBar";
 import {RadioButtonGroup} from "../input/RadioButtonGroup";
-import '../../styles/Admin.css';
+import './Grid.css';
 
 
 let clickableHeader = []
@@ -73,7 +73,7 @@ export default function AdvancedGrid({
             }
             return pass
         }))
-    }, [displayData, searchValues])
+    }, [searchValues])
 
 
     const headers = []
@@ -97,7 +97,7 @@ export default function AdvancedGrid({
             }
 
             <right-pane>
-                <div style={{display: 'flex', marginBottom: '10px'}}>
+                <grid-search-bar>
                     {
                         searchableHeaders.map((searchHeader) => {
                             return (
@@ -109,7 +109,7 @@ export default function AdvancedGrid({
                                            label={`Search ${searchHeader}`} key={searchHeader}/>)
                         })
                     }
-                </div>
+                </grid-search-bar>
                 <SortFilterBar style={{marginBottom: '20px'}}/>
                 <Grid headers={headers} tableData={localDisplayData}
                       onClickHandler={(header, value, id, cellId, isHeader) => {

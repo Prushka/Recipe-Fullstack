@@ -14,8 +14,6 @@ table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
-    flex-shrink: 1;
-    height:calc(100vh - 127px);
 }
 
 td {
@@ -51,6 +49,12 @@ th, td {
     width: 40px;
     height: auto;
     border-radius: 50%;
+}
+
+grid-search-bar{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 900px) {

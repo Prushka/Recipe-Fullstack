@@ -48,7 +48,9 @@ spaced-horizontal-preferred {
 
 right-pane {
     width: 100%;
-    padding: 30px;
+    padding: 17px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mobile-full-width {
