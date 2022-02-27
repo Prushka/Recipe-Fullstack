@@ -9,8 +9,8 @@ hr.grid--divider {
 }
 
 table {
-    overflow:auto;
-    display:block;
+    overflow: auto;
+    display: block;
     width: 100%;
     border-collapse: collapse;
     text-align: center;
@@ -34,24 +34,29 @@ th, td {
     min-width: 10px;
 }
 
-.grid--clickable{
+tbody {
+    width: 100%;
+    display: table;
+}
+
+.grid--clickable {
     color: var(--theme-1);
     font-weight: 700;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.grid--avatar-container{
+.grid--avatar-container {
     padding: 8px 20px;
 }
 
-.grid--avatar{
+.grid--avatar {
     width: 40px;
     height: auto;
     border-radius: 50%;
 }
 
-grid-search-bar{
+grid-search-bar {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
