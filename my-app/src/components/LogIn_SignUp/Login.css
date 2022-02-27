@@ -1,6 +1,17 @@
 .login{
   position: fixed;
+  width: 100%;
 }
+.WebContainer{
+  width:100%;
+  min-width:1000px;
+  height:auto;
+}
+.articles{
+  width:90%; /*Takes 90% width from WebContainer*/
+  height: auto;
+  margin: auto;
+} 
 .login_banner{
   position: fixed;
   width:100%;
@@ -13,7 +24,7 @@
   width:139px;
   height: 10px;
   left: 500px;
-  top: px;
+  /*top: px;*/
   color: white;
   font-family: Comfortaa;
   font-style: normal;

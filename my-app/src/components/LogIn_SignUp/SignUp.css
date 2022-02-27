@@ -7,17 +7,20 @@
   bottom: 50px;
 
   color: black;
+  background-color: transparent;
 }
 
 .login h1 {
   width: 300px;
-  top: 10px;
 }
 
 .login form {
-  top: 30px;
+  position: relative;
+  top: 0px;
+  margin-top: -4px;
+  height:80px;
 }
 
 .login button {
-  top: 50px;
+  top: 6px;
 }
