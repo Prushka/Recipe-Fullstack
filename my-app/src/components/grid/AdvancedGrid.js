@@ -6,7 +6,6 @@ import * as React from 'react';
 import {useEffect, useState} from "react";
 import Dialog from "../dialog/Dialog";
 import {TextField} from "../input/TextField";
-import {SortFilterBar} from "../SortFilterBar";
 import './Grid.css';
 import {setAddState} from "../../util";
 import Grid from "./Grid";

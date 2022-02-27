@@ -6,7 +6,16 @@ import * as React from 'react';
 import {useState} from "react";
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
-import {defaultReview, defaultUser, findUserByName, recipes, reports, reviews, users} from "../MockupData";
+import {
+    defaultReview,
+    defaultUser,
+    findRecipesByUsername,
+    findUserByName,
+    recipes,
+    reports,
+    reviews,
+    users
+} from "../MockupData";
 import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
@@ -35,6 +44,32 @@ class Dialog {
     }
 }
 
+function getRecipesViewDialog(data, setData,
+                                editingEntity, setEditingEntity, supportedHeaders) {
+    const dialog = new Dialog("RecipesView", data, setData,
+        editingEntity, setEditingEntity, () => {
+            return (
+                <>
+                    <AdvancedGrid
+                        searchableHeaders={['Recipe Name', 'Category']} displayData={
+                        data.filter((i) => {
+                            return i["Created By"] === editingEntity["Username"]
+                        })
+                    }
+                        cellCallback={cellCallback}/>
+                </>
+            )
+        }, () => {
+            return (<></>)
+        },
+        () => {
+            return `Reports on ${editingEntity["Recipe Author"]}'s review`
+        }, supportedHeaders, 'l')
+    dialog.addCallback((e) => {
+        setEditingEntity(e.entity)
+    })
+    return dialog
+}
 
 function getReportEditingDialog(data, setData,
                                 editingEntity, setEditingEntity, supportedHeaders) {
@@ -154,9 +189,11 @@ export function AdminManageReviews() {
 export function AdminManageUsers() {
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
+    const [recipeData, setRecipeData] = useState(recipes)
 
     return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData,
-        editingUser, setEditingUser, userHeaders)]}
+        editingUser, setEditingUser, userHeaders),
+    getRecipesViewDialog(recipeData, setRecipeData, editingUser, setEditingUser, ["Uploaded Recipes"])]}
                          searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
                          displayData={userData} setDisplayData={setUserData}
                          cellCallback={cellCallback}/>
