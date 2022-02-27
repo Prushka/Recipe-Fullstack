@@ -50,12 +50,23 @@ function getReportEditingDialog(data, setData,
 
 function getUserEditingDialog(data, setData,
                               editingEntity, setEditingEntity, userHeaders) {
+    const findUserByName = (userName) => {
+        for (let i = 0; i < users.length; i++) {
+            if(users[i]["Username"] === userName){
+                console.log(users[i]["Username"])
+                return users[i]
+            }
+        }
+        return null
+    }
     return new Dialog("User", data, setData,
-        editingEntity, setEditingEntity, () => {
+        editingEntity, (currentEntity)=>{
+            setEditingEntity(findUserByName(currentEntity["Created By"]))
+        }, () => {
             return (
                 <>
                     <TextField defaultValue={editingEntity["Username"]} label={'Username'}/>
-                    <RadioButtonGroup style={{minWidth: '300px'}} title={'Role/Permission Set'}
+                    <RadioButtonGroup title={'Role/Permission Set'}
                                       options={['Guest', 'User', 'Admin']}
                                       selected={editingEntity["Permission"]}/>
                 </>
@@ -66,7 +77,6 @@ function getUserEditingDialog(data, setData,
                     <RedBGButton>Delete User</RedBGButton>
                     <div className={'dialog-right-button-group'}>
                         <BlueBGButton onClick={() => {
-
                         }}>Save</BlueBGButton>
                     </div>
                 </spaced-horizontal-preferred>
