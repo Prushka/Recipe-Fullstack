@@ -6,10 +6,10 @@ dialog-modal {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 40%);
-    position: absolute;
+    position: fixed;
     z-index: 1250;
-    max-height:100%;
-    max-width:100%;
+    top: 0;
+    left: 0;
 }
 
 .modal {
@@ -50,6 +50,7 @@ modal-content {
     margin-top: 30px;
     display: flex;
     overflow: auto;
+    min-height: 0;
 }
 
 modal-footer {

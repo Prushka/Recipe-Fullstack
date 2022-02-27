@@ -83,7 +83,7 @@ function cellCallback(header, value, id, cellId, isHeader) {
     console.log(`header: [${header}], value: [${value}], id: [${id}], cellId: [${cellId}], isHeader: [${isHeader}]`)
 }
 
-export function AdminReviews() {
+export function AdminManageReviews() {
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [editingReview, setEditingReview] = useState(defaultReview)
     const [userData, setUserData] = useState(users)

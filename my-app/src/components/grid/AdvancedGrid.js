@@ -96,27 +96,25 @@ export default function AdvancedGrid({
                 })
             }
 
-            <right-pane>
-                <grid-search-bar>
-                    {
-                        searchableHeaders.map((searchHeader) => {
-                            return (
-                                <TextField onChange={(e) => {
-                                    const newSearchValues = Object.assign({}, searchValues)
-                                    newSearchValues[searchHeader] = e.target.value
-                                    setSearchValues(newSearchValues)
-                                }}
-                                           label={`Search ${searchHeader}`} key={searchHeader}/>)
-                        })
-                    }
-                </grid-search-bar>
-                <SortFilterBar style={{marginBottom: '20px'}}/>
-                <Grid headers={headers} tableData={localDisplayData}
-                      onClickHandler={(header, value, id, cellId, isHeader) => {
-                          cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader))
-                      }}
-                      clickableHeader={clickableHeader}/>
-            </right-pane>
+            <grid-search-bar>
+                {
+                    searchableHeaders.map((searchHeader) => {
+                        return (
+                            <TextField onChange={(e) => {
+                                const newSearchValues = Object.assign({}, searchValues)
+                                newSearchValues[searchHeader] = e.target.value
+                                setSearchValues(newSearchValues)
+                            }}
+                                       label={`Search ${searchHeader}`} key={searchHeader}/>)
+                    })
+                }
+            </grid-search-bar>
+            <SortFilterBar style={{marginBottom: '20px'}}/>
+            <Grid headers={headers} tableData={localDisplayData}
+                  onClickHandler={(header, value, id, cellId, isHeader) => {
+                      cellCallbacks.forEach((callback) => callback(header, value, id, cellId, isHeader))
+                  }}
+                  clickableHeader={clickableHeader}/>
 
         </>
     );
