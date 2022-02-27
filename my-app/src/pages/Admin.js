@@ -9,34 +9,28 @@ import AdvancedGrid from "../components/grid/AdvancedGrid";
 import {defaultReview, defaultUser, recipes, reports, reviews, users} from "../MockupData";
 import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
-import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../components/input/Button";
+import {BlueBGButton, RedBGButton} from "../components/input/Button";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
 
 class Dialog {
-    constructor(data, setData, open, setOpen, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
+    constructor(data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
                 supportedHeaders, size='m') {
         this.data = data
         this.setData = setData
-        this.open = open
-        this.setOpen = setOpen
+        this.editingEntity = editingEntity
+        this.setEditingEntity = setEditingEntity
         this.contentGetter = contentGetter
         this.footerGetter = footerGetter
         this.titleGetter = titleGetter
         this.supportedHeaders = supportedHeaders
-        this.callBackHandlers = (header, value, id, cellId, isHeader) => {
-            if (supportedHeaders.includes(header)) {
-                setEditingEntity(data[value])
-                setOpen(true)
-            }
-        }
         this.size = size
     }
 }
 
-function getReportEditingDialog(data, setData, open, setOpen,
+function getReportEditingDialog(data, setData,
                               editingEntity, setEditingEntity, userHeaders) {
-    return new Dialog(data, setData, open, setOpen,
+    return new Dialog(data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <spaced-horizontal-preferred>
@@ -49,8 +43,6 @@ function getReportEditingDialog(data, setData, open, setOpen,
             return (
                 <spaced-horizontal-preferred>
                     <div className={'dialog-right-button-group'}>
-                        <GreyBorderRedButton
-                            onClick={() => setOpen(false)}>Cancel</GreyBorderRedButton>
                     </div>
                 </spaced-horizontal-preferred>
             )
@@ -60,9 +52,9 @@ function getReportEditingDialog(data, setData, open, setOpen,
         }, userHeaders, 'l')
 }
 
-function getUserEditingDialog(data, setData, open, setOpen,
+function getUserEditingDialog(data, setData,
                               editingEntity, setEditingEntity, userHeaders) {
-    return new Dialog(data, setData, open, setOpen,
+    return new Dialog(data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <spaced-horizontal-preferred>
@@ -77,8 +69,6 @@ function getUserEditingDialog(data, setData, open, setOpen,
                 <spaced-horizontal-preferred>
                     <RedBGButton>Delete User</RedBGButton>
                     <div className={'dialog-right-button-group'}>
-                        <GreyBorderRedButton
-                            onClick={() => setOpen(false)}>Cancel</GreyBorderRedButton>
                         <BlueBGButton>Save</BlueBGButton>
                     </div>
                 </spaced-horizontal-preferred>
@@ -94,8 +84,6 @@ function cellCallback(header, value, id, cellId, isHeader) {
 }
 
 export function AdminReviews() {
-    const [userDialogOpen, setUserDialogOpen] = useState(false)
-    const [reportDialogOpen, setReportDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [editingReview, setEditingReview] = useState(defaultReview)
     const [userData, setUserData] = useState(users)
@@ -103,9 +91,9 @@ export function AdminReviews() {
     const [reportData, setReportData] = useState(reports)
 
     return <AdvancedGrid
-        headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+        headerDialogs={[getUserEditingDialog(userData, setUserData,
             editingUser, setEditingUser, userHeaders),
-            getReportEditingDialog(reportData, setReportData, reportDialogOpen, setReportDialogOpen,
+            getReportEditingDialog(reportData, setReportData,
                 editingReview, setEditingReview, ["Posted At"])]}
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Rating Author", "Public"]}
         displayData={reviewsData} setDisplayData={setReviewsData}
@@ -114,11 +102,10 @@ export function AdminReviews() {
 
 
 export function AdminManageUsers() {
-    const [userDialogOpen, setUserDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
 
-    return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+    return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData,
         editingUser, setEditingUser, userHeaders)]}
                          searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
                          displayData={userData} setDisplayData={setUserData}
@@ -126,13 +113,12 @@ export function AdminManageUsers() {
 }
 
 export function AdminManageRecipes() {
-    const [userDialogOpen, setUserDialogOpen] = useState(false)
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
 
     return <AdvancedGrid
-        headerDialogs={[getUserEditingDialog(userData, setUserData, userDialogOpen, setUserDialogOpen,
+        headerDialogs={[getUserEditingDialog(userData, setUserData,
             editingUser, setEditingUser, userHeaders)]}
         searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
         setDisplayData={setRecipeData} cellCallback={cellCallback}/>

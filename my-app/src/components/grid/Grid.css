@@ -9,7 +9,7 @@ hr.grid--divider {
 }
 
 table {
-    overflow-y:auto;
+    overflow:auto;
     display:block;
     width: 100%;
     border-collapse: collapse;
