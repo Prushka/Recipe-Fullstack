@@ -4,7 +4,7 @@ const users = [
         "Permission": "Guest",
         "id": 1,
         "Email": "testuser1@example.com",
-        "Uploaded Recipes": null
+        "Uploaded Recipes": 0
     },
     {
         "Username": "TestUser2",
@@ -35,58 +35,120 @@ const users = [
 const recipes = [
     {
         "Recipe Name": "Water",
-        "Category": "Mystery",
+        "Category": "Beverage",
         "Last Edit": "122 days ago",
         "Created By": "TestUser2",
         "id": 1
     },
     {
-        "Recipe Name": "Sushi",
-        "Category": "Japanese",
-        "Views": 3,
-        "Review": 4.2,
-        "Steps": 10,
-        "Last Edit": "10 days ago",
-        "Created By": "TestUser1",
+        "Recipe Name": "Juice",
+        "Category": "Beverage",
+        "Last Edit": "12 days ago",
+        "Created By": "TestUser2",
         "id": 2
     },
     {
-        "Recipe Name": "Apple",
-        "Category": "Fruit",
-        "Views": 3,
-        "Review": 4.2,
-        "Created By": "TestUser3",
+        "Recipe Name": "Blood",
+        "Category": "Beverage",
+        "Last Edit": "11 days ago",
+        "Created By": "TestUser2",
         "id": 3
+    },
+    {
+        "Recipe Name": "Sushi",
+        "Category": "Japanese",
+        "Last Edit": "1 day ago",
+        "Created By": "TestUser2",
+        "Reviews": 12,
+        "id": 4
+    },
+    {
+        "Recipe Name": "Sashimi",
+        "Category": "Japanese",
+        "Last Edit": "9 days ago",
+        "Created By": "TestUser2",
+        "id": 5
+    },
+    {
+        "Recipe Name": "Rice",
+        "Category": "Mystery",
+        "Last Edit": "2 days ago",
+        "Created By": "TestUser2",
+        "id": 6
+    },
+    {
+        "Recipe Name": "Cheesecake",
+        "Category": "Dessert",
+        "Last Edit": "2 days ago",
+        "Created By": "TestUser3",
+        "Reviews": 1,
+        "id": 7
+    },
+    {
+        "Recipe Name": "Bread",
+        "Category": "Dessert",
+        "Last Edit": "20 days ago",
+        "Created By": "TestUser3",
+        "id": 8
+    },
+    {
+        "Recipe Name": "Cupcakes",
+        "Category": "Dessert",
+        "Last Edit": "12 days ago",
+        "Created By": "TestUser3",
+        "id": 9
+    },
+    {
+        "Recipe Name": "Roasted Apple",
+        "Category": "Fruits",
+        "Last Edit": "11 days ago",
+        "Created By": "TestUser4",
+        "id": 10
+    },
+    {
+        "Recipe Name": "Roasted Cucumber",
+        "Category": "Fruits",
+        "Last Edit": "11 days ago",
+        "Created By": "TestUser4",
+        "id": 11
+    },
+    {
+        "Recipe Name": "Roasted Tomato",
+        "Category": "Fruits",
+        "Last Edit": "11 days ago",
+        "Created By": "TestUser4",
+        "Reviews": 1,
+        "id": 12
     }
 ]
 
 const reviews = [
     {
-        "Recipe": "Water",
-        "Recipe Author": "TestUser2",
+        "Recipe": "Cheesecake",
+        "Recipe Author": "TestUser3",
         "Rating": 2,
-        "Rating Author": "TestUser3",
-        "Report Count": 20,
+        "Rating Author": "TestUser2",
+        "Report Count": 0,
         "Posted At": "2022-01-20",
-        "id": 0,
+        "id": 1,
         "public": false
     },
     {
         "Recipe": "Sushi",
-        "Recipe Author": "TestUser1",
+        "Recipe Author": "TestUser2",
         "Rating": 5,
         "Rating Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
-        "id": 1,
+        "id": 2,
         "public": true
     },
     {
-        "Recipe": "Sushi",
-        "Recipe Author": "TestUser1",
-        "Rating": 5,
+        "Recipe": "Roasted Tomato",
+        "Recipe Author": "TestUser4",
+        "Rating": 0,
         "Rating Author": "TestUser3",
-        "Report Count": 0,
+        "Report Count": 10,
         "Posted At": "2022-01-21",
         "id": 2,
         "public": true
@@ -375,4 +437,14 @@ const findRecipeById = (id) => {
     return null
 }
 
-export {findUserByName, recipes, users, defaultUser, defaultReview, reviews, reports}
+const findRecipesByUsername = (userName) => {
+    const _recipes = []
+    for (let i = 0; i < recipes.length; i++) {
+        if(recipes[i]["Created By"] === userName){
+            _recipes.push(recipes[i])
+        }
+    }
+    return _recipes
+}
+
+export {findUserByName, findRecipesByUsername, recipes, users, defaultUser, defaultReview, reviews, reports}
