@@ -16,10 +16,10 @@ import TopBar from "./pages/TopBar";
 
 
 export default function App() {
-    const [sideBarOpen, setSideBarOpen] = useState();
+    const [sideBarOpen, setSideBarOpen] = useState(false);
     const PageComponent = ({path, children}) => {
         return (<>
-            <TopBar setSideBarOpen={setSideBarOpen}/>
+            <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <page-body>
                 <SideBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} currentSelected={path}
                          userIsAdmin={true}/>

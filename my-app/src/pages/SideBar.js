@@ -6,13 +6,13 @@ import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
 
-function SideBar({userIsAdmin = true, currentSelected='/'}) {
+function SideBar({sideBarOpen, setSideBarOpen, userIsAdmin = true, currentSelected='/'}) {
     const isSelected = (path) => {
         return currentSelected===path ? 'selected':''
     }
     return (
         <>
-            <div className='sidebar'>
+            <div className={`side-bar ${sideBarOpen?'opened':'closed'}`}>
                 <img src={food} alt='Food'/>
                 <SideBarButton title='Home' path={'/'} isSelected={isSelected} icon={<CgHomeAlt/>}/>
                 <SideBarButton title='My Profile' path={'/1'} isSelected={isSelected} icon={<CgProfile/>}/>
