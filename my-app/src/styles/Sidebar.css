@@ -1,4 +1,4 @@
-.sidebar {
+.side-bar {
     height: 100%;
     width: 250px;
     background-color: #EB7777;
@@ -6,7 +6,7 @@
     flex-direction: column;
 }
 
-.sidebar button {
+.side-bar button {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 20px;
@@ -22,24 +22,36 @@
     min-height: 42px;
 }
 
-.sidebar > button:hover, .sidebar > .selected {
+.side-bar > button:hover, .side-bar > .selected {
     background-color: var(--theme-dark-gray);
 }
 
-.sidebar img {
+.side-bar img {
     border-radius: 50%;
     height: 150px;
     width: 150px;
     padding: 50px;
 }
 
-top-bar {
+.top-bar {
+    display: none;
     padding: 15px 25px;
     background-color: white;
 }
 
+
+
 @media (max-width: 900px) {
-    .sidebar{
+    .side-bar {
+        position: fixed;
+    }
+    .closed{
         display: none;
+    }
+    .opened {
+        display: unset;
+    }
+    .top-bar{
+        display: unset;
     }
 }
