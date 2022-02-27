@@ -46,29 +46,24 @@ export default function AdvancedGrid({
                 sortDirection = sortValues[key]
             }
         }
-        console.log(`sortHeader: ${sortHeader}`)
         _displayData.sort(function (a, b) {
             if (a[sortHeader] < b[sortHeader]) return sortDirection === 1 ? 1 : -1;
             if (a[sortHeader] > b[sortHeader]) return sortDirection === 1 ? -1 : 1;
             return 0;
         });
-        console.log(_displayData)
-        setLocalDisplayData(_displayData)
 
-        // setLocalDisplayData(displayData.filter((i) => {
-        //     let pass = true
-        //     for (let searchKey in searchValues) {
-        //         if (searchValues[searchKey]) {
-        //             if (!i[searchKey]) {
-        //                 return false
-        //             }
-        //             pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
-        //         }
-        //     }
-        //     return pass
-        // }))
-
-
+        setLocalDisplayData(_displayData.filter((i) => {
+            let pass = true
+            for (let searchKey in searchValues) {
+                if (searchValues[searchKey]) {
+                    if (!i[searchKey]) {
+                        return false
+                    }
+                    pass = pass && i[searchKey].toString().toLowerCase().includes(searchValues[searchKey])
+                }
+            }
+            return pass
+        }))
     }, [searchValues, sortValues])
 
     const headers = []
