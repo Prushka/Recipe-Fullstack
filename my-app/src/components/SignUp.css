@@ -1,0 +1,12 @@
+.back button {
+    position: relative;
+    width: 200px;
+    height: 19px;
+    left: 530px;
+    top: 120px;
+    bottom: 50px;
+  
+    color:black;
+    background-color:white;
+  }
+  

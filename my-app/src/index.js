@@ -7,6 +7,8 @@ import Profile from "./components/Profile";
 import BrowseRecipe from "./components/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe";
 import UploadRecipe from "./components/UploadRecipe";
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 ReactDOM.render(
   <BrowserRouter>
