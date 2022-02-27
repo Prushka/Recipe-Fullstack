@@ -63,5 +63,12 @@ grid-search-bar {
     margin-bottom: 10px;
 }
 
+.grid-header-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media (max-width: 900px) {
 }

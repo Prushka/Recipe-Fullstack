@@ -36,7 +36,6 @@ export default function AdvancedGrid({
     const [sortValues, setSortValues] = useState({});
     const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     useEffect(() => {
-        console.log(sortValues)
         setLocalDisplayData(displayData.filter((i) => {
             let pass = true
             for (let searchKey in searchValues) {
@@ -49,6 +48,7 @@ export default function AdvancedGrid({
             }
             return pass
         }))
+
     }, [searchValues, sortValues])
 
     const headers = []

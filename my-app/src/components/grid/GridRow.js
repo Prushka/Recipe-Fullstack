@@ -4,6 +4,8 @@
 
 import * as React from 'react';
 import {setAddState} from "../../util";
+import {RiSortAsc, RiSortDesc} from "react-icons/ri";
+import {BiSortAlt2} from "react-icons/bi";
 
 class ClickEvent {
     constructor(header, value, id, cellId, isHeader, entity) {
@@ -36,15 +38,29 @@ export default function GridRow({
                             child = <img className={'grid--avatar'} src={value} alt={value}/>
                         }
                     })
-                    return <CTag className={`${cellClass} ${child !== value && 'grid--avatar-container'}`}
-                                 onClick={() => {
-                                     if (sortValues && isHeader) {
-                                         setAddState(value, sortValues[value] < 2 ? sortValues[value] + 1 : 0, sortValues, setSortValues)
-                                     }
-                                     onClickHandler(new ClickEvent(headers[index], value, id, index, isHeader, entity))
-                                 }
-                                 }
-                                 key={`${id}_${index}`}>{child}</CTag>
+                    let icon = <></>;
+                    if (isHeader) {
+                        if (sortValues[value] === 0) {
+                            icon = <BiSortAlt2 size={15}/>
+                        } else if (sortValues[value] === 1) {
+                            icon = <RiSortAsc size={15}/>
+                        } else {
+                            icon = <RiSortDesc size={15}/>
+                        }
+                    }
+                    return (<CTag className={`${cellClass} ${child !== value && 'grid--avatar-container'}`}
+                                  onClick={() => {
+                                      if (sortValues && isHeader) {
+                                          setAddState(value, sortValues[value] < 2 ? sortValues[value] + 1 : 0, sortValues, setSortValues)
+                                      }
+                                      onClickHandler(new ClickEvent(headers[index], value, id, index, isHeader, entity))
+                                  }
+                                  }
+                                  key={`${id}_${index}`}>
+                        <div className={'grid-header-group'}>
+                            {icon}
+                            {child}
+                        </div> </CTag>)
                 })
             }
         </tr>
