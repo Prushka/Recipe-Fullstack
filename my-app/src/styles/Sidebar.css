@@ -57,8 +57,15 @@
 
 .top-bar {
     display: none;
-    padding: 15px 25px;
     background-color: white;
+}
+
+.top-bar-nav-icon {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

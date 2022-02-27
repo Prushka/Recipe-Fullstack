@@ -6,7 +6,9 @@ export default function TopBar({sideBarOpen, setSideBarOpen}) {
 
     return (
         <div className={'top-bar'}>
-            <FaBars className={'button-icon'} size={'20'} onClick={()=>setSideBarOpen(!sideBarOpen)}/>
+            <div className={'top-bar-nav-icon'} onClick={() => setSideBarOpen(!sideBarOpen)}
+            ><FaBars className={'button-icon'} size={'20'}/></div>
+
         </div>
     );
 }
