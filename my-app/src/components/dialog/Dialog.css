@@ -73,9 +73,6 @@ modal-footer {
 }
 
 @media (max-width: 900px) {
-    .modal {
-        padding: 0 26px;
-    }
 
     .modal--s {
         width: 69%;
