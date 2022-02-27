@@ -41,11 +41,11 @@ export default function GridRow({
                     let icon = <></>;
                     if (isHeader) {
                         if (sortValues[value] === 0) {
-                            icon = <BiSortAlt2 size={15}/>
+                            icon = <BiSortAlt2 className={'grid-header-icon'}/>
                         } else if (sortValues[value] === 1) {
-                            icon = <RiSortAsc size={15}/>
+                            icon = <RiSortAsc className={'grid-header-icon'}/>
                         } else {
-                            icon = <RiSortDesc size={15}/>
+                            icon = <RiSortDesc className={'grid-header-icon'}/>
                         }
                     }
                     return (<CTag className={`${cellClass} ${child !== value && 'grid--avatar-container'}`}

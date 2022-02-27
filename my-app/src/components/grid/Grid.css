@@ -9,7 +9,7 @@ hr.grid--divider {
 }
 
 table {
-    overflow: auto;
+    overflow: scroll;
     display: block;
     width: 100%;
     border-collapse: collapse;
@@ -27,6 +27,10 @@ th {
     font-weight: 700;
     color: var(--theme-red);
     cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 th, td {
@@ -66,8 +70,15 @@ grid-search-bar {
 .grid-header-group{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: left;
     align-items: center;
+}
+
+.grid-header-icon{
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
 }
 
 @media (max-width: 900px) {
