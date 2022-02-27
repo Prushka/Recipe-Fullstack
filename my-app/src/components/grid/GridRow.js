@@ -41,17 +41,22 @@ export default function GridRow({
                     let icon = <></>;
                     if (isHeader) {
                         if (sortValues[value] === 0) {
-                            icon = <BiSortAlt2 className={'grid-header-icon'}/>
+                            icon = <RiSortDesc className={'grid-header-icon'}/>
                         } else if (sortValues[value] === 1) {
                             icon = <RiSortAsc className={'grid-header-icon'}/>
                         } else {
-                            icon = <RiSortDesc className={'grid-header-icon'}/>
+                            icon = <BiSortAlt2 className={'grid-header-icon'}/>
                         }
                     }
                     return (<CTag className={`${cellClass} ${child !== value && 'grid--avatar-container'}`}
                                   onClick={() => {
                                       if (sortValues && isHeader) {
-                                          setAddState(value, sortValues[value] < 2 ? sortValues[value] + 1 : 0, sortValues, setSortValues)
+                                          let newValue = sortValues[value] < 2 ? sortValues[value] + 1 : 0
+                                          if(newValue !== 2){
+                                              setAddState(value, newValue, {}, setSortValues)
+                                          }else{
+                                              setAddState(value, newValue, sortValues, setSortValues)
+                                          }
                                       }
                                       onClickHandler(new ClickEvent(headers[index], value, id, index, isHeader, entity))
                                   }
