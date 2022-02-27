@@ -357,4 +357,14 @@ const defaultReview = {
     "id": -1
 }
 
-export {recipes, users, defaultUser, defaultReview, reviews, reports}
+const findUserByName = (userName) => {
+    for (let i = 0; i < users.length; i++) {
+        if(users[i]["Username"] === userName){
+            console.log(users[i]["Username"])
+            return users[i]
+        }
+    }
+    return null
+}
+
+export {findUserByName, recipes, users, defaultUser, defaultReview, reviews, reports}

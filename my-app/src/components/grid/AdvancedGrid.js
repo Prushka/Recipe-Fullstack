@@ -20,7 +20,7 @@ export default function AdvancedGrid({
                                          excludeHeader = ['id']
                                      }) {
     let clickableHeader = []
-    const cellCallbacks = []
+    let cellCallbacks = []
     if (cellCallback) {
         cellCallbacks.push(cellCallback)
     }
@@ -88,10 +88,11 @@ export default function AdvancedGrid({
                     clickableHeader = clickableHeader.concat(dialog.supportedHeaders)
                     cellCallbacks.push((e) => {
                         if (dialog.supportedHeaders.includes(e.header)) {
-                            dialog.setEditingEntity(e.entity)
+                            // dialog.setEditingEntity(e.entity)
                             setAddState(dialog.uid, true, dialogsOpen, setDialogsOpen)
                         }
                     })
+                    cellCallbacks = cellCallbacks.concat(dialog.callbacks)
                     return (
                         <Dialog size={dialog.size} key={dialog.uid} title={dialog.titleGetter()}
                                 open={dialogsOpen[dialog.uid]}

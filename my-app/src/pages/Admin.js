@@ -6,7 +6,7 @@ import * as React from 'react';
 import {useState} from "react";
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
-import {defaultReview, defaultUser, recipes, reports, reviews, users} from "../MockupData";
+import {defaultReview, defaultUser, findUserByName, recipes, reports, reviews, users} from "../MockupData";
 import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
@@ -26,12 +26,17 @@ class Dialog {
         this.titleGetter = titleGetter
         this.supportedHeaders = supportedHeaders
         this.size = size
+        this.callbacks = []
+    }
+
+    addCallback(callback) {
+        this.callbacks.push(callback)
     }
 }
 
 function getReportEditingDialog(data, setData,
-                                editingEntity, setEditingEntity, userHeaders) {
-    return new Dialog("Report", data, setData,
+                                editingEntity, setEditingEntity, supportedHeaders) {
+    const dialog = new Dialog("Report", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -45,24 +50,15 @@ function getReportEditingDialog(data, setData,
         },
         () => {
             return `Reports on ${editingEntity["Recipe Author"]}'s review`
-        }, userHeaders, 'l')
+        }, supportedHeaders, 'l')
+    return dialog
 }
 
 function getUserEditingDialog(data, setData,
-                              editingEntity, setEditingEntity, userHeaders) {
-    const findUserByName = (userName) => {
-        for (let i = 0; i < users.length; i++) {
-            if(users[i]["Username"] === userName){
-                console.log(users[i]["Username"])
-                return users[i]
-            }
-        }
-        return null
-    }
-    return new Dialog("User", data, setData,
-        editingEntity, (currentEntity)=>{
-            setEditingEntity(findUserByName(currentEntity["Created By"]))
-        }, () => {
+                              editingEntity, setEditingEntity, supportedHeaders) {
+
+    const dialog = new Dialog("User", data, setData,
+        editingEntity, setEditingEntity, () => {
             return (
                 <>
                     <TextField defaultValue={editingEntity["Username"]} label={'Username'}/>
@@ -84,7 +80,13 @@ function getUserEditingDialog(data, setData,
         },
         () => {
             return `Managing ${editingEntity["Username"]}`
-        }, userHeaders)
+        }, supportedHeaders)
+    dialog.addCallback((e) => {
+        if(supportedHeaders.includes(e.header)){
+            setEditingEntity(findUserByName(e.value))
+        }
+    })
+    return dialog
 }
 
 function cellCallback(e) {
