@@ -12,6 +12,7 @@ import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
+const recipeHeaders = ['Recipe Name']
 
 class Dialog {
     constructor(uid, data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
@@ -34,6 +35,7 @@ class Dialog {
     }
 }
 
+
 function getReportEditingDialog(data, setData,
                                 editingEntity, setEditingEntity, supportedHeaders) {
     const dialog = new Dialog("Report", data, setData,
@@ -51,6 +53,41 @@ function getReportEditingDialog(data, setData,
         () => {
             return `Reports on ${editingEntity["Recipe Author"]}'s review`
         }, supportedHeaders, 'l')
+    dialog.addCallback((e) => {
+        setEditingEntity(e.entity)
+    })
+    return dialog
+}
+
+function getRecipeEditingDialog(data, setData,
+                                editingEntity, setEditingEntity, supportedHeaders) {
+
+    const dialog = new Dialog("Recipe", data, setData,
+        editingEntity, setEditingEntity, () => {
+            return (
+                <>
+                    <TextField defaultValue={editingEntity["Recipe Name"]} label={'Recipe Name'}/>
+                    <TextField defaultValue={editingEntity["Category"]} label={'Category'}/>
+                    <TextField defaultValue={editingEntity["Review"]} label={'Review'}/>
+                </>
+            )
+        }, () => {
+            return (
+                <spaced-horizontal-preferred>
+                    <RedBGButton>Delete User</RedBGButton>
+                    <div className={'dialog-right-button-group'}>
+                        <BlueBGButton onClick={() => {
+                        }}>Save</BlueBGButton>
+                    </div>
+                </spaced-horizontal-preferred>
+            )
+        },
+        () => {
+            return `Managing ${editingEntity["Recipe Name"]}`
+        }, supportedHeaders)
+    dialog.addCallback((e) => {
+        setEditingEntity(e.entity)
+    })
     return dialog
 }
 
@@ -62,6 +99,8 @@ function getUserEditingDialog(data, setData,
             return (
                 <>
                     <TextField defaultValue={editingEntity["Username"]} label={'Username'}/>
+                    <TextField defaultValue={editingEntity["Email"]} label={'Email'}/>
+                    <TextField defaultValue={editingEntity["Avatar"]} label={'Avatar'}/>
                     <RadioButtonGroup title={'Role/Permission Set'}
                                       options={['Guest', 'User', 'Admin']}
                                       selected={editingEntity["Permission"]}/>
@@ -82,7 +121,7 @@ function getUserEditingDialog(data, setData,
             return `Managing ${editingEntity["Username"]}`
         }, supportedHeaders)
     dialog.addCallback((e) => {
-        if(supportedHeaders.includes(e.header)){
+        if (supportedHeaders.includes(e.header)) {
             setEditingEntity(findUserByName(e.value))
         }
     })
@@ -125,12 +164,14 @@ export function AdminManageUsers() {
 
 export function AdminManageRecipes() {
     const [editingUser, setEditingUser] = useState(defaultUser)
+    const [editingRecipe, setEditingRecipe] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
 
     return <AdvancedGrid
         headerDialogs={[getUserEditingDialog(userData, setUserData,
-            editingUser, setEditingUser, userHeaders)]}
+            editingUser, setEditingUser, userHeaders),
+            getRecipeEditingDialog(recipeData, setRecipeData, editingRecipe, setEditingRecipe, recipeHeaders)]}
         searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
         setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }
