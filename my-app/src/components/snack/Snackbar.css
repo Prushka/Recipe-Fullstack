@@ -1,4 +1,5 @@
 .snackbar{
+    transition: 1s;
     display: flex;
     align-items: center;
     justify-content: left;
