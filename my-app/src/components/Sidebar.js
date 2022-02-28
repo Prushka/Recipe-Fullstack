@@ -12,12 +12,12 @@ function Sidebar() {
         <button><CgHomeAlt></CgHomeAlt> Home</button>
         <button><CgProfile></CgProfile> My Profile</button>
         <button><CgSearch></CgSearch> Browse Recipes</button>
-        <Link to={"/saved"}>
+        <Link to={"/saved"} style={{ textDecoration: 'none' }}>
           <button><CgHeart></CgHeart> Saved Recipes</button>
         </Link>
         <button><CgPen></CgPen> Uploaded Recipes</button>
         <div id='log-out'>
-          <Link to={"/login"}>
+          <Link to={"/login"} style={{ textDecoration: 'none' }}>
             <button><CgLogOut></CgLogOut> Log-out</button>
           </Link>
 
