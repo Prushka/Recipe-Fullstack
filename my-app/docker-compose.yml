@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  fronend:
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    container_name: frontend-csc309-team
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - "TZ=America/Toronto"
