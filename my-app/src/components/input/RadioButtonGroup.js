@@ -12,8 +12,8 @@ export function RadioButtonGroup({
                                  }) {
     return (
         <>
-            <radio-section style={{...style}}>
-                <radio-section-title>{title}</radio-section-title>
+            <div className={'radio-section'} style={{...style}}>
+                <div className={'radio-section-title'}>{title}</div>
                 <spaced-horizontal-preferred>
                     {options.map(option => {
                         let checked = false
@@ -21,15 +21,15 @@ export function RadioButtonGroup({
                             checked = true
                         }
                         return (
-                            <radio-option key={option}>
+                            <div className={'radio-option'} key={option}>
                                 <span><input defaultChecked={checked} type={"radio"} id={option} name={title}/></span>
-                                <radio-label>{option}</radio-label>
-                            </radio-option>
+                                <div className={'radio-label'}>{option}</div>
+                            </div>
                         )
 
                     })}
                 </spaced-horizontal-preferred>
-            </radio-section>
+            </div>
 
         </>
 

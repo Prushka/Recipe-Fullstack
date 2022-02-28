@@ -64,7 +64,7 @@ input[type=text], input::placeholder{
 
 
 
-radio-section{
+.radio-section{
     font-family: Roboto, serif;
     font-weight: 500;
     display: flex;
@@ -76,19 +76,19 @@ radio-section{
     margin: 7px
 }
 
-radio-section-title{
+.radio-section-title{
     margin-bottom: 16px;
     font-size: 20px;
 }
 
 
-radio-option{
+.radio-option{
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
-radio-label{
+.radio-label{
     font-size: 15px;
     font-weight: 600;
 }
