@@ -25,7 +25,7 @@ export function SnackBarManager() {
         new SnackbarProperties({id: 7, text: "test 7", timeout: 3000, type: "success", position: "bottom-middle"}),
         new SnackbarProperties({id: 8, text: "test 8", timeout: 2000, type: "success", position: "bottom-middle"}),
     ])
-    const [removedSnackbars, setRemovedSnackbars] = useState(new Set())
+    const [removedSnackbars] = useState(new Set())
     const removeSnackbar = (id) => {
         console.log("removing " + id)
         setSnackbars(snackbars.filter(sb => {

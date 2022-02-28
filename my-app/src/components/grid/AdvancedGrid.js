@@ -63,7 +63,7 @@ export default function AdvancedGrid({
             }
             return pass
         }))
-    }, [searchValues, sortValues])
+    }, [displayData, searchValues, sortValues])
 
     const headers = []
     displayData.forEach((item) => {
@@ -76,10 +76,7 @@ export default function AdvancedGrid({
             }
         }
     })
-
     const [dialogsOpen, setDialogsOpen] = useState({})
-
-
     return (
         <>
             {
