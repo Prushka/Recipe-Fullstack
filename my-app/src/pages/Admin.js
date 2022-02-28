@@ -90,7 +90,7 @@ function getRecipesViewDialog(data, setData,
             return (<></>)
         },
         () => {
-            return `Reports on ${editingEntity["Recipe Author"]}'s review`
+            return `${editingEntity["Username"]}'s uploaded recipes`
         }, supportedHeaders, 'l')
     dialog.addCallback((e) => {
         setEditingEntity(e.entity)
