@@ -9,8 +9,12 @@ import UploadRecipe from "./components/UploadRecipe";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
-import {getSnackBarNewId, Snackbar, SnackBarManager} from "./components/snack/Snackbar";
+import {SnackBarManager} from "./components/snack/Snackbar";
 
+
+const SnackbarContext = React.createContext(SnackBarManager);
+
+export {SnackbarContext}
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
