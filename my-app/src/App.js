@@ -16,9 +16,10 @@ export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const PageComponent = ({path, children}) => {
         return (<>
-            <Snackbar snackbarId={getSnackBarNewId()}/>
-            <Snackbar snackbarId={getSnackBarNewId()}/>
-            <Snackbar snackbarId={getSnackBarNewId()}/>
+            <Snackbar text={'test 1'} snackbarId={getSnackBarNewId()}/>
+            <Snackbar text={'test 2'} snackbarId={getSnackBarNewId()}/>
+            <Snackbar text={'test 3'} snackbarId={getSnackBarNewId()}/>
+            <Snackbar text={'test 4'} snackbarId={getSnackBarNewId()}/>
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>

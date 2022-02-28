@@ -12,11 +12,11 @@ const getSnackBarNewId = () => {
 
 export {getSnackBarNewId}
 
-export function Snackbar({
+export function Snackbar({text,
                              open = true,
-                             position = "bottom-middle",
+                             position = "bottom-left",
                              type = "error",
-                             timeout = -1,
+                             timeout = 5000,
                              snackbarId
                          }) {
 
@@ -54,7 +54,7 @@ export function Snackbar({
             {snackBarOpen ?
                 <div style={verticalStyle}
                      className={`snackbar snackbar--shadow snackbar--${position} snackbar--${type}`}>
-                    <span>test</span>
+                    <span>{text}</span>
                     <IoClose
                         onClick={() => checkSet(false)} size={25} className={'button-icon snackbar--close'}/>
                 </div> : <></>}
