@@ -9,7 +9,12 @@
     position: fixed;
     height: 49px;
     width: 300px;
-    border-radius: 8px;
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+.snackbar--shadow{
+    z-index: 800;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -29,34 +34,28 @@
 
 .snackbar--bottom-left{
     left: 24px;
-    bottom: 24px;
 }
 
 .snackbar--bottom-right{
     right: 24px;
-    bottom: 24px;
 }
 
 .snackbar--top-left{
     left: 24px;
-    top: 24px;
 }
 
 .snackbar--top-right{
     right: 24px;
-    top: 24px;
 }
 
 .snackbar--top-middle{
     left: 50%;
     transform: translateX(-50%);
-    top: 24px;
 }
 
 .snackbar--bottom-middle{
     left: 50%;
     transform: translateX(-50%);
-    bottom: 24px;
 }
 
 .snackbar--close{

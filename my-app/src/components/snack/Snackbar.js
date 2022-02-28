@@ -19,9 +19,17 @@ export function Snackbar({
                              timeout = -1,
                              snackbarId
                          }) {
+
     const [snackBarOpen, setSnackbarOpen] = useState(open)
     snackbars.add(snackbarId)
-    const [append] = useState([...snackbars].indexOf(snackbarId) * 65)
+
+    const verticalNumber = [...snackbars].indexOf(snackbarId) * 62 + 24
+    const verticalStyle = position.includes("bottom") ? {
+        bottom: verticalNumber,
+    } : {
+        top: verticalNumber,
+    }
+
     const checkSet = (newState) => {
         // I'm not sure if setState will update if the value's the same
         // This is just to make sure we don't trigger useEffect multiple times
@@ -44,7 +52,8 @@ export function Snackbar({
     return (
         <div>
             {snackBarOpen ?
-                <div style={{bottom: `${append}px`}} className={`snackbar snackbar--${position} snackbar--${type}`}>
+                <div style={verticalStyle}
+                     className={`snackbar snackbar--shadow snackbar--${position} snackbar--${type}`}>
                     <span>test</span>
                     <IoClose
                         onClick={() => checkSet(false)} size={25} className={'button-icon snackbar--close'}/>
