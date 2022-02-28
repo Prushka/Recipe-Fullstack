@@ -1,0 +1,21 @@
+.snackbar{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: white;
+    box-sizing: border-box;
+    padding: 0 20px;
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    height: 49px;
+    width: 300px;
+    background-color: var(--dgray-text);
+    border-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
+}
+
+.snackbar--close{
+    color: white;
+    margin-left: auto;
+}
