@@ -17,7 +17,7 @@ class SavedRecipe extends React.Component {
                     <div class='savedRecipeList'>
 
                         <div class="savedContent">
-                            <h5>Recipe2</h5>
+                            <h5>Recipe1</h5>
                             <img class="recipePicture" src="food.jpg" alt="" />
                         </div>
                     </div>

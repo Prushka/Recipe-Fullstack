@@ -1,14 +1,14 @@
 import React from 'react';
 import './Login.css';
 import './SignUp.css';
+import { Link } from 'react-router-dom';
 
 
 class SignUp extends React.Component {
     state = {
         username: "",
-        email:"",
-        pwd: "",
-        repeat_pwd:""
+        email: "",
+        pwd: ""
     };
     render() {
         return (
@@ -47,18 +47,21 @@ class SignUp extends React.Component {
                         </form>
                         <form>
                             <input
-                                type="repeat password"
-                                name="repeat_pwd"
+                                type="password"
+                                name="pwd"
                                 placeholder="repeat password..."
                                 required
                             />
                         </form>
                     </div>
                     <div>
-                        <button>SUBMIT</button>
+                        <Link to={"/home"}>
+                            <button>SUBMIT</button>
+                        </Link>
+
                     </div>
                     <div className='back'>
-                      <button>Back to login</button>
+                        <button>Back to login</button>
                     </div>
                 </div>
             </React.Fragment>

@@ -1,5 +1,7 @@
 import React from 'react';
 import './Login.css';
+import { Link } from 'react-router-dom';
+
 class Login extends React.Component {
     state = {
         username: "",
@@ -32,7 +34,10 @@ class Login extends React.Component {
                         </form>
                     </div>
                     <div>
-                        <button>LOGIN</button>
+                        <Link to={"/home"}>
+                            <button>LOGIN</button>
+                        </Link>
+
                     </div>
                 </div>
             </React.Fragment>
