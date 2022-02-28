@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  fronend:
+  frontend:
     build:
-      context: .
-      dockerfile: "Dockerfile"
+      context: ..
+      dockerfile: "docker/Dockerfile"
     container_name: frontend-csc309-team
     restart: unless-stopped
     ports:
