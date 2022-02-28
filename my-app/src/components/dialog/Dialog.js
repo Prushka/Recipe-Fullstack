@@ -26,7 +26,7 @@ export default function Dialog({
                         {title}
                     </span>
                             <span className={'modal--close'}>
-                        <IoClose style={{cursor: 'pointer'}} onClick={onClose} size={50}/>
+                        <IoClose className={'button-icon'} onClick={onClose} size={50}/>
                     </span>
                         </modal-header>
                         <modal-content>

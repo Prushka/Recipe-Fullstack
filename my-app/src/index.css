@@ -66,6 +66,10 @@ right-pane {
 
 }
 
+.focus--shadow {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
+}
+
 @media (max-width: 900px) {
     spaced-horizontal-preferred {
         flex-direction: column;

@@ -9,12 +9,14 @@ import UploadRecipe from "./components/UploadRecipe";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
+import {Snackbar} from "./components/snack/Snackbar";
 
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const PageComponent = ({path, children}) => {
         return (<>
+            <Snackbar />
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>
