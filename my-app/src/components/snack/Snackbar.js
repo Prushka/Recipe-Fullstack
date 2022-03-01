@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './Snackbar.css';
 import {IoClose} from "react-icons/io5";
-import {useCallback, useContext, useState} from "react";
-import {GlobalSnackBars, SnackbarContext} from "../../App";
+import {useContext} from "react";
+import {SnackbarContext} from "../../App";
 
 
 class SnackbarProperties {
@@ -24,19 +24,52 @@ class SnackbarProperties {
         }
     }
 }
+const sbs = [new SnackbarProperties({id: 1, text: "test 1", timeout: 9000}),
+    new SnackbarProperties({id: 2, text: "test 2", timeout: 8000, type: "success"}),
+    new SnackbarProperties({id: 3, text: "test 3", timeout: 7000, type: "error"}),
+    new SnackbarProperties({
+        id: 4,
+        text: "test 4",
+        timeout: 6000,
+        type: "success",
+        position: "bottom-right"
+    }),
+    new SnackbarProperties({id: 5, text: "test 5", timeout: 5000, type: "success", position: "top-right"}),
+    new SnackbarProperties({id: 6, text: "test 6", timeout: 4000, type: "success", position: "top-right"}),
+    new SnackbarProperties({
+        id: 7,
+        text: "test 7",
+        timeout: 3000,
+        type: "success",
+        position: "bottom-middle"
+    }),
+    new SnackbarProperties({
+        id: 8,
+        text: "test 8",
+        timeout: 2000,
+        type: "success",
+        position: "bottom-middle"
+    })]
 
-
-
-export {SnackbarProperties}
+let GlobalSnackbars = [...sbs]
+const addSnackbar= (snackbar)=>{
+    GlobalSnackbars.push(snackbar)
+}
+const removeSnackbar = (id)=>{
+    GlobalSnackbars = GlobalSnackbars.filter((sb) => {
+        return sb.id !== id
+    })
+}
+export {SnackbarProperties, addSnackbar, removeSnackbar}
 
 export function SnackBarManager() {
     const snackbarsContext = useContext(SnackbarContext)
     const removeSnackbar = snackbarsContext.removeSnackbar
     return (
-        GlobalSnackBars.map((snackbar) => {
+        GlobalSnackbars.map((snackbar) => {
             return (
                 <Snackbar key={snackbar.id} snackbar={snackbar} id={snackbar.id}
-                          removeSnackbar={removeSnackbar} snackbars={GlobalSnackBars}/>
+                          removeSnackbar={removeSnackbar} snackbars={GlobalSnackbars}/>
             )
         })
     );
