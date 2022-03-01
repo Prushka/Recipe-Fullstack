@@ -9,18 +9,59 @@ import UploadRecipe from "./components/UploadRecipe";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
-import {SnackBarManager} from "./components/snack/Snackbar";
+import {SnackBarManager, SnackbarProperties} from "./components/snack/Snackbar";
 
-
-const SnackbarContext = React.createContext(SnackBarManager);
+const sbs = [new SnackbarProperties({id: 1, text: "test 1", timeout: 9000}),
+    new SnackbarProperties({id: 2, text: "test 2", timeout: 8000, type: "success"}),
+    new SnackbarProperties({id: 3, text: "test 3", timeout: 7000, type: "error"}),
+    new SnackbarProperties({
+        id: 4,
+        text: "test 4",
+        timeout: 6000,
+        type: "success",
+        position: "bottom-right"
+    }),
+    new SnackbarProperties({id: 5, text: "test 5", timeout: 5000, type: "success", position: "top-right"}),
+    new SnackbarProperties({id: 6, text: "test 6", timeout: 4000, type: "success", position: "top-right"}),
+    new SnackbarProperties({
+        id: 7,
+        text: "test 7",
+        timeout: 3000,
+        type: "success",
+        position: "bottom-middle"
+    }),
+    new SnackbarProperties({
+        id: 8,
+        text: "test 8",
+        timeout: 2000,
+        type: "success",
+        position: "bottom-middle"
+    })]
+const SnackbarContext = React.createContext({
+    snackbars: sbs, removeSnackbar: (id) => {
+    }
+});
 
 export {SnackbarContext}
 
+
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
+    const [snackbars, setSnackbars] = useState({
+        snackbars: sbs, removeSnackbar: (id) => {
+            console.log("removing " + id)
+            console.log(snackbars)
+            setSnackbars({
+                snackbars: snackbars.snackbars.filter((sb) => sb.id !== id),
+                removeSnackbar: snackbars.removeSnackbar
+            })
+        }
+    });
     const PageComponent = ({path, children}) => {
         return (<>
-            <SnackBarManager />
+            <SnackbarContext.Provider value={snackbars}>
+                <SnackBarManager/>
+            </SnackbarContext.Provider>
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>
