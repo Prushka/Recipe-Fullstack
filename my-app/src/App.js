@@ -23,20 +23,10 @@ export {SnackbarContext}
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
-    const [snackbars, setSnackbars] = useState({
-        ids: 0, removeSnackbar: (id) => {
-            removeSnackbar(id)
-            setAddState(snackbars, snackbars.ids + 1, snackbars, setSnackbars)
-        },
-        addSnackbar: (snackbar) => {
-            addSnackbar(snackbar)
-            setAddState(snackbars, snackbars.ids + 1, snackbars, setSnackbars)
-        }
-    });
+
     const PageComponent = ({path, children}) => {
         return (<>
-            <SnackbarContext.Provider value={snackbars}>
-                <SnackBarManager/>
+            <SnackBarManager/>
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>
@@ -44,7 +34,6 @@ export default function App() {
                          userIsAdmin={true}/>
                 <right-pane>{children}</right-pane>
             </div>
-            </SnackbarContext.Provider>
         </>)
     }
     return (<>
