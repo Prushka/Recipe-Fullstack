@@ -24,7 +24,6 @@ td {
 
 th {
     font-weight: 700;
-    cursor: pointer;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -44,10 +43,13 @@ tbody {
 }
 
 .grid--clickable {
+    cursor: pointer;
+}
+
+.grid--td-clickable {
     color: var(--theme-1);
     font-weight: 700;
     text-decoration: underline;
-    cursor: pointer;
 }
 
 .grid--avatar-container {
@@ -66,7 +68,7 @@ grid-search-bar {
     margin-bottom: 10px;
 }
 
-.grid-header-group{
+.grid-header-group {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -74,13 +76,13 @@ grid-search-bar {
     align-items: center;
 }
 
-.grid-header-icon{
+.grid-header-icon {
     width: 18px;
     height: 18px;
     margin-right: 5px;
 }
 
-.grid-header-sorting{
+.grid-header-sorting {
     color: var(--theme-red);
 }
 

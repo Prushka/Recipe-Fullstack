@@ -30,7 +30,7 @@ export default function GridRow({
             {
                 values.map((value, index) => {
                     const CTag = isHeader ? `th` : `td`;
-                    const cellClass = clickableHeader.includes(headers[index]) ? 'grid--clickable' : ''
+                    const cellClass = isHeader ? `grid--clickable` : clickableHeader.includes(headers[index]) ? `grid--clickable grid--td-clickable` : ''
                     let child = value
                     // TODO: use checkbox for boolean
                     images.forEach((image) => {
@@ -51,7 +51,7 @@ export default function GridRow({
                             icon = <BiSortAlt2 className={'grid-header-icon'}/>
                         }
                     }
-                    return (<CTag className={`${cellClass} ${child !== value && 'grid--avatar-container'}`}
+                    return (<CTag className={`${child !== value && 'grid--avatar-container'}`}
                                   onClick={() => {
                                       if (sortValues && isHeader) {
                                           let newValue = sortValues[value] < 2 ? sortValues[value] + 1 : 0
@@ -69,7 +69,7 @@ export default function GridRow({
                                   key={`${id}_${index}`}>
                         <div className={`grid-header-group ${isSorting ? 'grid-header-sorting' : ''}`}>
                             {icon}
-                            {child}
+                            <span className={cellClass}>{child}</span>
                         </div>
                     </CTag>)
                 })
