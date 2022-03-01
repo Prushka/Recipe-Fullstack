@@ -11,6 +11,13 @@ import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/
 import TopBar from "./pages/TopBar";
 import {SnackBarManager, SnackbarProperties} from "./components/snack/Snackbar";
 
+
+const SnackbarContext = React.createContext({
+    ids: 0, removeSnackbar: (id) => {
+    }
+});
+
+export {SnackbarContext}
 const sbs = [new SnackbarProperties({id: 1, text: "test 1", timeout: 9000}),
     new SnackbarProperties({id: 2, text: "test 2", timeout: 8000, type: "success"}),
     new SnackbarProperties({id: 3, text: "test 3", timeout: 7000, type: "error"}),
@@ -37,23 +44,21 @@ const sbs = [new SnackbarProperties({id: 1, text: "test 1", timeout: 9000}),
         type: "success",
         position: "bottom-middle"
     })]
-const SnackbarContext = React.createContext({
-    snackbars: sbs, removeSnackbar: (id) => {
-    }
-});
+let GlobalSnackBars = [...sbs]
 
-export {SnackbarContext}
-
+export {GlobalSnackBars}
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const [snackbars, setSnackbars] = useState({
-        snackbars: sbs, removeSnackbar: (id) => {
-            console.log("removing " + id)
-            console.log(snackbars)
+        snackbars: 0, removeSnackbar: (id) => {
             setSnackbars({
-                snackbars: snackbars.snackbars.filter((sb) => sb.id !== id),
+                snackbars: snackbars.ids+1,
                 removeSnackbar: snackbars.removeSnackbar
+            })
+            GlobalSnackBars = GlobalSnackBars.filter((sb) => {
+                console.log(sb.id)
+                return sb.id !== id
             })
         }
     });
