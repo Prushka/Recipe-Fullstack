@@ -21,7 +21,7 @@ class SignUp extends React.Component {
                     <div>
                         <h1>Sign-Up</h1>
                     </div>
-                    <div className="login_box">
+                    <div className="form-inputs">
                         <form>
                             <input
                                 type="username"

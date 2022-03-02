@@ -15,7 +15,7 @@ class Login extends React.Component {
                         <p>Recipe...</p>
                     </div>
                     <div><h1>Log-in</h1></div>
-                    <div className="login_box">
+                    <div className="form-inputs">
                         <form>
                             <input
                                 type="username"
