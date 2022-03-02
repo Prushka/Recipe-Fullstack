@@ -8,7 +8,8 @@ class SignUp extends React.Component {
     state = {
         username: "",
         email: "",
-        pwd: ""
+        pwd: "",
+        pwdConfirmation: ""
     };
     render() {
         return (
@@ -48,7 +49,7 @@ class SignUp extends React.Component {
                         <form>
                             <input
                                 type="password"
-                                name="pwd"
+                                name="pwdConfirmation"
                                 placeholder="repeat password..."
                                 required
                             />
@@ -61,7 +62,10 @@ class SignUp extends React.Component {
 
                     </div>
                     <div className='back'>
-                        <button>Back to login</button>
+                        <Link to={"/login"} style={{ textDecoration: 'none' }}>
+                            <button>Back to login</button>
+                        </Link>
+
                     </div>
                 </div>
             </React.Fragment>
@@ -71,4 +75,3 @@ class SignUp extends React.Component {
 
 export default SignUp;
 
-// passwords validation

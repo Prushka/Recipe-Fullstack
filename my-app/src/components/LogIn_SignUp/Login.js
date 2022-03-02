@@ -46,3 +46,8 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+
+// check if user name exist
+
+// check passwords
