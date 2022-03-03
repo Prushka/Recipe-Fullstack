@@ -6,14 +6,15 @@ import useForm from './useForm';
 import validate from './ValidateInfoCheck';
 
 
-class SignUp extends React.Component {
-    state = {
+const SignUp =()=> {
+    const { handleChange,handelSubmit,values,errors}=useForm(validate);
+    /*state = {
         username: "",
         email: "",
         pwd: "",
         pwdConfirmation: ""
-    };
-    render() {
+    };*/
+    //render() {
         return (
             <React.Fragment>
                 <div className="login">
@@ -24,7 +25,7 @@ class SignUp extends React.Component {
                         <h1>Sign-Up</h1>
                     </div>
                     <div className="form-inputs">
-                        <form>
+                        <form className='form' onSubmit={handelSubmit}>
                             <input
                                 type="username"
                                 name="username"
@@ -43,6 +44,7 @@ class SignUp extends React.Component {
                                 value={values.email}
                                 onChange={handleChange}
                             />
+                            {errors.username &&<p>{errors.username}</p>}
                         </form>
                         <form>
                             <input
@@ -57,8 +59,8 @@ class SignUp extends React.Component {
                         <form>
                             <input
                                 type="password"
-                                name="pwdConfirmation"
-                                placeholder="repeat password..."
+                                name="pwd2"
+                                placeholder="comfirm password..."
                                 required
                                 value={values.pwd2}
                                 onChange={handleChange}
@@ -67,7 +69,7 @@ class SignUp extends React.Component {
                     </div>
                     <div>
                         <Link to={"/home"}>
-                            <button>SUBMIT</button>
+                            <button >SUBMIT</button>
                         </Link>
 
                     </div>
@@ -75,13 +77,13 @@ class SignUp extends React.Component {
                         <Link to={"/login"} style={{ textDecoration: 'none' }}>
                             <button>Back to login</button>
                         </Link>
-
+                        
                     </div>
                 </div>
             </React.Fragment>
         );
     }
-}
+//}
 
 export default SignUp;
 
