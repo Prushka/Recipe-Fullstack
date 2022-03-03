@@ -2,6 +2,8 @@ import React from 'react';
 import './Login.css';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
+import useForm from './useForm';
+import validate from './ValidateInfoCheck';
 
 
 class SignUp extends React.Component {
@@ -28,6 +30,8 @@ class SignUp extends React.Component {
                                 name="username"
                                 placeholder="username..."
                                 required
+                                value={values.username}
+                                onChange={handleChange}
                             />
                         </form>
                         <form>
@@ -36,6 +40,8 @@ class SignUp extends React.Component {
                                 name="email"
                                 placeholder="email..."
                                 required
+                                value={values.email}
+                                onChange={handleChange}
                             />
                         </form>
                         <form>
@@ -44,6 +50,8 @@ class SignUp extends React.Component {
                                 name="pwd"
                                 placeholder="password..."
                                 required
+                                value={values.pwd}
+                                onChange={handleChange}
                             />
                         </form>
                         <form>
@@ -52,6 +60,8 @@ class SignUp extends React.Component {
                                 name="pwdConfirmation"
                                 placeholder="repeat password..."
                                 required
+                                value={values.pwd2}
+                                onChange={handleChange}
                             />
                         </form>
                     </div>
