@@ -1,3 +1,11 @@
+
+/* Adjusting website to fit all types of resolution*/
+.WebContainer{
+  width:100%;
+  min-width:1000px;
+  height: auto;
+}
+
 .back button {
   position: relative;
   width: 200px;
