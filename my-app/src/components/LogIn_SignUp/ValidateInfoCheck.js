@@ -16,6 +16,7 @@ export default function ValidateInfoCheck(values){
         errors.email="Email address is invalid"
     }
     
+
     //error check for password
     if(!values.pwd){
         errors.pwd="Password is requried";

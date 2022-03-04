@@ -5,6 +5,10 @@
   min-width:1000px;
   height: auto;
 }
+.signup{
+    position: fixed;
+    width: 100%;
+}
 
 .back button {
   position: relative;
