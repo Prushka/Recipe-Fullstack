@@ -65,6 +65,7 @@ const SignUp =()=> {
                                 value={values.pwd2}
                                 onChange={handleChange}
                             />
+                        {errors.pwd2 && <p>{errors.pwd2}</p>}
                         </form>
                     </div>
                     <div>

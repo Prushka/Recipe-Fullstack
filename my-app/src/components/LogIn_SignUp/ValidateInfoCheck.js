@@ -3,7 +3,7 @@
 export default function ValidateInfoCheck(values){
     let errors={};
 
-    if(!values.username.trim()){}{
+    if(!values.username.trim()){
         errors.username= "Username required"
     }
 
@@ -26,7 +26,7 @@ export default function ValidateInfoCheck(values){
     //passwprd re-type check
     if (!values.pwd2){
         errors.pwd2 = "Repeat the password is required";
-    }else if(values.pwd != values.pwd2){
+    }else if(values.pwd !== values.pwd2){
         errors.pwd2="Password not match";
     }
 
