@@ -14,27 +14,27 @@ export default function Dialog({
     return (
         <div>
             {
-                open ? <div className={'dialog-modal'} onMouseDown={onClose}>
+                open ? <div className={'dialog'} onMouseDown={onClose}>
                     <div onMouseDown={(e) => {
                         e.stopPropagation();
-                    }} className={`modal modal--${size}`}
+                    }} className={`dialog__modal dialog__modal--${size}`}
                          style={{
                              ...style
                          }}>
-                        <modal-header>
-                    <span className={'modal--title'}>
+                        <div className={'dialog__modal__header'}>
+                    <span className={'dialog__modal__header__title'}>
                         {title}
                     </span>
-                            <span className={'modal--close'}>
+                            <span className={'dialog__modal__header__close'}>
                         <IoClose className={'button-icon'} onClick={onClose} size={50}/>
                     </span>
-                        </modal-header>
-                        <modal-content>
+                        </div>
+                        <div className={'dialog__modal__content'}>
                             {content}
-                        </modal-content>
-                        <modal-footer>
+                        </div>
+                        <div className={'dialog__modal__footer'}>
                             {footer}
-                        </modal-footer>
+                        </div>
                     </div>
                 </div> : <></>
             }
