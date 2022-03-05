@@ -1,7 +1,7 @@
 const users = [
     {
         "Username": "TestUser1",
-        "Permission": "Guest",
+        "Permission": "User",
         "id": 1,
         "Email": "testuser1@example.com",
         "Uploaded Recipes": 0

@@ -9,24 +9,12 @@ import UploadRecipe from "./components/UploadRecipe";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
-import {addSnackbar, removeSnackbar, SnackBarManager} from "./components/snack/Snackbar";
-import {setAddState} from "./util";
-
-
-const SnackbarContext = React.createContext({
-    ids: 0, removeSnackbar: (id) => {
-    }, addSnackbar: (snackbar) => {
-    }
-});
-
-export {SnackbarContext}
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
 
     const PageComponent = ({path, children}) => {
         return (<>
-            <SnackBarManager/>
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
             <TopBar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>
             <div className={'page-body'}>

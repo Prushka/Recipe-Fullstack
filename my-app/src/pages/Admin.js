@@ -159,7 +159,7 @@ function getUserEditingDialog(data, setData,
                     <TextField defaultValue={editingEntity["Email"]} label={'Email'}/>
                     <TextField defaultValue={editingEntity["Avatar"]} label={'Avatar'}/>
                     <RadioButtonGroup title={'Role/Permission Set'}
-                                      options={['Guest', 'User', 'Admin']}
+                                      options={['User', 'Admin']}
                                       selected={editingEntity["Permission"]}/>
                 </>
             )

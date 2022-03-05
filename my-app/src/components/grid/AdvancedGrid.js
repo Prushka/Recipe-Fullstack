@@ -125,5 +125,3 @@ export default function AdvancedGrid({
         </>
     );
 }
-// <SortFilterBar style={{marginBottom: '20px'}}/>
-// <FiSearch className={'button-icon'} style={{marginTop: "40px", marginLeft: "30px"}} size={'40'}/>
