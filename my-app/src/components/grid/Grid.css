@@ -1,0 +1,93 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
+hr.grid--divider {
+    border: 0;
+    border-top: 2px solid #A8A8A8;
+    display: block;
+}
+
+table {
+    overflow: auto;
+    display: block;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+td {
+    border: 0;
+    border-top: 2px solid #A8A8A8;
+    font-weight: 600;
+}
+
+th {
+    font-weight: 700;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+th, td {
+    color: var(--dgray-text);
+    padding: 14px 19px;
+    font-size: 18px;
+    min-width: 10px;
+}
+
+tbody {
+    width: 100%;
+    display: table;
+}
+
+.grid--clickable {
+    cursor: pointer;
+}
+
+.grid--td-clickable {
+    color: var(--theme-1);
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.grid--avatar-container {
+    padding: 8px 20px;
+}
+
+.grid--avatar {
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+}
+
+grid-search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.grid-header-group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: left;
+    align-items: center;
+}
+
+.grid-header-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.grid-header-sorting {
+    color: var(--theme-red);
+}
+
+@media (max-width: 900px) {
+    th, td {
+        padding: 10px 15px;
+    }
+}

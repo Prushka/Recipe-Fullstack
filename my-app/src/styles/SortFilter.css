@@ -1,0 +1,16 @@
+.sort-filter{
+    display: flex;
+
+}
+
+.sort-filter--button-text{
+    margin-top: 7px;
+    margin-left: 3px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.icon-group{
+    display: flex;
+    margin-right: 25px;
+}

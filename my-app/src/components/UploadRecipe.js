@@ -1,5 +1,4 @@
 import React from 'react'; 
-import Sidebar from './Sidebar.js';
 import '../styles/UploadRecipe.css';
 import {CgClose} from 'react-icons/cg';
 import data from '../data';
@@ -74,7 +73,6 @@ class UploadRecipe extends React.Component {
 
         return (
             <React.Fragment>
-                <Sidebar />
                 <div className='upload-grid-container'>
                     <div className='container-title'><h2>My Recipes</h2></div>
                     <div className="container-input">

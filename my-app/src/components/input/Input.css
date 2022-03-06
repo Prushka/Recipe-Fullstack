@@ -1,0 +1,149 @@
+.button {
+    text-align: center;
+    align-self: center;
+    font-weight: bold;
+    font-size: 19px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 4px;
+    margin: 7px;
+    padding: 15px 26px;
+}
+
+.button span{
+    font-family: Roboto, serif;
+    font-weight: 500;
+}
+
+.button__focus-shadow:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
+}
+
+.button--border {
+    padding: 13px 24px;
+}
+
+.button--red {
+    color: white;
+    background-color: var(--theme-red);
+}
+
+.button--red:hover {
+    background-color: var(--theme-dark-red);
+}
+
+.button--purple {
+    color: white;
+    background-color: var(--theme-purple);
+}
+
+.button--purple:hover {
+    background-color: var(--theme-dark-purple);
+}
+
+.button--border--black {
+    color: var(--theme-1);
+    border: 2px solid var(--theme-gray);
+}
+
+.button--border--black:hover {
+    border: 2px solid var(--theme-dark-gray);
+}
+
+.textfield-section{
+    font-family: Roboto, serif;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    margin: 7px
+}
+
+.textfield-section label{
+}
+
+input[type=text]{
+    width: 100%;
+    padding: 16px 20px 15px 20px;
+    margin: 8px 0;
+    outline: none;
+    display: inline-block;
+    border: 2px solid var(--dgray-text);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+
+input[type=text]:focus {
+    transition: 0.2s all linear;
+    border: 2px solid var(--theme-dark-purple);
+}
+
+input[type=text], input::placeholder{
+    font-size: 15px
+}
+
+@media (max-width: 900px) {
+    .textfield-section{
+        max-width: 40vw;
+    }
+    input[type=text] {
+        padding: 10px 14px 12px 14px;
+        margin: 6px 0;
+    }
+}
+
+
+
+
+
+.radio-section{
+    font-family: Roboto, serif;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 18px 20px;
+    align-items: center;
+    margin: 7px
+}
+
+.radio-section-title{
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+
+.radio-option{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-label{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+
+    border: 2px solid var(--dgray-text);
+    transition: 0.2s all linear;
+    margin-right: 5px;
+
+    position: relative;
+    top: 4px;
+
+    margin-bottom: 10px;
+}
+input[type='radio']:checked {
+    border: 7px solid var(--dgray-text);
+    color: black;
+}
