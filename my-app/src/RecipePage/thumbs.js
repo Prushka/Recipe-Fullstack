@@ -2,6 +2,7 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ReportIcon from '@material-ui/icons/Report';
 import "./RecipeStyle.css"
 
 
@@ -51,6 +52,7 @@ class Thumbs extends React.Component {
       <div className='thumbs'>
           <Button onClick={this.handleUp}><ThumbUpIcon/>{this.state.upCount}</Button>
           <Button onClick={this.handleDown}><ThumbDownIcon/>{this.state.downCount}</Button>
+          <Button size='small'><ReportIcon/>Report</Button>
       </div>
     );  
   }

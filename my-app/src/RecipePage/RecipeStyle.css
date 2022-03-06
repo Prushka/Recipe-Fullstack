@@ -36,11 +36,17 @@ p {
     left: 30%;
 }
 
-.comment {
-    border-bottom: 1px solid black;
-}
-
 .postButton {
     position: relative;
     left: 80%;
+}
+
+.content {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+.report {
+    float: right;
 }

@@ -1,6 +1,7 @@
 import React from 'react'; 
 import "./RecipeStyle.css"
-
+import ReportIcon from '@material-ui/icons/Report';
+import Button from "@material-ui/core/Button";  
 
 
 class Comment extends React.Component {
@@ -14,9 +15,10 @@ class Comment extends React.Component {
     const {comment} = this.props
 
     return (
-        <div className='comment'>
+        <div>
             <h5>{comment.username} :</h5>
-            <p>{comment.content}</p>
+            <span className='content'>{comment.content}</span>
+            <Button size='small' className='report'><ReportIcon/>Report</Button>
         </div>
     );  
   }
