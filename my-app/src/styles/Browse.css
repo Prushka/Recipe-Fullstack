@@ -1,0 +1,27 @@
+.searchButton {
+    position: relative;
+    left: 80%;
+}
+
+.main {
+    overflow: scroll;
+    width: 500px;
+    height: 100%;
+}
+
+.linkFont {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.gap {
+    position: relative;
+    top: 50%;
+}
+
+.search {
+    position: relative;
+    left: 10%;
+    width: 650px;
+}

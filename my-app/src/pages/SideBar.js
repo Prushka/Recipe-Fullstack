@@ -22,8 +22,8 @@ function SideBar(props) {
             </div>
             <div className={'side-bar-top-group'}>
                 <WrappedSideBarButton title='Dashboard' path='/dashboard' icon={<CgHomeAlt/>}/>
-                <WrappedSideBarButton title='My Profile' path='/1' icon={<CgProfile/>}/>
-                <WrappedSideBarButton title='Browse Recipes' path='/2' icon={<CgSearch/>}/>
+                <WrappedSideBarButton title='My Profile' path='/profile' icon={<CgProfile/>}/>
+                <WrappedSideBarButton title='Browse Recipes' path='/browse' icon={<CgSearch/>}/>
                 <WrappedSideBarButton title='Saved Recipes' path='/3' icon={<CgHeart/>}/>
                 <WrappedSideBarButton title='Personal Recipes' path='/personal-recipes' icon={<CgPen/>}/>
                 {props.userIsAdmin && <>
