@@ -85,3 +85,10 @@ input{
 
 }
 
+.error_msg{
+  position: relative;
+  width: 490px;
+  left:400px;
+  margin-top: 20px;
+}
+
