@@ -7,7 +7,8 @@ class Login extends React.Component {
         username: "",
         password: "",
         error: false,
-        valid: false
+        valid: false,
+        adminCheck: false
     };
 
     handleChange(event) {
@@ -27,6 +28,10 @@ class Login extends React.Component {
             {
                 username: "user2",
                 password: "user2"
+            },
+            {
+                username: "admin",
+                password: "admin"
             }
         ];
 
@@ -48,6 +53,13 @@ class Login extends React.Component {
                 console.log("valid input")
                 this.setState({
                     valid: true
+                })
+            }
+
+            if (checkExist.username === "admin") {
+                console.log("Admin login")
+                this.setState({
+                    adminCheck: true
                 })
             }
         }
@@ -92,17 +104,24 @@ class Login extends React.Component {
                         <button>SUBMIT</button>
                         {/* If valid log in*/}
                     </div>
-                    <div>
+                    {/*<div>
                         {this.state.valid ? <Link to={'/home'}><button>LOG-IN</button></Link> : null}
+                    </div>*/}
+                    <div>
+                        {/*if adminCheck == true link to admin page */}
+                        {this.state.valid ? (this.state.adminCheck ? <Link to={'/admin_page'}><button>LOG-IN</button></Link>
+                            : <Link to={'/home'}><button>LOG-IN</button></Link>)
+                            : null}
                     </div>
 
                     {this.state.error ? <div className='error_msg'>username and password unmatch</div> : null}
 
-                    <Link to ={'/signup'}>
+
+                    <Link to={'/signup'}>
                         <div className='link_to_sign_up'>
-                        <u>No account? create an account</u>
+                            <u>No account? create an account</u>
                         </div>
-                        
+
                     </Link>
 
 
