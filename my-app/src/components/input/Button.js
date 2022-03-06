@@ -10,8 +10,7 @@ import {useState} from "react";
 export function RedBGButton(props) {
     return (<Button
         {...props}
-        buttonBackgroundColor={'var(--theme-red)'}
-        buttonHoverBackgroundColor={'var(--theme-dark-red)'}
+        className={'button--red'}
         shadowOnHover={false}
     > {props.children} </Button>);
 }
@@ -20,9 +19,7 @@ export function RedBGButton(props) {
 export function GreyBorderRedButton(props) {
     return (<Button
         {...props}
-        buttonBorderColor={'var(--theme-gray)'}
-        buttonHoverBorderColor={'var(--theme-dark-gray)'}
-        textColor={'var(--theme-1)'}
+        className={'button--border button--border--black'}
         shadowOnHover={false}
     > {props.children} </Button>);
 }
@@ -31,58 +28,26 @@ export function BlueBGButton(props) {
     return (
         <Button
             {...props}
-            buttonBackgroundColor='var(--theme-purple)'
-            buttonHoverBackgroundColor='var(--theme-dark-purple)'
+            className={'button--purple'}
             shadowOnHover={false}
         > {props.children} </Button>
     );
 }
 
-
+// I removed the possibility to custom buttons further since inline-styles aren't allowed according to the handout
+// styles have to be hardcoded to css classes
 export function Button({
-    className, mobileFullWidth=true,
-                           minWidth = '',
-                           textColor = 'white',
-                           buttonBackgroundColor = '',
-                           buttonHoverBackgroundColor = '',
+    mobileFullWidth=true,
+                            className = '',
                            shadowOnHover = true,
-                           buttonBorderColor = '',
-                           buttonHoverBorderColor = '',
                            onHover = () => {
-                           }, onClick = () => {
-    }
-                           , style, children
+                           }, onClick = () => {}
+                           , onMouseLeave = () => {}, style, children
                        }) {
-
-
-    const [buttonBGColor, setButtonBGColor] = useState(buttonBackgroundColor)
-    const [buttonBColor, setButtonBColor] = useState(buttonBorderColor)
-    const [buttonShadow, setButtonShadow] = useState('')
     return (
-        <div className={`button ${buttonShadow} ${mobileFullWidth &&'mobile-full-width'}`} style={{
-            ...style,
-            minWidth: minWidth ? minWidth : 'auto',
-            color: textColor,
-            backgroundColor: buttonBGColor,
-            boxShadow: buttonShadow,
-            padding: (buttonBorderColor || buttonHoverBorderColor) ? '13px 24px' : '15px 26px',
-            border: (buttonBorderColor || buttonHoverBorderColor) ? `2px solid ${buttonBColor}` : ''
-        }}
-             onMouseOver={() => {
-                 setButtonBGColor(buttonHoverBackgroundColor ? buttonHoverBackgroundColor : buttonBackgroundColor)
-                 setButtonBColor(buttonHoverBorderColor ? buttonHoverBorderColor : buttonBorderColor)
-                 if (shadowOnHover) {
-                     setButtonShadow('focus--shadow')
-                 }
-                 onHover()
-             }}
-             onMouseLeave={() => {
-                 setButtonBGColor(buttonBackgroundColor)
-                 setButtonBColor(buttonBorderColor)
-                 if (shadowOnHover) {
-                     setButtonShadow('')
-                 }
-             }}
+        <div className={`button ${mobileFullWidth &&'mobile-full-width'} ${className} ${shadowOnHover ? 'button__focus-shadow' : ''}`} style={{...style}}
+             onMouseOver={onHover}
+             onMouseLeave={onMouseLeave}
              onClick={onClick}>
             <span>{children}</span>
         </div>

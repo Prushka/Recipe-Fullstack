@@ -6,12 +6,48 @@
     cursor: pointer;
     transition-duration: 0.3s;
     border-radius: 4px;
-    margin: 7px
+    margin: 7px;
+    padding: 15px 26px;
 }
 
 .button span{
     font-family: Roboto, serif;
     font-weight: 500;
+}
+
+.button__focus-shadow:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15), 0 17px 50px 0 rgba(0, 0, 0, 0.12);
+}
+
+.button--border {
+    padding: 13px 24px;
+}
+
+.button--red {
+    color: white;
+    background-color: var(--theme-red);
+}
+
+.button--red:hover {
+    background-color: var(--theme-dark-red);
+}
+
+.button--purple {
+    color: white;
+    background-color: var(--theme-purple);
+}
+
+.button--purple:hover {
+    background-color: var(--theme-dark-purple);
+}
+
+.button--border--black {
+    color: var(--theme-1);
+    border: 2px solid var(--theme-gray);
+}
+
+.button--border--black:hover {
+    border: 2px solid var(--theme-dark-gray);
 }
 
 .textfield-section{
