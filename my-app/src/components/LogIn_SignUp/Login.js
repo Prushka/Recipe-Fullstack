@@ -44,10 +44,10 @@ class Login extends React.Component {
                 this.setState({
                     error: true
                 })
-            }else{
+            } else {
                 console.log("valid input")
                 this.setState({
-                    valid:true
+                    valid: true
                 })
             }
         }
@@ -89,15 +89,21 @@ class Login extends React.Component {
                         </form>
                     </div>
                     <div onClick={event => this.handelClick(event)}>
-                        <button>submit
-</button>
+                        <button>SUBMIT</button>
                         {/* If valid log in*/}
                     </div>
                     <div>
-                        {this.state.valid ? <Link to={'/home'}><button>LOG-IN</button></Link>: null}
+                        {this.state.valid ? <Link to={'/home'}><button>LOG-IN</button></Link> : null}
                     </div>
 
                     {this.state.error ? <div className='error_msg'>username and password unmatch</div> : null}
+
+                    <Link to ={'/signup'}>
+                        <div className='link_to_sign_up'>
+                        <u>No account? create an account</u>
+                        </div>
+                        
+                    </Link>
 
 
 
