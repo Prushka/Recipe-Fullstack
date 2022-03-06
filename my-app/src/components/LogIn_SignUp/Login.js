@@ -15,6 +15,36 @@ class Login extends React.Component {
         this.setState({[name]:value})
     };
 
+    handelClick = e =>{
+        //hard code database
+        const user_date = [
+            {
+                username:"user1",
+                password:"user1"
+            },
+            {
+                username:"user2",
+                password:"user2"
+            }
+        ];
+
+        //check existence of username
+        const checkExist = user_date.find((user)=>user.username===this.state.username);
+
+        if(!checkExist){
+            console.log("user does not exist")
+            this.setState({
+                error:true
+            })
+        }else{
+            if(checkExist.password !== this.state.password){
+                console.log("wrong password")
+                this.setState({
+                    error:true
+                })
+            }
+        }
+    }
     
 
     render() {
