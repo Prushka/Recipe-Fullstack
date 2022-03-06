@@ -16,7 +16,7 @@ class Result extends React.Component {
       }
       return (
         <div>
-          <Link to={`/recipe/${id}`} >{title}</Link>
+          <Link to={`/recipe/${id}`}><span className='linkFont'>{title}</span></Link>
           <h6>keywords: {improvedTags}</h6>
         </div>
       );  

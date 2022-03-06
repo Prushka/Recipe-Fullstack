@@ -7,3 +7,14 @@
     width: 600px;
     height: 100%;
 }
+
+.linkFont {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.gap {
+    position: relative;
+    top: 50%;
+}

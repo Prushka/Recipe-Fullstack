@@ -57,6 +57,7 @@ class BrowseRecipe extends React.Component {
                 <Sidebar/>
                 <div className='main'>
                     <SearchBar name='keywords' keywords={this.state.keywords} handleChange={this.handleChange} search={this.search} />
+                    <p className='gap'></p>
                     {
                         this.state.noResult ?
                         <div>
