@@ -21,17 +21,15 @@
 .profile_pic {
     border: 2px solid black;
     border-radius: 50%;
-    background-size: cover; 
     width: 100px;
     height: 100px;
-    background-image: url("../components/food.jpg");
 }
 
 .text1 {
     position: absolute;
     left: 92%;
     width: 200px;
-    transform: translate(-50%, 500%);
+    transform: translate(-50%, -100%);
 }
 
 .input {
@@ -84,6 +82,12 @@
 
 .choose {
     position: absolute;
-    top: 110%;
+    top: 70%;
+    left: 130%;
+}
+
+.updatePic {
+    position: absolute;
+    top: 100%;
     left: 130%;
 }

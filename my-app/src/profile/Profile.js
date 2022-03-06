@@ -2,23 +2,31 @@ import React from 'react';
 import Sidebar from '../components/Sidebar.js'
 import My_text from './my_text.js';
 import Type from './type.js';
-import "./profile_style.css"
+import "./profile_style.css";
+import food from "../components/food.jpg"
 
 class Profile extends React.Component {
-  state = {
-    username: "hello",
-    gender: "other",
-    email: "abcdefh@gmail.com",
-    bday: "31/01/2010",
-    type: "omnivore",
-    avatar: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "hello",
+      gender: "other",
+      email: "abcdefh@gmail.com",
+      bday: "31/01/2010",
+      type: "omnivore",
+      avatar: null
+    };
+    this.onImageChange = this.onImageChange.bind(this);
+  }
+  
 
-  handleInputChange = event => {
-    const target = event.target;
-    this.setState({
-      [target.name]: target.value 
-    });
+  onImageChange = event => {
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      this.setState({
+        avatar: URL.createObjectURL(img)
+      });
+    }
   };
 
   handle_vegan = () => {
@@ -39,10 +47,6 @@ class Profile extends React.Component {
     })
   }
 
-  selectHandler = event => {
-    this.setState({avatar: event.target.files[0]})
-  }
-
   render() {
     return (
       <>
@@ -51,9 +55,11 @@ class Profile extends React.Component {
         </div>
 
         <div className='account'>
-          <div className='profile_pic center'>
+          <div className='center'>
+            {this.state.avatar? <img src={this.state.avatar} className='profile_pic'/> :<img src={food} className='profile_pic'/>}
             <h4 className='text1'>Profile Picture</h4>
-            <input type='file' onChange={this.selectHandler} className='choose center'/>
+            <input type='file' onChange={this.onImageChange} className='choose center'/>
+            <button type='submit' className='updatePic'>Update</button>
           </div>
 
           <div className='username'>
