@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/Dashboard.css';
+import {Button} from '../input/Button';
 import {CgHeart} from 'react-icons/cg';
 
 class DashboardTopRecipes extends React.Component {
@@ -48,7 +49,10 @@ class DashboardTopRecipeItem extends React.Component {
             <div className='top-recipes-item'>
                 <img src={this.props.recipe.img} alt={this.props.recipe.recipeName}></img>
                 <p>{this.props.recipe.recipeName}</p>
-                <p><CgHeart/> {this.props.recipe.likes} <button>Explore</button></p>
+                <div className='top-recipes-button-container'>
+                    <CgHeart/> {this.props.recipe.likes} 
+                    <Button className='button-explore-recipe'>Explore</Button>
+                </div>
             </div>
         )
     }

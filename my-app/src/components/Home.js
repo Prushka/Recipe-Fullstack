@@ -2,6 +2,7 @@ import React from 'react';
 import logo from "../resources/logo.jpg";
 import '../styles/Home.css';
 import {Link} from 'react-router-dom';
+import {BlueBGButton} from './input/Button';
 
 class Home extends React.Component {
     render() {
@@ -10,8 +11,8 @@ class Home extends React.Component {
                 <div className='navbar'>
                     <img src={logo} alt='logo'></img>
                     <div className='navbar-buttons'>
-                        <Link to={'/login'}><button>Log In</button></Link>
-                        <Link to={'/signup'}><button>Sign Up</button></Link>
+                        <Link to={'/login'}><BlueBGButton>Log In</BlueBGButton></Link>
+                        <Link to={'/signup'}><BlueBGButton>Sign Up</BlueBGButton></Link>
                     </div>
                 </div>
                 <div className='home-content'>

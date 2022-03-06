@@ -132,6 +132,11 @@
     border-radius: 29px;
 }
 
+.top-recipes-button-container {
+    display: inline-flex;
+    align-items: center;
+}
+
 /* User Stats Section Styles */
 
 .dashboard-user-stat-container {

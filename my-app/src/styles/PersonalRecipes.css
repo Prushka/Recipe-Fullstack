@@ -1,7 +1,7 @@
 .upload-grid-container {
     position: relative;
     float: right;
-    width: 80%;
+    width: 100%;
     height: 100vh;
 }
 
@@ -11,6 +11,8 @@
 
 .container-input {
     padding: 20px;
+    display: inline-flex;
+    gap: 20px;
 }
 
 .container-input input {
@@ -221,11 +223,11 @@ border: 3px none #ffffff;
 }
 
 .add-recipe-modal-form {
-    padding: 20px 20px 20px 0px;
+    padding: 20px 20px 0px 0px;
 }
 
 .add-recipe-modal-form input[type=text], textarea {
-    height: 2vh;
+    height: 3vh;
     padding: 5px;
     font-size: 16px;
     border-width: 2px;
@@ -252,13 +254,15 @@ border: 3px none #ffffff;
 }
 
 .ingredients-list {
+    width: 30vw;
     max-height: 15vh;
     overflow-y: scroll;
+    margin-top: 20px;
 }
 
 .instructions textarea  {
     vertical-align: top;
-    height: 30vh;
+    height: 20vh;
     width: 20vw;
     resize: none;
     margin-top: 20px;
@@ -272,7 +276,9 @@ border: 3px none #ffffff;
 .tag-input {
     height: fit-content;
     width: 25vw;
-    padding: 5px;
+    height: calc(100% - 5px);
+    padding: 2px;
+    align-items: center;
     margin-left: 5px;
     gap: 0.25vw;
     display: flex;
@@ -302,7 +308,7 @@ border: 3px none #ffffff;
     white-space: nowrap; 
     display: inline-flex;
     padding: 2px 5px;
-    background-color: lightgray;
+    background-color: lightseagreen;
     border-radius: 3px;
     font-size: 1vw;
 }
@@ -312,8 +318,8 @@ border: 3px none #ffffff;
     margin-left: 5px;
     padding: 0;
     width: 1vw;
-    height: 100%;
-    background-color: darkgray;
+    height: 2vh;
+    background-color: black;
     color: white;
     font-size: 10px;
     font-weight: bold;
@@ -329,6 +335,10 @@ border: 3px none #ffffff;
 
 .recipe-name input {
     width: 25vw;
+}
+
+.ingredients {
+    display: inline-flex;
 }
 
 .ingredients input {
@@ -359,5 +369,15 @@ border: 3px none #ffffff;
 }
 
 .diet-label {
-    font-size: 1vw;
+    font-size: 15px;
+}
+
+.diet input[type='radio'] {
+    width: 15px;
+    height: 15px;
+}
+
+.diet input[type='radio']:checked {
+    width: 15px;
+    height: 15px;
 }

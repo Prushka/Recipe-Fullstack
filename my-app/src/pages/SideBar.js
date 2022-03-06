@@ -21,11 +21,11 @@ function SideBar(props) {
                 <img src={food} alt='Food'/>
             </div>
             <div className={'side-bar-top-group'}>
-                <WrappedSideBarButton title='Dashboard' path='/' icon={<CgHomeAlt/>}/>
+                <WrappedSideBarButton title='Dashboard' path='/dashboard' icon={<CgHomeAlt/>}/>
                 <WrappedSideBarButton title='My Profile' path='/1' icon={<CgProfile/>}/>
                 <WrappedSideBarButton title='Browse Recipes' path='/2' icon={<CgSearch/>}/>
                 <WrappedSideBarButton title='Saved Recipes' path='/3' icon={<CgHeart/>}/>
-                <WrappedSideBarButton title='Uploaded Recipes' path='/4' icon={<CgPen/>}/>
+                <WrappedSideBarButton title='Personal Recipes' path='/personal-recipes' icon={<CgPen/>}/>
                 {props.userIsAdmin && <>
                     <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
                     <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>
