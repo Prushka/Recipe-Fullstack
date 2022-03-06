@@ -15,7 +15,7 @@ class Result extends React.Component {
         improvedTags[i] = improvedTags[i] + ', '
       }
       return (
-        <div>
+        <div className='search'>
           <Link to={`/recipe/${id}`}><span className='linkFont'>{title}</span></Link>
           <h6>keywords: {improvedTags}</h6>
         </div>

@@ -11,8 +11,9 @@
 }
 
 .account {
+    overflow: scroll;
     position: absolute;
-    top: 10%;
+    top: 5%;
     left: 25%;
     width: 600px;
     height: 100%;

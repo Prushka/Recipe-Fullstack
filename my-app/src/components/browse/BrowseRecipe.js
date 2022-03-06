@@ -53,22 +53,19 @@ class BrowseRecipe extends React.Component {
 
     render() {
         return (
-           <div>
-                <SideBar/>
-                <div className='main'>
-                    <SearchBar name='keywords' keywords={this.state.keywords} handleChange={this.handleChange} search={this.search} />
-                    <p className='gap'></p>
-                    {
-                        this.state.noResult ?
-                        <div>
-                            <h3>Sorry, Your search did not match any documents.</h3>
-                            <h3>Suggestions: Make sure that all words are spelled correctly. Try different keywords.</h3>
-                        </div>                        
-                        : this.state.results.map(r => (<Result id={r.id} title={r.recipeName} tags={r.tags} />))
-                    }
-                    
-                </div>
-           </div> 
+            <div className='main'>
+                <SearchBar name='keywords' keywords={this.state.keywords} handleChange={this.handleChange} search={this.search} />
+                <p className='gap'></p>
+                {
+                    this.state.noResult ?
+                    <div>
+                        <h3>Sorry, Your search did not match any documents.</h3>
+                        <h3>Suggestions: Make sure that all words are spelled correctly. Try different keywords.</h3>
+                    </div>                        
+                    : this.state.results.map(r => (<Result id={r.id} title={r.recipeName} tags={r.tags} />))
+                }
+                
+            </div>
         );  
     }
 }

@@ -53,17 +53,19 @@ class RecipePage1 extends React.Component {
 
     return (
       <div className='main'>
-        <h1 className='title'>{this.state.title}</h1>
-        <h5>Author: {this.state.author}</h5>
-        <h5>Keywords: {this.state.keywords}</h5>
-        <img src={veganFood} className='image' />
-        <h4 className='subtitle'>Ingredient:</h4>
-        <p>{this.state.ingredient}</p>
-        <h4 className='subtitle'>Instruction:</h4>
-        {paragraphs.map(par => <p>{par}</p>)}      
-        <Thumbs/>
-        <CommentSection user={this.state.currentUser} comments={this.state.comments} 
-          newContent={this.state.newContent} handleChange={this.handleChange} addComment={this.addComment}/>
+        <div className='inner'>
+          <h1 className='title'>{this.state.title}</h1>
+          <h5>Author: {this.state.author}</h5>
+          <h5>Keywords: {this.state.keywords}</h5>
+          <img src={veganFood} className='image' />
+          <h4 className='subtitle'>Ingredient:</h4>
+          <p>{this.state.ingredient}</p>
+          <h4 className='subtitle'>Instruction:</h4>
+          {paragraphs.map(par => <p>{par}</p>)}      
+          <Thumbs/>
+          <CommentSection user={this.state.currentUser} comments={this.state.comments} 
+            newContent={this.state.newContent} handleChange={this.handleChange} addComment={this.addComment}/>
+        </div>
       </div>
     );  
   }

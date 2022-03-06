@@ -12,7 +12,7 @@ class SearchBar extends React.Component {
     render() {
       const {keywords, handleChange, name, search} = this.props;  
       return (
-        <div>
+        <div className='search'>
             <TextField fullWidth name={name} variant='outlined' value={keywords} label='Enter Categories' onChange={handleChange} margin='normal' />
             <Button variant="contained" color='primary' onClick={search} className='searchButton' ><SearchIcon/>Search</Button>
         </div>

@@ -6,6 +6,11 @@
 
 .main {
     position: absolute;
+    width: 100%;
+}
+
+.inner {
+    position: relative;
     left: 30%;
     width: 600px;
 }

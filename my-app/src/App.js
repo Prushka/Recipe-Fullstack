@@ -3,8 +3,8 @@ import './index.css';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Profile from "./components/Profile";
-import BrowseRecipe from "./components/BrowseRecipe";
+import Profile from "./components/profile/Profile";
+import BrowseRecipe from "./components/browse/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe";
 import PersonalRecipes from "./components/PersonalRecipes";
 import SideBar from "./pages/SideBar";
@@ -35,8 +35,10 @@ export default function App() {
                     <Route path={'/'} element={<Home/>}></Route>
                     <Route path={"dashboard"}
                            element={<PageComponent path={"/dashboard"}><Dashboard/></PageComponent>}/>
-                    <Route path="profile" element={<Profile/>}/>
-                    <Route path="browse" element={<BrowseRecipe/>}/>
+                    <Route path={"profile"}
+                           element={<PageComponent path={"/profile"}><Profile/></PageComponent>}/>
+                    <Route path={"browse"}
+                           element={<PageComponent path={"/browse"}><BrowseRecipe/></PageComponent>}/>
                     <Route path="saved" element={<SavedRecipe/>}/>
                     <Route path="personal-recipes" 
                            element={<PageComponent path={"/personal-recipes"}><PersonalRecipes/></PageComponent>}/>
