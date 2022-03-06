@@ -17,7 +17,7 @@ function SideBar(props) {
         <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} onClick={(e) => {
             e.stopPropagation();
         }}>
-            <div className={'side-bar-img-group'}>
+            <div className={'side-bar__img-group'}>
                 <img src={food} alt='Food'/>
             </div>
             <div className={'side-bar-top-group'}>
@@ -33,7 +33,7 @@ function SideBar(props) {
                 </>
                 }
             </div>
-            <div className={'side-bar-bottom-group'}>
+            <div className={'side-bar__bottom-group'}>
                 <WrappedSideBarButton title='Log-out' path='/logout' icon={<CgLogOut/>}/>
             </div>
         </div>
