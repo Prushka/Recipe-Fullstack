@@ -1,5 +1,5 @@
 //error handling ref: https://github.com/briancodex/react-form-v1
-
+//this part coul
 export default function ValidateInfoCheck(values){
     let errors={};
 
@@ -20,9 +20,8 @@ export default function ValidateInfoCheck(values){
     //error check for password
     if(!values.pwd){
         errors.pwd="Password is requried";
-    }else if (values.password.length<6){
-        errors.pwd="Password need at least 6 characters";
     }
+    
 
     //passwprd re-type check
     if (!values.pwd2){

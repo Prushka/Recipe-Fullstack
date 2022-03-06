@@ -8,13 +8,7 @@ import validate from './ValidateInfoCheck';
 
 const SignUp = () => {
     const { handleChange, handelSubmit, values, errors } = useForm(validate);
-    /*state = {
-        username: "",
-        email: "",
-        pwd: "",
-        pwdConfirmation: ""
-    };*/
-    //render() {
+
     return (
         <React.Fragment>
             <div className="login">

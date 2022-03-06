@@ -1,4 +1,6 @@
-import { useState,useEffect} from "react";
+/* custom hook interaction */
+
+import { useState} from "react";
 
 const useForm = validate =>{
     const[values,setValues]=useState({
@@ -17,7 +19,7 @@ const useForm = validate =>{
         const{name,value}=e.target
         setValues({
             ...values,
-            [name]:value
+            [name]: value
         });
     };
 
@@ -27,6 +29,7 @@ const useForm = validate =>{
 
         setErrors(validate(values));
     };
+
     return {handleChange,values,handleSubmit,errors};
 };
 
