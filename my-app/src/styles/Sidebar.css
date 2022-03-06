@@ -5,6 +5,10 @@
   background-color: #EB7777;
 }
 
+.link_text{
+  text-decoration: none !important;
+}
+
 .sidebar button {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -34,4 +38,9 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.big_text {
+  font-size: 15px;
+  font-weight: bold;
 }

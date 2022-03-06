@@ -1,0 +1,9 @@
+.searchButton {
+    position: relative;
+    left: 80%;
+}
+
+.main {
+    width: 600px;
+    height: 100%;
+}

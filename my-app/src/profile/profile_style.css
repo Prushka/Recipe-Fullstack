@@ -1,0 +1,89 @@
+.side {
+    float: left;
+    height: 100%;
+    width: 30%;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+
+}
+
+.account {
+    position: absolute;
+    top: 10%;
+    left: 25%;
+    width: 600px;
+    height: 100%;
+}
+
+.profile_pic {
+    border: 2px solid black;
+    border-radius: 50%;
+    background-size: cover; 
+    width: 100px;
+    height: 100px;
+    background-image: url("../components/food.jpg");
+}
+
+.text1 {
+    position: absolute;
+    left: 92%;
+    width: 200px;
+    transform: translate(-50%, 500%);
+}
+
+.input {
+    width: 300px;
+}
+
+.button1 {
+    position: absolute;
+    left: 200px;
+}
+
+.text2 {
+    text-decoration: underline;
+}
+
+.username {
+    position: absolute;
+    width: 600px;
+    top:25%;
+    left: 10%;
+}
+
+.gender {
+    position: absolute;
+    width: 600px;
+    top:40%;
+    left: 10%;
+}
+
+.email {
+    position: absolute;
+    width: 600px;
+    top:55%;
+    left: 10%;
+}
+
+.bday {
+    position: absolute;
+    width: 600px;
+    top:70%;
+    left: 10%;
+}
+
+.type {
+    position: absolute;
+    width: 600px;
+    top: 85%;
+    left: 10%;
+}
+
+.choose {
+    position: absolute;
+    top: 110%;
+    left: 130%;
+}

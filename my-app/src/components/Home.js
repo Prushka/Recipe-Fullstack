@@ -1,12 +1,12 @@
 import React from 'react'; 
 import Sidebar from './Sidebar.js'
 
-function Home() {
-    return (
-        <React.Fragment>
+class Home extends React.Component {
+    render() { 
+        return (
             <Sidebar />
-        </React.Fragment>
-    );
+        );
+    }
 }
 
 export default Home;
