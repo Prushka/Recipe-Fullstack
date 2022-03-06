@@ -8,7 +8,7 @@ class DashboardRecommendedRecipe extends React.Component {
         // Hardcoded data that will be fetched from database
         return([
             {
-                recipeName: 'Lemony Tortellini Soup with Spinach and Dill', 
+                recipeName: 'Lemony Tortellini Soup with Spinach', 
                 img: 'https://assets.bonappetit.com/photos/604104ee8fd036af451e9f0a/16:9/w_1920,c_limit/Basically-Tortellini-Soup.jpg'
             }, 
             {
@@ -24,7 +24,7 @@ class DashboardRecommendedRecipe extends React.Component {
                 img: 'https://assets.bonappetit.com/photos/61042779a36f3ea968547ea7/1:1/w_1920%2Cc_limit/0821-Banana-Pudding-FINAL.jpg'
             },
             {
-                recipeName: 'Thai Roast Chicken Thighs With Coconut Rice',
+                recipeName: 'Thai Roast Chicken With Coconut Rice',
                 img: 'https://assets.bonappetit.com/photos/608983855799229a8ef966d3/1:1/w_1920%2Cc_limit/Go-Live-Thai-Roast-Chicken.jpg'
             }
         ]);
@@ -36,7 +36,7 @@ class DashboardRecommendedRecipe extends React.Component {
         return(
             <React.Fragment>
                 <div class="grid-item dashboard-recommended-recipe-container">
-                    <div className='grid-food-category-title'>
+                    <div className='grid-dashboard-recommended-recipe'>
                         Recommended Recipes For You 
                     </div>
                     {recommendedRecipes.map((recipe) => {
@@ -56,7 +56,7 @@ class RecommendedRecipeItem extends React.Component {
         return(
             <div className='dashboard-recommended-recipe-item'>
                 <img src={this.props.recipe.img} alt={this.props.recipe.recipeName}></img>
-                <p>{this.props.recipe.recipeName}</p>
+                <div className='dashboard-recommended-recipe-item-name'>{this.props.recipe.recipeName}</div>
                 <div>
                     <button className='dashboard-recommended-recipe-item-button'><CgHeart /></button>
                     <button className='dashboard-recommended-recipe-item-button'><CgMathPlus /></button>
