@@ -66,11 +66,10 @@ const SignUp = () => {
                     </form>
                 </div>
                 <div>
-                    {/* <Link to={"/home"}>
+                     <Link to={"/profile"}>
                             <button >SUBMIT</button>
-        </Link>*/}
+        </Link>
 
-                    <button >SUBMIT</button>
                 </div>
                 <div className='back'>
                     <Link to={"/login"} style={{ textDecoration: 'none' }}>
