@@ -20,7 +20,7 @@
     max-height: 400px;
 }
 
-p {
+.paragraph {
     font-family: 'Times New Roman', Times, serif;
     font-size: larger;
 }
