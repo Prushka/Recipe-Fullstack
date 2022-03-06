@@ -1,0 +1,179 @@
+/* Main Grid of Dashboard Page */
+
+.dashboard-grid-container {
+    display: grid;
+    float: right;
+    width: 80vw;
+    height: 100vh;
+    grid-template-columns: minmax(auto, 65%) minmax(auto, 35%);
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 1);
+    font-size: 30px;
+    text-align: center;
+    border-radius: 29px;
+    height: 75%;
+    width: 75%;
+}
+
+.no-style-button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 5px;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+/* Recommended Recipes Section Styles */
+
+.dashboard-recommended-recipe-container {
+    height: 75%;
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 0.25fr 1.75fr;
+    grid-area: 2 / 1 / 3 / 3;
+    gap: 15px;
+    align-items: center;
+    justify-items: center;
+}
+
+.dashboard-recommended-recipe-item {
+    margin: auto;
+    width: 85%;
+    height: 75%;
+    background-color: #F3F3F3;
+    font-size: 50%;
+    gap: 5px;
+    padding: 0px 5px 0px 5px;
+    font-weight: bold;
+    border-radius: 29px;
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.dashboard-recommended-recipe-item img {
+    width: 5vw;
+    height: 5vh;
+    border-radius: 29px;
+}
+
+.dashboard-recommended-recipe-item-button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    font-size: 3vh;
+}
+
+.dashboard-recommended-recipe-item  button:active {
+	position:relative;
+	top:1px;
+}
+
+.grid-food-category-title {
+    grid-area: 1 / 1 / 2 / 6;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+
+/* Top Three Recipes Section Styles */
+
+.dashboard-top-recipes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 0.25fr 1fr;
+    text-align: left;
+    justify-items: center;
+    font-family: 'Comfortaa';
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.grid-top-recipes-title {
+    grid-area: 1 / 1 / 2 / 4;
+    font-size: 20px;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.top-recipes-item {
+    margin: auto;
+    width: 75%;
+    height: 75%;
+    padding: 5px;
+    background-color: #F3F3F3;
+    border-radius: 29px;
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    font-size: 1vw;
+}
+
+.top-recipes-item img {
+    width: 5vw;
+    height: 5vh;
+    border-radius: 29px;
+}
+
+/* User Stats Section Styles */
+
+.dashboard-user-stat-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.dashboard-user-stat-title {
+    grid-area: 1 / 1 / 2 / 2;
+    font-size: 20px;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.dashboard-user-stat-1-3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    align-items: center;
+    font-size: 3vh;
+}
+
+.dashboard-user-stat-1-3 p {
+    font-size: 2vh;
+}
+
+.dashboard-user-stat-1-3 h3 {
+    margin-bottom: 5px;
+}
+
+.dashboard-user-stat-2 {
+    display: grid;
+    align-items: center;
+}
+
+.dashboard-user-stat-2 p {
+    font-size: 2vh;
+}
+
+.dashboard-user-stat-2 h3 {
+    margin-bottom: 5px;
+}

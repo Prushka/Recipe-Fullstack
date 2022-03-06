@@ -77,16 +77,19 @@
 }
 
 .recipe-button {
+    width: 7vw;
 	border-radius:18px;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
 	font-family: 'Comfortaa';
     font-weight: bold;
-	font-size: 1vw 1vh;
-	padding:7px 25px;
+	font-size: 0.65vw;
+	padding: 7px 25px;
     margin: 5px;
 	text-decoration: none;
+    text-align: center;
+    align-content: center;
 }
 
 .recipe-button:active {
@@ -185,11 +188,6 @@ border: 3px none #ffffff;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* display: grid;
-    grid-template-columns: 1.75fr 0.25fr;
-    grid-template-rows: 0.25fr 1.75fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px; */
     justify-items: center;
     align-items: center;
     font-size: 25px;
@@ -260,7 +258,7 @@ border: 3px none #ffffff;
 
 .instructions textarea  {
     vertical-align: top;
-    height: 20vh;
+    height: 30vh;
     width: 20vw;
     resize: none;
     margin-top: 20px;
@@ -354,4 +352,12 @@ border: 3px none #ffffff;
 	cursor: pointer;
 	outline: inherit;
     text-align: center;
+}
+
+.diet-input-container {
+    display: inline-flex;
+}
+
+.diet-label {
+    font-size: 1vw;
 }

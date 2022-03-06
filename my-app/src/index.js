@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 import {BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from "./components/Profile";
+import Home from "./components/Home";
 import BrowseRecipe from "./components/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe";
 import UploadRecipe from "./components/UploadRecipe";
@@ -14,6 +15,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<Home />} />
+      <Route path='/dashboard' element={<Dashboard />} />
       <Route path="profile" element={<Profile />} />
       <Route path="browse" element={<BrowseRecipe />} />
       <Route path="saved-recipes" element={<SavedRecipe />} />

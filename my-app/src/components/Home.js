@@ -1,46 +1,27 @@
-import React from 'react'; 
-import Sidebar from './Sidebar.js'
+import React from 'react';
+import logo from "../images/logo.jpg";
 import '../styles/Home.css';
-import HomeFoodCategories from './HomeComponents/HomeFoodCategories';
-import HomeRecommendRecipe from './HomeComponents/HomeRecommendRecipe';
-import HomeSavedRecipe from './HomeComponents/HomeSavedRecipe';
 import {Link} from 'react-router-dom';
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoggedIn: false
-        };
-    }
-
-    render(){ 
-        if (this.state.isLoggedIn) {
-            return (
-                <React.Fragment>
-                    <Sidebar />
-                    <div className='home-grid-container'>
-                        <HomeSavedRecipe />
-                        <div class="grid-item home-user-stat-item" style={{textAlign: 'center', fontWeight: 'bold', fontSize: '25px'}}><p>User Stats</p></div>
-                        <HomeFoodCategories /> 
-                        <HomeRecommendRecipe />
+    render() {
+        return (
+            <React.Fragment>
+                <div className='navbar'>
+                    <img src={logo} alt='logo'></img>
+                    <div className='navbar-buttons'>
+                        <Link to={'/login'}><button>Log In</button></Link>
+                        <Link to={'/signup'}><button>Sign Up</button></Link>
                     </div>
-                </React.Fragment>
-            );
-        } else {
-            return(
-                <React.Fragment>
-                    <Sidebar /> 
-                    <div className='home-grid-container'>
-                        <div className='log-in-alert'>
-                            <h1>Please Log In or Sign Up First</h1>
-                            <Link to={'/login'}><button>Login</button></Link>
-                            <Link to={'/signup'}><button>Sign Up</button></Link>
-                        </div>
+                </div>
+                <div className='home-content'>
+                    <div className='home-content-text'>
+                        <h1>Find Your Own Personal Recipe From a Vast Library</h1>
+                        <p>A website library with different recipes curated for you shared by other users</p>
                     </div>
-                </React.Fragment>
-            )
-        }
+                </div>
+            </React.Fragment>
+        )
     }
 }
 

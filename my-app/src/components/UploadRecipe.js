@@ -2,11 +2,10 @@ import React from 'react';
 import Sidebar from './Sidebar.js';
 import '../styles/UploadRecipe.css';
 import {CgClose} from 'react-icons/cg';
-import data, {categories} from '../data';
+import data from '../data';
 
 /* Import Dummy Data */
 var allRecipes = data;
-var recipeCategories = categories;
 var newId = 213891943;
 
 class UploadRecipe extends React.Component {
@@ -142,7 +141,8 @@ class AddRecipeModal extends React.Component {
             tags: [],
             ingredients: [], 
             ingredientForm: '',
-            recipeInstructions: ''
+            recipeInstructions: '',
+            diet: ''
         };
     }
 
@@ -154,7 +154,8 @@ class AddRecipeModal extends React.Component {
             tags: [],
             ingredients: [], 
             ingredientForm: '',
-            recipeInstructions: ''
+            recipeInstructions: '',
+            diet: ''
         })
     };
 
@@ -226,7 +227,7 @@ class AddRecipeModal extends React.Component {
                         <div className='add-recipe-modal-form-container'>
                             <div>
                                 <form className='add-recipe-modal-form' onSubmit={e => { e.preventDefault(); }}>
-                                    <label for="img">Select image: </label>
+                                    <label htmlFor="img">Select image: </label>
                                     <input type="file" 
                                         id="img" 
                                         name="img" 
@@ -234,15 +235,45 @@ class AddRecipeModal extends React.Component {
                                     </input>
                                 </form>
                                 <form className='add-recipe-modal-form recipe-name' onSubmit={e => { e.preventDefault(); }}>
-                                    <label for="text" >Recipe Name: </label>
+                                    <label htmlFor="text" >Recipe Name: </label>
                                     <input type="text" 
                                         placeholder="Ex: Risotto" 
                                         onChange={(e) => {this.setState({recipeName: e.target.value})}}>
                                     </input>
                                 </form>
+                                <form>
+                                    <div className='diet-input-container'>
+                                        <label htmlFor="text">Diet: </label>
+                                        <div>
+                                            <input type="radio" 
+                                                   id="omnivore" 
+                                                   name="diet" 
+                                                   value="Omnivore" 
+                                                   onChange={(e) => {this.setState({diet: e.currentTarget.value})}}>
+                                            </input>
+                                            <label className='diet-label' htmlFor="omnivore">Omnivore</label>
+                                            <br></br>
+                                            <input type="radio" 
+                                                   id="pescatarian" 
+                                                   name="diet" 
+                                                   value="Pescatarian" 
+                                                   onChange={(e) => {this.setState({diet: e.currentTarget.value})}}>
+                                            </input>
+                                            <label className='diet-label' htmlFor="pescatarian">Pescatarian</label>
+                                            <br></br>
+                                            <input type="radio" 
+                                                   id="vegetarian" 
+                                                   name="diet" 
+                                                   value="Vegetarian" 
+                                                   onChange={(e) => {this.setState({diet: e.currentTarget.value})}}>
+                                            </input>
+                                            <label className='diet-label' htmlFor="vegetarian">Vegetarian</label>
+                                        </div>
+                                    </div>
+                                </form>
                                 <form className='add-recipe-modal-form tags' onSubmit={e => { e.preventDefault(); }}>
                                     <div className='tag-input-container'>
-                                        <label for="text">Tags: </label>
+                                        <label htmlFor="text">Tags: </label>
                                         <div className='tag-input'>
                                             {this.state.tags.map((tag) => {
                                                 return (
@@ -265,13 +296,13 @@ class AddRecipeModal extends React.Component {
                                     </div>
                                 </form>
                                 <form className='add-recipe-modal-form ingredients' onSubmit={e => { e.preventDefault(); }}>
-                                    <label for="text">Ingredients: </label>
+                                    <label htmlFor="text">Ingredients: </label>
                                     <input type="text" 
                                         value={this.state.ingredientForm} 
                                         placeholder="Ex: 1 teaspoon of baking powder" 
                                         onChange={(e) => {this.setState({ingredientForm: e.target.value})}}>
                                     </input>
-                                    <button onClick={(e) => {this.addIngredientToList(e, this.state.ingredientForm)}}>Add Ingredient</button>
+                                    <button className="recipe-button blue" onClick={(e) => {this.addIngredientToList(e, this.state.ingredientForm)}}>Add Ingredient</button>
                                     <ul className='ingredients-list'>
                                         {ingredients.map((ingredient) => {
                                             return <li>{ingredient} <button className="ingredient-delete-button" onClick={(e) => {this.removeIngredientFromList(e, ingredient)}}><CgClose /></button></li>
@@ -281,7 +312,7 @@ class AddRecipeModal extends React.Component {
                             </div>
                             <div>
                                 <form className='add-recipe-modal-form instructions' onSubmit={e => { e.preventDefault(); }}>
-                                    <label for="text">Instructions: </label>
+                                    <label htmlFor="text">Instructions: </label>
                                     <textarea rows="4" 
                                             cols="50" 
                                             placeholder='Add Instructions Here' 

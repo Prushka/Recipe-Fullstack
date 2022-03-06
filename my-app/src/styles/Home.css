@@ -1,251 +1,41 @@
-.home-grid-container {
-    display: grid;
-    float: right;
-    width: 80vw;
-    height: 100vh;
-    grid-template-columns: minmax(auto, 65%) minmax(auto, 35%);
-    justify-items: center;
-    align-items: center;
-    gap: 5px;
+.navbar {
+    width: 100vw;
+    height: 7vh;
+    background: white;
+    display: flex;
+    justify-content: space-between;
 }
 
-.grid-item {
-    background-color: rgba(255, 255, 255, 1);
-    font-size: 30px;
-    text-align: center;
-    border-radius: 29px;
-    height: 75%;
-    width: 75%;
+.navbar img {
+    height: 7vh;
+
 }
 
-.no-style-button {
-    background: none;
-	color: inherit;
-	border: none;
-	padding: 5px;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+.navbar-buttons {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
-.log-in-alert {
-    grid-area: 1 / 1 / 2 / 3;
+.home-content {
+    width: 100vw;
+    height: calc(100vh - 7vh);
+    display: flex;
     justify-content: center;
     text-align: center;
+    background-image: url('https://files.wallpaperpass.com/2019/10/food%20wallpaper%20131%20-%201920x1080.jpg');
 }
 
-/* Explore Food Category Styles */
-
-.home-explore-categories-item {
-    height: 75%;
-    width: 75%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 0.5fr repeat(2, 1.25fr);
-    gap: 20px;
-    align-items: center;
-    justify-items: center;
-}
-
-.food-category-grid-item-button {
-    border-radius: 29px;
-    background-color: #F3F3F3;
-    width: 75%;
-    height: 75%;
-    font-size: 1vw;
-    text-align: center;
+.home-content-text {
     font-weight: bold;
-    border: none;
-    font-family: 'Comfortaa';
-    cursor:pointer;
-}
-
-.food-category-grid-item-button:hover {
-    background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
-	background-color:#bab1ba;
-}
-
-.food-category-grid-item-button:active {
-	position:relative;
-	top:1px;
-}
-
-.food-category-grid-item-button img {
-    border-radius: 50%;
-    width: 50%;
-    height: 50%;
-    padding: 10px;
-}
-
-.grid-food-category-title {
-    grid-area: 1 / 1 / 2 / 3; 
-    font-size: 20px;
-    font-weight: bold;
-    padding: 20px;
-}
-
-.see-all-button {
-	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
-	background-color:#ededed;
-	border-radius:15px;
-	border:1px solid #d6bcd6;
-	display:inline-block;
-	cursor:pointer;
-	color:black;
-	font-family:'Comfortaa';
-	font-size:15px;
-    font-weight: bold;
-	padding: 5px 5px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #e1e2ed;
-}
-
-.see-all-button:hover {
-	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
-	background-color:#bab1ba;
-}
-
-.see-all-button:active {
-	position:relative;
-	top:1px;
-}
-
-/* Food Categories Modal */
-
-.food-categories-modal {
-    width: 50%;
-    height: 50%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 29px;
-    transition: 1.1s ease-out;
-    filter: blur(0);
-    transform: scale(1);
-    opacity: 1;
-    visibility: visible;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    /* display: grid;
-    grid-template-columns: 1.75fr 0.25fr;
-    grid-template-rows: 0.25fr 1.75fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px; */
-    justify-items: center;
-    align-items: center;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.food-categories-modal-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-*::-webkit-scrollbar {
-width: 13px;
-}
-
-*::-webkit-scrollbar-track {
-background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-background-color: #707070;
-border-radius: 10px;
-border: 3px none #ffffff;
-}
-
-/* Recommend Recipe Styles */
-
-.grid-recommended-category-title {
-    grid-area: 1 / 1 / 2 / 2;
-    font-size: 20px;
-    padding: 20px;
-    font-weight: bold;
-    height: 20%;
-}
-
-.home-recommended-recipe-item {
-    display: grid;
-    grid-template-rows: 0.5fr repeat(3, 1fr);
-    text-align: left;
-}
-
-.recommend-recipe-item {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 0.75fr auto auto;
-    grid-auto-flow: row dense;
-    align-items: baseline;
-    justify-items: left;
-}
-
-.recommend-recipe-item p {
-    display: inline-block;
-    padding-right: 10px;
-    font-size: 1.5vw;
-    font-weight: bold;
-}
-
-.recommend-recipe-item img {
-    width: 5vw;
-    height: 5vh;
-    border-radius: 29px;
-    padding: 15px 15px 0px 15px;
-}
-
-.recommend-recipe-item-icons {
-    float: right;
-}
-
-.recommend-recipe-item-icons button {
-    background: none;
-	color: inherit;
-	border: none;
-	padding: 5px;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-}
-
-.recommend-recipe-item-icons button:active {
-	position:relative;
-	top:1px;
-}
-
-/* Continue Saved Recipes Styles */
-
-.home-continue-saved-recipes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 0.25fr 1fr;
-    text-align: left;
-    justify-items: center;
-    font-family: 'Comfortaa';
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.grid-continue-saved-recipes-title {
-    grid-area: 1 / 1 / 2 / 4;
-    font-size: 20px;
-    padding: 20px;
-    font-weight: bold;
-}
-
-.continue-saved-recipes-item {
-    text-align: center;
-    margin: auto;
-    width: 75%;
-    height: 75%;
+    font-size: large;
+    /* background-color: rgb(235, 239, 245, 0.2);
+    border-radius: 30px; */
+    color: white;
     padding: 5px;
-    background-color: #F3F3F3;
-    border-radius: 29px;
+    margin-top: 10vh;
+    /* position: absolute;
+    top: 60vh;
+    left: 25vw; */
+    align-self: center;
 }
