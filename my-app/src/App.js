@@ -30,7 +30,7 @@ export default function App() {
                 <Routes>
                     <Route path={'/'} element={<Home/>}></Route>
                     <Route path={"dashboard"}
-                           element={<PageComponent path={"/"}><Dashboard/></PageComponent>}/>
+                           element={<PageComponent path={"/dashboard"}><Dashboard/></PageComponent>}/>
                     <Route path="profile" element={<Profile/>}/>
                     <Route path="browse" element={<BrowseRecipe/>}/>
                     <Route path="saved" element={<SavedRecipe/>}/>
