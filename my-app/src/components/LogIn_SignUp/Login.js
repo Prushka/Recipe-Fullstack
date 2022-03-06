@@ -49,6 +49,7 @@ class Login extends React.Component {
 
 
     render() {
+    
 
         return (
             <React.Fragment>
@@ -82,12 +83,12 @@ class Login extends React.Component {
                         </form>
                     </div>
                     <div>
-                        <button type='submit' name='submit' className='form_login'
+                        <button 
                             onClick={event => this.handelClick(event)}>
                             LOG-IN
                         </button>
 
-                        {this.state.error ? <div className='error_msg'>username and password unmatch</div> : <Link to={'/home'} />}
+                        {this.state.error ? <div className='error_msg'>username and password unmatch</div> : null}
 
 
                     </div>
