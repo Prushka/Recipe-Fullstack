@@ -19,14 +19,14 @@ class SavedRecipe extends React.Component {
                     <div class='savedRecipeList'>
 
                         <div class="savedContent">
-                            <Link to={'/recipe/${id=1}'}><h5>Recipe1</h5></Link>
+                            <Link to={'/recipe/{1}'}><h5>Recipe1</h5></Link>
                             <img class="recipePicture" src="food.jpg" alt="" />
                         </div>
                     </div>
 
                     <div class='savedRecipeList'>
                         <div class="savedContent">
-                        <Link to={'/recipe/${id=2}'}><h5>Recipe2</h5></Link>
+                        <Link to={'/recipe/{2}'}><h5>Recipe2</h5></Link>
                             <img class="recipePicture" src="food.jpg" alt="" />
                         </div>
                     </div>
