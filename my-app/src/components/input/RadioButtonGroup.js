@@ -8,11 +8,11 @@ import './Input.css';
 export function RadioButtonGroup({
                                      title,
                                      options,
-     style, selected
+     selected
                                  }) {
     return (
         <>
-            <div className={'radio-section'} style={{...style}}>
+            <div className={'radio-section'}>
                 <div className={'radio-section-title'}>{title}</div>
                 <spaced-horizontal-preferred>
                     {options.map(option => {

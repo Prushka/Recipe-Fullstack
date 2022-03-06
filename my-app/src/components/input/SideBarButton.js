@@ -6,11 +6,11 @@ import React from 'react';
 import '../../styles/Sidebar.css';
 import {useNavigate} from 'react-router-dom';
 
-export default function SideBarButton({setSideBarOpen, title, icon, path, isSelected, style}) {
+export default function SideBarButton({setSideBarOpen, title, icon, path, isSelected}) {
     const navigate = useNavigate()
     return (
         <>
-            <div style={{...style}} className={`side-bar__button ${isSelected(path) && 'side-bar__button--selected'}`}
+            <div className={`side-bar__button ${isSelected(path) && 'side-bar__button--selected'}`}
                     onClick={() => {
                         setSideBarOpen(false)
                         navigate(path)

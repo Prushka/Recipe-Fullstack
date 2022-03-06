@@ -9,7 +9,7 @@ import {IoClose} from "react-icons/io5";
 export default function Dialog({
                                    title = '',
                                    onClose, open, size = 'm',
-                                   content, footer, style
+                                   content, footer
                                }) {
     return (
         <div>
@@ -17,10 +17,7 @@ export default function Dialog({
                 open ? <div className={'dialog'} onMouseDown={onClose}>
                     <div onMouseDown={(e) => {
                         e.stopPropagation();
-                    }} className={`dialog__modal dialog__modal--${size}`}
-                         style={{
-                             ...style
-                         }}>
+                    }} className={`dialog__modal dialog__modal--${size}`}>
                         <div className={'dialog__modal__header'}>
                     <span className={'dialog__modal__header__title'}>
                         {title}

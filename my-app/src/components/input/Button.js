@@ -42,10 +42,10 @@ export function Button({
                            shadowOnHover = true,
                            onHover = () => {
                            }, onClick = () => {}
-                           , onMouseLeave = () => {}, style, children
+                           , onMouseLeave = () => {}, children
                        }) {
     return (
-        <div className={`button ${mobileFullWidth &&'mobile-full-width'} ${className} ${shadowOnHover ? 'button__focus-shadow' : ''}`} style={{...style}}
+        <div className={`button ${mobileFullWidth &&'mobile-full-width'} ${className} ${shadowOnHover ? 'button__focus-shadow' : ''}`}
              onMouseOver={onHover}
              onMouseLeave={onMouseLeave}
              onClick={onClick}>
