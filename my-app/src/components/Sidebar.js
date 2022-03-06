@@ -1,7 +1,8 @@
-import food from './food.jpg';
+import food from '../images/food.jpg';
 import {CgProfile, CgSearch, CgHomeAlt, CgHeart, CgPen, CgLogOut} from 'react-icons/cg'
 import React from 'react';
 import '../styles/Sidebar.css';
+// import {Link} from 'react-router-dom';
 
 function Sidebar() {
   return (
@@ -11,8 +12,8 @@ function Sidebar() {
         <button><CgHomeAlt></CgHomeAlt> Home</button>
         <button><CgProfile></CgProfile> My Profile</button>
         <button><CgSearch></CgSearch> Browse Recipes</button>
-        <button><CgHeart></CgHeart> Saved Recipes</button>
-        <button><CgPen></CgPen> Uploaded Recipes</button>
+        <button><CgHeart></CgHeart> Liked Recipes</button>
+        <button><CgPen></CgPen> Personal Recipes</button>
         <div id='log-out'>
           <button><CgLogOut></CgLogOut> Log-out</button>
         </div>
