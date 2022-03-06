@@ -10,6 +10,10 @@ import PersonalRecipes from "./components/PersonalRecipes";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
+import RecipePage2 from './components/RecipePage/RecipePage2';
+import RecipePage1 from './components/RecipePage/RecipePage1';
+import RecipePage3 from './components/RecipePage/RecipePage3';
+import RecipePage4 from './components/RecipePage/RecipePage4';
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
