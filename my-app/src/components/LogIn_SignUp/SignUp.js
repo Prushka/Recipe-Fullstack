@@ -31,7 +31,7 @@ const SignUp = () => {
                     </form>
                     <form>
                         <input
-                        className='form-inputs'
+                            className='form-inputs'
                             type="email"
                             name="email"
                             placeholder="email..."
@@ -43,7 +43,7 @@ const SignUp = () => {
                     </form>
                     <form>
                         <input
-                        className='form-inputs'
+                            className='form-inputs'
                             type="password"
                             name="pwd"
                             placeholder="password..."
@@ -54,7 +54,7 @@ const SignUp = () => {
                     </form>
                     <form>
                         <input
-                        className='form-inputs'
+                            className='form-inputs'
                             type="password"
                             name="pwd2"
                             placeholder="comfirm password..."
@@ -66,9 +66,9 @@ const SignUp = () => {
                     </form>
                 </div>
                 <div>
-                     <Link to={"/profile"}>
-                            <button >SUBMIT</button>
-        </Link>
+                    <Link to={"/profile"}>
+                        <button >SUBMIT</button>
+                    </Link>
 
                 </div>
                 <div className='back'>
