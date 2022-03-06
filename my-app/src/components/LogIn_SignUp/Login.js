@@ -7,6 +7,7 @@ class Login extends React.Component {
         username: "",
         password: "",
         error: false,
+        valid: false
     };
 
     handleChange(event) {
@@ -43,13 +44,18 @@ class Login extends React.Component {
                 this.setState({
                     error: true
                 })
+            }else{
+                console.log("valid input")
+                this.setState({
+                    valid:true
+                })
             }
         }
     }
 
 
     render() {
-    
+
 
         return (
             <React.Fragment>
@@ -82,16 +88,19 @@ class Login extends React.Component {
                             />
                         </form>
                     </div>
-                    <div>
-                        <button 
-                            onClick={event => this.handelClick(event)}>
-                            LOG-IN
+                    <div onClick={event => this.handelClick(event)}>
+                        <button
+                            >
+                            submit
                         </button>
-
-                        {this.state.error ? <div className='error_msg'>username and password unmatch</div> : null}
-
-
+                        {/* If valid log in*/}
+                        {this.state.valid ? <Link to={'/home'}><button>LOG-IN</button></Link>: null}
                     </div>
+
+                    {this.state.error ? <div className='error_msg'>username and password unmatch</div> : null}
+
+
+
                 </div>
             </React.Fragment>
         );
