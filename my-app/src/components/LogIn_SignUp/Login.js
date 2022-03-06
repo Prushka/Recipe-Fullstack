@@ -89,11 +89,11 @@ class Login extends React.Component {
                         </form>
                     </div>
                     <div onClick={event => this.handelClick(event)}>
-                        <button
-                            >
-                            submit
-                        </button>
+                        <button>submit
+</button>
                         {/* If valid log in*/}
+                    </div>
+                    <div>
                         {this.state.valid ? <Link to={'/home'}><button>LOG-IN</button></Link>: null}
                     </div>
 
