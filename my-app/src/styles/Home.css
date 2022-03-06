@@ -1,0 +1,41 @@
+.navbar {
+    width: 100vw;
+    height: 7vh;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar img {
+    height: 7vh;
+
+}
+
+.navbar-buttons {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.home-content {
+    width: 100vw;
+    height: calc(100vh - 7vh);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-image: url('https://files.wallpaperpass.com/2019/10/food%20wallpaper%20131%20-%201920x1080.jpg');
+}
+
+.home-content-text {
+    font-weight: bold;
+    font-size: large;
+    /* background-color: rgb(235, 239, 245, 0.2);
+    border-radius: 30px; */
+    color: white;
+    padding: 5px;
+    margin-top: 10vh;
+    /* position: absolute;
+    top: 60vh;
+    left: 25vw; */
+    align-self: center;
+}
