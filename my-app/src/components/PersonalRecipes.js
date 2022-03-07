@@ -5,8 +5,8 @@ import {Button} from './input/Button';
 import data from '../data';
 
 /* Import Dummy Data */
-var allRecipes = data;
-var newId = 213891943;
+let allRecipes = data;
+let newId = 213891943;
 
 class PersonalRecipes extends React.Component {
 

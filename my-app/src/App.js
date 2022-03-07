@@ -42,7 +42,7 @@ export default function App() {
                            element={<PageComponent path={"/profile"}><Profile/></PageComponent>}/>
                     <Route path={"browse"}
                            element={<PageComponent path={"/browse"}><BrowseRecipe/></PageComponent>}/>
-                    <Route path="saved" element={<SavedRecipe/>}/>
+                    <Route path="saved" element={<PageComponent path={"/browse"}><SavedRecipe/></PageComponent>}/>
                     <Route path="personal-recipes" 
                            element={<PageComponent path={"/personal-recipes"}><PersonalRecipes/></PageComponent>}/>
                     <Route path={"/manage/users"}
@@ -51,11 +51,11 @@ export default function App() {
                            element={<PageComponent path={"/manage/recipes"}><AdminManageRecipes/></PageComponent>}/>
                     <Route path={"/manage/reviews"}
                            element={<PageComponent path={"/manage/reviews"}><AdminManageReviews/></PageComponent>}/>
-                    <Route path="recipe/1" element={<RecipePage1 />} />
-                    <Route path="recipe/2" element={<RecipePage2 />} />
-                    <Route path="recipe/3" element={<RecipePage3 />} />
-                    <Route path="recipe/4" element={<RecipePage4 />} />
-                    <Route path="recipe/5" element={<RecipePage5 />} />          
+                    <Route path="recipe/1" element={<PageComponent path={"/manage/reviews"}><RecipePage1/></PageComponent>} />
+                    <Route path="recipe/2" element={<PageComponent path={"/manage/reviews"}><RecipePage2/></PageComponent>} />
+                    <Route path="recipe/3" element={<PageComponent path={"/manage/reviews"}><RecipePage3/></PageComponent>} />
+                    <Route path="recipe/4" element={<PageComponent path={"/manage/reviews"}><RecipePage4/></PageComponent>} />
+                    <Route path="recipe/5" element={<PageComponent path={"/manage/reviews"}><RecipePage5/></PageComponent>} />          
                 </Routes>
             </BrowserRouter>
         </>
