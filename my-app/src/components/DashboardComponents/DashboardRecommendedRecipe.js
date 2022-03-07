@@ -5,6 +5,7 @@ import VeganFood from '../../resources/vegan-food.jpg';
 import PorkChop from '../../resources/pork-chop.jpg';
 import Chicken from '../../resources/chicken.jpg';
 import Salmon from '../../resources/salmon.jpg';
+import SweetSour from '../../resources/sweet-sour.jpg';
 import {Link} from 'react-router-dom';
 import {Button} from '../input/Button';
 
@@ -34,8 +35,9 @@ class DashboardRecommendedRecipe extends React.Component {
                 url: 4
             },
             {
-                recipeName: 'Thai Roast Chicken With Coconut Rice',
-                img: 'https://assets.bonappetit.com/photos/608983855799229a8ef966d3/1:1/w_1920%2Cc_limit/Go-Live-Thai-Roast-Chicken.jpg'
+                recipeName: 'Slow Cooker Sweet and Sour Chicken Thighs',
+                img: SweetSour,
+                url: 5
             },
         ]);
     }
