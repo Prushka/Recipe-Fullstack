@@ -74,7 +74,7 @@
   cursor: pointer;
 }
   
-input{
+.input{
   widows: 80%;
   border: 1px solid rgb(90, 38, 114);
   padding: 20px;
