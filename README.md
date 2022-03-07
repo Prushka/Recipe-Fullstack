@@ -1,7 +1,7 @@
 # team36
 # Log-in page:
 
-Unmatched username, password and any usrname dosen’t exsit in database will encounter password and username unmatch error by clicking dubmit button.
+Unmatched username, password and any username dosen’t exsit in database will encounter password and username unmatch error by clicking dubmit button.
 only matched password with exist user in database will lead user to login
 Login by admin will lead you to admin page
 Hardcode user data for username and password:
