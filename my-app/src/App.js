@@ -42,7 +42,7 @@ export default function App() {
                            element={<PageComponent path={"/profile"}><Profile/></PageComponent>}/>
                     <Route path={"browse"}
                            element={<PageComponent path={"/browse"}><BrowseRecipe/></PageComponent>}/>
-                    <Route path="saved" element={<PageComponent path={"/browse"}><SavedRecipe/></PageComponent>}/>/>
+                    <Route path="saved" element={<PageComponent path={"/browse"}><SavedRecipe/></PageComponent>}/>
                     <Route path="personal-recipes" 
                            element={<PageComponent path={"/personal-recipes"}><PersonalRecipes/></PageComponent>}/>
                     <Route path={"/manage/users"}
