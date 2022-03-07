@@ -1,0 +1,57 @@
+.title {
+    color: green;
+    font-style: italic;
+    font-weight: 900;
+}
+
+.main {
+    position: absolute;
+    width: 100%;
+}
+
+.inner {
+    position: relative;
+    left: 30%;
+    width: 600px;
+}
+
+.image {
+    max-width: 500px;
+    max-height: 400px;
+}
+
+.inner p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+}
+
+.leadingText {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.thumbs {
+    position: relative;
+    left: 30%;
+}
+
+.postButton {
+    position: relative;
+    left: 80%;
+}
+
+.content {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+.report {
+    float: right;
+}

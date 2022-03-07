@@ -109,8 +109,8 @@ class Login extends React.Component {
                     </div>*/}
                     <div>
                         {/*if adminCheck == true link to admin page */}
-                        {this.state.valid ? (this.state.adminCheck ? <Link to={'/admin_page'}><button>LOG-IN</button></Link>
-                            : <Link to={'/home'}><button>LOG-IN</button></Link>)
+                        {this.state.valid ? (this.state.adminCheck ? <Link to={'/dashboard'}><button>LOG-IN</button></Link>
+                            : <Link to={'/dashboard'}><button>LOG-IN</button></Link>)
                             : null}
                     </div>
 
