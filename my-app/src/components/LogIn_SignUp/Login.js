@@ -41,18 +41,18 @@ export default function Login({userState, setUserState}) {
             } else {
                 console.log("valid input")
                 setUserState("valid", true)
+                navigate("/dashboard")
             }
 
             if (checkExist.username === "admin") {
                 console.log("Admin login")
                 setUserState("adminCheck", true)
+                navigate("/dashboard")
             } else{
                 setUserState("adminCheck", false)
             }
         }
-        if(userState.valid){
-            navigate("/dashboard")
-        }
+
     }
 
 
