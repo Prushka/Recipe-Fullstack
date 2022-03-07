@@ -6,11 +6,12 @@ import "../../styles/profile_style.css"
 import food from "../../resources/food.jpg"
 
 class Profile extends React.Component {
+  // the state information will be imported from database
   state = {
     username: "hello",
     gender: "other",
     email: "abcdefh@gmail.com",
-    bday: "31/01/2010",
+    birthday: "31/01/2010",
     type: "omnivore",
     avatar: null
   };
@@ -72,7 +73,7 @@ class Profile extends React.Component {
         </div>
 
         <div className='bday'>
-          <My_text name="bday" content={this.state.bday} label="DD/MM/YYYY" onChange={this.handleInputChange} />
+          <My_text name="birthday" content={this.state.birthday} label="DD/MM/YYYY" onChange={this.handleInputChange} />
         </div>
 
         <div className='type'>

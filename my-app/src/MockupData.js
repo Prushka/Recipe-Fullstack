@@ -38,21 +38,24 @@ const recipes = [
         "Category": "Beverage",
         "Last Edit": "122 days ago",
         "Created By": "TestUser2",
-        "id": 1
+        "id": 1,
+        "Report": 0
     },
     {
         "Recipe Name": "Juice",
         "Category": "Beverage",
         "Last Edit": "12 days ago",
         "Created By": "TestUser2",
-        "id": 2
+        "id": 2,
+        "Report": 1
     },
     {
         "Recipe Name": "Blood",
         "Category": "Beverage",
         "Last Edit": "11 days ago",
         "Created By": "TestUser2",
-        "id": 3
+        "id": 3,
+        "Report": 4
     },
     {
         "Recipe Name": "Sushi",
@@ -60,21 +63,24 @@ const recipes = [
         "Last Edit": "1 day ago",
         "Created By": "TestUser2",
         "Reviews": 12,
-        "id": 4
+        "id": 4,
+        "Report": 0
     },
     {
         "Recipe Name": "Sashimi",
         "Category": "Japanese",
         "Last Edit": "9 days ago",
         "Created By": "TestUser2",
-        "id": 5
+        "id": 5,
+        "Report": 1
     },
     {
         "Recipe Name": "Rice",
         "Category": "Mystery",
         "Last Edit": "2 days ago",
         "Created By": "TestUser2",
-        "id": 6
+        "id": 6,
+        "Report": 8
     },
     {
         "Recipe Name": "Cheesecake",
@@ -82,35 +88,40 @@ const recipes = [
         "Last Edit": "2 days ago",
         "Created By": "TestUser3",
         "Reviews": 1,
-        "id": 7
+        "id": 7,
+        "Report": 0
     },
     {
         "Recipe Name": "Bread",
         "Category": "Dessert",
         "Last Edit": "20 days ago",
         "Created By": "TestUser3",
-        "id": 8
+        "id": 8,
+        "Report": 1
     },
     {
         "Recipe Name": "Cupcakes",
         "Category": "Dessert",
         "Last Edit": "12 days ago",
         "Created By": "TestUser3",
-        "id": 9
+        "id": 9,
+        "Report": 1
     },
     {
         "Recipe Name": "Roasted Apple",
         "Category": "Fruits",
         "Last Edit": "11 days ago",
         "Created By": "TestUser4",
-        "id": 10
+        "id": 10,
+        "Report": 1
     },
     {
         "Recipe Name": "Roasted Cucumber",
         "Category": "Fruits",
         "Last Edit": "11 days ago",
         "Created By": "TestUser4",
-        "id": 11
+        "id": 11,
+        "Report": 1
     },
     {
         "Recipe Name": "Roasted Tomato",
@@ -118,7 +129,8 @@ const recipes = [
         "Last Edit": "11 days ago",
         "Created By": "TestUser4",
         "Reviews": 1,
-        "id": 12
+        "id": 12,
+        "Report": 1
     }
 ]
 
@@ -126,8 +138,8 @@ const reviews = [
     {
         "Recipe": "Cheesecake",
         "Recipe Author": "TestUser3",
-        "Rating": 2,
-        "Rating Author": "TestUser2",
+        "Rating": true,
+        "Comment Author": "TestUser2",
         "Report Count": 0,
         "Posted At": "2022-01-20",
         "id": 1,
@@ -136,8 +148,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser2",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 2,
@@ -146,8 +158,8 @@ const reviews = [
     {
         "Recipe": "Roasted Tomato",
         "Recipe Author": "TestUser4",
-        "Rating": 0,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 10,
         "Posted At": "2022-01-21",
         "id": 3,
@@ -156,8 +168,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": false,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 4,
@@ -166,8 +178,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 5,
@@ -176,8 +188,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 6,
@@ -186,8 +198,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": false,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 7,
@@ -196,8 +208,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": false,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 8,
@@ -206,8 +218,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": false,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 9,
@@ -216,8 +228,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 10,
@@ -226,8 +238,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 11,
@@ -236,8 +248,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 12,
@@ -246,8 +258,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 13,
@@ -256,8 +268,8 @@ const reviews = [
     {
         "Recipe": "Sushi",
         "Recipe Author": "TestUser1",
-        "Rating": 5,
-        "Rating Author": "TestUser3",
+        "Rating": true,
+        "Comment Author": "TestUser3",
         "Report Count": 0,
         "Posted At": "2022-01-21",
         "id": 14,

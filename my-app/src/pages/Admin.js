@@ -21,7 +21,7 @@ import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 import {addSnackbar, SnackbarProperties} from "../components/snack/Snackbar";
 
-const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Rating Author']
+const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
 const recipeHeaders = ['Recipe Name', 'Recipe']
 
 class Dialog {
@@ -52,7 +52,7 @@ function getReviewsViewDialog(data, setData,
             return (
                 <>
                     <AdvancedGrid
-                        searchableHeaders={['Recipe Author', 'Rating Author']} displayData={
+                        searchableHeaders={['Recipe Author', 'Comment Author']} displayData={
                         data.filter((i) => {
                             return i["Recipe"] === editingEntity["Recipe Name"]
                         })
@@ -213,7 +213,7 @@ export function AdminManageReviews() {
             getReportEditingDialog(reportData, setReportData,
                 editingReview, setEditingReview, ["Report Count"]),
             recipeEditingDialog]}
-        searchableHeaders={["Recipe", "Recipe Author", "Rating", "Rating Author", "Public"]}
+        searchableHeaders={["Recipe", "Recipe Author", "Rating", "Comment Author", "Public"]}
         displayData={reviewsData} setDisplayData={setReviewsData}
         cellCallback={cellCallback}/>
 }
