@@ -2,6 +2,11 @@ import React from 'react';
 import '../../styles/Dashboard.css';
 import {Button} from '../input/Button';
 import {CgHeart} from 'react-icons/cg';
+import {Link} from 'react-router-dom';
+import VeganFood from '../../resources/vegan-food.jpg';
+import PorkChop from '../../resources/pork-chop.jpg';
+import Chicken from '../../resources/chicken.jpg';
+import Salmon from '../../resources/salmon.jpg';
 
 class DashboardTopRecipes extends React.Component {
 
@@ -9,19 +14,22 @@ class DashboardTopRecipes extends React.Component {
         // Get data from database (hardcoded for now)
         return ([
             {
-                recipeName: 'Veggie Thai Green Curry',
-                img: 'https://www.archanaskitchen.com/images/archanaskitchen/0-Archanas-Kitchen-Recipes/2018/Vegetarian_Thai_Green_Curry_Recipe-2-2.jpg',
-                likes: 1224
+                recipeName: 'Creamy Broccoli Vegan Pasta',
+                img: VeganFood,
+                likes: 1224,
+                url: 1
             }, 
             {
-                recipeName: 'Dan Dan Noodles',
-                img: 'https://hips.hearstapps.com/hmg-prod/images/190226-dan-dan-noodles-253-1552085451.jpg', 
-                likes: 1123
+                recipeName: 'Grilled Pork Chops with Smoked Paprika Rub',
+                img: PorkChop, 
+                likes: 1123,
+                url: 2
             }, 
             {
-                recipeName: 'Garlic Butter Shrimp Pad Thai',
-                img: 'https://www.halfbakedharvest.com/wp-content/uploads/2020/02/Better-Than-Takeout-Garlic-Butter-Shrimp-Pad-Thai-6-700x467.jpg',
-                likes: 928
+                recipeName: 'Air-Fried Frozen Salmon',
+                img: Salmon,
+                likes: 928,
+                url: 3
             }
         ])
     }
@@ -51,7 +59,7 @@ class DashboardTopRecipeItem extends React.Component {
                 <p>{this.props.recipe.recipeName}</p>
                 <div className='top-recipes-button-container'>
                     <CgHeart/> {this.props.recipe.likes} 
-                    <Button className='button-explore-recipe'>Explore</Button>
+                    <Link to={`/recipe/${this.props.recipe.url}`}><Button className='button-explore-recipe'>Explore</Button></Link>
                 </div>
             </div>
         )

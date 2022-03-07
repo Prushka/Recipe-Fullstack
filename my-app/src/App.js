@@ -48,10 +48,14 @@ export default function App() {
                            element={<PageComponent path={"/manage/recipes"}><AdminManageRecipes/></PageComponent>}/>
                     <Route path={"/manage/reviews"}
                            element={<PageComponent path={"/manage/reviews"}><AdminManageReviews/></PageComponent>}/>
-                    <Route path="recipe/1" element={<RecipePage1 />} />
-                    <Route path="recipe/2" element={<RecipePage2 />} />
-                    <Route path="recipe/3" element={<RecipePage3 />} />
-                    <Route path="recipe/4" element={<RecipePage4 />} />       
+                    <Route path="recipe/1" 
+                           element={<PageComponent path={"/recipe/1"}><RecipePage1 /></PageComponent>} />
+                    <Route path="recipe/2" 
+                           element={<PageComponent path={"/recipe/2"}><RecipePage2 /></PageComponent>} />
+                    <Route path="recipe/3" 
+                           element={<PageComponent path={"/recipe/3"}><RecipePage3 /></PageComponent>} />
+                    <Route path="recipe/4" 
+                           element={<PageComponent path={"/recipe/4"}><RecipePage4 /></PageComponent>} />     
                 </Routes>
             </BrowserRouter>
         </>
