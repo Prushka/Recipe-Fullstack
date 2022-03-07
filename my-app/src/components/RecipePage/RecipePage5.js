@@ -7,7 +7,7 @@ import sweet from "../../resources/sweet-sour.jpg"
 
 
 class RecipePage5 extends React.Component {
-
+// the state information will be imported from database
   state = {
     id: 5,
     currentUser: 'User',

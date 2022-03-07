@@ -6,6 +6,7 @@ import "../../styles/profile_style.css"
 import food from "../../resources/food.jpg"
 
 class Profile extends React.Component {
+  // the state information will be imported from database
   state = {
     username: "hello",
     gender: "other",
