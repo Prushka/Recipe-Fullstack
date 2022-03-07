@@ -1,6 +1,5 @@
 import React from 'react';
 import '../SavedRecipe/SavedRecipe.css';
-//import Sidebar from '../Sidebar.js';
 import '../../styles/Sidebar.css';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ class SavedRecipe extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {/*<Sidebar />*/}
 
                 <div id='saved'>
                     <div className='header'>
