@@ -45,7 +45,7 @@ class DashboardRecommendedRecipe extends React.Component {
 
         return(
             <React.Fragment>
-                <div class="grid-item dashboard-recommended-recipe-container">
+                <div className="grid-item dashboard-recommended-recipe-container">
                     <div className='grid-dashboard-recommended-recipe'>
                         Recommended Recipes For You 
                     </div>
@@ -65,7 +65,7 @@ class RecommendedRecipeItem extends React.Component {
     render() {
         return(
             <div className='dashboard-recommended-recipe-item'>
-                <img src={this.props.recipe.img} alt={this.props.recipe.recipeName}></img>
+                <img src={this.props.recipe.img} alt={this.props.recipe.recipeName}/>
                 <div className='dashboard-recommended-recipe-item-name'>{this.props.recipe.recipeName}</div>
                 <div className='dashboard-recommended-recipe-button-container'>
                     <button className='dashboard-recommended-recipe-item-button'><CgHeart /></button>
