@@ -1,8 +1,9 @@
 import React from 'react';
 import './Login.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 export default function Login({userState, setUserState}) {
+    const navigate = useNavigate()
     const handleChange = (event) => {
         const target = event.target
         const value = target.value
@@ -10,7 +11,7 @@ export default function Login({userState, setUserState}) {
         setUserState(name, value)
     };
 
-    const handelClick = (event) => {
+    const submit = (event) => {
         //hard code database
         const user_date = [
             {
@@ -45,7 +46,12 @@ export default function Login({userState, setUserState}) {
             if (checkExist.username === "admin") {
                 console.log("Admin login")
                 setUserState("adminCheck", true)
+            } else{
+                setUserState("adminCheck", false)
             }
+        }
+        if(userState.valid){
+            navigate("/dashboard")
         }
     }
 
@@ -81,22 +87,9 @@ export default function Login({userState, setUserState}) {
                         />
                     </form>
                 </div>
-                <div onClick={event => handelClick(event)}>
+                <div onClick={event => submit(event)}>
                     <button>SUBMIT</button>
                     {/* If valid log in*/}
-                </div>
-                {/*<div>
-                        {userData.valid ? <Link to={'/home'}><button>LOG-IN</button></Link> : null}
-                    </div>*/}
-                <div>
-                    {/*if adminCheck == true link to admin page */}
-                    {userState.valid ? (userState.adminCheck ? <Link to={'/dashboard'}>
-                                <button>LOG-IN</button>
-                            </Link>
-                            : <Link to={'/dashboard'}>
-                                <button>LOG-IN</button>
-                            </Link>)
-                        : null}
                 </div>
 
                 {userState.error ? <div className='error_msg'>username and password unmatch</div> : null}
