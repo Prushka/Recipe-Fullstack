@@ -8,7 +8,7 @@ import porkChop from "../../resources/pork-chop.jpg"
 
 
 class RecipePage2 extends React.Component {
-
+  // the state information will be imported from database
   state = {
     id: 2,
     currentUser: 'User',

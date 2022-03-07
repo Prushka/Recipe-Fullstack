@@ -1,4 +1,6 @@
-var allRecipes = [
+// Hardcoded data 
+
+let allRecipes = [
                 {id: 1, 
                  recipeName: 'Fried Rice', 
                  img: "https://www.seriouseats.com/thmb/haHZBlBbdjmY9ffMCzTu8Z3e9xo=/1500x1125/filters:fill(auto,1)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2016__01__20160206-fried-rice-food-lab-68-807af5859cdd42dfb96bda07f62fb32e.jpg"}, 
@@ -22,7 +24,7 @@ var allRecipes = [
                  img: "https://www.simplyrecipes.com/thmb/C7Etb8jckjadvA2euBiCQhItA94=/1600x1200/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2009__09__caesar-salad-horiz-a-1800-4a465eb53456465091e34138675259c2.jpg"}
             ]
 
-var categories = ['Japanese', 'Chinese', 'French', 'Italian', 'Vietnamese', 'Mexican', 'Indian', 'Pastry', 'Drinks', 'Korean']
+let categories = ['Japanese', 'Chinese', 'French', 'Italian', 'Vietnamese', 'Mexican', 'Indian', 'Pastry', 'Drinks', 'Korean']
 
 export default allRecipes;
 export {categories};
