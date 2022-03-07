@@ -1,0 +1,76 @@
+#saved {
+	background-color: transparent;
+
+	/* Add properties below */
+	margin-top: 0px;
+	margin-left: 280px;
+	width: 100%;
+
+}
+
+.header {
+	border-bottom: 3px solid grey;
+
+}
+
+.header ul {
+	margin: 0px;
+}
+
+.header P{
+    margin: 0px;
+	padding: 10px;
+	margin-right: 20px;
+	font-size: 150%;
+	font-weight: bold;
+
+	/* Add properties below */
+    display: inline-block;
+    color: #EB7777;
+	
+
+}
+
+
+/*** Tweet styles below ***/
+
+.savedRecipeList {
+	background-color: transparent;
+	
+	/* Add properties below */
+    overflow: auto;
+    min-height: 100px;
+	border-bottom: 1px solid grey;
+
+}
+.savedContent h5{
+	margin: 10px;
+
+	/* Add properties below */
+	margin-left: 80px;
+	max-width: 520px;
+	display: inline-block;
+	position:absolute;
+    margin-top: 15px;
+
+
+
+}
+
+/*link to detailed recipe latter*/
+
+.savedContent h5:hover{
+
+    color:#EB7777;
+}
+
+/* For pictures inside tweets (like the Robarts pic) */
+.recipePicture {
+	/* Add properties below */
+    max-width:100px;
+    position: relative;
+    margin-left: 300px;
+    margin-top: 15px;
+
+
+}

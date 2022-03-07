@@ -24,7 +24,7 @@ function SideBar(props) {
                 <WrappedSideBarButton title='Dashboard' path='/dashboard' icon={<CgHomeAlt/>}/>
                 <WrappedSideBarButton title='My Profile' path='/profile' icon={<CgProfile/>}/>
                 <WrappedSideBarButton title='Browse Recipes' path='/browse' icon={<CgSearch/>}/>
-                <WrappedSideBarButton title='Saved Recipes' path='/3' icon={<CgHeart/>}/>
+                <WrappedSideBarButton title='Saved Recipes' path='/saved' icon={<CgHeart/>}/>
                 <WrappedSideBarButton title='Personal Recipes' path='/personal-recipes' icon={<CgPen/>}/>
                 {props.userIsAdmin && <>
                     <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
@@ -34,7 +34,7 @@ function SideBar(props) {
                 }
             </div>
             <div className={'side-bar__bottom-group'}>
-                <WrappedSideBarButton title='Log-out' path='/logout' icon={<CgLogOut/>}/>
+                <WrappedSideBarButton title='Log-out' path='/login' icon={<CgLogOut/>}/>
             </div>
         </div>
     );

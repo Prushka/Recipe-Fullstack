@@ -1,24 +1,26 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from "./components/profile/Profile";
 import BrowseRecipe from "./components/browse/BrowseRecipe";
-import SavedRecipe from "./components/SavedRecipe";
+import SavedRecipe from "./components/SavedRecipe/SavedRecipe";
 import PersonalRecipes from "./components/PersonalRecipes";
 import SideBar from "./pages/SideBar";
-import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
+import { AdminManageRecipes, AdminManageUsers, AdminManageReviews } from "./pages/Admin";
 import TopBar from "./pages/TopBar";
 import RecipePage2 from './components/RecipePage/RecipePage2';
 import RecipePage1 from './components/RecipePage/RecipePage1';
 import RecipePage3 from './components/RecipePage/RecipePage3';
 import RecipePage4 from './components/RecipePage/RecipePage4';
 import RecipePage5 from './components/RecipePage/RecipePage5';
+import Login from "./components/LogIn_SignUp/Login";
+import SignUp from "./components/LogIn_SignUp/SignUp";
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
-
+       
     const PageComponent = ({path, children}) => {
         return (<>
             <div className={`${sideBarOpen ? 'side-bar-overlay' : ''}`} onClick={() => setSideBarOpen(false)}/>
@@ -58,4 +60,5 @@ export default function App() {
             </BrowserRouter>
         </>
     )
+
 }
