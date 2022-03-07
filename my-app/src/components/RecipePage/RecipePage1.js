@@ -59,9 +59,9 @@ class RecipePage1 extends React.Component {
           <h5>Keywords: {this.state.keywords}</h5>
           <img src={veganFood} className='image' />
           <h4 className='subtitle'>Ingredient:</h4>
-          <p>{this.state.ingredient}</p>
+          <p className='paragraph'>{this.state.ingredient}</p>
           <h4 className='subtitle'>Instruction:</h4>
-          {paragraphs.map(par => <p>{par}</p>)}      
+          {paragraphs.map(par => <p className='paragraph'>{par}</p>)}      
           <Thumbs/>
           <CommentSection user={this.state.currentUser} comments={this.state.comments} 
             newContent={this.state.newContent} handleChange={this.handleChange} addComment={this.addComment}/>
