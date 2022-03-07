@@ -15,8 +15,10 @@ New user sign up through sign up page will redirect them to my profile page
 # Saved Recipe Page:
 On saved recipe page, by clicking the recipes(recipe1, recipe2), user will be redirect to the detailed recipe page.
 
+# Home Page: 
 When you run the application, you will be directed initially to the home page where it looks like a normal home page for a website. There will be two buttons on the navigation bar that redirects you to the log in or sign up page in which you can either log in with your credential or create a new account. 
 
+# Personal Recipe Page:
 The personal recipe page when you first get directed to it is a list of all your personal recipes that you posted on to the website. Here, you can search for any of your recipes using the search bar. In the list, you can choose to delete any of your recipes and also view more details of it. There is also an add recipe button which when you click, a pop-up will appear with a form where you can enter key information of the new recipe you want to add. For example, there is an input for the recipe name, tags, ingredients and instructions. 
 
 # My Profile:
