@@ -1,6 +1,12 @@
 import React from 'react'; 
 import '../../styles/Dashboard.css';
 import {CgHeart, CgMathPlus} from 'react-icons/cg';
+import VeganFood from '../../resources/vegan-food.jpg';
+import PorkChop from '../../resources/pork-chop.jpg';
+import Chicken from '../../resources/chicken.jpg';
+import Salmon from '../../resources/salmon.jpg';
+import {Link} from 'react-router-dom';
+import {Button} from '../input/Button';
 
 class DashboardRecommendedRecipe extends React.Component {
 
@@ -8,25 +14,29 @@ class DashboardRecommendedRecipe extends React.Component {
         // Hardcoded data that will be fetched from database
         return([
             {
-                recipeName: 'Lemony Tortellini Soup with Spinach and Dill', 
-                img: 'https://assets.bonappetit.com/photos/604104ee8fd036af451e9f0a/16:9/w_1920,c_limit/Basically-Tortellini-Soup.jpg'
+                recipeName: 'Creamy Broccoli Vegan Pasta', 
+                img: VeganFood,
+                url: 1
             }, 
             {
-                recipeName: 'Strip Steak au Poivre',
-                img: 'https://assets.bonappetit.com/photos/606cdd1ea56a3b6925ed48dc/1:1/w_1920%2Cc_limit/Cook-This-Book-Molly-Baz-Steak.jpg'
+                recipeName: 'Grilled Pork Chops with Smoked Paprika Rub',
+                img: PorkChop,
+                url: 2
             }, 
             {
-                recipeName: 'Sheet-Pan Gnocchi',
-                img: 'https://assets.bonappetit.com/photos/60a4022a248102a01bcfa0b6/1:1/w_1920%2Cc_limit/0621-Sheet-Pan-Gnocchi.jpg'
+                recipeName: 'Air-Fried Frozen Salmon',
+                img: Salmon,
+                url: 3
             },
             {
-                recipeName: 'Classic Banana Pudding',
-                img: 'https://assets.bonappetit.com/photos/61042779a36f3ea968547ea7/1:1/w_1920%2Cc_limit/0821-Banana-Pudding-FINAL.jpg'
+                recipeName: 'Golden Chicken',
+                img: Chicken,
+                url: 4
             },
             {
-                recipeName: 'Thai Roast Chicken Thighs With Coconut Rice',
+                recipeName: 'Thai Roast Chicken With Coconut Rice',
                 img: 'https://assets.bonappetit.com/photos/608983855799229a8ef966d3/1:1/w_1920%2Cc_limit/Go-Live-Thai-Roast-Chicken.jpg'
-            }
+            },
         ]);
     }
 
@@ -36,7 +46,7 @@ class DashboardRecommendedRecipe extends React.Component {
         return(
             <React.Fragment>
                 <div class="grid-item dashboard-recommended-recipe-container">
-                    <div className='grid-food-category-title'>
+                    <div className='grid-dashboard-recommended-recipe'>
                         Recommended Recipes For You 
                     </div>
                     {recommendedRecipes.map((recipe) => {
@@ -56,10 +66,11 @@ class RecommendedRecipeItem extends React.Component {
         return(
             <div className='dashboard-recommended-recipe-item'>
                 <img src={this.props.recipe.img} alt={this.props.recipe.recipeName}></img>
-                <p>{this.props.recipe.recipeName}</p>
-                <div>
+                <div className='dashboard-recommended-recipe-item-name'>{this.props.recipe.recipeName}</div>
+                <div className='dashboard-recommended-recipe-button-container'>
                     <button className='dashboard-recommended-recipe-item-button'><CgHeart /></button>
                     <button className='dashboard-recommended-recipe-item-button'><CgMathPlus /></button>
+                    <Link to={`/recipe/${this.props.recipe.url}`}><Button className='button-explore-recipe'>Explore</Button></Link>
                 </div>
             </div>
         )
