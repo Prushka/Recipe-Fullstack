@@ -17,6 +17,8 @@ class BrowseRecipe extends React.Component {
                 tags: ["omnivore", "chicken"]},
             {id: 1, recipeName: "Creamy Broccoli Vegan Pasta", 
                 tags: ["vegetarian", "pasta", "broccoli"]},
+            {id: 5, recipeName: "Slow Cooker Sweet and Sour Chicken Thighs", 
+                tags: ["omnivore", "chicken"]},
         ],
         results: [],
         noResult: false

@@ -14,6 +14,7 @@ import RecipePage2 from './components/RecipePage/RecipePage2';
 import RecipePage1 from './components/RecipePage/RecipePage1';
 import RecipePage3 from './components/RecipePage/RecipePage3';
 import RecipePage4 from './components/RecipePage/RecipePage4';
+import RecipePage5 from './components/RecipePage/RecipePage5';
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -51,7 +52,8 @@ export default function App() {
                     <Route path="recipe/1" element={<RecipePage1 />} />
                     <Route path="recipe/2" element={<RecipePage2 />} />
                     <Route path="recipe/3" element={<RecipePage3 />} />
-                    <Route path="recipe/4" element={<RecipePage4 />} />       
+                    <Route path="recipe/4" element={<RecipePage4 />} />
+                    <Route path="recipe/5" element={<RecipePage5 />} />          
                 </Routes>
             </BrowserRouter>
         </>
