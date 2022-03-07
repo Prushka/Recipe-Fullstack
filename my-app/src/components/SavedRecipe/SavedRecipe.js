@@ -12,22 +12,22 @@ class SavedRecipe extends React.Component {
                 {/*<Sidebar />*/}
 
                 <div id='saved'>
-                    <div class='header'>
+                    <div className='header'>
                         <p>Saved Recipes</p>
                     </div>
 
-                    <div class='savedRecipeList'>
+                    <div className='savedRecipeList'>
 
-                        <div class="savedContent">
+                        <div className="savedContent">
                             <Link to={'/recipe/1'}><h5>Recipe1</h5></Link>
-                            <img class="recipePicture" src="food.jpg" alt="" />
+                            <img className="recipePicture" src="food.jpg" alt="" />
                         </div>
                     </div>
 
-                    <div class='savedRecipeList'>
-                        <div class="savedContent">
+                    <div className='savedRecipeList'>
+                        <div className="savedContent">
                         <Link to={'/recipe/2'}><h5>Recipe2</h5></Link>
-                            <img class="recipePicture" src="food.jpg" alt="" />
+                            <img className="recipePicture" src="food.jpg" alt="" />
                         </div>
                     </div>
                 </div>
