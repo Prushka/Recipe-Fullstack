@@ -7,7 +7,7 @@ import veganFood from "../../resources/vegan-food.jpg"
 
 
 class RecipePage1 extends React.Component {
-
+  // the state information will be imported from database
   state = {
     id: 1,
     currentUser: 'User',
