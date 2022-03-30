@@ -13,6 +13,6 @@ const schema = new Schema<User>({
     avatar: String
 });
 
-const UserModel = model<User>('User', schema);
+export const UserModel = model<User>('User', schema);
 
 connectMongo().catch(err => console.log(err));
