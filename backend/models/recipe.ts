@@ -1,14 +1,20 @@
-import {Schema, model} from 'mongoose';
+import {Schema, model, Model} from 'mongoose';
 import validator from "validator";
-import {genSalt, hash} from "bcryptjs";
-interface User {
+import {genSalt, hash, compare} from "bcryptjs";
+
+interface IUser {
     name: string;
     email: string;
     password: string;
     avatar?: string;
 }
 
-const UserSchema = new Schema<User>({
+interface UserModel extends Model<IUser> {
+    findByEmailPassword: (email: String, password: String) => Promise<IUser>
+    findByEmailName: (email: String, name: String) => Promise<IUser>
+}
+
+const UserSchema = new Schema<IUser, UserModel>({
     name: {type: String, required: true},
     email: {
         type: String, required: true,
@@ -27,7 +33,7 @@ const UserSchema = new Schema<User>({
     }
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     const user = this; // binds this to User document instance
 
     // checks to ensure we don't hash password more than once
@@ -44,4 +50,22 @@ UserSchema.pre('save', function(next) {
     }
 })
 
-export const UserModel = model<User>('User', UserSchema)
+UserSchema.static('findByEmailPassword', async function findByEmailPassword(email, password) {
+    const User = this
+    const user = await User.findOne({email: email})
+    if(user){
+        compare(password, user.password, (err, result) => {
+            if (result) {
+                return user
+            }
+        })
+    }
+    return
+});
+
+UserSchema.static('findByEmailName', async function findByEmailName(email, name) {
+    const User = this
+    return User.findOne({email: email, name: name});
+});
+
+export const User = model<IUser, UserModel>('User', UserSchema)
