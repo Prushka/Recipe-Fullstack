@@ -53,7 +53,7 @@ UserSchema.pre('save', function (next) {
 UserSchema.static('findByEmailPassword', async function findByEmailPassword(email, password) {
     const User = this
     const user = await User.findOne({email: email})
-    if(user){
+    if (user) {
         compare(password, user.password, (err, result) => {
             if (result) {
                 return user
@@ -65,7 +65,7 @@ UserSchema.static('findByEmailPassword', async function findByEmailPassword(emai
 
 UserSchema.static('findByEmailName', async function findByEmailName(email, name) {
     const User = this
-    return User.findOne({email: email, name: name});
+    return User.findOne({$or: [{email: email}, {name: name}]});
 });
 
 export const User = model<IUser, UserModel>('User', UserSchema)
