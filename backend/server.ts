@@ -86,11 +86,17 @@ app.post('/review', route(async (req, res) => {
         res.status(404).send("Recipe not found")
         return
     }
+    const preReview = await Review.findOne({author: req.session.user!._id})
+    if(preReview) {
+        res.status(400).send("You already have one review on this recipe (you can update it tho)")
+        return
+    }
     let review = new Review({
         title: req.body.title,
         content: req.body.content,
         reviewedRecipe: req.body.reviewedRecipe,
-        rating: req.body.rating
+        rating: req.body.rating,
+        author: req.session.user!._id
     })
     review = await review.save()
     res.send(review)
