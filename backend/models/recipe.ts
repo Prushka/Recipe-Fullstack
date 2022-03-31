@@ -1,4 +1,5 @@
-import {Document, model, ObjectId, Schema} from "mongoose";
+import {Document, Model, model, ObjectId, Schema} from "mongoose";
+import {compare} from "bcryptjs";
 
 enum RecipeCategory {
     Japanese = "Japanese",
@@ -14,8 +15,11 @@ interface IRecipe extends Document {
     approved: boolean
 }
 
+interface RecipeModel extends Model<IRecipe> {
+    findRecipeByUser: (id: ObjectId) => Promise<IRecipe>
+}
 
-const RecipeSchema = new Schema<IRecipe>({
+const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     title: {type: String, required: true},
     category: {type: String, required: true, default: RecipeCategory.Unknown},
     content: {type: String, required: true, default: ""},
@@ -24,6 +28,11 @@ const RecipeSchema = new Schema<IRecipe>({
         type: String
     }],
     approved: {type: "boolean", required: true, default: false}
+});
+
+RecipeSchema.static('findRecipeByUser', async function findRecipeByUser(id: ObjectId) {
+    const Recipe = this
+    return Recipe.find({author: id})
 });
 
 RecipeSchema.pre('save', function (next) {
@@ -36,4 +45,4 @@ RecipeSchema.pre('save', function (next) {
     }
 })
 
-export const Recipe = model<IRecipe>('Recipe', RecipeSchema)
+export const Recipe = model<IRecipe, RecipeModel>('Recipe', RecipeSchema)
