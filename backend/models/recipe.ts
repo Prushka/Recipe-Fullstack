@@ -1,8 +1,8 @@
-import {Schema, model, Model} from 'mongoose';
+import {Schema, model, Model, Document} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
 
-interface IUser {
+interface IUser extends Document{
     name: string;
     email: string;
     password: string;
