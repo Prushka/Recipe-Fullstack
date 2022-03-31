@@ -107,13 +107,17 @@ app.post('/recipe', async (req: Request, res: Response) => {
     }
 })
 
+app.get('/recipe/me', async (req: Request, res: Response) => {
+    if (!validateUser(req, res)) {
+        return
+    }
+    const id = ObjectId(req.session.user._id)
+    res.send(await Recipe.findRecipeByUser(id))
+})
+
 app.get('/recipe/:id', async (req: Request, res: Response) => {
     const id = getObjectIdFromPara(req, res)
     if (!id) {
-        return
-    }
-    if (!req.session.user) {
-        res.status(401).send("Unauthorized")
         return
     }
     res.send(await Recipe.findRecipeByUser(id))
