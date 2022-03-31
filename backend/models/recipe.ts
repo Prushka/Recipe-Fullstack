@@ -10,16 +10,20 @@ interface IRecipe extends Document {
     category: RecipeCategory
     content: string
     author?: ObjectId
+    tags: string[]
+    approved: boolean
 }
 
-interface IReview extends Document {
-    name: string
-}
 
 const RecipeSchema = new Schema<IRecipe>({
     title: {type: String, required: true},
     category: {type: String, required: true, default: RecipeCategory.Unknown},
     content: {type: String, required: true, default: ""},
+    author: {type: String},
+    tags: [{
+        type: String
+    }],
+    approved: {type: "boolean", required: true, default: false}
 });
 
 export const Recipe = model<IRecipe>('Recipe', RecipeSchema)

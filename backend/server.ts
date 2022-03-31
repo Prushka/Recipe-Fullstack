@@ -54,7 +54,8 @@ app.post('/recipe', async (req: Request, res: Response) => {
             title: req.body.title,
             category: req.body.category,
             content: req.body.content,
-            author: req.session.user._id
+            author: req.session.user._id,
+            tags: req.body.tags
         })
         recipe = await recipe.save()
         res.send(recipe)
