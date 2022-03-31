@@ -5,9 +5,9 @@ import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import {Recipe} from "./models/recipe";
-import {Schema} from "mongoose";
-const { ObjectId } = require('mongodb');
+import {Document, Model, model, ObjectId as ObjectIdType, Schema} from "mongoose";
 
+const { ObjectId } = require('mongodb');
 connectToMongoDB().catch(err => console.log(err))
 
 const app = express()
@@ -45,7 +45,16 @@ function genericValidationInternal(res:Response, e:any) {
     }
 }
 
-app.patch('/recipe', async (req: Request, res: Response) => {
+function getObjectIdFromPara(req: Request, res: Response): ObjectIdType | null {
+    const id = req.params.id
+    if (!ObjectId.isValid(id)) {
+        res.status(404).send("Invalid ID")
+        return null
+    }
+    return ObjectId(id)
+}
+
+app.patch('/recipe/:id', async (req: Request, res: Response) => {
     if (!req.session.user) {
         res.status(401).send("Unauthorized")
         return
@@ -78,16 +87,15 @@ app.post('/recipe', async (req: Request, res: Response) => {
 })
 
 app.get('/recipe/:id', async (req: Request, res: Response) => {
-    const id = req.params.id
-    if (!ObjectId.isValid(req.params.id)) {
-        res.status(404).send("Invalid ID")
+    const id = getObjectIdFromPara(req, res)
+    if (!id) {
         return
     }
     if (!req.session.user) {
         res.status(401).send("Unauthorized")
         return
     }
-    res.send(await Recipe.findRecipeByUser(ObjectId(id)))
+    res.send(await Recipe.findRecipeByUser(id))
 })
 
 app.get('/recipe', async (req: Request, res: Response) => {
