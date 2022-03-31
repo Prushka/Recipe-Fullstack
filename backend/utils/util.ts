@@ -7,7 +7,7 @@ import {IUser, Role, User} from "../models/user";
 
 import {Document, ObjectId as ObjectIdType} from "mongoose";
 import {IRecipe} from "../models/recipe";
-import {EndpointError, throwError} from "../errors/Errors";
+import {EndpointError, throwError} from "../errors/errors";
 
 const {ObjectId} = require('mongodb');
 

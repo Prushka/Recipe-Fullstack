@@ -4,7 +4,7 @@
 
 import {IUser, Role} from "../models/user";
 import {Request, Response} from "express";
-import {EndpointError, throwError} from "../errors/Errors";
+import {EndpointError, throwError} from "../errors/errors";
 import {genericErrorChecker} from "../utils/util";
 
 export interface UserInjectionSpec {
