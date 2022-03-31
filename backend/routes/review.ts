@@ -7,17 +7,18 @@ import {Recipe} from "../models/recipe";
 import {Review} from "../models/review";
 import express from "express";
 import {route} from "./route";
+import {Role} from "../models/user";
 
 export const reviewRouter = express.Router()
 
-reviewRouter.patch('/:id', route(async (req, res) => {
+reviewRouter.patch('/:id', route(async (req, res, user) => {
     const reviewId = getObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
     if (!review) {
         res.status(404).send("Review not found")
         return
     }
-    if (review.author !== req.session.user!._id && !req.session.user){
+    if (review.author !== req.session.user!._id && user!.role < Role.ADMIN){
         res.status(401).send("You don't have permission to edit this review")
         return
     }

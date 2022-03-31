@@ -3,7 +3,7 @@
  */
 
 import {getObjectIdFromPara, userHasEditingPermissionOnRecipe} from "../utils/util";
-import {IUser, Role} from "../models/user";
+import {Role} from "../models/user";
 import {Recipe} from "../models/recipe";
 import express from "express";
 import {route} from "./route";
