@@ -26,4 +26,14 @@ const RecipeSchema = new Schema<IRecipe>({
     approved: {type: "boolean", required: true, default: false}
 });
 
+RecipeSchema.pre('save', function (next) {
+    const recipe = this;
+    if (recipe.isModified('tags')) {
+        recipe.tags = [...new Set(recipe.tags)]
+        next()
+    } else {
+        next()
+    }
+})
+
 export const Recipe = model<IRecipe>('Recipe', RecipeSchema)
