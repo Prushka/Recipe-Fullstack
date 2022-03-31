@@ -37,13 +37,17 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
     }
     try {
         const user: IUser = req.session.user
-        const recipe = await Recipe.findById(id)
+        let recipe = await Recipe.findById(id)
         if (recipe) {
             if (recipe.author != req.session.user._id && user.role < 1) {
                 res.status(401).send("You don't have permission to edit this recipe")
                 return
             }
-            res.send("Have permission")
+            recipe.title = req.body.title ?? recipe.title
+            recipe.content = req.body.content ?? recipe.content
+            recipe.category = req.body.category ?? recipe.category
+            recipe = await recipe.save()
+            res.send(recipe)
         } else {
             res.status(404).send("Recipe not found")
         }
