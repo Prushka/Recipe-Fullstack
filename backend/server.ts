@@ -8,7 +8,6 @@ import {Recipe} from "./models/recipe";
 import {
     updateUser,
     createAdminIfNotExist,
-    genericErrorChecker,
     getObjectIdFromPara, removeFromOutput,
     userHasEditingPermissionOnRecipe,
     validateUser, route
@@ -31,7 +30,7 @@ app.use(
         },
         // store the sessions on the database in production
         store: MongoStore.create({
-            mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/StudentAPI'
+            mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/RecipeAPI'
         })
     })
 );

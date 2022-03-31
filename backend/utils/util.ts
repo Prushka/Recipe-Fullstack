@@ -1,9 +1,13 @@
+/*
+ * Copyright 2022 Dan Lyu
+ */
+
 import {Request, Response} from "express";
 import {IUser, Role, User} from "../models/user";
 
 import {Document, ObjectId as ObjectIdType} from "mongoose";
 import {IRecipe} from "../models/recipe";
-import UserNotLoggedInError, {EndpointError, throwError} from "../errors/Errors";
+import {EndpointError, throwError} from "../errors/Errors";
 
 const {ObjectId} = require('mongodb');
 
