@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {idToObjectId, route, validateUser} from "../utils/util";
+import {getObjectIdFromPara, idToObjectId, route, validateUser} from "../utils/util";
 import {Recipe} from "../models/recipe";
 import {Review} from "../models/review";
 import express from "express";
@@ -36,5 +36,18 @@ reviewRouter.post('/', route(async (req, res) => {
 reviewRouter.get('/', route(async (req, res) => {
     validateUser(req)
     res.send(await Review.find({author: req.session.user!._id}))
+}))
+
+
+reviewRouter.get('/recipe/:id', route(async (req, res) => {
+    validateUser(req)
+    const id = getObjectIdFromPara(req)
+    res.send(await Review.find({reviewedRecipe: id}))
+}))
+
+reviewRouter.get('/user/:id', route(async (req, res) => {
+    validateUser(req)
+    const id = getObjectIdFromPara(req)
+    res.send(await Review.find({author: id}))
 }))
 
