@@ -46,6 +46,8 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
             recipe.title = req.body.title ?? recipe.title
             recipe.content = req.body.content ?? recipe.content
             recipe.category = req.body.category ?? recipe.category
+            // const tags = req.body.tags ?? []
+            recipe.tags = req.body.tags ?? recipe.tags
             recipe = await recipe.save()
             res.send(recipe)
         } else {
