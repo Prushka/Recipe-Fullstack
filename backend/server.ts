@@ -34,12 +34,30 @@ function serverError(res: Response) {
     res.status(500).send("Internal Server Error")
 }
 
+app.get('/recipes', async (req: Request, res: Response) => {
+    if (!req.session.user) {
+        res.status(401).send("Unauthorized")
+        return
+    }
+    res.send(req.session.email)
+})
+
+app.post("/logout", (req, res) => {
+    req.session.destroy(error => {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            res.send()
+        }
+    });
+});
+
 app.post('/login', async (req: Request, res: Response) => {
     const email = req.body.email
     const password = req.body.password
 
     const user = await User.findByEmailPassword(email, password)
-    if(!user){
+    if (!user) {
         res.status(400).send("Invalid")
         return
     }
@@ -53,7 +71,7 @@ app.post('/register', async (req: Request, res: Response) => {
     const name = req.body.name
     const password = req.body.password
     const preUser = await User.findByEmailName(email, name)
-    if(preUser){
+    if (preUser) {
         res.status(400).send("User exists (same email or same name)")
         return
     }
