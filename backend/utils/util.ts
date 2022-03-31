@@ -1,7 +1,8 @@
 import {Request, Response} from "express";
-import {Role, User} from "../models/user";
+import {IUser, Role, User} from "../models/user";
 
 import {ObjectId as ObjectIdType} from "mongoose";
+import {IRecipe} from "../models/recipe";
 
 const {ObjectId} = require('mongodb');
 
@@ -57,4 +58,8 @@ export async function createAdminIfNotExist() {
         })
         await user.save()
     }
+}
+
+export function userHasEditingPermissionOnRecipe(user: IUser, recipe: IRecipe) {
+    return recipe.author == user._id || user.role > 0
 }
