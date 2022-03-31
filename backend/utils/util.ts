@@ -11,17 +11,6 @@ import {EndpointError, throwError} from "../errors/Errors";
 
 const {ObjectId} = require('mongodb');
 
-
-export function route(f: (req: Request, res: Response) => void) {
-    return async (req: Request, res: Response) => {
-        try {
-            await f(req, res)
-        } catch (e) {
-            genericErrorChecker(res, e)
-        }
-    }
-}
-
 export function genericErrorChecker(res: Response, e: any) {
     if (e instanceof Error) {
         switch (e.name) {
@@ -58,16 +47,6 @@ export function idToObjectId(id: string): ObjectIdType {
 export function getObjectIdFromPara(req: Request): ObjectIdType {
     const id = req.params.id
     return idToObjectId(id)
-}
-
-export function validateUser(req: Request, role: Role = Role.USER) {
-    if (!req.session.user) {
-        throwError(EndpointError.UserNotLoggedIn)
-    }
-    const haveRole = req.session.user!.role >= role
-    if (!haveRole) {
-        throwError(EndpointError.NoPermission)
-    }
 }
 
 export async function createAdminIfNotExist() {

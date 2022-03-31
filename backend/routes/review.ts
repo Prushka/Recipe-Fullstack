@@ -2,19 +2,23 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {getObjectIdFromPara, idToObjectId, route, validateUser} from "../utils/util";
+import {getObjectIdFromPara, idToObjectId} from "../utils/util";
 import {Recipe} from "../models/recipe";
 import {Review} from "../models/review";
 import express from "express";
+import {route} from "./route";
 
 export const reviewRouter = express.Router()
 
 reviewRouter.patch('/:id', route(async (req, res) => {
-    validateUser(req)
     const reviewId = getObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
     if (!review) {
         res.status(404).send("Review not found")
+        return
+    }
+    if (review.author !== req.session.user!._id && !req.session.user){
+        res.status(401).send("You don't have permission to edit this review")
         return
     }
     review.title = req.body.title ?? review.title
@@ -25,7 +29,6 @@ reviewRouter.patch('/:id', route(async (req, res) => {
 }))
 
 reviewRouter.post('/', route(async (req, res) => {
-    validateUser(req)
     const recipeId = idToObjectId(req.body.reviewedRecipe)
     const recipe = await Recipe.findById(recipeId)
     if (!recipe) {
@@ -49,19 +52,16 @@ reviewRouter.post('/', route(async (req, res) => {
 }))
 
 reviewRouter.get('/', route(async (req, res) => {
-    validateUser(req)
     res.send(await Review.find({author: req.session.user!._id}))
 }))
 
 
 reviewRouter.get('/recipe/:id', route(async (req, res) => {
-    validateUser(req)
     const id = getObjectIdFromPara(req)
     res.send(await Review.find({reviewedRecipe: id}))
 }))
 
 reviewRouter.get('/user/:id', route(async (req, res) => {
-    validateUser(req)
     const id = getObjectIdFromPara(req)
     res.send(await Review.find({author: id}))
 }))

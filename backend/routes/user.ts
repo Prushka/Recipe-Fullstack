@@ -2,21 +2,14 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {
-    getObjectIdFromPara,
-    getUserFromSession,
-    removeFromOutput,
-    route,
-    updateUser,
-    validateUser
-} from "../utils/util";
+import {getObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
 import {IUser, Role, User} from "../models/user";
 import express from "express";
+import {route} from "./route";
 
 export const userRouter = express.Router()
 userRouter.delete('/',
     route(async (req, res) => {
-        validateUser(req)
         const user = await getUserFromSession(req)
         await user!.delete()
         req.session.user = undefined
@@ -25,7 +18,6 @@ userRouter.delete('/',
 
 userRouter.delete('/:id',
     route(async (req, res) => {
-        validateUser(req, Role.ADMIN)
         const id = getObjectIdFromPara(req)
         let user: IUser | null = await User.findById(id)
         if (!user) {
@@ -34,21 +26,18 @@ userRouter.delete('/:id',
         }
         await user.delete()
         res.send()
-    }))
+    }, {required: true, minRole: Role.ADMIN}))
 
 userRouter.get('/',
     route(async (req, res) => {
-        validateUser(req)
         res.send(req.session.user)
     }))
 
 userRouter.get('/all', route(async (req, res) => {
-    validateUser(req, Role.ADMIN)
     res.send(removeFromOutput(await User.find(), "password"))
-}))
+}, {required: true, minRole: Role.ADMIN}))
 
 userRouter.patch('/:id', route(async (req, res) => {
-    validateUser(req, Role.ADMIN)
     const id = getObjectIdFromPara(req)
     let user: IUser | null = await User.findById(id)
     if (!user) {
@@ -64,10 +53,9 @@ userRouter.patch('/:id', route(async (req, res) => {
     user = await updatedUser.save()
     user = removeFromOutput(user, "password")
     res.send(user)
-}))
+}, {required: true, minRole: Role.ADMIN}))
 
 userRouter.patch('/', route(async (req, res) => {
-    validateUser(req)
     let user = await getUserFromSession(req)
 
     const updatedUser = await updateUser(req, res, user)
@@ -102,7 +90,7 @@ userRouter.post('/login', route(async (req, res) => {
     user = removeFromOutput(user, "password")
     req.session.user = user
     res.send(user)
-}));
+}, {required: false}));
 
 userRouter.post('/register', route(async (req, res) => {
     const email = req.body.email
@@ -121,4 +109,4 @@ userRouter.post('/register', route(async (req, res) => {
     })
     user = await user.save()
     res.send(user)
-}));
+}, {required: false}));

@@ -3,12 +3,11 @@ import * as bodyParser from "body-parser";
 import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
-import {
-    createAdminIfNotExist,
-} from "./utils/util";
+import {createAdminIfNotExist} from "./utils/util";
 import {reviewRouter} from "./routes/review";
 import {userRouter} from "./routes/user";
 import {recipeRouter} from "./routes/recipe";
+
 connectToMongoDB().catch(err => console.log(err))
 
 export const app = express()
