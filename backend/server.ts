@@ -8,7 +8,7 @@ import {Recipe} from "./models/recipe";
 import {
     createAdminIfNotExist,
     genericValidationInternal,
-    getObjectIdFromPara,
+    getObjectIdFromPara, removeFromOutput,
     userHasEditingPermissionOnRecipe,
     validateUser
 } from "./utils/util";
@@ -138,7 +138,7 @@ app.get('/users', async (req: Request, res: Response) => {
     if (!validateUser(req, res, Role.ADMIN)) {
         return
     }
-    res.send(await User.find())
+    res.send(removeFromOutput(await User.find(), "password"))
 })
 
 app.patch('/user', async (req: Request, res: Response) => {
@@ -172,7 +172,7 @@ app.patch('/user', async (req: Request, res: Response) => {
             user.password = password
         }
         user = await user.save()
-        user.password = ''
+        user = removeFromOutput(user, "password")
         req.session.user = user
         res.send(user)
     }catch (e) {
@@ -194,12 +194,12 @@ app.post('/login', async (req: Request, res: Response) => {
     const email = req.body.email
     const password = req.body.password
 
-    const user = await User.findByEmailPassword(email, password)
+    let user = await User.findByEmailPassword(email, password)
     if (!user) {
         res.status(400).send("Invalid Email/Password combination")
         return
     }
-    user.password = ''
+    user = removeFromOutput(user, "password")
     req.session.user = user
     res.send(user)
 });
