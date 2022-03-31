@@ -1,8 +1,8 @@
 import React from 'react';
 import './Login.css';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function Login({userState, setUserState}) {
+export default function Login({ userState, setUserState }) {
     const navigate = useNavigate()
     const handleChange = (event) => {
         const target = event.target
@@ -48,7 +48,7 @@ export default function Login({userState, setUserState}) {
                 console.log("Admin login")
                 setUserState("adminCheck", true)
                 navigate("/dashboard")
-            } else{
+            } else {
                 setUserState("adminCheck", false)
             }
         }
@@ -62,7 +62,7 @@ export default function Login({userState, setUserState}) {
                 <div className="login_banner">
                     <p>Recipe...</p>
                 </div>
-                <div><h1 className = "login_text">Log-in</h1></div>
+                <div><h1 className="login_text">Log-in</h1></div>
                 <div className="form-inputs">
                     <form className='login_form'>
                         <input className='login_input'
@@ -89,16 +89,20 @@ export default function Login({userState, setUserState}) {
                     <button className='login_submit_button'>SUBMIT</button>
                     {/* If valid log in*/}
                 </div>
-
-                {userState.error ? <div className='error_msg'>username and password unmatch</div> : null}
-
-
+                
                 <Link to={'/signup'}>
                     <div className='link_to_sign_up'>
                         <u>No account? create an account</u>
                     </div>
 
                 </Link>
+
+                <div className='error_msg'>
+                    {userState.error ? <div className='error_msg_output'>username and password unmatch</div> : null}
+
+                </div>
+
+
 
 
             </div>
