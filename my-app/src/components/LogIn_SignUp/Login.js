@@ -62,7 +62,7 @@ export default function Login({userState, setUserState}) {
                 <div className="login_banner">
                     <p>Recipe...</p>
                 </div>
-                <div><h1>Log-in</h1></div>
+                <div><h1 className = "login_text">Log-in</h1></div>
                 <div className="form-inputs">
                     <form className='login_form'>
                         <input className='login_input'
@@ -86,7 +86,7 @@ export default function Login({userState, setUserState}) {
                     </form>
                 </div>
                 <div onClick={event => submit(event)}>
-                    <button>SUBMIT</button>
+                    <button className='login_submit_button'>SUBMIT</button>
                     {/* If valid log in*/}
                 </div>
 

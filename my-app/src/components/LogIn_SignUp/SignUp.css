@@ -44,7 +44,7 @@
   height:80px;
   left: 400px;
 }
-.signup h1 {
+.signup_text{
   position: relative;
   width:200px;
   height: 50px;
@@ -58,7 +58,7 @@
 }
 
 /*ref https://www.w3schools.com/css/css3_buttons.asp*/
-.signup button {
+.signup_submit_button {
   position:relative;
   background-color: #8688BC;
   border: none;
@@ -68,7 +68,7 @@
   height: 60px;
   border-radius: 4px;
   left: 400px;
-  top: 10px;
+  top: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -89,14 +89,12 @@
 }
 
 
-.back button {
+.back_button {
   position: relative;
   width: 200px;
   height: 19px;
-  left: 550px;
-  top: 10px;
+  left: 600px;
+  top: 20px;
   bottom: 50px;
-
-  color: black;
   background-color: transparent;
 }

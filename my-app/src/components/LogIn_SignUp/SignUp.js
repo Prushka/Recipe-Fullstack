@@ -16,7 +16,7 @@ const SignUp = () => {
                     <p>Recipe...</p>
                 </div>
                 <div>
-                    <h1>Sign-Up</h1>
+                    <h1 className='signup_text'>Sign-Up</h1>
                 </div>
                 <div className="form-inputs">
                     <form className='signup_form' onSubmit={handelSubmit}>
@@ -67,13 +67,15 @@ const SignUp = () => {
                 </div>
                 <div>
                     <Link to={"/profile"}>
-                        <button >SUBMIT</button>
+                        <button className="signup_submit_button">SUBMIT</button>
                     </Link>
 
                 </div>
-                <div className='back'>
+                <div >
                     <Link to={"/login"} style={{ textDecoration: 'none' }}>
-                        <button>Back to login</button>
+                        <div className='back_button'>
+                            <u>Back to login</u>
+                        </div>
                     </Link>
 
                 </div>
