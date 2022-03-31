@@ -19,7 +19,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 60000,
+            maxAge: 3.6e+6,
             httpOnly: true
         },
         // store the sessions on the database in production

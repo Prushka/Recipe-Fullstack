@@ -11,6 +11,23 @@ import {Role} from "../models/user";
 
 export const reviewRouter = express.Router()
 
+
+reviewRouter.delete('/:id', route(async (req, res, user) => {
+    const reviewId = getObjectIdFromPara(req)
+    let review = await Review.findById(reviewId)
+    if (!review) {
+        res.status(404).send("Review not found")
+        return
+    }
+    if (review.author !== req.session.user!._id && user!.role < Role.ADMIN) {
+        res.status(401).send("You don't have permission to edit this review")
+        return
+    }
+    await review.delete()
+    res.send("deleted")
+}))
+
+
 reviewRouter.patch('/:id', route(async (req, res, user) => {
     const reviewId = getObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
@@ -18,7 +35,7 @@ reviewRouter.patch('/:id', route(async (req, res, user) => {
         res.status(404).send("Review not found")
         return
     }
-    if (review.author !== req.session.user!._id && user!.role < Role.ADMIN){
+    if (review.author !== req.session.user!._id && user!.role < Role.ADMIN) {
         res.status(401).send("You don't have permission to edit this review")
         return
     }

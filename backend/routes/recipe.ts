@@ -19,8 +19,8 @@ recipeRouter.delete('/:id', route(async (req, res, user) => {
             res.status(401).send("You don't have permission to edit this recipe")
             return
         }
-        recipe = await recipe.delete()
-        res.send(recipe)
+        await recipe.delete()
+        res.send("deleted")
     } else {
         res.status(404).send("Recipe not found")
     }
