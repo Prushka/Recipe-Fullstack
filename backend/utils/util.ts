@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {IUser, Role, User} from "../models/user";
 
-import {ObjectId as ObjectIdType} from "mongoose";
+import {Document, ObjectId as ObjectIdType} from "mongoose";
 import {IRecipe} from "../models/recipe";
 
 const {ObjectId} = require('mongodb');
@@ -62,4 +62,22 @@ export async function createAdminIfNotExist() {
 
 export function userHasEditingPermissionOnRecipe(user: IUser, recipe: IRecipe) {
     return recipe.author == user._id || user.role > 0
+}
+
+export function removeFromOutput<T extends Document>(stuff: T | T[], ...key: string[]): any {
+    const remove = (ss: T) => {
+        const s: any = {...ss.toObject()}
+        key.forEach((k: string) => {
+            delete s[k]
+        })
+        return s
+    }
+    if (Array.isArray(stuff)) {
+        const result: any[] = []
+        stuff.forEach(s => {
+            result.push(remove(s))
+        })
+        return result
+    }
+    return remove(stuff)
 }
