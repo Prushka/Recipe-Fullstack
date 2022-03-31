@@ -9,6 +9,21 @@ import express from "express";
 
 export const reviewRouter = express.Router()
 
+reviewRouter.patch('/:id', route(async (req, res) => {
+    validateUser(req)
+    const reviewId = getObjectIdFromPara(req)
+    let review = await Review.findById(reviewId)
+    if (!review) {
+        res.status(404).send("Review not found")
+        return
+    }
+    review.title = req.body.title ?? review.title
+    review.content = req.body.content ?? review.content
+    review.rating = req.body.rating ?? review.rating
+    review = await review.save()
+    res.send(review)
+}))
+
 reviewRouter.post('/', route(async (req, res) => {
     validateUser(req)
     const recipeId = idToObjectId(req.body.reviewedRecipe)
