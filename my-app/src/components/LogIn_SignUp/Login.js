@@ -64,23 +64,21 @@ export default function Login({userState, setUserState}) {
                 </div>
                 <div><h1>Log-in</h1></div>
                 <div className="form-inputs">
-                    <form>
-                        <input
+                    <form className='login_form'>
+                        <input className='login_input'
                             type="username"
                             name="username"
                             placeholder="username..."
-                            className='input'
                             value={userState.username}
                             onChange={event => handleChange(event)}
                             required
                         />
                     </form>
-                    <form>
-                        <input
+                    <form className='login_form'>
+                        <input className='login_input'
                             type="password"
                             name="password"
                             placeholder="password..."
-                            className='input'
                             value={userState.password}
                             onChange={event => handleChange(event)}
                             required

@@ -35,7 +35,7 @@
   justify-content: center;
   display: flex;
 }
-.login form{
+.login_form{
   position:relative;
   height: 80px;
   left: 400px;
@@ -74,7 +74,7 @@
   cursor: pointer;
 }
   
-.input{
+.login_input{
   widows: 80%;
   border: 1px solid rgb(90, 38, 114);
   padding: 20px;
