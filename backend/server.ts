@@ -5,7 +5,7 @@ import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import {Recipe} from "./models/recipe";
-import {genericValidationInternal, getObjectIdFromPara, validateUser} from "./utils/util";
+import {createAdminIfNotExist, genericValidationInternal, getObjectIdFromPara, validateUser} from "./utils/util";
 
 const {ObjectId} = require('mongodb');
 connectToMongoDB().catch(err => console.log(err))
@@ -116,7 +116,7 @@ app.post('/login', async (req: Request, res: Response) => {
 
     const user = await User.findByEmailPassword(email, password)
     if (!user) {
-        res.status(400).send("Invalid")
+        res.status(400).send("Invalid Email/Password combination")
         return
     }
     user.password = ''
@@ -135,7 +135,7 @@ app.post('/register', async (req: Request, res: Response) => {
     }
     try {
         let user = new User({
-            name: req.body.name,
+            name: name,
             email: email,
             avatar: req.body.avatar,
             password: password
@@ -151,3 +151,4 @@ const port = process.env.PORT || 5001
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`)
 });
+createAdminIfNotExist().then()
