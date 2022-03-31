@@ -5,7 +5,7 @@ enum RecipeCategory {
     Unknown = "Unknown"
 }
 
-interface IRecipe extends Document {
+export interface IRecipe extends Document {
     title: string
     category: RecipeCategory
     content: string

@@ -5,7 +5,13 @@ import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import {Recipe} from "./models/recipe";
-import {createAdminIfNotExist, genericValidationInternal, getObjectIdFromPara, validateUser} from "./utils/util";
+import {
+    createAdminIfNotExist,
+    genericValidationInternal,
+    getObjectIdFromPara,
+    userHasEditingPermissionOnRecipe,
+    validateUser
+} from "./utils/util";
 
 const {ObjectId} = require('mongodb');
 connectToMongoDB().catch(err => console.log(err))
@@ -29,6 +35,28 @@ app.use(
     })
 );
 
+app.delete('/recipe/:id', async (req: Request, res: Response) => {
+    const id = getObjectIdFromPara(req, res)
+    if (!validateUser(req, res) || !id) {
+        return
+    }
+    try {
+        const user: IUser = req.session.user
+        let recipe = await Recipe.findById(id)
+        if (recipe) {
+            if (!userHasEditingPermissionOnRecipe(user, recipe)) {
+                res.status(401).send("You don't have permission to edit this recipe")
+                return
+            }
+            recipe = await recipe.delete()
+            res.send(recipe)
+        } else {
+            res.status(404).send("Recipe not found")
+        }
+    } catch (e) {
+        genericValidationInternal(res, e)
+    }
+})
 
 app.patch('/recipe/:id', async (req: Request, res: Response) => {
     const id = getObjectIdFromPara(req, res)
@@ -39,14 +67,13 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
         const user: IUser = req.session.user
         let recipe = await Recipe.findById(id)
         if (recipe) {
-            if (recipe.author != req.session.user._id && user.role < 1) {
+            if (!userHasEditingPermissionOnRecipe(user, recipe)) {
                 res.status(401).send("You don't have permission to edit this recipe")
                 return
             }
             recipe.title = req.body.title ?? recipe.title
             recipe.content = req.body.content ?? recipe.content
             recipe.category = req.body.category ?? recipe.category
-            // const tags = req.body.tags ?? []
             recipe.tags = req.body.tags ?? recipe.tags
             recipe = await recipe.save()
             res.send(recipe)
