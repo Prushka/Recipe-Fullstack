@@ -1,9 +1,10 @@
 import express, {Request, Response} from 'express';
 import * as bodyParser from "body-parser";
-import {User} from "./models/recipe";
+import {User} from "./models/user";
 import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
+import {Recipe} from "./models/recipe";
 
 connectToMongoDB().catch(err => console.log(err))
 
@@ -34,12 +35,40 @@ function serverError(res: Response) {
     res.status(500).send("Internal Server Error")
 }
 
-app.get('/recipes', async (req: Request, res: Response) => {
+function genericValidationInternal(res:Response, e:any) {
+    if (e instanceof Error && isValidationError(e)) {
+        res.status(400).send(e.message)
+    } else {
+        serverError(res)
+    }
+}
+
+
+app.post('/recipe', async (req: Request, res: Response) => {
     if (!req.session.user) {
         res.status(401).send("Unauthorized")
         return
     }
-    res.send(req.session.email)
+    try {
+        let recipe = new Recipe({
+            title: req.body.title,
+            category: req.body.category,
+            content: req.body.content,
+            author: req.session.user._id
+        })
+        recipe = await recipe.save()
+        res.send(recipe)
+    } catch (e) {
+        genericValidationInternal(res, e)
+    }
+})
+
+app.get('/recipe', async (req: Request, res: Response) => {
+    if (!req.session.user) {
+        res.status(401).send("Unauthorized")
+        return
+    }
+    res.send(await Recipe.find())
 })
 
 app.post("/logout", (req, res) => {
@@ -61,8 +90,8 @@ app.post('/login', async (req: Request, res: Response) => {
         res.status(400).send("Invalid")
         return
     }
-    req.session.user = user._id
-    req.session.email = user.email
+    user.password = ''
+    req.session.user = user
     res.send("Success")
 });
 
@@ -85,11 +114,7 @@ app.post('/register', async (req: Request, res: Response) => {
         user = await user.save()
         res.send(user)
     } catch (e) {
-        if (e instanceof Error && isValidationError(e)) {
-            res.status(400).send(e.message)
-        } else {
-            serverError(res)
-        }
+        genericValidationInternal(res, e)
     }
 });
 
