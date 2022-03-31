@@ -1,8 +1,9 @@
 import {Schema, model, Model, Document} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
+import {rejects} from "assert";
 
-interface IUser extends Document{
+interface IUser extends Document {
     name: string;
     email: string;
     password: string;
@@ -52,12 +53,16 @@ UserSchema.pre('save', function (next) {
 
 UserSchema.static('findByEmailPassword', async function findByEmailPassword(email, password) {
     const User = this
-    const user = await User.findOne({email: email})
+    let user = await User.findOne({email: email})
     if (user) {
-        compare(password, user.password, (err, result) => {
-            if (result) {
-                return user
-            }
+        return new Promise((resolve) => {
+            compare(password, user!.password, (err, result) => {
+                if (result) {
+                    resolve(user)
+                }else{
+                    resolve(null)
+                }
+            })
         })
     }
     return
