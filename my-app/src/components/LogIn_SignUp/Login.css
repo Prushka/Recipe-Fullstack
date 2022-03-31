@@ -35,15 +35,16 @@
   justify-content: center;
   display: flex;
 }
-.login form{
+.login_form{
   position:relative;
   height: 80px;
   left: 400px;
-  top: 80px;
+  top: 30px;
+  margin-top: 10px;
 }
-.login h1 {
+.login_text {
   position: relative;
-  width:139px;
+  width:200px;
   height: 50px;
   left: 400px;
   margin-top: 100px;
@@ -55,7 +56,7 @@
 }
 
 /*ref https://www.w3schools.com/css/css3_buttons.asp*/
-.login button {
+.login_submit_button {
   position:relative;
   background-color: #8688BC;
   border: none;
@@ -65,7 +66,7 @@
   height: 60px;
   border-radius: 4px;
   left: 400px;
-  top: 100px;
+  top: 60px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -74,7 +75,7 @@
   cursor: pointer;
 }
   
-.input{
+.login_input{
   widows: 80%;
   border: 1px solid rgb(90, 38, 114);
   padding: 20px;
@@ -89,12 +90,17 @@
   position: relative;
   width: 490px;
   left:400px;
-  margin-top: 20px;
+}
+
+.error_msg_output{
+  margin-top: -120px;
+  color:#EB7777;
+
 }
 
 .link_to_sign_up{
-  position: relative;
+  position: static;
   width: 490px;
-  margin-left: 400px;
-  margin-top: 20px;
+  margin-left: 520px;
+  margin-top: 70px;
 }

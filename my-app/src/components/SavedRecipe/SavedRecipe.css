@@ -1,23 +1,21 @@
-#saved {
+.saved_recipe {
 	background-color: transparent;
 
 	/* Add properties below */
 	margin-top: 0px;
-	margin-left: 280px;
+	margin-left: 0px;
 	width: 100%;
+	color:#EB7777;
 
 }
 
-.header {
+.saved_recipe_header {
 	border-bottom: 3px solid grey;
 
 }
 
-.header ul {
-	margin: 0px;
-}
 
-.header P{
+.saved_recipe_text{
     margin: 0px;
 	padding: 10px;
 	margin-right: 20px;
@@ -41,10 +39,14 @@
     overflow: auto;
     min-height: 100px;
 	border-bottom: 1px solid grey;
+	top: 20px;
 
 }
-.savedContent h5{
-	margin: 10px;
+
+/*link to detailed recipe latter*/
+
+.link_to_recipe{
+	margin: 30px;
 
 	/* Add properties below */
 	margin-left: 80px;
@@ -52,14 +54,6 @@
 	display: inline-block;
 	position:absolute;
     margin-top: 15px;
-
-
-
-}
-
-/*link to detailed recipe latter*/
-
-.savedContent h5:hover{
 
     color:#EB7777;
 }
