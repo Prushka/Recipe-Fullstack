@@ -5,7 +5,7 @@ import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import {Recipe} from "./models/recipe";
-import {ObjectId as ObjectIdType} from "mongoose";
+import {genericValidationInternal, getObjectIdFromPara, validateUser} from "./utils/util";
 
 const {ObjectId} = require('mongodb');
 connectToMongoDB().catch(err => console.log(err))
@@ -29,42 +29,6 @@ app.use(
     })
 );
 
-function isValidationError(error: Error) {
-    return error.name === "ValidationError"
-}
-
-function serverError(res: Response) {
-    res.status(500).send("Internal Server Error")
-}
-
-function genericValidationInternal(res: Response, e: any) {
-    if (e instanceof Error && isValidationError(e)) {
-        res.status(400).send(e.message)
-    } else {
-        serverError(res)
-    }
-}
-
-function getObjectIdFromPara(req: Request, res: Response): ObjectIdType | null {
-    const id = req.params.id
-    if (!ObjectId.isValid(id)) {
-        res.status(404).send("Invalid ID")
-        return null
-    }
-    return ObjectId(id)
-}
-
-function validateUser(req: Request, res: Response, role: Role = Role.USER) {
-    if (!req.session.user) {
-        res.status(401).send("Unauthorized")
-        return false
-    }
-    const haveRole = req.session.user.role >= role
-    if (!haveRole) {
-        res.status(401).send("Unauthorized (Permission Denied)")
-    }
-    return haveRole
-}
 
 app.patch('/recipe/:id', async (req: Request, res: Response) => {
     const id = getObjectIdFromPara(req, res)
@@ -74,13 +38,13 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
     try {
         const user: IUser = req.session.user
         const recipe = await Recipe.findById(id)
-        if(recipe){
-            if(recipe.author != req.session.user._id && user.role < 1){
+        if (recipe) {
+            if (recipe.author != req.session.user._id && user.role < 1) {
                 res.status(401).send("You don't have permission to edit this recipe")
                 return
             }
             res.send("Have permission")
-        }else{
+        } else {
             res.status(404).send("Recipe not found")
         }
     } catch (e) {
