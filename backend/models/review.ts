@@ -12,7 +12,11 @@ const ReviewSchema = new Schema<IReview>({
     title: {type: String, required: true},
     content: {type: String, required: true, default: ""},
     reviewedRecipe: {type: String, required: true},
-    rating: {type: Number, required: true, default: 0},
+    rating: {
+        type: Number, required: true, default: 0, min: -1, max: 1,
+        get: (v: number) => Math.round(v),
+        set: (v: number) => Math.round(v),
+    },
     author: {type: String, required: true}
 });
 
