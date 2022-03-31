@@ -76,6 +76,9 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
             recipe.content = req.body.content ?? recipe.content
             recipe.category = req.body.category ?? recipe.category
             recipe.tags = req.body.tags ?? recipe.tags
+            if (user.role > Role.USER) {
+                recipe.approved = req.body.approved ?? recipe.approved
+            }
             recipe = await recipe.save()
             res.send(recipe)
         } else {
