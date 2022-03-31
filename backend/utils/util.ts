@@ -18,6 +18,7 @@ export function genericValidationInternal(res: Response, e: any) {
     if (e instanceof Error && isValidationError(e)) {
         res.status(400).send(e.message)
     } else {
+        console.log(e.message)
         serverError(res)
     }
 }
@@ -80,4 +81,30 @@ export function removeFromOutput<T extends Document>(stuff: T | T[], ...key: str
         return result
     }
     return remove(stuff)
+}
+
+export async function updateUser(req: Request, res: Response, user: IUser) {
+    const name = req.body.name ?? user.name
+    const email = req.body.email ?? user.email
+    if (email !== user.email) {
+        const preUser = await User.findByEmailName(email, undefined)
+        if (preUser) {
+            res.status(400).send("Email has been taken")
+            return undefined
+        }
+    }
+
+    if (name !== user.name) {
+        const preUser = await User.findByEmailName(undefined, name)
+        if (preUser) {
+            res.status(400).send("Name has been taken")
+            return undefined
+        }
+    }
+    user.name = name
+    user.email = email
+    if (req.body.password) {
+        user.password = req.body.password
+    }
+    return user
 }

@@ -6,6 +6,7 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import {Recipe} from "./models/recipe";
 import {
+    updateUser,
     createAdminIfNotExist,
     genericValidationInternal,
     getObjectIdFromPara, removeFromOutput,
@@ -141,41 +142,50 @@ app.get('/users', async (req: Request, res: Response) => {
     res.send(removeFromOutput(await User.find(), "password"))
 })
 
+app.patch('/user/:id', async (req: Request, res: Response) => {
+    if (!validateUser(req, res, Role.ADMIN)) {
+        return
+    }
+    const id = getObjectIdFromPara(req, res)
+    if (!id) {
+        return
+    }
+    try {
+        let user: IUser | null = await User.findById(id)
+        if (!user) {
+            res.send("User cannot be found")
+            return
+        }
+
+        const updatedUser = await updateUser(req, res, user)
+        if (!updatedUser) {
+            return
+        }
+        user = await updatedUser.save()
+        user = removeFromOutput(user, "password")
+        res.send(user)
+    } catch (e) {
+        genericValidationInternal(res, e)
+    }
+});
+
 app.patch('/user', async (req: Request, res: Response) => {
     if (!validateUser(req, res)) {
         return
     }
-    try{
+    try {
         const sessionUser = req.session.user!
         let user = await User.findByEmailName(sessionUser.email, sessionUser.name)
-        const name = req.body.name ?? user.name
-        const email = req.body.email ?? user.email
-        const password = req.body.password
-        if(email !== user.email){
-            const preUser = await User.findByEmailName(email, undefined)
-            if(preUser){
-                res.status(400).send("Email has been taken")
-                return
-            }
-        }
 
-        if(name !== user.name){
-            const preUser = await User.findByEmailName(undefined, name)
-            if(preUser){
-                res.status(400).send("Name has been taken")
-                return
-            }
+        const updatedUser = await updateUser(req, res, user)
+        if (!updatedUser) {
+            return
         }
-        user.name = name
-        user.email = email
-        if(password){
-            user.password = password
-        }
-        user = await user.save()
+        user = await updatedUser.save()
         user = removeFromOutput(user, "password")
         req.session.user = user
         res.send(user)
-    }catch (e) {
+    } catch (e) {
         genericValidationInternal(res, e)
     }
 });
