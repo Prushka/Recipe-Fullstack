@@ -17,7 +17,7 @@ export enum Role {
 
 interface UserModel extends Model<IUser> {
     findByEmailPassword: (email: String, password: String) => Promise<IUser>
-    findByEmailName: (email: String, name: String) => Promise<IUser>
+    findByEmailName: (email?: String, name?: String) => Promise<IUser>
 }
 
 const UserSchema = new Schema<IUser, UserModel>({
@@ -74,9 +74,18 @@ UserSchema.static('findByEmailPassword', async function findByEmailPassword(emai
     return
 });
 
-UserSchema.static('findByEmailName', async function findByEmailName(email, name) {
+UserSchema.static('findByEmailName', async function findByEmailName(email?:string, name?:string) {
     const User = this
-    return User.findOne({$or: [{email: email}, {name: name}]});
+    if(email && name){
+        return User.findOne({$or: [{email: email}, {name: name}]});
+    }
+    if(email){
+        return User.findOne({email: email})
+    }
+    if(name){
+        return User.findOne({name: name})
+    }
+    return User.find()
 });
 
 export const User = model<IUser, UserModel>('User', UserSchema)

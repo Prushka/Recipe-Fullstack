@@ -41,7 +41,7 @@ app.delete('/recipe/:id', async (req: Request, res: Response) => {
         return
     }
     try {
-        const user: IUser = req.session.user
+        const user: IUser = req.session.user!
         let recipe = await Recipe.findById(id)
         if (recipe) {
             if (!userHasEditingPermissionOnRecipe(user, recipe)) {
@@ -64,7 +64,7 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
         return
     }
     try {
-        const user: IUser = req.session.user
+        const user: IUser = req.session.user!
         let recipe = await Recipe.findById(id)
         if (recipe) {
             if (!userHasEditingPermissionOnRecipe(user, recipe)) {
@@ -94,7 +94,7 @@ app.post('/recipe', async (req: Request, res: Response) => {
             title: req.body.title,
             category: req.body.category,
             content: req.body.content,
-            author: req.session.user._id,
+            author: req.session.user!._id,
             tags: req.body.tags
         })
         recipe = await recipe.save()
@@ -108,7 +108,7 @@ app.get('/recipe/me', async (req: Request, res: Response) => {
     if (!validateUser(req, res)) {
         return
     }
-    const id = ObjectId(req.session.user._id)
+    const id = ObjectId(req.session.user!._id)
     res.send(await Recipe.findRecipeByUser(id))
 })
 
@@ -126,6 +126,45 @@ app.get('/recipe', async (req: Request, res: Response) => {
     }
     res.send(await Recipe.find())
 })
+
+app.patch('/user', async (req: Request, res: Response) => {
+    if (!validateUser(req, res)) {
+        return
+    }
+    try{
+        const sessionUser = req.session.user!
+        let user = await User.findByEmailName(sessionUser.email, sessionUser.name)
+        const name = req.body.name ?? user.name
+        const email = req.body.email ?? user.email
+        const password = req.body.password
+        if(email !== user.email){
+            const preUser = await User.findByEmailName(email, undefined)
+            if(preUser){
+                res.status(400).send("Email has been taken")
+                return
+            }
+        }
+
+        if(name !== user.name){
+            const preUser = await User.findByEmailName(undefined, name)
+            if(preUser){
+                res.status(400).send("Name has been taken")
+                return
+            }
+        }
+        user.name = name
+        user.email = email
+        if(password){
+            user.password = password
+        }
+        user = await user.save()
+        user.password = ''
+        req.session.user = user
+        res.send(user)
+    }catch (e) {
+        genericValidationInternal(res, e)
+    }
+});
 
 app.post("/logout", (req, res) => {
     req.session.destroy(error => {
