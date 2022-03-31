@@ -2,12 +2,17 @@ import {Schema, model, Model, Document} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
 
-interface IUser extends Document {
+export interface IUser extends Document {
     name: string
     email: string
     password: string
     avatar?: string
     role: 0 | 1
+}
+
+export enum Role {
+    USER = 0,
+    ADMIN = 1
 }
 
 interface UserModel extends Model<IUser> {

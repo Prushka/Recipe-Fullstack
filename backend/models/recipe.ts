@@ -1,5 +1,4 @@
 import {Document, Model, model, ObjectId, Schema} from "mongoose";
-import {compare} from "bcryptjs";
 
 enum RecipeCategory {
     Japanese = "Japanese",
