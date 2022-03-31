@@ -7,7 +7,7 @@ interface IUser extends Document {
     email: string
     password: string
     avatar?: string
-    role: "admin" | "user"
+    role: 0 | 1
 }
 
 interface UserModel extends Model<IUser> {
@@ -32,7 +32,7 @@ const UserSchema = new Schema<IUser, UserModel>({
         type: String, required: true,
         minlength: 6
     },
-    role: {type: String, default: "user"}
+    role: {type: Number, default: 0}
 });
 
 UserSchema.pre('save', function (next) {
