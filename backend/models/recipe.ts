@@ -1,13 +1,13 @@
 import {Schema, model, Model, Document} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
-import {rejects} from "assert";
 
 interface IUser extends Document {
     name: string;
     email: string;
     password: string;
     avatar?: string;
+    role: "admin" | "user";
 }
 
 interface UserModel extends Model<IUser> {
@@ -31,7 +31,8 @@ const UserSchema = new Schema<IUser, UserModel>({
     password: {
         type: String, required: true,
         minlength: 6
-    }
+    },
+    role: {type: String, default: "user"}
 });
 
 UserSchema.pre('save', function (next) {
@@ -59,7 +60,7 @@ UserSchema.static('findByEmailPassword', async function findByEmailPassword(emai
             compare(password, user!.password, (err, result) => {
                 if (result) {
                     resolve(user)
-                }else{
+                } else {
                     resolve(null)
                 }
             })
