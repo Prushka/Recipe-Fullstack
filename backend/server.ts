@@ -161,6 +161,7 @@ app.patch('/user/:id', async (req: Request, res: Response) => {
         if (!updatedUser) {
             return
         }
+        updatedUser.role = req.body.role ?? updatedUser.role
         user = await updatedUser.save()
         user = removeFromOutput(user, "password")
         res.send(user)
