@@ -127,6 +127,20 @@ app.get('/recipe', async (req: Request, res: Response) => {
     res.send(await Recipe.find())
 })
 
+app.get('/user', async (req: Request, res: Response) => {
+    if (!validateUser(req, res)) {
+        return
+    }
+    res.send(req.session.user)
+})
+
+app.get('/users', async (req: Request, res: Response) => {
+    if (!validateUser(req, res, Role.ADMIN)) {
+        return
+    }
+    res.send(await User.find())
+})
+
 app.patch('/user', async (req: Request, res: Response) => {
     if (!validateUser(req, res)) {
         return
