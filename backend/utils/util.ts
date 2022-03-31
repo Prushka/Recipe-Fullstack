@@ -14,9 +14,9 @@ const {ObjectId} = require('mongodb');
 
 export function route(f: (req: Request, res: Response) => void) {
     return async (req: Request, res: Response) => {
-        try{
+        try {
             await f(req, res)
-        }catch (e){
+        } catch (e) {
             genericErrorChecker(res, e)
         }
     }
@@ -24,7 +24,6 @@ export function route(f: (req: Request, res: Response) => void) {
 
 export function genericErrorChecker(res: Response, e: any) {
     if (e instanceof Error) {
-        console.log(e.name)
         switch (e.name) {
             case "ValidationError":
                 res.status(400).send(e.message)
@@ -37,6 +36,10 @@ export function genericErrorChecker(res: Response, e: any) {
                 break
             case EndpointError.InvalidObjectId:
                 res.status(404).send("Invalid ID")
+                break
+            default:
+                console.log(e.message)
+                res.status(500).send("Internal Server Error")
                 break
         }
     } else {
@@ -126,4 +129,12 @@ export async function updateUser(req: Request, res: Response, user: IUser) {
         user.password = req.body.password
     }
     return user
+}
+
+export async function getUserFromSession(req: Request): Promise<IUser> {
+    const _user = await User.findOne({
+        email: req.session.user!.email,
+        name: req.session.user!.name
+    })
+    return _user!
 }

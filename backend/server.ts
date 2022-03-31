@@ -10,7 +10,7 @@ import {
     createAdminIfNotExist,
     getObjectIdFromPara, removeFromOutput,
     userHasEditingPermissionOnRecipe,
-    validateUser, route
+    validateUser, route, getUserFromSession
 } from "./utils/util";
 
 const {ObjectId} = require('mongodb');
@@ -107,6 +107,27 @@ app.get('/recipe', route(async (req, res) => {
     res.send(await Recipe.find())
 }))
 
+app.delete('/user',
+    route(async (req, res) => {
+        validateUser(req)
+        const user = await getUserFromSession(req)
+        await user!.delete()
+        res.send("Deleted")
+    }))
+
+app.delete('/user/:id',
+    route(async (req, res) => {
+        validateUser(req, Role.ADMIN)
+        const id = getObjectIdFromPara(req)
+        let user: IUser | null = await User.findById(id)
+        if (!user) {
+            res.send("User cannot be found")
+            return
+        }
+        await user.delete()
+        res.send()
+    }))
+
 app.get('/user',
     route(async (req, res) => {
         validateUser(req)
@@ -139,8 +160,7 @@ app.patch('/user/:id', route(async (req, res) => {
 
 app.patch('/user', route(async (req, res) => {
     validateUser(req)
-    const sessionUser = req.session.user!
-    let user = await User.findByEmailName(sessionUser.email, sessionUser.name)
+    let user = await getUserFromSession(req)
 
     const updatedUser = await updateUser(req, res, user)
     if (!updatedUser) {
