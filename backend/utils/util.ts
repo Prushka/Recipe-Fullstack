@@ -3,45 +3,60 @@ import {IUser, Role, User} from "../models/user";
 
 import {Document, ObjectId as ObjectIdType} from "mongoose";
 import {IRecipe} from "../models/recipe";
+import UserNotLoggedInError, {EndpointError, throwError} from "../errors/Errors";
 
 const {ObjectId} = require('mongodb');
 
-export function isValidationError(error: Error) {
-    return error.name === "ValidationError"
-}
 
-export function serverError(res: Response) {
-    res.status(500).send("Internal Server Error")
-}
-
-export function genericValidationInternal(res: Response, e: any) {
-    if (e instanceof Error && isValidationError(e)) {
-        res.status(400).send(e.message)
-    } else {
-        console.log(e.message)
-        serverError(res)
+export function route(f: (req: Request, res: Response) => void) {
+    return async (req: Request, res: Response) => {
+        try{
+            await f(req, res)
+        }catch (e){
+            genericErrorChecker(res, e)
+        }
     }
 }
 
-export function getObjectIdFromPara(req: Request, res: Response): ObjectIdType | null {
+export function genericErrorChecker(res: Response, e: any) {
+    if (e instanceof Error) {
+        console.log(e.name)
+        switch (e.name) {
+            case "ValidationError":
+                res.status(400).send(e.message)
+                break
+            case EndpointError.UserNotLoggedIn:
+                res.status(401).send("Unauthorized")
+                break
+            case EndpointError.NoPermission:
+                res.status(401).send("Permission Denied")
+                break
+            case EndpointError.InvalidObjectId:
+                res.status(404).send("Invalid ID")
+                break
+        }
+    } else {
+        console.log(e.message)
+        res.status(500).send("Internal Server Error")
+    }
+}
+
+export function getObjectIdFromPara(req: Request): ObjectIdType {
     const id = req.params.id
     if (!ObjectId.isValid(id)) {
-        res.status(404).send("Invalid ID")
-        return null
+        throwError(EndpointError.InvalidObjectId)
     }
     return ObjectId(id)
 }
 
-export function validateUser(req: Request, res: Response, role: Role = Role.USER) {
+export function validateUser(req: Request, role: Role = Role.USER) {
     if (!req.session.user) {
-        res.status(401).send("Unauthorized")
-        return false
+        throwError(EndpointError.UserNotLoggedIn)
     }
-    const haveRole = req.session.user.role >= role
+    const haveRole = req.session.user!.role >= role
     if (!haveRole) {
-        res.status(401).send("Unauthorized (Permission Denied)")
+        throwError(EndpointError.NoPermission)
     }
-    return haveRole
 }
 
 export async function createAdminIfNotExist() {

@@ -8,10 +8,10 @@ import {Recipe} from "./models/recipe";
 import {
     updateUser,
     createAdminIfNotExist,
-    genericValidationInternal,
+    genericErrorChecker,
     getObjectIdFromPara, removeFromOutput,
     userHasEditingPermissionOnRecipe,
-    validateUser
+    validateUser, route
 } from "./utils/util";
 
 const {ObjectId} = require('mongodb');
@@ -36,163 +36,122 @@ app.use(
     })
 );
 
-app.delete('/recipe/:id', async (req: Request, res: Response) => {
-    const id = getObjectIdFromPara(req, res)
-    if (!validateUser(req, res) || !id) {
-        return
-    }
-    try {
-        const user: IUser = req.session.user!
-        let recipe = await Recipe.findById(id)
-        if (recipe) {
-            if (!userHasEditingPermissionOnRecipe(user, recipe)) {
-                res.status(401).send("You don't have permission to edit this recipe")
-                return
-            }
-            recipe = await recipe.delete()
-            res.send(recipe)
-        } else {
-            res.status(404).send("Recipe not found")
+app.delete('/recipe/:id', route(async (req, res) => {
+    const id = getObjectIdFromPara(req)
+    validateUser(req)
+    const user: IUser = req.session.user!
+    let recipe = await Recipe.findById(id)
+    if (recipe) {
+        if (!userHasEditingPermissionOnRecipe(user, recipe)) {
+            res.status(401).send("You don't have permission to edit this recipe")
+            return
         }
-    } catch (e) {
-        genericValidationInternal(res, e)
+        recipe = await recipe.delete()
+        res.send(recipe)
+    } else {
+        res.status(404).send("Recipe not found")
     }
-})
+}))
 
-app.patch('/recipe/:id', async (req: Request, res: Response) => {
-    const id = getObjectIdFromPara(req, res)
-    if (!validateUser(req, res) || !id) {
-        return
-    }
-    try {
-        const user: IUser = req.session.user!
-        let recipe = await Recipe.findById(id)
-        if (recipe) {
-            if (!userHasEditingPermissionOnRecipe(user, recipe)) {
-                res.status(401).send("You don't have permission to edit this recipe")
-                return
-            }
-            recipe.title = req.body.title ?? recipe.title
-            recipe.content = req.body.content ?? recipe.content
-            recipe.category = req.body.category ?? recipe.category
-            recipe.tags = req.body.tags ?? recipe.tags
-            if (user.role > Role.USER) {
-                recipe.approved = req.body.approved ?? recipe.approved
-            }
-            recipe = await recipe.save()
-            res.send(recipe)
-        } else {
-            res.status(404).send("Recipe not found")
+app.patch('/recipe/:id', route(async (req, res) => {
+    validateUser(req)
+    const id = getObjectIdFromPara(req)
+
+    const user: IUser = req.session.user!
+    let recipe = await Recipe.findById(id)
+    if (recipe) {
+        if (!userHasEditingPermissionOnRecipe(user, recipe)) {
+            res.status(401).send("You don't have permission to edit this recipe")
+            return
         }
-    } catch (e) {
-        genericValidationInternal(res, e)
-    }
-})
-
-app.post('/recipe', async (req: Request, res: Response) => {
-    if (!validateUser(req, res)) {
-        return
-    }
-    try {
-        let recipe = new Recipe({
-            title: req.body.title,
-            category: req.body.category,
-            content: req.body.content,
-            author: req.session.user!._id,
-            tags: req.body.tags
-        })
+        recipe.title = req.body.title ?? recipe.title
+        recipe.content = req.body.content ?? recipe.content
+        recipe.category = req.body.category ?? recipe.category
+        recipe.tags = req.body.tags ?? recipe.tags
+        if (user.role > Role.USER) {
+            recipe.approved = req.body.approved ?? recipe.approved
+        }
         recipe = await recipe.save()
         res.send(recipe)
-    } catch (e) {
-        genericValidationInternal(res, e)
+    } else {
+        res.status(404).send("Recipe not found")
     }
-})
+}))
 
-app.get('/recipe/me', async (req: Request, res: Response) => {
-    if (!validateUser(req, res)) {
-        return
-    }
+app.post('/recipe', route(async (req, res) => {
+    validateUser(req)
+    let recipe = new Recipe({
+        title: req.body.title,
+        category: req.body.category,
+        content: req.body.content,
+        author: req.session.user!._id,
+        tags: req.body.tags
+    })
+    recipe = await recipe.save()
+    res.send(recipe)
+}))
+
+app.get('/recipe/me', route(async (req, res) => {
+    validateUser(req)
     const id = ObjectId(req.session.user!._id)
     res.send(await Recipe.findRecipeByUser(id))
-})
+}))
 
-app.get('/recipe/:id', async (req: Request, res: Response) => {
-    const id = getObjectIdFromPara(req, res)
-    if (!id) {
-        return
-    }
-    res.send(await Recipe.findRecipeByUser(id))
-})
+app.get('/recipe/:id', route(async (req, res) => {
+        const id = getObjectIdFromPara(req)
+        res.send(await Recipe.findRecipeByUser(id))
+    })
+)
 
-app.get('/recipe', async (req: Request, res: Response) => {
-    if (!validateUser(req, res)) {
-        return
-    }
+app.get('/recipe', route(async (req, res) => {
+    validateUser(req)
     res.send(await Recipe.find())
-})
+}))
 
-app.get('/user', async (req: Request, res: Response) => {
-    if (!validateUser(req, res)) {
-        return
-    }
-    res.send(req.session.user)
-})
+app.get('/user',
+    route(async (req, res) => {
+        validateUser(req)
+        res.send(req.session.user)
+    }))
 
-app.get('/users', async (req: Request, res: Response) => {
-    if (!validateUser(req, res, Role.ADMIN)) {
-        return
-    }
+app.get('/users', route(async (req, res) => {
+    validateUser(req, Role.ADMIN)
     res.send(removeFromOutput(await User.find(), "password"))
-})
+}))
 
-app.patch('/user/:id', async (req: Request, res: Response) => {
-    if (!validateUser(req, res, Role.ADMIN)) {
+app.patch('/user/:id', route(async (req, res) => {
+    validateUser(req, Role.ADMIN)
+    const id = getObjectIdFromPara(req)
+    let user: IUser | null = await User.findById(id)
+    if (!user) {
+        res.send("User cannot be found")
         return
     }
-    const id = getObjectIdFromPara(req, res)
-    if (!id) {
+
+    const updatedUser = await updateUser(req, res, user)
+    if (!updatedUser) {
         return
     }
-    try {
-        let user: IUser | null = await User.findById(id)
-        if (!user) {
-            res.send("User cannot be found")
-            return
-        }
+    updatedUser.role = req.body.role ?? updatedUser.role
+    user = await updatedUser.save()
+    user = removeFromOutput(user, "password")
+    res.send(user)
+}))
 
-        const updatedUser = await updateUser(req, res, user)
-        if (!updatedUser) {
-            return
-        }
-        updatedUser.role = req.body.role ?? updatedUser.role
-        user = await updatedUser.save()
-        user = removeFromOutput(user, "password")
-        res.send(user)
-    } catch (e) {
-        genericValidationInternal(res, e)
-    }
-});
+app.patch('/user', route(async (req, res) => {
+    validateUser(req)
+    const sessionUser = req.session.user!
+    let user = await User.findByEmailName(sessionUser.email, sessionUser.name)
 
-app.patch('/user', async (req: Request, res: Response) => {
-    if (!validateUser(req, res)) {
+    const updatedUser = await updateUser(req, res, user)
+    if (!updatedUser) {
         return
     }
-    try {
-        const sessionUser = req.session.user!
-        let user = await User.findByEmailName(sessionUser.email, sessionUser.name)
-
-        const updatedUser = await updateUser(req, res, user)
-        if (!updatedUser) {
-            return
-        }
-        user = await updatedUser.save()
-        user = removeFromOutput(user, "password")
-        req.session.user = user
-        res.send(user)
-    } catch (e) {
-        genericValidationInternal(res, e)
-    }
-});
+    user = await updatedUser.save()
+    user = removeFromOutput(user, "password")
+    req.session.user = user
+    res.send(user)
+}));
 
 app.post("/logout", (req, res) => {
     req.session.destroy(error => {
@@ -204,7 +163,7 @@ app.post("/logout", (req, res) => {
     });
 });
 
-app.post('/login', async (req: Request, res: Response) => {
+app.post('/login', route(async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
@@ -216,9 +175,9 @@ app.post('/login', async (req: Request, res: Response) => {
     user = removeFromOutput(user, "password")
     req.session.user = user
     res.send(user)
-});
+}));
 
-app.post('/register', async (req: Request, res: Response) => {
+app.post('/register', route(async (req, res) => {
     const email = req.body.email
     const name = req.body.name
     const password = req.body.password
@@ -227,19 +186,15 @@ app.post('/register', async (req: Request, res: Response) => {
         res.status(400).send("User exists (same email or same name)")
         return
     }
-    try {
-        let user = new User({
-            name: name,
-            email: email,
-            avatar: req.body.avatar,
-            password: password
-        })
-        user = await user.save()
-        res.send(user)
-    } catch (e) {
-        genericValidationInternal(res, e)
-    }
-});
+    let user = new User({
+        name: name,
+        email: email,
+        avatar: req.body.avatar,
+        password: password
+    })
+    user = await user.save()
+    res.send(user)
+}));
 
 const port = process.env.PORT || 5001
 app.listen(port, () => {
