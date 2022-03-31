@@ -10,8 +10,9 @@ import {
     createAdminIfNotExist,
     getObjectIdFromPara, removeFromOutput,
     userHasEditingPermissionOnRecipe,
-    validateUser, route, getUserFromSession
+    validateUser, route, getUserFromSession, idToObjectId
 } from "./utils/util";
+import {Review} from "./models/review";
 
 const {ObjectId} = require('mongodb');
 connectToMongoDB().catch(err => console.log(err))
@@ -75,6 +76,24 @@ app.patch('/recipe/:id', route(async (req, res) => {
     } else {
         res.status(404).send("Recipe not found")
     }
+}))
+
+app.post('/review', route(async (req, res) => {
+    validateUser(req)
+    const recipeId = idToObjectId(req.body.reviewedRecipe)
+    const recipe = await Recipe.findById(recipeId)
+    if(!recipe){
+        res.status(404).send("Recipe not found")
+        return
+    }
+    let review = new Review({
+        title: req.body.title,
+        content: req.body.content,
+        reviewedRecipe: req.body.reviewedRecipe,
+        rating: req.body.rating
+    })
+    review = await review.save()
+    res.send(review)
 }))
 
 app.post('/recipe', route(async (req, res) => {

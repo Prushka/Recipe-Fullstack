@@ -48,12 +48,16 @@ export function genericErrorChecker(res: Response, e: any) {
     }
 }
 
-export function getObjectIdFromPara(req: Request): ObjectIdType {
-    const id = req.params.id
+export function idToObjectId(id: string): ObjectIdType {
     if (!ObjectId.isValid(id)) {
         throwError(EndpointError.InvalidObjectId)
     }
     return ObjectId(id)
+}
+
+export function getObjectIdFromPara(req: Request): ObjectIdType {
+    const id = req.params.id
+    return idToObjectId(id)
 }
 
 export function validateUser(req: Request, role: Role = Role.USER) {
