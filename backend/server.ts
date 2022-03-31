@@ -7,7 +7,7 @@ import session from "express-session";
 import {Recipe} from "./models/recipe";
 import {Document, Model, model, ObjectId as ObjectIdType, Schema} from "mongoose";
 
-const { ObjectId } = require('mongodb');
+const {ObjectId} = require('mongodb');
 connectToMongoDB().catch(err => console.log(err))
 
 const app = express()
@@ -37,7 +37,7 @@ function serverError(res: Response) {
     res.status(500).send("Internal Server Error")
 }
 
-function genericValidationInternal(res:Response, e:any) {
+function genericValidationInternal(res: Response, e: any) {
     if (e instanceof Error && isValidationError(e)) {
         res.status(400).send(e.message)
     } else {
@@ -54,9 +54,20 @@ function getObjectIdFromPara(req: Request, res: Response): ObjectIdType | null {
     return ObjectId(id)
 }
 
-app.patch('/recipe/:id', async (req: Request, res: Response) => {
+function validateUser(req: Request, res: Response, role: number = 0) {
     if (!req.session.user) {
         res.status(401).send("Unauthorized")
+        return false
+    }
+    const haveRole = req.session.user.role >= role
+    if (!haveRole) {
+        res.status(401).send("Unauthorized (Permission Denied)")
+    }
+    return haveRole
+}
+
+app.patch('/recipe/:id', async (req: Request, res: Response) => {
+    if (!validateUser(req, res) && !validateUser(req, res, 1)) {
         return
     }
     try {
@@ -67,8 +78,7 @@ app.patch('/recipe/:id', async (req: Request, res: Response) => {
 })
 
 app.post('/recipe', async (req: Request, res: Response) => {
-    if (!req.session.user) {
-        res.status(401).send("Unauthorized")
+    if (!validateUser(req, res)) {
         return
     }
     try {
@@ -99,8 +109,7 @@ app.get('/recipe/:id', async (req: Request, res: Response) => {
 })
 
 app.get('/recipe', async (req: Request, res: Response) => {
-    if (!req.session.user) {
-        res.status(401).send("Unauthorized")
+    if (!validateUser(req, res)) {
         return
     }
     res.send(await Recipe.find())
