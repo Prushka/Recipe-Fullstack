@@ -8,7 +8,9 @@ enum RecipeCategory {
 export interface IRecipe extends Document {
     title: string
     category: RecipeCategory
-    content: string
+    // content: string
+    instructions: string
+    ingredients: string[]
     author?: ObjectId
     tags: string[]
     approved: boolean
@@ -21,7 +23,13 @@ interface RecipeModel extends Model<IRecipe> {
 const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     title: {type: String, required: true},
     category: {type: String, required: true, default: RecipeCategory.Unknown},
-    content: {type: String, required: true, default: ""},
+    // content: {type: String, required: true, default: ""},
+    instructions: {type: String, required: true, default: ""},
+    ingredients: [{
+        type: String,
+        required: true,
+        default: ""
+    }],
     author: {type: String},
     tags: [{
         type: String

@@ -28,6 +28,8 @@ class PersonalRecipes extends React.Component {
     getPersonalRecipes = () => {
         // Get all personal recipes created by the user from database
         // Currently, hardcoded 
+        
+
         return allRecipes;
     }
 
