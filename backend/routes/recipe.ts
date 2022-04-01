@@ -35,7 +35,9 @@ recipeRouter.patch('/:id', route(async (req, res, user) => {
             return
         }
         recipe.title = req.body.title ?? recipe.title
-        recipe.content = req.body.content ?? recipe.content
+        // recipe.content = req.body.content ?? recipe.content
+        recipe.instructions = req.body.instructions ?? recipe.instructions
+        recipe.ingredients = req.body.ingredients ?? recipe.ingredients
         recipe.category = req.body.category ?? recipe.category
         recipe.tags = req.body.tags ?? recipe.tags
         if (user!.role > Role.USER) {
@@ -52,7 +54,9 @@ recipeRouter.post('/', route(async (req, res) => {
     let recipe = new Recipe({
         title: req.body.title,
         category: req.body.category,
-        content: req.body.content,
+        // content: req.body.content,
+        instructions: req.body.instructions,
+        ingredients: req.body.ingredients,
         author: req.session.user!._id,
         tags: req.body.tags
     })
