@@ -8,6 +8,7 @@ import {reviewRouter} from "./routes/review";
 import {userRouter} from "./routes/user";
 import {recipeRouter} from "./routes/recipe";
 
+console.log("Starting")
 connectToMongoDB().catch(err => console.log(err))
 
 export const app = express()
