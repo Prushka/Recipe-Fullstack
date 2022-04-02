@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "npx tsc && node server.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q server.js\""
   },
   "author": "",

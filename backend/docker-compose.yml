@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  express:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: csc309-express-backend
+    restart: unless-stopped
+    ports:
+      - "9100:8000"
+    environment:
+      - "TZ=America/Toronto"
+      - "PORT=8000"
+      - "MONGODB_URI=mongodb://root:SyX2A54rb6kw@mongo:27017/RecipeAPI?authSource=admin"
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: SyX2A54rb6kw
+
+volumes:
+  mongo:
