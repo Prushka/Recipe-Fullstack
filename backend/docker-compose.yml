@@ -13,12 +13,12 @@ services:
     environment:
       - "TZ=America/Toronto"
       - "PORT=8000"
-      - "MONGODB_URI=mongodb://root:SyX2A54rb6kw@mongo:27019/RecipeAPI?authSource=admin"
+      - "MONGODB_URI=mongodb://root:SyX2A54rb6kw@mongo:27017/RecipeAPI?authSource=admin"
   mongo:
     image: mongo
     restart: always
     ports:
-      - "27019:27017"
+      - "27017"
     volumes:
       - mongo:/data/db
     environment:
