@@ -28,10 +28,18 @@ function updateSessionUser(req: Request, user: IUser) {
 
 userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
     const id = getObjectIdFromPara(req)
+    if(id == sessionUser._id){
+        res.send("You cannot follow yourself")
+        return
+    }
     const targetUser = await requiredUserById(id)
     const user = await User.findByIdAndUpdate(
         sessionUser._id,
         {$addToSet: {following: targetUser._id}},
+        {new: true})
+    await User.findByIdAndUpdate(
+        targetUser._id,
+        {$addToSet: {followers: sessionUser._id}},
         {new: true})
     res.send(updateSessionUser(req, user!))
 }))
@@ -42,6 +50,10 @@ userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
     const user = await User.findByIdAndUpdate(
         sessionUser._id,
         {$pull: {following: targetUser._id}},
+        {new: true})
+    await User.findByIdAndUpdate(
+        targetUser._id,
+        {$pull: {followers: sessionUser._id}},
         {new: true})
     res.send(updateSessionUser(req, user!))
 }))
