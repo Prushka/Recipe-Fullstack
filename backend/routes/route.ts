@@ -5,7 +5,38 @@
 import {IUser, Role} from "../models/user";
 import {Request, Response} from "express";
 import {EndpointError, throwError} from "../errors/errors";
-import {genericErrorChecker} from "../utils/util";
+
+export function genericErrorChecker(res: Response, e: any) {
+    if (e instanceof Error) {
+        switch (e.name) {
+            case "ValidationError":
+                res.status(400).send(e.message)
+                break
+            case EndpointError.UserNotLoggedIn:
+                res.status(401).send("Unauthorized")
+                break
+            case EndpointError.NoPermission:
+                res.status(401).send("Permission Denied")
+                break
+            case EndpointError.InvalidObjectId:
+                res.status(404).send("Invalid ID")
+                break
+            case EndpointError.UserNotFound:
+                res.status(404).send("User cannot be found")
+                break
+            case EndpointError.RecipeNotFound:
+                res.status(404).send("Recipe cannot be found")
+                break
+            default:
+                console.log(e.message)
+                res.status(500).send("Internal Server Error")
+                break
+        }
+    } else {
+        console.log(e.message)
+        res.status(500).send("Internal Server Error")
+    }
+}
 
 export function publicRoute(f: (req: Request, res: Response) => void) {
     return async (req: Request, res: Response) => {
