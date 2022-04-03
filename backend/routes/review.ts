@@ -29,6 +29,16 @@ function requireReviewEdit(actor: IUser, review: IReview) {
     }
 }
 
+reviewRouter.post('/report/:id', userRoute(async (req, res, sessionUser) => {
+    const reviewId = requireObjectIdFromPara(req)
+    let review = await requireReviewFromId(reviewId)
+    review = (await Review.findByIdAndUpdate(
+        review._id,
+        {$addToSet: {inappropriateReportUsers: sessionUser._id}},
+        {new: true}))!
+    res.send(review)
+}))
+
 // upsert
 reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
