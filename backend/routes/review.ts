@@ -6,13 +6,13 @@ import {getObjectIdFromPara, idToObjectId} from "../utils/util";
 import {Recipe} from "../models/recipe";
 import {Review} from "../models/review";
 import express from "express";
-import {route} from "./route";
+import {userRoute} from "./route";
 import {Role} from "../models/user";
 
 export const reviewRouter = express.Router()
 
 
-reviewRouter.delete('/:id', route(async (req, res, user) => {
+reviewRouter.delete('/:id', userRoute(async (req, res, user) => {
     const reviewId = getObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
     if (!review) {
@@ -28,7 +28,7 @@ reviewRouter.delete('/:id', route(async (req, res, user) => {
 }))
 
 
-reviewRouter.patch('/:id', route(async (req, res, user) => {
+reviewRouter.patch('/:id', userRoute(async (req, res, user) => {
     const reviewId = getObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
     if (!review) {
@@ -46,7 +46,7 @@ reviewRouter.patch('/:id', route(async (req, res, user) => {
     res.send(review)
 }))
 
-reviewRouter.post('/', route(async (req, res) => {
+reviewRouter.post('/', userRoute(async (req, res) => {
     const recipeId = idToObjectId(req.body.reviewedRecipe)
     const recipe = await Recipe.findById(recipeId)
     if (!recipe) {
@@ -69,17 +69,17 @@ reviewRouter.post('/', route(async (req, res) => {
     res.send(review)
 }))
 
-reviewRouter.get('/', route(async (req, res) => {
+reviewRouter.get('/', userRoute(async (req, res) => {
     res.send(await Review.find({author: req.session.user!._id}))
 }))
 
 
-reviewRouter.get('/recipe/:id', route(async (req, res) => {
+reviewRouter.get('/recipe/:id', userRoute(async (req, res) => {
     const id = getObjectIdFromPara(req)
     res.send(await Review.find({reviewedRecipe: id}))
 }))
 
-reviewRouter.get('/user/:id', route(async (req, res) => {
+reviewRouter.get('/user/:id', userRoute(async (req, res) => {
     const id = getObjectIdFromPara(req)
     res.send(await Review.find({author: id}))
 }))

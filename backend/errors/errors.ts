@@ -2,6 +2,7 @@ export enum EndpointError {
     UserNotLoggedIn = "UserNotLoggedIn",
     InvalidObjectId = "InvalidObjectId",
     NoPermission = "NoPermission",
+    UserNotFound = "UserNotFound"
 }
 
 export function throwError(name: EndpointError) {

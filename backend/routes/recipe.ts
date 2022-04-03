@@ -6,12 +6,12 @@ import {getObjectIdFromPara, userHasEditingPermissionOnRecipe} from "../utils/ut
 import {Role} from "../models/user";
 import {Recipe} from "../models/recipe";
 import express from "express";
-import {publicRoute, route} from "./route";
+import {publicRoute, userRoute} from "./route";
 
 const {ObjectId} = require('mongodb');
 
 export const recipeRouter = express.Router();
-recipeRouter.delete('/:id', route(async (req, res, user) => {
+recipeRouter.delete('/:id', userRoute(async (req, res, user) => {
     const id = getObjectIdFromPara(req)
     let recipe = await Recipe.findById(id)
     if (recipe) {
@@ -26,7 +26,7 @@ recipeRouter.delete('/:id', route(async (req, res, user) => {
     }
 }))
 
-recipeRouter.patch('/:id', route(async (req, res, user) => {
+recipeRouter.patch('/:id', userRoute(async (req, res, user) => {
     const id = getObjectIdFromPara(req)
     let recipe = await Recipe.findById(id)
     if (recipe) {
@@ -35,7 +35,6 @@ recipeRouter.patch('/:id', route(async (req, res, user) => {
             return
         }
         recipe.title = req.body.title ?? recipe.title
-        // recipe.content = req.body.content ?? recipe.content
         recipe.instructions = req.body.instructions ?? recipe.instructions
         recipe.ingredients = req.body.ingredients ?? recipe.ingredients
         recipe.category = req.body.category ?? recipe.category
@@ -50,7 +49,7 @@ recipeRouter.patch('/:id', route(async (req, res, user) => {
     }
 }))
 
-recipeRouter.post('/', route(async (req, res) => {
+recipeRouter.post('/', userRoute(async (req, res) => {
     let recipe = new Recipe({
         title: req.body.title,
         category: req.body.category,
@@ -64,7 +63,7 @@ recipeRouter.post('/', route(async (req, res) => {
     res.send(recipe)
 }))
 
-recipeRouter.get('/me', route(async (req, res) => {
+recipeRouter.get('/me', userRoute(async (req, res) => {
     const id = ObjectId(req.session.user!._id)
     res.send(await Recipe.findRecipeByUser(id))
 }))

@@ -26,6 +26,9 @@ export function genericErrorChecker(res: Response, e: any) {
             case EndpointError.InvalidObjectId:
                 res.status(404).send("Invalid ID")
                 break
+            case EndpointError.UserNotFound:
+                res.status(404).send("User cannot be found")
+                break
             default:
                 console.log(e.message)
                 res.status(500).send("Internal Server Error")
