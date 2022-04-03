@@ -58,6 +58,7 @@ reviewRouter.delete('/:id', userRoute(async (req, res, sessionUser) => {
     res.send("deleted")
 }))
 
+// update review by review id
 reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
     let review = await requireReviewFromId(reviewId)
@@ -68,26 +69,28 @@ reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     res.send(review)
 }))
 
-reviewRouter.post('/', userRoute(async (req, res) => {
+// upsert review on recipe
+reviewRouter.post('/', userRoute(async (req, res, sessionUser) => {
     const id = idToObjectId(req.body.reviewedRecipe)
     await requireRecipeFromId(id)
-    const preReview = await Review.findOne({author: req.session.user!._id, reviewedRecipe: id})
+    let preReview = await Review.findOne({author: req.session.user!._id, reviewedRecipe: id})
     if (preReview) {
-        res.status(400).send({
-            message: "You already have one review on this recipe (you can update it tho)",
-            reviewId: preReview._id
+        requireReviewEdit(sessionUser, preReview)
+        preReview.content = req.body.content ?? preReview.content
+        preReview.rating = req.body.rating ?? preReview.rating
+        preReview = await preReview.save()
+        res.send(preReview)
+    }else{
+        let review = new Review({
+            title: req.body.title,
+            content: req.body.content,
+            reviewedRecipe: req.body.reviewedRecipe,
+            rating: req.body.rating,
+            author: req.session.user!._id
         })
-        return
+        review = await review.save()
+        res.send(review)
     }
-    let review = new Review({
-        title: req.body.title,
-        content: req.body.content,
-        reviewedRecipe: req.body.reviewedRecipe,
-        rating: req.body.rating,
-        author: req.session.user!._id
-    })
-    review = await review.save()
-    res.send(review)
 }))
 
 reviewRouter.get('/', userRoute(async (req, res) => {
