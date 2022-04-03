@@ -29,6 +29,16 @@ function requireReviewEdit(actor: IUser, review: IReview) {
     }
 }
 
+reviewRouter.delete('/report/:id', userRoute(async (req, res, sessionUser) => {
+    const reviewId = requireObjectIdFromPara(req)
+    let review = await requireReviewFromId(reviewId)
+    review = (await Review.findByIdAndUpdate(
+        review._id,
+        {$pull: {inappropriateReportUsers: sessionUser._id}},
+        {new: true}))!
+    res.send(review)
+}))
+
 reviewRouter.post('/report/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
     let review = await requireReviewFromId(reviewId)
