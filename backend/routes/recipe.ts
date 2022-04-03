@@ -11,7 +11,7 @@ import {EndpointError, throwError} from "../errors/errors";
 import {ObjectId as ObjectIdType} from "mongoose";
 const {ObjectId} = require('mongodb');
 
-async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
+export async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
     const recipe = await Recipe.findById(id)
     if (!recipe) {
         throwError(EndpointError.RecipeNotFound)

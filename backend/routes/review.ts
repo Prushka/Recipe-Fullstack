@@ -9,12 +9,13 @@ import {userRoute} from "./route";
 import {IUser, Role} from "../models/user";
 import {ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
+import {requireRecipeFromId} from "./recipe";
 
 const {ObjectId} = require('mongodb');
 
 export const reviewRouter = express.Router()
 
-async function requireReviewFromId(id: ObjectIdType): Promise<IReview> {
+export async function requireReviewFromId(id: ObjectIdType): Promise<IReview> {
     const review = await Review.findById(id)
     if (!review) {
         throwError(EndpointError.ReviewNotFound)
@@ -30,15 +31,22 @@ function requireReviewEdit(actor: IUser, review: IReview) {
 
 reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
-    await requireReviewFromId(reviewId)
-    const reviewVote = {
+    let review = await requireReviewFromId(reviewId)
+    // add to set doesn't trigger mongoose validation
+    const prevVote = review.userVotes.find(v => {
+        return v.author == sessionUser._id
+    })
+    if(prevVote){
+        res.status(400).send({
+            message: "You already have one vote on this recipe (you can update it tho)",
+        })
+        return
+    }
+    review.userVotes.push({
         positivity: req.body.positivity ?? 0,
         author: sessionUser._id
-    }
-    const review = await Review.findByIdAndUpdate(
-        reviewId,
-        {$addToSet: {userVotes: reviewVote}},
-        {new: true})
+    })
+    review = await review.save()
     res.send(review)
 }))
 
@@ -62,10 +70,13 @@ reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
 
 reviewRouter.post('/', userRoute(async (req, res) => {
     const id = idToObjectId(req.body.reviewedRecipe)
-    await requireReviewFromId(id)
-    const preReview = await Review.findOne({author: req.session.user!._id})
+    await requireRecipeFromId(id)
+    const preReview = await Review.findOne({author: req.session.user!._id, reviewedRecipe: id})
     if (preReview) {
-        res.status(400).send("You already have one review on this recipe (you can update it tho)")
+        res.status(400).send({
+            message: "You already have one review on this recipe (you can update it tho)",
+            reviewId: preReview._id
+        })
         return
     }
     let review = new Review({
