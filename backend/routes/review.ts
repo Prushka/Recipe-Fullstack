@@ -29,6 +29,7 @@ function requireReviewEdit(actor: IUser, review: IReview) {
     }
 }
 
+// upsert
 reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
     let review = await requireReviewFromId(reviewId)
@@ -36,16 +37,15 @@ reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
     const prevVote = review.userVotes.find(v => {
         return v.author == sessionUser._id
     })
-    if(prevVote){
-        res.status(400).send({
-            message: "You already have one vote on this recipe (you can update it tho)",
-        })
-        return
-    }
-    review.userVotes.push({
+    const voteIn = {
         positivity: req.body.positivity ?? 0,
         author: sessionUser._id
-    })
+    }
+    if(prevVote){
+        prevVote.positivity = voteIn.positivity ?? prevVote.positivity
+    }else{
+        review.userVotes.push(voteIn)
+    }
     review = await review.save()
     res.send(review)
 }))
