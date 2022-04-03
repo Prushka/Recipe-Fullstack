@@ -31,7 +31,7 @@ userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
     const targetUser = await requiredUserById(id)
     const user = await User.findByIdAndUpdate(
         sessionUser._id,
-        {$push: {following: targetUser._id}},
+        {$addToSet: {following: targetUser._id}},
         {new: true})
     res.send(updateSessionUser(req, user!))
 }))
