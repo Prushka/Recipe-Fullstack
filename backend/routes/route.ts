@@ -27,6 +27,9 @@ export function genericErrorChecker(res: Response, e: any) {
             case EndpointError.RecipeNotFound:
                 res.status(404).send("Recipe cannot be found")
                 break
+            case EndpointError.ReviewNotFound:
+                res.status(404).send("Review cannot be found")
+                break
             default:
                 console.log(e.message)
                 res.status(500).send("Internal Server Error")

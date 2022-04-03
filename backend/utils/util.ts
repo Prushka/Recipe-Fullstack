@@ -40,10 +40,6 @@ export async function createAdminIfNotExist() {
     }
 }
 
-export function userHasEditingPermissionOnRecipe(user: IUser, recipe: IRecipe) {
-    return recipe.author == user._id || user.role > 0
-}
-
 export function removeFromOutput<T extends Document>(stuff: T | T[], ...key: string[]): any {
     const remove = (ss: T) => {
         const s: any = {...ss.toObject()}
