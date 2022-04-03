@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {getObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
+import {requireObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
 import {IUser, Role, User} from "../models/user";
 import express from "express";
 import {publicRoute, userRoute} from "./route";
@@ -27,7 +27,7 @@ function updateSessionUser(req: Request, user: IUser) {
 }
 
 userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     if(id == sessionUser._id){
         res.send("You cannot follow yourself")
         return
@@ -45,7 +45,7 @@ userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
 }))
 
 userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     const targetUser = await requiredUserById(id)
     const user = await User.findByIdAndUpdate(
         sessionUser._id,
@@ -68,11 +68,24 @@ userRouter.delete('/',
 
 userRouter.delete('/:id',
     userRoute(async (req, res) => {
-        const id = getObjectIdFromPara(req)
+        const id = requireObjectIdFromPara(req)
         let user = await requiredUserById(id)
         await user.delete()
         res.send()
     }, Role.ADMIN))
+
+userRouter.get('/:id',
+    publicRoute(async (req, res) => {
+        const id = requireObjectIdFromPara(req)
+        const user = await requiredUserById(id)
+        res.send({
+            name: user.name,
+            avatar: user.avatar,
+            role: user.role,
+            followers: user.followers,
+            following: user.following
+        })
+    }))
 
 userRouter.get('/',
     userRoute(async (req, res) => {
@@ -84,7 +97,7 @@ userRouter.get('/all', userRoute(async (req, res) => {
 }, Role.ADMIN))
 
 userRouter.patch('/:id', userRoute(async (req, res) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     let user: IUser | null = await User.findById(id)
     if (!user) {
         res.send("User cannot be found")
