@@ -19,20 +19,6 @@ import Login from "./components/LogIn_SignUp/Login";
 import SignUp from "./components/LogIn_SignUp/SignUp";
 import {setAddState} from "./util";
 
-const UserContext = React.createContext({
-    userData: {
-        username: "",
-        password: "",
-        error: false,
-        valid: false,
-        adminCheck: false
-    },
-    setData: (key, value) => {
-    }
-});
-
-export {UserContext}
-
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const [userState, setUserState] = useState({

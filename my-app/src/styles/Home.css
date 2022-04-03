@@ -1,20 +1,20 @@
 .navbar {
     width: 100vw;
-    height: 7vh;
     background: white;
     display: flex;
     justify-content: space-between;
 }
 
 .navbar img {
-    height: 7vh;
-
+    height: 80px;
 }
 
-.navbar-buttons {
+.navbar__buttons {
+    margin-top: auto;
     height: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .home-content {
