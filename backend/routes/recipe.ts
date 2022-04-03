@@ -51,14 +51,14 @@ recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
 
 }))
 
-recipeRouter.post('/', userRoute(async (req, res) => {
+recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {
     let recipe = new Recipe({
         title: req.body.title,
         category: req.body.category,
         // content: req.body.content,
         instructions: req.body.instructions,
         ingredients: req.body.ingredients,
-        author: req.session.user!._id,
+        author: sessionUser._id,
         tags: req.body.tags
     })
     recipe = await recipe.save()

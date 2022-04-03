@@ -5,7 +5,7 @@
 import {requireObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
 import {IUser, Role, User} from "../models/user";
 import express from "express";
-import {publicRoute, userRoute} from "./route";
+import {adminRoute, publicRoute, userRoute} from "./route";
 import {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {Request} from "express";
@@ -67,12 +67,12 @@ userRouter.delete('/',
     }))
 
 userRouter.delete('/:id',
-    userRoute(async (req, res) => {
+    adminRoute(async (req, res) => {
         const id = requireObjectIdFromPara(req)
         let user = await requiredUserById(id)
         await user.delete()
         res.send()
-    }, Role.ADMIN))
+    }))
 
 userRouter.get('/:id',
     publicRoute(async (req, res) => {
@@ -92,11 +92,11 @@ userRouter.get('/',
         res.send(req.session.user)
     }))
 
-userRouter.get('/all', userRoute(async (req, res) => {
+userRouter.get('/all', adminRoute(async (req, res) => {
     res.send(removeFromOutput(await User.find(), "password"))
-}, Role.ADMIN))
+}))
 
-userRouter.patch('/:id', userRoute(async (req, res) => {
+userRouter.patch('/:id', adminRoute(async (req, res) => {
     const id = requireObjectIdFromPara(req)
     let user: IUser | null = await User.findById(id)
     if (!user) {
@@ -112,11 +112,10 @@ userRouter.patch('/:id', userRoute(async (req, res) => {
     user = await updatedUser.save()
     user = removeFromOutput(user, "password")
     res.send(user)
-}, Role.ADMIN))
+}))
 
 userRouter.patch('/', userRoute(async (req, res) => {
     let user = await getUserFromSession(req)
-
     const updatedUser = await updateUser(req, res, user)
     if (!updatedUser) {
         return
@@ -125,7 +124,7 @@ userRouter.patch('/', userRoute(async (req, res) => {
     res.send(updateSessionUser(req, user))
 }));
 
-userRouter.post("/logout", (req, res) => {
+userRouter.post("/logout", userRoute(async(req, res) => {
     req.session.destroy(error => {
         if (error) {
             res.status(500).send(error);
@@ -133,7 +132,7 @@ userRouter.post("/logout", (req, res) => {
             res.send()
         }
     });
-});
+}));
 
 userRouter.post('/login', publicRoute(async (req, res) => {
     const email = req.body.email

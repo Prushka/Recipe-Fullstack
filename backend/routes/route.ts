@@ -62,6 +62,7 @@ export function publicRoute(f: (req: Request, res: Response) => void) {
     }
 }
 
+
 export function userRoute(f: (req: Request, res: Response, sessionUser: IUser) => void, minRole: Role = Role.USER) {
     return async (req: Request, res: Response) => {
         try {
@@ -77,4 +78,9 @@ export function userRoute(f: (req: Request, res: Response, sessionUser: IUser) =
             genericErrorChecker(res, e)
         }
     }
+}
+
+
+export function adminRoute(f: (req: Request, res: Response, sessionUser: IUser) => void) {
+    return userRoute(f, Role.ADMIN)
 }
