@@ -47,7 +47,7 @@ export function idToObjectId(id: string): ObjectIdType {
     return ObjectId(id)
 }
 
-export function getObjectIdFromPara(req: Request): ObjectIdType {
+export function requireObjectIdFromPara(req: Request): ObjectIdType {
     const id = req.params.id
     return idToObjectId(id)
 }

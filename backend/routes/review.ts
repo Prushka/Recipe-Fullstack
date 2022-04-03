@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {getObjectIdFromPara, idToObjectId} from "../utils/util";
+import {requireObjectIdFromPara, idToObjectId} from "../utils/util";
 import {Recipe} from "../models/recipe";
 import {Review} from "../models/review";
 import express from "express";
@@ -13,7 +13,7 @@ export const reviewRouter = express.Router()
 
 
 reviewRouter.delete('/:id', userRoute(async (req, res, user) => {
-    const reviewId = getObjectIdFromPara(req)
+    const reviewId = requireObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
     if (!review) {
         res.status(404).send("Review not found")
@@ -29,7 +29,7 @@ reviewRouter.delete('/:id', userRoute(async (req, res, user) => {
 
 
 reviewRouter.patch('/:id', userRoute(async (req, res, user) => {
-    const reviewId = getObjectIdFromPara(req)
+    const reviewId = requireObjectIdFromPara(req)
     let review = await Review.findById(reviewId)
     if (!review) {
         res.status(404).send("Review not found")
@@ -75,12 +75,12 @@ reviewRouter.get('/', userRoute(async (req, res) => {
 
 
 reviewRouter.get('/recipe/:id', userRoute(async (req, res) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     res.send(await Review.find({reviewedRecipe: id}))
 }))
 
 reviewRouter.get('/user/:id', userRoute(async (req, res) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     res.send(await Review.find({author: id}))
 }))
 

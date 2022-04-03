@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {getObjectIdFromPara, userHasEditingPermissionOnRecipe} from "../utils/util";
+import {requireObjectIdFromPara, userHasEditingPermissionOnRecipe} from "../utils/util";
 import {Role} from "../models/user";
 import {Recipe} from "../models/recipe";
 import express from "express";
@@ -12,7 +12,7 @@ const {ObjectId} = require('mongodb');
 
 export const recipeRouter = express.Router();
 recipeRouter.delete('/:id', userRoute(async (req, res, user) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     let recipe = await Recipe.findById(id)
     if (recipe) {
         if (!userHasEditingPermissionOnRecipe(user!, recipe)) {
@@ -27,7 +27,7 @@ recipeRouter.delete('/:id', userRoute(async (req, res, user) => {
 }))
 
 recipeRouter.patch('/:id', userRoute(async (req, res, user) => {
-    const id = getObjectIdFromPara(req)
+    const id = requireObjectIdFromPara(req)
     let recipe = await Recipe.findById(id)
     if (recipe) {
         if (!userHasEditingPermissionOnRecipe(user!, recipe)) {
@@ -69,7 +69,7 @@ recipeRouter.get('/me', userRoute(async (req, res) => {
 }))
 
 recipeRouter.get('/:id', publicRoute(async (req, res) => {
-        const id = getObjectIdFromPara(req)
+        const id = requireObjectIdFromPara(req)
         res.send(await Recipe.findRecipeByUser(id))
     })
 )
