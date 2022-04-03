@@ -2,43 +2,44 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {requireObjectIdFromPara, idToObjectId} from "../utils/util";
+import {idToObjectId, requireObjectIdFromPara} from "../utils/util";
 import {Recipe} from "../models/recipe";
-import {Review} from "../models/review";
+import {IReview, Review} from "../models/review";
 import express from "express";
 import {userRoute} from "./route";
-import {Role} from "../models/user";
+import {IUser, Role} from "../models/user";
+import {ObjectId} from "mongoose";
+import {EndpointError, throwError} from "../errors/errors";
 
 export const reviewRouter = express.Router()
 
-
-reviewRouter.delete('/:id', userRoute(async (req, res, user) => {
-    const reviewId = requireObjectIdFromPara(req)
-    let review = await Review.findById(reviewId)
+async function requiredReviewFromId(id: ObjectId): Promise<IReview> {
+    const review = await Review.findById(id)
     if (!review) {
-        res.status(404).send("Review not found")
-        return
+        throwError(EndpointError.RecipeNotFound)
     }
-    if (review.author !== req.session.user!._id && user!.role < Role.ADMIN) {
-        res.status(401).send("You don't have permission to edit this review")
-        return
+    return review!
+}
+
+function requireReviewEdit(actor:IUser, review:IReview) {
+    if(review.author !== actor._id && actor.role < Role.ADMIN){
+        throwError(EndpointError.NoPermission)
     }
+}
+
+reviewRouter.delete('/:id', userRoute(async (req, res, sessionUser) => {
+    const reviewId = requireObjectIdFromPara(req)
+    let review = await requiredReviewFromId(reviewId)
+    requireReviewEdit(sessionUser, review)
     await review.delete()
     res.send("deleted")
 }))
 
 
-reviewRouter.patch('/:id', userRoute(async (req, res, user) => {
+reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
-    let review = await Review.findById(reviewId)
-    if (!review) {
-        res.status(404).send("Review not found")
-        return
-    }
-    if (review.author !== req.session.user!._id && user!.role < Role.ADMIN) {
-        res.status(401).send("You don't have permission to edit this review")
-        return
-    }
+    let review = await requiredReviewFromId(reviewId)
+    requireReviewEdit(sessionUser, review)
     review.title = req.body.title ?? review.title
     review.content = req.body.content ?? review.content
     review.rating = req.body.rating ?? review.rating

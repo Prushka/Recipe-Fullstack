@@ -5,7 +5,7 @@ interface IUserReviewVote extends Document {
     author: ObjectId
 }
 
-interface IReview extends Document {
+export interface IReview extends Document {
     userVotes: IUserReviewVote[]
     inappropriateReportUsers: ObjectId[]
     approved: boolean
