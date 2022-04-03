@@ -5,7 +5,7 @@
 import {getObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
 import {IUser, Role, User} from "../models/user";
 import express from "express";
-import {route} from "./route";
+import {publicRoute, route} from "./route";
 
 export const userRouter = express.Router()
 userRouter.delete('/',
@@ -78,7 +78,7 @@ userRouter.post("/logout", (req, res) => {
     });
 });
 
-userRouter.post('/login', route(async (req, res) => {
+userRouter.post('/login', publicRoute(async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
@@ -90,9 +90,9 @@ userRouter.post('/login', route(async (req, res) => {
     user = removeFromOutput(user, "password")
     req.session.user = user
     res.send(user)
-}, {required: false}));
+}));
 
-userRouter.post('/register', route(async (req, res) => {
+userRouter.post('/register', publicRoute(async (req, res) => {
     const email = req.body.email
     const name = req.body.name
     const password = req.body.password
@@ -109,4 +109,4 @@ userRouter.post('/register', route(async (req, res) => {
     })
     user = await user.save()
     res.send(user)
-}, {required: false}));
+}));

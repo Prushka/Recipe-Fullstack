@@ -17,6 +17,10 @@ const DefaultUserInjectionSpec: UserInjectionSpec = {
     minRole: Role.USER
 }
 
+export function publicRoute(f: (req: Request, res: Response) => void) {
+    return route(f, {required: false})
+}
+
 export function route(f: (req: Request, res: Response, user: IUser | null) => void, userSpec: UserInjectionSpec = DefaultUserInjectionSpec) {
     return async (req: Request, res: Response) => {
         try {

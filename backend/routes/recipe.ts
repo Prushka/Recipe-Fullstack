@@ -6,7 +6,7 @@ import {getObjectIdFromPara, userHasEditingPermissionOnRecipe} from "../utils/ut
 import {Role} from "../models/user";
 import {Recipe} from "../models/recipe";
 import express from "express";
-import {route} from "./route";
+import {publicRoute, route} from "./route";
 
 const {ObjectId} = require('mongodb');
 
@@ -69,12 +69,12 @@ recipeRouter.get('/me', route(async (req, res) => {
     res.send(await Recipe.findRecipeByUser(id))
 }))
 
-recipeRouter.get('/:id', route(async (req, res) => {
+recipeRouter.get('/:id', publicRoute(async (req, res) => {
         const id = getObjectIdFromPara(req)
         res.send(await Recipe.findRecipeByUser(id))
-    }, {required: false})
+    })
 )
 
-recipeRouter.get('/', route(async (req, res) => {
+recipeRouter.get('/', publicRoute(async (req, res) => {
     res.send(await Recipe.find())
-}, {required: false}))
+}))
