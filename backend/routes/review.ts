@@ -97,6 +97,11 @@ reviewRouter.get('/', userRoute(async (req, res) => {
     res.send(await Review.find({author: req.session.user!._id}))
 }))
 
+reviewRouter.get('/:id', userRoute(async (req, res) => {
+    const id = requireObjectIdFromPara(req)
+    const review = await requireReviewFromId(id)
+    res.send(review)
+}))
 
 reviewRouter.get('/recipe/:id', userRoute(async (req, res) => {
     const id = requireObjectIdFromPara(req)
