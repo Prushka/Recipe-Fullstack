@@ -6,29 +6,37 @@ import {IUser, Role} from "../models/user";
 import {Request, Response} from "express";
 import {EndpointError, throwError} from "../errors/errors";
 
+function constructResponseErrorBody(e: EndpointError|string, message: string) {
+    return {
+        error: e,
+        message: message
+    }
+}
+
 export function genericErrorChecker(res: Response, e: any) {
     if (e instanceof Error) {
-        switch (e.name) {
+        const name = e.name
+        switch (name) {
             case "ValidationError":
-                res.status(400).send(e.message)
+                res.status(400).send(constructResponseErrorBody("ValidationError", e.message))
                 break
             case EndpointError.UserNotLoggedIn:
-                res.status(401).send("Unauthorized")
+                res.status(401).send(constructResponseErrorBody(name, "Unauthorized (User not logged in)"))
                 break
             case EndpointError.NoPermission:
-                res.status(401).send("Permission Denied")
+                res.status(401).send(constructResponseErrorBody(name, "Permission Denied"))
                 break
             case EndpointError.InvalidObjectId:
-                res.status(404).send("Invalid ID")
+                res.status(404).send(constructResponseErrorBody(name, "Invalid Object Id"))
                 break
             case EndpointError.UserNotFound:
-                res.status(404).send("User cannot be found")
+                res.status(404).send(constructResponseErrorBody(name, "Required user cannot be found"))
                 break
             case EndpointError.RecipeNotFound:
-                res.status(404).send("Recipe cannot be found")
+                res.status(404).send(constructResponseErrorBody(name, "Required recipe cannot be found"))
                 break
             case EndpointError.ReviewNotFound:
-                res.status(404).send("Review cannot be found")
+                res.status(404).send(constructResponseErrorBody(name, "Required review cannot be found"))
                 break
             default:
                 console.log(e.message)
