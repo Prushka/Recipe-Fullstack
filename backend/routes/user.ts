@@ -5,11 +5,49 @@
 import {getObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
 import {IUser, Role, User} from "../models/user";
 import express from "express";
-import {publicRoute, route} from "./route";
+import {publicRoute, userRoute} from "./route";
+import {ObjectId} from "mongoose";
+import {EndpointError, throwError} from "../errors/errors";
+import {Request} from "express";
 
 export const userRouter = express.Router()
+
+async function requiredUserById(id: ObjectId): Promise<IUser> {
+    let user: IUser = (await User.findById(id))!
+    if (!user) {
+        throwError(EndpointError.UserNotFound)
+    }
+    return user
+}
+
+function updateSessionUser(req: Request, user: IUser) {
+    user = removeFromOutput(user, "password")
+    req.session.user = user
+    return req.session.user
+}
+
+userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
+    const id = getObjectIdFromPara(req)
+    const targetUser = await requiredUserById(id)
+    const user = await User.findByIdAndUpdate(
+        sessionUser._id,
+        {$push: {following: targetUser._id}},
+        {new: true})
+    res.send(updateSessionUser(req, user!))
+}))
+
+userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
+    const id = getObjectIdFromPara(req)
+    const targetUser = await requiredUserById(id)
+    const user = await User.findByIdAndUpdate(
+        sessionUser._id,
+        {$pull: {following: targetUser._id}},
+        {new: true})
+    res.send(updateSessionUser(req, user!))
+}))
+
 userRouter.delete('/',
-    route(async (req, res) => {
+    userRoute(async (req, res) => {
         const user = await getUserFromSession(req)
         await user!.delete()
         req.session.user = undefined
@@ -17,27 +55,23 @@ userRouter.delete('/',
     }))
 
 userRouter.delete('/:id',
-    route(async (req, res) => {
+    userRoute(async (req, res) => {
         const id = getObjectIdFromPara(req)
-        let user: IUser | null = await User.findById(id)
-        if (!user) {
-            res.send("User cannot be found")
-            return
-        }
+        let user = await requiredUserById(id)
         await user.delete()
         res.send()
-    }, {required: true, minRole: Role.ADMIN}))
+    }, Role.ADMIN))
 
 userRouter.get('/',
-    route(async (req, res) => {
+    userRoute(async (req, res) => {
         res.send(req.session.user)
     }))
 
-userRouter.get('/all', route(async (req, res) => {
+userRouter.get('/all', userRoute(async (req, res) => {
     res.send(removeFromOutput(await User.find(), "password"))
-}, {required: true, minRole: Role.ADMIN}))
+}, Role.ADMIN))
 
-userRouter.patch('/:id', route(async (req, res) => {
+userRouter.patch('/:id', userRoute(async (req, res) => {
     const id = getObjectIdFromPara(req)
     let user: IUser | null = await User.findById(id)
     if (!user) {
@@ -53,9 +87,9 @@ userRouter.patch('/:id', route(async (req, res) => {
     user = await updatedUser.save()
     user = removeFromOutput(user, "password")
     res.send(user)
-}, {required: true, minRole: Role.ADMIN}))
+}, Role.ADMIN))
 
-userRouter.patch('/', route(async (req, res) => {
+userRouter.patch('/', userRoute(async (req, res) => {
     let user = await getUserFromSession(req)
 
     const updatedUser = await updateUser(req, res, user)
@@ -63,9 +97,7 @@ userRouter.patch('/', route(async (req, res) => {
         return
     }
     user = await updatedUser.save()
-    user = removeFromOutput(user, "password")
-    req.session.user = user
-    res.send(user)
+    res.send(updateSessionUser(req, user))
 }));
 
 userRouter.post("/logout", (req, res) => {
@@ -87,9 +119,7 @@ userRouter.post('/login', publicRoute(async (req, res) => {
         res.status(400).send("Invalid Email/Password combination")
         return
     }
-    user = removeFromOutput(user, "password")
-    req.session.user = user
-    res.send(user)
+    res.send(updateSessionUser(req, user))
 }));
 
 userRouter.post('/register', publicRoute(async (req, res) => {
@@ -108,5 +138,5 @@ userRouter.post('/register', publicRoute(async (req, res) => {
         password: password
     })
     user = await user.save()
-    res.send(user)
+    res.send(updateSessionUser(req, user))
 }));

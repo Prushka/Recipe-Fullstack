@@ -8,6 +8,8 @@ export interface IUser extends Document {
     password: string
     avatar?: string
     role: 0 | 1
+    followers: string[]
+    following: string[]
 }
 
 export enum Role {
@@ -37,7 +39,13 @@ const UserSchema = new Schema<IUser, UserModel>({
         type: String, required: true,
         minlength: 6
     },
-    role: {type: Number, default: 0}
+    role: {type: Number, default: 0},
+    followers: [
+        {type: String}
+    ],
+    following: [
+        {type: String}
+    ]
 });
 
 UserSchema.pre('save', function (next) {
@@ -74,15 +82,15 @@ UserSchema.static('findByEmailPassword', async function findByEmailPassword(emai
     return
 });
 
-UserSchema.static('findByEmailName', async function findByEmailName(email?:string, name?:string) {
+UserSchema.static('findByEmailName', async function findByEmailName(email?: string, name?: string) {
     const User = this
-    if(email && name){
+    if (email && name) {
         return User.findOne({$or: [{email: email}, {name: name}]});
     }
-    if(email){
+    if (email) {
         return User.findOne({email: email})
     }
-    if(name){
+    if (name) {
         return User.findOne({name: name})
     }
     return User.find()
