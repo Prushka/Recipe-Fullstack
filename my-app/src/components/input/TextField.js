@@ -5,13 +5,15 @@
 import * as React from 'react';
 import './Input.css';
 
-export function TextField(props) {
+export function TextField({label, id, className, value, setValue, placeholder="", name}) {
     return (
         <div className={`textfield-section`}>
-            {props.label && <label htmlFor={props.id}>{props.label}</label>}
-            <input {...props} className={`textfield-section__input ${props.className}`} id={props.id} type="text" name={props.name}
-                   placeholder={props.placeholder}
-                   />
+            {label && <label htmlFor={id}>{label}</label>}
+            <input value={value}
+                   onChange={e => setValue(e.target.value)}
+                   className={`textfield-section__input ${className}`} id={id} type="text" name={name}
+                   placeholder={placeholder}
+            />
         </div>
     );
 }

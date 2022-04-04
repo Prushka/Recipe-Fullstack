@@ -4,7 +4,7 @@
 
 import axios from "axios";
 
-const BASE_URL = "https://express.csc309.muddy.ca/"
+const BASE_URL = "https://express.csc309.muddy.ca"
 
 export const API = axios.create({
     baseURL: `${BASE_URL}`
