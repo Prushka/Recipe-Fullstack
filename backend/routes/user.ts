@@ -26,7 +26,8 @@ function updateSessionUser(req: Request, user: IUser) {
         avatar: user.avatar,
         role: user.role,
         followers: user.followers,
-        following: user.following
+        following: user.following,
+        _id: user._id
     }
     return req.session.user
 }
