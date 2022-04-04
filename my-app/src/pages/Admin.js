@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
 import {
@@ -20,6 +20,9 @@ import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 import {addSnackbar, SnackbarProperties} from "../components/snack/Snackbar";
+import {useSelector} from "react-redux";
+import {UserAPI} from "../axios/Axios";
+import {useSnackbar} from "notistack";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
 const recipeHeaders = ['Recipe Name', 'Recipe']
@@ -220,18 +223,37 @@ export function AdminManageReviews() {
 
 
 export function AdminManageUsers() {
+    const user = useSelector((state) => state.user)
+    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const [userData, setUserData] = useState([])
+
+    useEffect(()=>{
+        const getAllUsers = async () => {
+            UserAPI.get(`/admin/all`,{}).then(res => {
+                setUserData(res.data)
+            }).catch((e) => {
+                enqueueSnackbar(e.response.data.message,
+                    {
+                        variant: 'error',
+                        persist: false,
+                    })
+            })
+        }
+        getAllUsers().then()
+    })
     const [editingUser, setEditingUser] = useState(defaultUser)
-    const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
     return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData,
         editingUser, setEditingUser, userHeaders),
         getRecipesViewDialog(recipeData, setRecipeData, editingUser, setEditingUser, ["Uploaded Recipes"])]}
                          searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
                          displayData={userData} setDisplayData={setUserData}
+                         excludeHeader={["followers", "following", "__v"]}
                          cellCallback={cellCallback}/>
 }
 
 export function AdminManageRecipes() {
+
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [editingRecipe, setEditingRecipe] = useState(defaultUser)
     const [userData, setUserData] = useState(users)
