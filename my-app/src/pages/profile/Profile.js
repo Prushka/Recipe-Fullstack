@@ -9,20 +9,23 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/i
 import {getUserRoleDisplay} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {UserAPI} from "../../axios/Axios";
+import {getAllFollowingUsers, UserAPI} from "../../axios/Axios";
 import {setUser} from "../../redux/Redux";
 import {useSnackbar} from "notistack";
+import AdvancedGrid from "../../components/grid/AdvancedGrid";
 
 export default function Profile() {
     const user = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
     const [updatePasswordDialogOpen, setUpdatePasswordDialogOpen] = useState(false)
+    const [followingUserDialogOpen, setFollowingUserDialogOpen] = useState(false)
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [passwordInputType, setPasswordInputType] = useState("password")
     const {enqueueSnackbar, closeSnackbar} = useSnackbar()
     const dispatch = useDispatch()
+    const [following, setFollowing] = useState([])
 
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
@@ -34,9 +37,9 @@ export default function Profile() {
             return
         }
         let updatePayload
-        if(password){
+        if (password) {
             updatePayload = {"name": username, "email": email, "password": password}
-        }else{
+        } else {
             updatePayload = {"name": username, "email": email}
         }
         await UserAPI.patch('',
@@ -57,6 +60,7 @@ export default function Profile() {
                 })
         })
     }
+
     return (
         <div className={'profile__container'}>
             <Dialog title={"Edit Password"} open={updatePasswordDialogOpen}
@@ -77,8 +81,20 @@ export default function Profile() {
 
                         <RedBGButton type={'reset'} onClick={() => {
                             setPassword('')
-                            setRepeatPassword('')}
+                            setRepeatPassword('')
+                        }
                         }>Clear Password Input</RedBGButton>
+                    </>
+                    }/>
+
+            <Dialog title={"Edit Following Users"} open={followingUserDialogOpen}
+                    onClose={() => setFollowingUserDialogOpen(false)}
+                    content={
+                        <AdvancedGrid
+                            searchableHeaders={['name']} displayData={following}
+                        excludeHeader={['_id','following','followers']}/>
+                    }
+                    footer={<>
                     </>
                     }/>
             <div className={"avatar__container"}>
@@ -88,7 +104,14 @@ export default function Profile() {
                 <GreyBorderRedButton
                     className={"profile__dialog__button"}>Followers: {user.followers.length}</GreyBorderRedButton>
                 <GreyBorderRedButton
-                    className={"profile__dialog__button"}>Following: {user.following.length}</GreyBorderRedButton>
+                    className={"profile__dialog__button"}
+                    onClick={async () => {
+                        getAllFollowingUsers(user).then(users => {
+                            setFollowing(users)
+                            setFollowingUserDialogOpen(true)
+                        })
+                    }}
+                >Following: {user.following.length}</GreyBorderRedButton>
             </div>
 
 
@@ -113,7 +136,7 @@ export default function Profile() {
             <BlueBGButton className={'profile__save-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
                 Password</BlueBGButton>
             <BlueBGButton className={'profile__save-button'}
-            onClick={async()=>await updateMyUserInfo()}>Save</BlueBGButton>
+                          onClick={async () => await updateMyUserInfo()}>Save</BlueBGButton>
         </div>
     )
 }
