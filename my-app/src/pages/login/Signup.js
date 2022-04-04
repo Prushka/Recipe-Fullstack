@@ -17,7 +17,6 @@ import PasswordTextField from "../../components/input/PasswordTextField";
 export default function Signup() {
     const {enqueueSnackbar, closeSnackbar} = useSnackbar()
     const navigate = useNavigate()
-    const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")

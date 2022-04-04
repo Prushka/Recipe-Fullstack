@@ -14,8 +14,7 @@ import {setUser} from "../../redux/Redux";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 
-export default function Profile() {
-    const user = useSelector((state) => state.user)
+export default function Profile({user}) {
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
     const [updatePasswordDialogOpen, setUpdatePasswordDialogOpen] = useState(false)
@@ -44,7 +43,7 @@ export default function Profile() {
         } else {
             updatePayload = {"name": username, "email": email}
         }
-        await UserAPI.patch('',
+        await UserAPI.patch(`/${user.id}`,
             updatePayload,
             {withCredentials: true}).then(res => {
 
