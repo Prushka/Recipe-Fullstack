@@ -1,6 +1,6 @@
 import React from 'react'; 
 import Button from "@material-ui/core/Button";
-import "../../styles/profile_style.css"
+import "../../src/styles/profile_style.css"
 
 
 

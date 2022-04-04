@@ -1,9 +1,9 @@
 import React from 'react'; 
-import SideBar from '../../pages/SideBar.js'
+import SideBar from '../../src/pages/SideBar.js'
 import My_text from './my_text.js';
 import Type from './type.js';
-import "../../styles/profile_style.css"
-import food from "../../resources/food.jpg"
+import "../../src/styles/profile_style.css"
+import food from "../../src/resources/food.jpg"
 
 class Profile extends React.Component {
   // the state information will be imported from database

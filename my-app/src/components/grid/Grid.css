@@ -37,6 +37,14 @@ th, td {
     min-width: 10px;
 }
 
+.table__row{
+    background-color: rgba(0,0,0,0);
+}
+.table__row:hover{
+    background-color: rgba(245,245,245,1);
+    cursor: pointer;
+}
+
 tbody {
     width: 100%;
     display: table;
