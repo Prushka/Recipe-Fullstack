@@ -1,0 +1,44 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
+.auth__container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 500px;
+    justify-content: center;
+}
+
+.auth__title {
+    align-self: center;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--theme-dark-gray);
+}
+
+.auth__input {
+    width: 100%;
+    height: 70px;
+}
+
+.auth__button {
+    width: 97%;
+    box-sizing: border-box;
+}
+
+.auth__link {
+    color: var(--theme-red);
+    cursor: pointer;
+    align-self: center;
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.auth__toggle-password {
+    margin-left: 12px;
+    color: var(--theme-dark-red);
+    cursor: pointer;
+}

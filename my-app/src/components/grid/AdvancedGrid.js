@@ -36,7 +36,6 @@ export default function AdvancedGrid({
     const [localDisplayData, setLocalDisplayData] = useState([...displayData]);
     useEffect(() => {
         const _displayData = [...displayData]
-
         let sortHeader = null
         let sortDirection = -1
         for (let key in sortValues) {
@@ -50,7 +49,6 @@ export default function AdvancedGrid({
             if (a[sortHeader] > b[sortHeader]) return sortDirection === 1 ? -1 : 1;
             return 0;
         });
-
         setLocalDisplayData(_displayData.filter((i) => {
             let pass = true
             for (let searchKey in searchValues) {

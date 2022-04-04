@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
 import {
@@ -20,11 +20,18 @@ import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 import {addSnackbar, SnackbarProperties} from "../components/snack/Snackbar";
+import {useSelector} from "react-redux";
+import {UserAPI} from "../axios/Axios";
+import {useSnackbar} from "notistack";
+import Profile from "./profile/Profile";
+import {userInitialState} from "../redux/Redux";
+import Dialog from "../components/dialog/Dialog";
+import {useAsync} from "../util";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
 const recipeHeaders = ['Recipe Name', 'Recipe']
 
-class Dialog {
+class DialogWrapper {
     constructor(uid, data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,
                 supportedHeaders, size = 'm') {
         this.uid = uid
@@ -47,7 +54,7 @@ class Dialog {
 
 function getReviewsViewDialog(data, setData,
                               editingEntity, setEditingEntity, supportedHeaders) {
-    const dialog = new Dialog("ReviewsView", data, setData,
+    const dialog = new DialogWrapper("ReviewsView", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -74,7 +81,7 @@ function getReviewsViewDialog(data, setData,
 
 function getRecipesViewDialog(data, setData,
                               editingEntity, setEditingEntity, supportedHeaders) {
-    const dialog = new Dialog("RecipesView", data, setData,
+    const dialog = new DialogWrapper("RecipesView", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -101,7 +108,7 @@ function getRecipesViewDialog(data, setData,
 
 function getReportEditingDialog(data, setData,
                                 editingEntity, setEditingEntity, supportedHeaders) {
-    const dialog = new Dialog("Report", data, setData,
+    const dialog = new DialogWrapper("Report", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -124,7 +131,7 @@ function getReportEditingDialog(data, setData,
 
 function getRecipeEditingDialog(data, setData,
                                 editingEntity, setEditingEntity, supportedHeaders, onSave) {
-    return new Dialog("Recipe", data, setData,
+    return new DialogWrapper("Recipe", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -151,7 +158,7 @@ function getRecipeEditingDialog(data, setData,
 function getUserEditingDialog(data, setData,
                               editingEntity, setEditingEntity, supportedHeaders) {
 
-    const dialog = new Dialog("User", data, setData,
+    const dialog = new DialogWrapper("User", data, setData,
         editingEntity, setEditingEntity, () => {
             return (
                 <>
@@ -220,18 +227,52 @@ export function AdminManageReviews() {
 
 
 export function AdminManageUsers() {
-    const [editingUser, setEditingUser] = useState(defaultUser)
-    const [userData, setUserData] = useState(users)
-    const [recipeData, setRecipeData] = useState(recipes)
-    return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData,
-        editingUser, setEditingUser, userHeaders),
-        getRecipesViewDialog(recipeData, setRecipeData, editingUser, setEditingUser, ["Uploaded Recipes"])]}
-                         searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
-                         displayData={userData} setDisplayData={setUserData}
-                         cellCallback={cellCallback}/>
+    const user = useSelector((state) => state.user)
+    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const [userData, setUserData] = useState([])
+    const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
+
+    const [editingUser, setEditingUser] = useState(userInitialState)
+
+    useAsync(async () => {
+        try {
+            const response = await UserAPI.get(`/admin/all`, {})
+            return response.data
+        } catch (e) {
+            enqueueSnackbar(e.response.data.message,
+                {
+                    variant: 'error',
+                    persist: false,
+                })
+        }
+    }, (r) => {
+        setUserData(r)
+    }, [editingUser])
+    return <>
+        <Dialog size={'l'} title={`Editing ${editingUser.name}`} open={editUserDialogOpen}
+                onClose={() => {
+                    setEditUserDialogOpen(false)
+                    setEditingUser(userInitialState)
+                }}
+                content={
+                    <Profile user={editingUser}/>
+                }
+                footer={<>
+                </>
+                }/>
+        <AdvancedGrid searchableHeaders={["name", "email", "role", "_id"]}
+                      displayData={userData} setDisplayData={setUserData}
+                      excludeHeader={["followers", "following", "__v"]}
+                      cellCallback={(e) => {
+                          setEditingUser(e.entity)
+                          setEditUserDialogOpen(true)
+                      }
+                      }/>
+    </>
 }
 
 export function AdminManageRecipes() {
+
     const [editingUser, setEditingUser] = useState(defaultUser)
     const [editingRecipe, setEditingRecipe] = useState(defaultUser)
     const [userData, setUserData] = useState(users)

@@ -26,13 +26,12 @@ export default function GridRow({
                                 }) {
     const images = ['.jpg', '.png']
     return (
-        <tr key={id}>
+        <tr key={id} className={!isHeader ? 'table__row':''}>
             {
                 values.map((value, index) => {
                     const CTag = isHeader ? `th` : `td`;
                     const cellClass = isHeader ? `grid--clickable` : clickableHeader.includes(headers[index]) ? `grid--clickable grid--td-clickable` : ''
                     let child = value
-                    // TODO: use checkbox for boolean
                     images.forEach((image) => {
                         if (typeof value === 'string' && value.endsWith(image)) {
                             child = <img className={'grid--avatar'} src={value} alt={value}/>

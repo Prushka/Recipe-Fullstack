@@ -150,10 +150,6 @@
 
 /* Scrollbar Styles */
 
-*::-webkit-scrollbar {
-width: 13px;
-}
-
 *::-webkit-scrollbar-track {
 background: transparent;
 }

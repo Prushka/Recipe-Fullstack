@@ -1,4 +1,9 @@
 .button {
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
+    outline: inherit;
     text-align: center;
     align-self: center;
     font-weight: bold;
@@ -136,7 +141,11 @@
 .textfield-section label{
 }
 
-input[type=text]{
+.textfield-header {
+    display: flex;
+}
+
+.textfield-section__input{
     width: 100%;
     padding: 16px 20px 15px 20px;
     margin: 8px 0;
@@ -148,18 +157,17 @@ input[type=text]{
 }
 
 
-input[type=text]:focus {
+.textfield-section__input:focus {
     transition: 0.2s all linear;
     border: 2px solid var(--theme-dark-purple);
 }
 
-input[type=text], input::placeholder{
+.textfield-section__input, .textfield-section__input::placeholder{
     font-size: 15px
 }
 
 @media (max-width: 900px) {
     .textfield-section{
-        max-width: 40vw;
     }
     input[type=text] {
         padding: 10px 14px 12px 14px;
@@ -180,7 +188,8 @@ input[type=text], input::placeholder{
     border-radius: 8px;
     padding: 18px 20px;
     align-items: center;
-    margin: 7px
+    margin: 7px;
+    box-sizing: border-box;
 }
 
 .radio-section-title{

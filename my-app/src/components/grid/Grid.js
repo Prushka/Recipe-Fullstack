@@ -25,7 +25,8 @@ export default function Grid({
                         rowValues.push("")
                     }
                 })
-                return <GridRow key={value["id"]} id={value["id"]} entity={value} values={rowValues}
+                const id = value["id"] ?? value["_id"]
+                return <GridRow key={id} id={id} entity={value} values={rowValues}
                                 headers={headers}
                                 onClickHandler={onClickHandler}
                                 clickableHeader={clickableHeader}/>
