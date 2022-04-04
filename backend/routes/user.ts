@@ -19,8 +19,8 @@ async function requiredUserById(id: ObjectId): Promise<IUser> {
     return user
 }
 
-function updateSessionUser(req: Request, user: IUser) {
-    req.session.user = {
+function getOutputUser(user: IUser) {
+    return {
         name: user.name,
         email: user.email,
         avatar: user.avatar,
@@ -29,6 +29,10 @@ function updateSessionUser(req: Request, user: IUser) {
         following: user.following,
         _id: user._id
     }
+}
+
+function updateSessionUser(req: Request, user: IUser) {
+    req.session.user = getOutputUser(user)
     return req.session.user
 }
 
@@ -117,10 +121,9 @@ userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
         }
         updatedUser.role = req.body.role ?? updatedUser.role
         user = await updatedUser.save()
-        user = removeFromOutput(user, "password")
-        res.send(user)
+        res.send(getOutputUser(user))
     } else {
-        if(user._id != sessionUser._id){
+        if (user._id != sessionUser._id) {
             throwError(EndpointError.NoPermission)
         }
         const updatedUser = await updateUser(req, res, user)
