@@ -6,9 +6,17 @@ export function setAddState(uid, value, state, setState) {
     setState(newState);
 }
 
+export const roles = {"User": 0, "Admin": 1}
+
 export function getUserRoleDisplay(role) {
-    return role === 0 ? "User" : "Admin"
+    for (let rolesKey in roles) {
+        if (roles[rolesKey] === role) {
+            return rolesKey
+        }
+    }
+    return undefined
 }
+
 
 // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
 export function useAsync(asyncFn, onSuccess, dependencies = []) {

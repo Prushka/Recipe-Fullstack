@@ -188,7 +188,8 @@
     border-radius: 8px;
     padding: 18px 20px;
     align-items: center;
-    margin: 7px
+    margin: 7px;
+    box-sizing: border-box;
 }
 
 .radio-section-title{

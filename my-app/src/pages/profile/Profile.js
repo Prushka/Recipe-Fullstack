@@ -6,13 +6,14 @@ import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/input/Button";
-import {getUserRoleDisplay} from "../../util";
+import {getUserRoleDisplay, roles} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
 import {getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
 import {setUser} from "../../redux/Redux";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
+import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 
 export default function Profile({user}) {
     console.log(user)
@@ -148,11 +149,15 @@ export default function Profile({user}) {
                        textFieldClassName="profile__input"
                        label={'Email'}/>
             {editingMyProfile ? <TextField
-                disabled={true}
-                value={getUserRoleDisplay(user.role)}
-                className="profile__input"
-                textFieldClassName="profile__input"
-                label={'Role'}/> : <></>
+                    disabled={true}
+                    value={getUserRoleDisplay(user.role)}
+                    className="profile__input"
+                    textFieldClassName="profile__input"
+                    label={'Role'}/> :
+                <RadioButtonGroup className={'profile__radio'}
+                                  title={'Role'}
+                                  options={Object.keys(roles)}
+                                  selected={getUserRoleDisplay(user.role)}/>
             }
 
 
