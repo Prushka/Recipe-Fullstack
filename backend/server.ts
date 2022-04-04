@@ -32,7 +32,8 @@ app.use(
         cookie: {
             maxAge: 3.6e+6,
             httpOnly: true,
-            secure: false
+            secure: false,
+            sameSite: 'none'
         },
         // store the sessions on the database in production
         store: MongoStore.create({
