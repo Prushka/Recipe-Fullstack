@@ -15,7 +15,7 @@ function SideBar(props) {
     const dispatch = useDispatch()
     useEffect(() => {
         async function fetchSession() {
-            if (!user.id) {
+            if (!user._id) {
                 await UserAPI.get('', {withCredentials: true}).then(res => {
                     dispatch(setUser(res.data))
                 }).catch(() => {

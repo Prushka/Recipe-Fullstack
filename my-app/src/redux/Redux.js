@@ -9,7 +9,7 @@ import {UserAPI} from '../axios/Axios'
 // session is handled in backend
 
 export const userInitialState = {
-    id: undefined,
+    _id: undefined,
     name: "",
     email: "",
     avatar: "",
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state = {...action.payload}
-            state.id = action.payload._id
+            state._id = action.payload._id
             return state
         },
         resetUser: (state) => {

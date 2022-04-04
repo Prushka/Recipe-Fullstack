@@ -15,6 +15,8 @@ import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 
 export default function Profile({user}) {
+    console.log(user)
+    const loggedInUser = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
     const [updatePasswordDialogOpen, setUpdatePasswordDialogOpen] = useState(false)
@@ -28,6 +30,7 @@ export default function Profile({user}) {
     const [following, setFollowing] = useState([])
     const [followers, setFollowers] = useState([])
 
+    const editingMyProfile = loggedInUser._id === user._id
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
             enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
@@ -43,12 +46,13 @@ export default function Profile({user}) {
         } else {
             updatePayload = {"name": username, "email": email}
         }
-        await UserAPI.patch(`/${user.id}`,
+        await UserAPI.patch(`/${user._id}`,
             updatePayload,
             {withCredentials: true}).then(res => {
-
-            dispatch(setUser(res.data))
-            enqueueSnackbar(`Successfully updated your user profile`,
+            if (editingMyProfile) {
+                dispatch(setUser(res.data))
+            }
+            enqueueSnackbar(`Successfully updated the user profile`,
                 {
                     variant: 'success',
                     persist: false,
@@ -93,7 +97,7 @@ export default function Profile({user}) {
                     content={
                         <AdvancedGrid
                             searchableHeaders={['name']} displayData={following}
-                        excludeHeader={['_id','following','followers']}/>
+                            excludeHeader={['_id', 'following', 'followers']}/>
                     }
                     footer={<>
                     </>
@@ -104,7 +108,7 @@ export default function Profile({user}) {
                     content={
                         <AdvancedGrid
                             searchableHeaders={['name']} displayData={followers}
-                            excludeHeader={['_id','following','followers']}/>
+                            excludeHeader={['_id', 'following', 'followers']}/>
                     }
                     footer={<>
                     </>
@@ -115,12 +119,12 @@ export default function Profile({user}) {
             <div className={"profile__follow-container"}>
                 <GreyBorderRedButton
                     className={"profile__dialog__button"}
-                onClick={async() => {
-                    getAllFollowerUsers(user).then(users => {
-                        setFollowers(users)
-                        setFollowersDialogOpen(true)
-                    })
-                }}>Followers: {user.followers.length}</GreyBorderRedButton>
+                    onClick={async () => {
+                        getAllFollowerUsers(user).then(users => {
+                            setFollowers(users)
+                            setFollowersDialogOpen(true)
+                        })
+                    }}>Followers: {user.followers.length}</GreyBorderRedButton>
                 <GreyBorderRedButton
                     className={"profile__dialog__button"}
                     onClick={async () => {
@@ -143,12 +147,13 @@ export default function Profile({user}) {
                        className="profile__input"
                        textFieldClassName="profile__input"
                        label={'Email'}/>
-            <TextField
+            {editingMyProfile ? <TextField
                 disabled={true}
                 value={getUserRoleDisplay(user.role)}
                 className="profile__input"
                 textFieldClassName="profile__input"
-                label={'Role'}/>
+                label={'Role'}/> : <></>
+            }
 
 
             <BlueBGButton className={'profile__save-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update

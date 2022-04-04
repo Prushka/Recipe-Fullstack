@@ -26,7 +26,7 @@ export default function GridRow({
                                 }) {
     const images = ['.jpg', '.png']
     return (
-        <tr key={id} className={!isHeader && 'table__row'}>
+        <tr key={id} className={!isHeader ? 'table__row':''}>
             {
                 values.map((value, index) => {
                     const CTag = isHeader ? `th` : `td`;

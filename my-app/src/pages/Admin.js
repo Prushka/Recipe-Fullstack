@@ -26,6 +26,7 @@ import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
 import Dialog from "../components/dialog/Dialog";
+import {useAsync} from "../util";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
 const recipeHeaders = ['Recipe Name', 'Recipe']
@@ -231,19 +232,19 @@ export function AdminManageUsers() {
     const [userData, setUserData] = useState([])
     const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
 
-    useEffect(() => {
-        const getAllUsers = async () => {
-            UserAPI.get(`/admin/all`, {}).then(res => {
-                setUserData(res.data)
-            }).catch((e) => {
-                enqueueSnackbar(e.response.data.message,
-                    {
-                        variant: 'error',
-                        persist: false,
-                    })
-            })
+    useAsync(async () => {
+        try {
+            const response = await UserAPI.get(`/admin/all`, {})
+            return response.data
+        } catch (e) {
+            enqueueSnackbar(e.response.data.message,
+                {
+                    variant: 'error',
+                    persist: false,
+                })
         }
-        getAllUsers().then()
+    }, (r) => {
+        setUserData(r)
     })
     const [editingUser, setEditingUser] = useState(userInitialState)
 
