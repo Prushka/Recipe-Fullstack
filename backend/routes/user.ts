@@ -35,8 +35,7 @@ function updateSessionUser(req: Request, user: IUser) {
 userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
     const id = requireObjectIdFromPara(req)
     if (id == sessionUser._id) {
-        res.send("You cannot follow yourself")
-        return
+        throwError(EndpointError.FollowMyself)
     }
     const targetUser = await requiredUserById(id)
     const user = await User.findByIdAndUpdate(
@@ -158,8 +157,7 @@ userRouter.post('/register', publicRoute(async (req, res) => {
     const password = req.body.password
     const preUser = await User.findByEmailName(email, name)
     if (preUser) {
-        res.status(400).send("User exists (same email or same name)")
-        return
+        throwError(EndpointError.UsernameEmailExists)
     }
     let user = new User({
         name: name,

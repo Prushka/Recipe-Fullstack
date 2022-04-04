@@ -63,16 +63,14 @@ export async function updateUser(req: Request, res: Response, user: IUser) {
     if (email !== user.email) {
         const preUser = await User.findByEmailName(email, undefined)
         if (preUser) {
-            res.status(400).send("Email has been taken")
-            return undefined
+            throwError(EndpointError.EmailExists)
         }
     }
 
     if (name !== user.name) {
         const preUser = await User.findByEmailName(undefined, name)
         if (preUser) {
-            res.status(400).send("Name has been taken")
-            return undefined
+            throwError(EndpointError.UsernameExists)
         }
     }
     user.name = name

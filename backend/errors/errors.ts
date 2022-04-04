@@ -5,7 +5,11 @@ export enum EndpointError {
     UserNotFound = "UserNotFound",
     RecipeNotFound = "RecipeNotFound",
     ReviewNotFound = "ReviewNotFound",
-    InvalidAuth = "InvalidAuth"
+    InvalidAuth = "InvalidAuth",
+    UsernameEmailExists = "UsernameEmailExists",
+    UsernameExists = "UsernameExists",
+    EmailExists = "EmailExists",
+    FollowMyself = "FollowMyself"
 }
 
 export function throwError(name: EndpointError) {

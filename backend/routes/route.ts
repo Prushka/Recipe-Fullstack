@@ -44,6 +44,18 @@ export function genericErrorChecker(res: Response, e: any) {
             case EndpointError.InvalidAuth:
                 errorHandler(400, "Invalid Email/Password combination")
                 break
+            case EndpointError.UsernameExists:
+                errorHandler(400, "Username exists (Please choose a different one)")
+                break
+            case EndpointError.EmailExists:
+                errorHandler(400, "Email exists (Please choose a different one)")
+                break
+            case EndpointError.UsernameEmailExists:
+                errorHandler(400, "Username or email exists (Please choose a different one)")
+                break
+            case EndpointError.FollowMyself:
+                errorHandler(400, "You cannot follow yourself")
+                break
             default:
                 console.log(e.message)
                 res.status(500).send("Internal Server Error")
