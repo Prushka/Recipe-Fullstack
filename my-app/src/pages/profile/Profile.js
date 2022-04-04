@@ -7,14 +7,35 @@ import {useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
 import {BlueBGButton, GreyBorderRedButton} from "../../components/input/Button";
 import {getUserRoleDisplay} from "../../util";
+import Dialog from "../../components/dialog/Dialog";
+import PasswordTextField from "../../components/input/PasswordTextField";
 
 export default function Profile() {
     const user = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
+    const [updatePasswordDialogOpen, setUpdatePasswordDialogOpen] = useState(false)
+    const [password, setPassword] = useState("")
+    const [repeatPassword, setRepeatPassword] = useState("")
+    const [passwordInputType, setPasswordInputType] = useState("password")
 
     return (
         <div className={'profile__container'}>
+            <Dialog title={"Edit Password"} open={updatePasswordDialogOpen}
+            onClose={()=>setUpdatePasswordDialogOpen(false)}
+                    content={
+                <>
+                    <PasswordTextField password={password} setPassword={setPassword}
+                                       passwordInputType={passwordInputType}
+                                       className="auth__input" setPasswordInputType={setPasswordInputType}/>
+
+                    <TextField value={repeatPassword} setValue={setRepeatPassword} type={passwordInputType}
+                               className="auth__input"
+                               label={'Repeat Password'}/>
+                </>
+                    }
+                    footer={<></>
+                    }/>
             <div className={"avatar__container"}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
@@ -44,7 +65,7 @@ export default function Profile() {
                        label={'Role'}/>
 
 
-            <BlueBGButton className={'profile__save-button'}>Update Password</BlueBGButton>
+            <BlueBGButton className={'profile__save-button'} onClick={()=>setUpdatePasswordDialogOpen(true)}>Update Password</BlueBGButton>
             <BlueBGButton className={'profile__save-button'}>Save</BlueBGButton>
         </div>
     )
