@@ -84,6 +84,7 @@ userRouter.get('/:id',
         const id = requireObjectIdFromPara(req)
         const user = await requiredUserById(id)
         res.send({
+            _id: user._id,
             name: user.name,
             avatar: user.avatar,
             role: user.role,
