@@ -13,7 +13,8 @@ console.log("Starting")
 connectToMongoDB().catch(err => console.log(err))
 
 const options: cors.CorsOptions = {
-    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : ['http://localhost:3000']
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : ['http://localhost:3000'],
+    credentials: true
 };
 
 console.log(options)
@@ -29,7 +30,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             maxAge: 3.6e+6,
-            httpOnly: true
+            httpOnly: true,
+            secure: false
         },
         // store the sessions on the database in production
         store: MongoStore.create({

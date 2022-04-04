@@ -46,7 +46,7 @@ userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
         targetUser._id,
         {$addToSet: {followers: sessionUser._id}},
         {new: true})
-    res.send(await updateSessionUser(req, user!))
+    res.send(updateSessionUser(req, user!))
 }))
 
 userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
@@ -60,7 +60,7 @@ userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
         targetUser._id,
         {$pull: {followers: sessionUser._id}},
         {new: true})
-    res.send(await updateSessionUser(req, user!))
+    res.send(updateSessionUser(req, user!))
 }))
 
 userRouter.delete('/',
@@ -126,7 +126,7 @@ userRouter.patch('/', userRoute(async (req, res) => {
         return
     }
     user = await updatedUser.save()
-    res.send(await updateSessionUser(req, user))
+    res.send(updateSessionUser(req, user))
 }));
 
 userRouter.post("/logout", userRoute(async (req, res) => {
@@ -147,7 +147,7 @@ userRouter.post('/login', publicRoute(async (req, res) => {
     if (!user) {
         throwError(EndpointError.InvalidAuth)
     }
-    res.send(await updateSessionUser(req, user))
+    res.send(updateSessionUser(req, user))
 }));
 
 userRouter.post('/register', publicRoute(async (req, res) => {
@@ -166,5 +166,5 @@ userRouter.post('/register', publicRoute(async (req, res) => {
         password: password
     })
     user = await user.save()
-    res.send(await updateSessionUser(req, user))
+    res.send(updateSessionUser(req, user))
 }));
