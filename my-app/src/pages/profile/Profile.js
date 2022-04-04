@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
 import {BlueBGButton, GreyBorderRedButton} from "../../components/input/Button";
+import {getUserRoleDisplay} from "../../util";
 
 export default function Profile() {
     const user = useSelector((state) => state.user)
@@ -24,6 +25,7 @@ export default function Profile() {
                     className={"profile__dialog__button"}>Following: {user.following.length}</GreyBorderRedButton>
             </div>
 
+
             <TextField value={username} setValue={setUsername}
                        type="username"
                        className="profile__input"
@@ -34,6 +36,16 @@ export default function Profile() {
                        className="profile__input"
                        textFieldClassName="profile__input"
                        label={'Email'}/>
+            <TextField
+                disabled={true}
+                value={getUserRoleDisplay(user.role)}
+                       className="profile__input"
+                       textFieldClassName="profile__input"
+                       label={'Role'}/>
+
+
+            <BlueBGButton className={'profile__save-button'}>Update Password</BlueBGButton>
+            <BlueBGButton className={'profile__save-button'}>Save</BlueBGButton>
         </div>
     )
 }

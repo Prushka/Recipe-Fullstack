@@ -23,9 +23,16 @@
 }
 
 .profile__dialog__button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: var(--theme-dark-red);
 }
 
 .profile__input {
+    width: 100%;
+}
+
+.profile__save-button{
     width: 100%;
 }
