@@ -15,8 +15,8 @@ import RecipePage1 from './components/RecipePage/RecipePage1';
 import RecipePage3 from './components/RecipePage/RecipePage3';
 import RecipePage4 from './components/RecipePage/RecipePage4';
 import RecipePage5 from './components/RecipePage/RecipePage5';
-import Login from "./components/LogIn_SignUp/Login";
-import SignUp from "./components/LogIn_SignUp/SignUp";
+import Login from "./pages/LogIn_SignUp/Login";
+import SignUp from "./pages/LogIn_SignUp/SignUp";
 import {setAddState} from "./util";
 
 export default function App() {

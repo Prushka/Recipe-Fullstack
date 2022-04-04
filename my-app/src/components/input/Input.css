@@ -136,7 +136,7 @@
 .textfield-section label{
 }
 
-input[type=text]{
+.textfield-section__input{
     width: 100%;
     padding: 16px 20px 15px 20px;
     margin: 8px 0;
@@ -148,12 +148,12 @@ input[type=text]{
 }
 
 
-input[type=text]:focus {
+.textfield-section__input:focus {
     transition: 0.2s all linear;
     border: 2px solid var(--theme-dark-purple);
 }
 
-input[type=text], input::placeholder{
+.textfield-section__input, .textfield-section__input::placeholder{
     font-size: 15px
 }
 

@@ -28,7 +28,7 @@ export function BlueBGButton(props) {
     return (
         <Button
             {...props}
-            className={'button--purple'}
+            className={`button--purple ${props.className}`}
             shadowOnHover={false}
         > {props.children} </Button>
     );
