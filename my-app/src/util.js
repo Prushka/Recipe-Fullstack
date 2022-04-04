@@ -14,7 +14,7 @@ export function getUserRoleDisplay(role) {
             return rolesKey
         }
     }
-    return undefined
+    return null
 }
 
 

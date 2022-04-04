@@ -30,7 +30,7 @@ export default function Profile({user}) {
     const dispatch = useDispatch()
     const [following, setFollowing] = useState([])
     const [followers, setFollowers] = useState([])
-
+    const [selectedRole, setSelectedRole] = useState(getUserRoleDisplay(user.role))
     const editingMyProfile = loggedInUser._id === user._id
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
@@ -41,15 +41,12 @@ export default function Profile({user}) {
                 })
             return
         }
-        let updatePayload
+        let updatePayload = {"name": username, "email": email, "role": roles[selectedRole]}
         if (password) {
-            updatePayload = {"name": username, "email": email, "password": password}
-        } else {
-            updatePayload = {"name": username, "email": email}
+            updatePayload = {...updatePayload, "password": password}
         }
         await UserAPI.patch(`/${user._id}`,
-            updatePayload,
-            {withCredentials: true}).then(res => {
+            updatePayload).then(res => {
             if (editingMyProfile) {
                 dispatch(setUser(res.data))
             }
@@ -157,7 +154,11 @@ export default function Profile({user}) {
                 <RadioButtonGroup className={'profile__radio'}
                                   title={'Role'}
                                   options={Object.keys(roles)}
-                                  selected={getUserRoleDisplay(user.role)}/>
+                                  selected={selectedRole}
+                setSelected={(id)=>{
+                    setSelectedRole(id)
+                }
+                }/>
             }
 
 
