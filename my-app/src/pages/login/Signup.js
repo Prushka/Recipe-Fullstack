@@ -1,7 +1,7 @@
 /*
  * Copyright 2022 Dan Lyu.
  */
-import './Login.css';
+import './Auth.css';
 
 export default function Signup() {
     return (

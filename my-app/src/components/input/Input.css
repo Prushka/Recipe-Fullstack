@@ -159,7 +159,6 @@
 
 @media (max-width: 900px) {
     .textfield-section{
-        max-width: 40vw;
     }
     input[type=text] {
         padding: 10px 14px 12px 14px;
