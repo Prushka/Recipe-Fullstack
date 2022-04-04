@@ -5,8 +5,10 @@ import '../styles/Sidebar.css';
 import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
+import {useDispatch, useSelector} from "react-redux";
 
 function SideBar(props) {
+    const user = useSelector((state) => state.user)
     const isSelected = (path) => {
         return props.currentSelected === path ? 'selected' : ''
     }
@@ -26,7 +28,7 @@ function SideBar(props) {
                 <WrappedSideBarButton title='Browse Recipes' path='/browse' icon={<CgSearch/>}/>
                 <WrappedSideBarButton title='Saved Recipes' path='/saved' icon={<CgHeart/>}/>
                 <WrappedSideBarButton title='Personal Recipes' path='/personal-recipes' icon={<CgPen/>}/>
-                {props.userIsAdmin && <>
+                {user.role > 0 && <>
                     <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
                     <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>
                     <WrappedSideBarButton title='Manage Reviews' path='/manage/reviews' icon={<MdOutlinePreview/>}/>
