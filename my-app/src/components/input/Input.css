@@ -141,6 +141,10 @@
 .textfield-section label{
 }
 
+.textfield-header {
+    display: flex;
+}
+
 .textfield-section__input{
     width: 100%;
     padding: 16px 20px 15px 20px;
