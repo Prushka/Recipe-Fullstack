@@ -20,14 +20,20 @@ async function requiredUserById(id: ObjectId): Promise<IUser> {
 }
 
 function updateSessionUser(req: Request, user: IUser) {
-    user = removeFromOutput(user, "password")
-    req.session.user = user
+    req.session.user = {
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        role: user.role,
+        followers: user.followers,
+        following: user.following
+    }
     return req.session.user
 }
 
 userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
     const id = requireObjectIdFromPara(req)
-    if(id == sessionUser._id){
+    if (id == sessionUser._id) {
         res.send("You cannot follow yourself")
         return
     }
@@ -40,7 +46,7 @@ userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
         targetUser._id,
         {$addToSet: {followers: sessionUser._id}},
         {new: true})
-    res.send(updateSessionUser(req, user!))
+    res.send(await updateSessionUser(req, user!))
 }))
 
 userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
@@ -54,7 +60,7 @@ userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
         targetUser._id,
         {$pull: {followers: sessionUser._id}},
         {new: true})
-    res.send(updateSessionUser(req, user!))
+    res.send(await updateSessionUser(req, user!))
 }))
 
 userRouter.delete('/',
@@ -120,10 +126,10 @@ userRouter.patch('/', userRoute(async (req, res) => {
         return
     }
     user = await updatedUser.save()
-    res.send(updateSessionUser(req, user))
+    res.send(await updateSessionUser(req, user))
 }));
 
-userRouter.post("/logout", userRoute(async(req, res) => {
+userRouter.post("/logout", userRoute(async (req, res) => {
     req.session.destroy(error => {
         if (error) {
             res.status(500).send(error);
@@ -141,7 +147,7 @@ userRouter.post('/login', publicRoute(async (req, res) => {
     if (!user) {
         throwError(EndpointError.InvalidAuth)
     }
-    res.send(updateSessionUser(req, user))
+    res.send(await updateSessionUser(req, user))
 }));
 
 userRouter.post('/register', publicRoute(async (req, res) => {
@@ -160,5 +166,5 @@ userRouter.post('/register', publicRoute(async (req, res) => {
         password: password
     })
     user = await user.save()
-    res.send(updateSessionUser(req, user))
+    res.send(await updateSessionUser(req, user))
 }));

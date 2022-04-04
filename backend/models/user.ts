@@ -1,15 +1,21 @@
-import {Schema, model, Model, Document} from 'mongoose';
+import {Schema, model, Model, Document, ObjectId} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
 
-export interface IUser extends Document {
+const DEFAULT_AVATAR = "https://s2.loli.net/2022/04/04/3v5F2AqIizkdYto.png"
+
+export interface SessionUser {
+    _id?: ObjectId
     name: string
     email: string
-    password: string
     avatar?: string
     role: 0 | 1
     followers: string[]
     following: string[]
+}
+
+export interface IUser extends SessionUser, Document<ObjectId> {
+    password: string
 }
 
 export enum Role {
@@ -34,7 +40,7 @@ const UserSchema = new Schema<IUser, UserModel>({
             message: 'Not valid email'
         }
     },
-    avatar: String,
+    avatar: {type: String, get: (avatar: string) => avatar ?? DEFAULT_AVATAR},
     password: {
         type: String, required: true,
         minlength: 6
