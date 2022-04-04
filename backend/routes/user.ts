@@ -3,7 +3,7 @@
  */
 
 import {getUserFromSession, removeFromOutput, requireObjectIdFromPara, updateUser,} from "../utils/util";
-import {IUser, User} from "../models/user";
+import {IUser, Role, User} from "../models/user";
 import express, {Request} from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
 import {ObjectId} from "mongoose";
@@ -96,40 +96,41 @@ userRouter.get('/:id',
 userRouter.get('/',
     userRoute(async (req, res) => {
         const user = await getUserFromSession(req)
-        res.send(updateSessionUser(req,user))
+        res.send(updateSessionUser(req, user))
     }))
 
-userRouter.get('/all', adminRoute(async (req, res) => {
+userRouter.get('/admin/all', adminRoute(async (req, res) => {
     res.send(removeFromOutput(await User.find(), "password"))
 }))
 
-userRouter.patch('/:id', adminRoute(async (req, res) => {
+userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     const id = requireObjectIdFromPara(req)
     let user: IUser | null = await User.findById(id)
     if (!user) {
         res.send("User cannot be found")
         return
     }
-
-    const updatedUser = await updateUser(req, res, user)
-    if (!updatedUser) {
-        return
+    if (sessionUser.role > Role.USER) {
+        const updatedUser = await updateUser(req, res, user)
+        if (!updatedUser) {
+            return
+        }
+        updatedUser.role = req.body.role ?? updatedUser.role
+        user = await updatedUser.save()
+        user = removeFromOutput(user, "password")
+        res.send(user)
+    } else {
+        if(user._id != sessionUser._id){
+            throwError(EndpointError.NoPermission)
+        }
+        const updatedUser = await updateUser(req, res, user)
+        if (!updatedUser) {
+            return
+        }
+        user = await updatedUser.save()
+        res.send(updateSessionUser(req, user))
     }
-    updatedUser.role = req.body.role ?? updatedUser.role
-    user = await updatedUser.save()
-    user = removeFromOutput(user, "password")
-    res.send(user)
 }))
-
-userRouter.patch('/', userRoute(async (req, res) => {
-    let user = await getUserFromSession(req)
-    const updatedUser = await updateUser(req, res, user)
-    if (!updatedUser) {
-        return
-    }
-    user = await updatedUser.save()
-    res.send(updateSessionUser(req, user))
-}));
 
 userRouter.post("/logout", userRoute(async (req, res) => {
     req.session.destroy(error => {
