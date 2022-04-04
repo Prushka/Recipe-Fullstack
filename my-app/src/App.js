@@ -15,9 +15,9 @@ import RecipePage1 from './components/RecipePage/RecipePage1';
 import RecipePage3 from './components/RecipePage/RecipePage3';
 import RecipePage4 from './components/RecipePage/RecipePage4';
 import RecipePage5 from './components/RecipePage/RecipePage5';
-import Login from "./pages/LogIn_SignUp/Login";
-import SignUp from "./pages/LogIn_SignUp/SignUp";
 import {setAddState} from "./util";
+import Login from "./pages/login/Login";
+import Signup from "./pages/login/Signup";
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function App() {
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/login'} element={<Login userState={userState} setUserState={setData}/>}/>
-                    <Route path={'/signup'} element={<SignUp/>}/>
+                    <Route path={'/signup'} element={<Signup/>}/>
                     <Route path={"dashboard"}
                            element={<PageComponent path={"/dashboard"}><Dashboard/></PageComponent>}/>
                     <Route path={"profile"}
