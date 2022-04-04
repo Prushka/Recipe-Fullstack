@@ -134,10 +134,10 @@ userRouter.post("/logout", userRoute(async(req, res) => {
 }));
 
 userRouter.post('/login', publicRoute(async (req, res) => {
-    const email = req.body.email
+    const input = req.body.input
     const password = req.body.password
 
-    let user = await User.findByEmailPassword(email, password)
+    let user = await User.findByUsernameEmailPassword(input, password)
     if (!user) {
         throwError(EndpointError.InvalidAuth)
     }

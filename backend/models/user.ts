@@ -18,7 +18,7 @@ export enum Role {
 }
 
 interface UserModel extends Model<IUser> {
-    findByEmailPassword: (email: String, password: String) => Promise<IUser>
+    findByUsernameEmailPassword: (email: String, password: String) => Promise<IUser>
     findByEmailName: (email?: String, name?: String) => Promise<IUser>
 }
 
@@ -65,9 +65,9 @@ UserSchema.pre('save', function (next) {
     }
 })
 
-UserSchema.static('findByEmailPassword', async function findByEmailPassword(email, password) {
+UserSchema.static('findByUsernameEmailPassword', async function findByUsernameEmailPassword(input, password) {
     const User = this
-    let user = await User.findOne({email: email})
+    let user = await User.findOne({$or: [{email: input}, {name: input}]});
     if (user) {
         return new Promise((resolve) => {
             compare(password, user!.password, (err, result) => {
