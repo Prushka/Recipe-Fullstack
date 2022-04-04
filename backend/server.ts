@@ -8,6 +8,7 @@ import {reviewRouter} from "./routes/review";
 import {userRouter} from "./routes/user";
 import {recipeRouter} from "./routes/recipe";
 import cors from 'cors';
+import {fileRouter} from "./routes/file";
 
 console.log("Starting")
 connectToMongoDB().catch(err => console.log(err))
@@ -43,6 +44,7 @@ app.use(
 app.use('/review', reviewRouter)
 app.use('/user', userRouter)
 app.use('/recipe', recipeRouter)
+app.use('/file', fileRouter)
 
 
 const port = process.env.PORT || 5001
