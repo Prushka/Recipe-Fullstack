@@ -1,4 +1,9 @@
 .button {
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
+    outline: inherit;
     text-align: center;
     align-self: center;
     font-weight: bold;
