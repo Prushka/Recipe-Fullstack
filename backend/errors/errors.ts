@@ -4,7 +4,8 @@ export enum EndpointError {
     NoPermission = "NoPermission",
     UserNotFound = "UserNotFound",
     RecipeNotFound = "RecipeNotFound",
-    ReviewNotFound = "ReviewNotFound"
+    ReviewNotFound = "ReviewNotFound",
+    InvalidAuth = "InvalidAuth"
 }
 
 export function throwError(name: EndpointError) {

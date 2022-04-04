@@ -2,13 +2,12 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {requireObjectIdFromPara, getUserFromSession, removeFromOutput, updateUser,} from "../utils/util";
-import {IUser, Role, User} from "../models/user";
-import express from "express";
+import {getUserFromSession, removeFromOutput, requireObjectIdFromPara, updateUser,} from "../utils/util";
+import {IUser, User} from "../models/user";
+import express, {Request} from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
 import {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
-import {Request} from "express";
 
 export const userRouter = express.Router()
 
@@ -140,8 +139,7 @@ userRouter.post('/login', publicRoute(async (req, res) => {
 
     let user = await User.findByEmailPassword(email, password)
     if (!user) {
-        res.status(400).send("Invalid Email/Password combination")
-        return
+        throwError(EndpointError.InvalidAuth)
     }
     res.send(updateSessionUser(req, user))
 }));

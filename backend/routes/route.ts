@@ -41,6 +41,9 @@ export function genericErrorChecker(res: Response, e: any) {
             case EndpointError.ReviewNotFound:
                 errorHandler(404, "Required review cannot be found")
                 break
+            case EndpointError.InvalidAuth:
+                errorHandler(400, "Invalid Email/Password combination")
+                break
             default:
                 console.log(e.message)
                 res.status(500).send("Internal Server Error")
