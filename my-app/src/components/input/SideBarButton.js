@@ -21,13 +21,14 @@ export default function SideBarButton({
                  onClick={async () => {
                      onClick()
                      if (path) {
-                         await UserAPI.get('', {withCredentials: true}).then(res => {
+                         await UserAPI.get('').then(res => {
                              dispatch(setUser(res.data))
+
+                             setSideBarOpen(false)
+                             navigate(path)
                          }).catch(() => {
                              navigate('/login')
                          })
-                         setSideBarOpen(false)
-                         navigate(path)
                      }
                  }}>
                 <div className={'side-bar__icon'}>{icon}</div>
