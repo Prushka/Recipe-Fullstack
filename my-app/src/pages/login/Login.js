@@ -12,6 +12,7 @@ import {UserAPI} from "../../axios/Axios";
 import {useEffect, useState} from "react";
 import {Alert, Snackbar} from "@mui/material";
 import {useSnackbar} from "notistack";
+import PasswordTextField from "../../components/input/PasswordTextField";
 
 export default function Login() {
     const {enqueueSnackbar, closeSnackbar} = useSnackbar()
@@ -20,6 +21,7 @@ export default function Login() {
     const dispatch = useDispatch()
     const [usernameEmail, setUsernameEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [passwordInputType, setPasswordInputType] = useState("password")
 
     const login = async (usernameEmail, password) => {
         await UserAPI.post('/login',
@@ -52,8 +54,8 @@ export default function Login() {
                 }}>
                     <TextField value={usernameEmail} setValue={setUsernameEmail} type="username" className="auth__input"
                                label={'Username / Email'}/>
-                    <TextField value={password} setValue={setPassword} type="password" className="auth__input"
-                               label={'Password'}/>
+                    <PasswordTextField password={password} setPassword={setPassword} passwordInputType={passwordInputType}
+                                       className="auth__input" setPasswordInputType={setPasswordInputType}/>
                     <BlueBGButton type="submit" className="auth__button" onClick={async () => {
                         await login(usernameEmail, password)
                     }}>Login</BlueBGButton>
