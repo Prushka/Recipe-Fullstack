@@ -2,7 +2,7 @@ import {Schema, model, Model, Document, ObjectId} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
 
-const DEFAULT_AVATAR = "https://s2.loli.net/2022/04/04/3v5F2AqIizkdYto.png"
+const DEFAULT_AVATAR = "https://s2.loli.net/2022/04/04/LWscZaKF8MpgBQf.png"
 
 export interface SessionUser {
     _id?: ObjectId

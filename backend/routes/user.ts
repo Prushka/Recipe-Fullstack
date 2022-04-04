@@ -95,7 +95,8 @@ userRouter.get('/:id',
 
 userRouter.get('/',
     userRoute(async (req, res) => {
-        res.send(req.session.user)
+        const user = await getUserFromSession(req)
+        res.send(updateSessionUser(req,user))
     }))
 
 userRouter.get('/all', adminRoute(async (req, res) => {
