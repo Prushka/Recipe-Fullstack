@@ -21,6 +21,7 @@ const options: cors.CorsOptions = {
 console.log(options)
 
 export const app = express()
+app.use('trust proxy')
 app.use(cors(options))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -32,7 +33,7 @@ app.use(
         cookie: {
             maxAge: 3.6e+6,
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: 'none'
         },
         // store the sessions on the database in production
