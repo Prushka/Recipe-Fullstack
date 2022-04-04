@@ -3,7 +3,7 @@
  */
 
 import {requireObjectIdFromPara} from "../utils/util";
-import {IUser, Role} from "../models/user";
+import {IUser, Role, SessionUser} from "../models/user";
 import {IRecipe, Recipe} from "../models/recipe";
 import express from "express";
 import {publicRoute, userRoute} from "./route";
@@ -19,7 +19,7 @@ export async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
     return recipe!
 }
 
-function requireRecipeEdit(user: IUser, recipe: IRecipe) {
+function requireRecipeEdit(user: SessionUser, recipe: IRecipe) {
     if (recipe.author !== user._id && user.role < Role.ADMIN) {
         throwError(EndpointError.NoPermission)
     }

@@ -6,7 +6,7 @@ import {idToObjectId, requireObjectIdFromPara} from "../utils/util";
 import {IReview, Review} from "../models/review";
 import express from "express";
 import {publicRoute, userRoute} from "./route";
-import {IUser, Role} from "../models/user";
+import {IUser, Role, SessionUser} from "../models/user";
 import {ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {requireRecipeFromId} from "./recipe";
@@ -23,7 +23,7 @@ export async function requireReviewFromId(id: ObjectIdType): Promise<IReview> {
     return review!
 }
 
-function requireReviewEdit(actor: IUser, review: IReview) {
+function requireReviewEdit(actor: SessionUser, review: IReview) {
     if (review.author !== actor._id && actor.role < Role.ADMIN) {
         throwError(EndpointError.NoPermission)
     }

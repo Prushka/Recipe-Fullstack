@@ -4,7 +4,7 @@ type SimpleRating = 1 | 0 | -1
 
 interface IUserReviewVote {
     positivity: SimpleRating
-    author: ObjectId
+    author?: ObjectId
 }
 
 export interface IReview extends Document {

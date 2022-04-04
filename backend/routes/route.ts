@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {IUser, Role} from "../models/user";
+import {IUser, Role, SessionUser} from "../models/user";
 import {Request, Response} from "express";
 import {EndpointError, throwError} from "../errors/errors";
 
@@ -66,7 +66,7 @@ export function publicRoute(f: (req: Request, res: Response) => void) {
 }
 
 
-export function userRoute(f: (req: Request, res: Response, sessionUser: IUser) => void, minRole: Role = Role.USER) {
+export function userRoute(f: (req: Request, res: Response, sessionUser: SessionUser) => void, minRole: Role = Role.USER) {
     return async (req: Request, res: Response) => {
         try {
             const user = req.session.user
@@ -84,6 +84,6 @@ export function userRoute(f: (req: Request, res: Response, sessionUser: IUser) =
 }
 
 
-export function adminRoute(f: (req: Request, res: Response, sessionUser: IUser) => void) {
+export function adminRoute(f: (req: Request, res: Response, sessionUser: SessionUser) => void) {
     return userRoute(f, Role.ADMIN)
 }
