@@ -43,11 +43,11 @@ export default function Login() {
     return (
         <>
             <div className="auth__container">
+                <div className="auth__title">
+                    Log-in
+                </div>
                 <form onSubmit={async(e)=>{
                     e.preventDefault()}}>
-                    <div className="auth__title">
-                        Log-in
-                    </div>
                     <TextField value={usernameEmail} setValue={setUsernameEmail} type="username" className="auth__input"
                                label={'Username / Email'}/>
                     <TextField value={password} setValue={setPassword} type="password" className="auth__input"

@@ -1,14 +1,15 @@
-import food from '../resources/food.jpg';
 import {CgProfile, CgSearch, CgHomeAlt, CgHeart, CgPen, CgLogOut} from 'react-icons/cg'
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../styles/Sidebar.css';
 import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 function SideBar(props) {
     const user = useSelector((state) => state.user)
+
     const isSelected = (path) => {
         return props.currentSelected === path ? 'selected' : ''
     }
@@ -20,7 +21,7 @@ function SideBar(props) {
             e.stopPropagation();
         }}>
             <div className={'side-bar__img-group'}>
-                <img src={food} alt='Food'/>
+                <img src={user.avatar} alt='avatar'/>
             </div>
             <div className={'side-bar-top-group'}>
                 <WrappedSideBarButton title='Dashboard' path='/dashboard' icon={<CgHomeAlt/>}/>

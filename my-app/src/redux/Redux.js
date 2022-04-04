@@ -8,26 +8,32 @@ import {UserAPI} from '../axios/Axios'
 // this is just to keep a cache
 // session is handled in backend
 
+const initialState = {
+    id: undefined,
+    name: "",
+    email: "",
+    avatar: "",
+    role: undefined,
+    followers: [],
+    following: []
+}
+
 export const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        id: undefined,
-        name: "",
-        email: "",
-        avatar: "",
-        role: undefined,
-        followers: [],
-        following: []
-    },
+    initialState: {...initialState},
     reducers: {
         setUser: (state, action) => {
             state = {...action.payload}
             state.id = action.payload._id
+            return state
+        },
+        resetUser: (state) => {
+            return {...initialState}
         }
     },
 })
 
-export const {setUser} = userSlice.actions
+export const {setUser, resetUser} = userSlice.actions
 
 export default userSlice.reducer
 
