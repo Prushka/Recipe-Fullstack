@@ -64,7 +64,7 @@ export default function Signup() {
                 }}>
                     <TextField value={username} setValue={setUsername} type="username" className="auth__input"
                                label={'Username'}/>
-                    <TextField value={username} setValue={setEmail} type="email" className="auth__input"
+                    <TextField value={email} setValue={setEmail} type="email" className="auth__input"
                                label={'Email'}/>
                     <PasswordTextField password={password} setPassword={setPassword}
                                        passwordInputType={passwordInputType}
