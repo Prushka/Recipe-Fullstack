@@ -5,7 +5,7 @@ import './Profile.css';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
-import {BlueBGButton, GreyBorderRedButton} from "../../components/input/Button";
+import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/input/Button";
 import {getUserRoleDisplay} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
@@ -33,7 +33,7 @@ export default function Profile() {
                 })
             return
         }
-        let updatePayload = {}
+        let updatePayload
         if(password){
             updatePayload = {"name": username, "email": email, "password": password}
         }else{
@@ -44,7 +44,7 @@ export default function Profile() {
             {withCredentials: true}).then(res => {
 
             dispatch(setUser(res.data))
-            enqueueSnackbar(`Success`,
+            enqueueSnackbar(`Successfully updated your user profile`,
                 {
                     variant: 'success',
                     persist: false,
@@ -70,6 +70,11 @@ export default function Profile() {
                             <TextField value={repeatPassword} setValue={setRepeatPassword} type={passwordInputType}
                                        className="auth__input"
                                        label={'Repeat Password'}/>
+
+                            <RedBGButton type={'reset'} onClick={() => {
+                            setPassword('')
+                            setRepeatPassword('')}
+                            }>Clear Password Input</RedBGButton>
                         </>
                     }
                     footer={<></>
