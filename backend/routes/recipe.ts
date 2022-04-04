@@ -9,6 +9,7 @@ import express from "express";
 import {publicRoute, userRoute} from "./route";
 import {EndpointError, throwError} from "../errors/errors";
 import {ObjectId as ObjectIdType} from "mongoose";
+
 const {ObjectId} = require('mongodb');
 
 export async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
@@ -66,8 +67,7 @@ recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {
 }))
 
 recipeRouter.get('/me', userRoute(async (req, res) => {
-    const id = ObjectId(req.session.user!._id)
-    res.send(await Recipe.findRecipeByUser(id))
+    res.send(await Recipe.findRecipeByUser(req.session.user!._id!))
 }))
 
 recipeRouter.get('/:id', publicRoute(async (req, res) => {

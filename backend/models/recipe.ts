@@ -17,7 +17,7 @@ export interface IRecipe extends Document {
 }
 
 interface RecipeModel extends Model<IRecipe> {
-    findRecipeByUser: (id: ObjectId) => Promise<IRecipe>
+    findRecipeByUser: (id: string|ObjectId) => Promise<IRecipe>
 }
 
 const RecipeSchema = new Schema<IRecipe, RecipeModel>({
@@ -37,7 +37,7 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     approved: {type: "boolean", required: true, default: false}
 });
 
-RecipeSchema.static('findRecipeByUser', async function findRecipeByUser(id: ObjectId) {
+RecipeSchema.static('findRecipeByUser', async function findRecipeByUser(id: string) {
     const Recipe = this
     return Recipe.find({author: id})
 });
