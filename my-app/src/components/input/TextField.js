@@ -5,9 +5,9 @@
 import * as React from 'react';
 import './Input.css';
 
-export function TextField({children, type='text', label, id, className, value, setValue, placeholder="", name}) {
+export function TextField({textFieldClassName='', children, type='text', label, id, className, value, setValue, placeholder="", name}) {
     return (
-        <div className={`textfield-section`}>
+        <div className={`textfield-section ${textFieldClassName}`}>
             <div className={`textfield-header`}>
                 {label && <label htmlFor={id}>{label}</label>}
                 {children}

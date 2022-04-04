@@ -39,7 +39,7 @@ function SideBar(props) {
         <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} onClick={(e) => {
             e.stopPropagation();
         }}>
-            <div className={'side-bar__img-group'}>
+            <div className={'avatar__container'}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
 

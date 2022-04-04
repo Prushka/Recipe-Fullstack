@@ -3,7 +3,6 @@ import './index.css';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Profile from "./components/profile/Profile";
 import BrowseRecipe from "./components/browse/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe/SavedRecipe";
 import PersonalRecipes from "./components/PersonalRecipes";
@@ -18,6 +17,7 @@ import RecipePage5 from './components/RecipePage/RecipePage5';
 import Login from "./pages/login/Login";
 import Signup from "./pages/login/Signup";
 import {useDispatch, useSelector} from "react-redux";
+import Profile from "./pages/profile/Profile";
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
