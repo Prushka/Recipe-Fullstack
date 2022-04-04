@@ -8,7 +8,7 @@ import {UserAPI} from '../axios/Axios'
 // this is just to keep a cache
 // session is handled in backend
 
-const initialState = {
+export const userInitialState = {
     id: undefined,
     name: "",
     email: "",
@@ -20,7 +20,7 @@ const initialState = {
 
 export const userSlice = createSlice({
     name: 'user',
-    initialState: {...initialState},
+    initialState: {...userInitialState},
     reducers: {
         setUser: (state, action) => {
             state = {...action.payload}
@@ -28,7 +28,7 @@ export const userSlice = createSlice({
             return state
         },
         resetUser: (state) => {
-            return {...initialState}
+            return {...userInitialState}
         }
     },
 })
