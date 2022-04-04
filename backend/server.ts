@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 import * as bodyParser from "body-parser";
 import connectToMongoDB from "./db/mongoose";
 import MongoStore from "connect-mongo";
@@ -7,11 +7,19 @@ import {createAdminIfNotExist} from "./utils/util";
 import {reviewRouter} from "./routes/review";
 import {userRouter} from "./routes/user";
 import {recipeRouter} from "./routes/recipe";
+import cors from 'cors';
 
 console.log("Starting")
 connectToMongoDB().catch(err => console.log(err))
 
+const options: cors.CorsOptions = {
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : ['http://localhost:3000']
+};
+
+console.log(options)
+
 export const app = express()
+app.use(cors(options))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(
