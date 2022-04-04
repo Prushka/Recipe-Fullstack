@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: csc309-express-backend
-    image: csc309-express:1.93
+    image: csc309-express:1.96
     restart: unless-stopped
     ports:
       - "9100:8000"
@@ -14,7 +14,7 @@ services:
       - "TZ=America/Toronto"
       - "PORT=8000"
       - "MONGODB_URI=mongodb://root:SyX2A54rb6kw@mongo:27017/RecipeAPI?authSource=admin"
-      - "ALLOWED_ORIGINS=http://localhost:3000"
+      - "ALLOWED_ORIGINS=http://localhost:3000,https://react.muddy.ca"
   mongo:
     image: mongo
     restart: always

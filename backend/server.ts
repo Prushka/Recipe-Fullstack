@@ -14,14 +14,14 @@ console.log("Starting")
 connectToMongoDB().catch(err => console.log(err))
 
 const options: cors.CorsOptions = {
-    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : ['http://localhost:3000'],
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",")
+        : ['http://localhost:3000','https://react.muddy.ca'],
     credentials: true
 };
 
 console.log(options)
 
 export const app = express()
-app.use('trust proxy')
 app.use(cors(options))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -33,8 +33,7 @@ app.use(
         cookie: {
             maxAge: 3.6e+6,
             httpOnly: true,
-            secure: true,
-            sameSite: 'none'
+            secure: false
         },
         // store the sessions on the database in production
         store: MongoStore.create({
