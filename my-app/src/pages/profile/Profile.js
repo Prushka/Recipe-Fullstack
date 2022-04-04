@@ -9,7 +9,7 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/i
 import {getUserRoleDisplay} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {getAllFollowingUsers, UserAPI} from "../../axios/Axios";
+import {getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
 import {setUser} from "../../redux/Redux";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
@@ -20,12 +20,14 @@ export default function Profile() {
     const [email, setEmail] = useState(user.email)
     const [updatePasswordDialogOpen, setUpdatePasswordDialogOpen] = useState(false)
     const [followingUserDialogOpen, setFollowingUserDialogOpen] = useState(false)
+    const [followersDialogOpen, setFollowersDialogOpen] = useState(false)
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [passwordInputType, setPasswordInputType] = useState("password")
     const {enqueueSnackbar, closeSnackbar} = useSnackbar()
     const dispatch = useDispatch()
     const [following, setFollowing] = useState([])
+    const [followers, setFollowers] = useState([])
 
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
@@ -97,12 +99,29 @@ export default function Profile() {
                     footer={<>
                     </>
                     }/>
+
+            <Dialog title={"Followers"} open={followersDialogOpen}
+                    onClose={() => setFollowersDialogOpen(false)}
+                    content={
+                        <AdvancedGrid
+                            searchableHeaders={['name']} displayData={followers}
+                            excludeHeader={['_id','following','followers']}/>
+                    }
+                    footer={<>
+                    </>
+                    }/>
             <div className={"avatar__container"}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
             <div className={"profile__follow-container"}>
                 <GreyBorderRedButton
-                    className={"profile__dialog__button"}>Followers: {user.followers.length}</GreyBorderRedButton>
+                    className={"profile__dialog__button"}
+                onClick={async() => {
+                    getAllFollowerUsers(user).then(users => {
+                        setFollowers(users)
+                        setFollowersDialogOpen(true)
+                    })
+                }}>Followers: {user.followers.length}</GreyBorderRedButton>
                 <GreyBorderRedButton
                     className={"profile__dialog__button"}
                     onClick={async () => {

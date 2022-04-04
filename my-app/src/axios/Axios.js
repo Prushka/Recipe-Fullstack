@@ -34,3 +34,12 @@ export const getAllFollowingUsers = async (user) => {
     }
     return users
 }
+
+export const getAllFollowerUsers = async (user) => {
+    const users = []
+    for (const uid of user.followers) {
+        const res = await UserAPI.get(`/${uid}`)
+        users.push(res.data)
+    }
+    return users
+}
