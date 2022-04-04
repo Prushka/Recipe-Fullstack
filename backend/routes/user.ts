@@ -114,15 +114,7 @@ userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
         res.send("User cannot be found")
         return
     }
-    if (sessionUser.role > Role.USER) {
-        const updatedUser = await updateUser(req, res, user)
-        if (!updatedUser) {
-            return
-        }
-        updatedUser.role = req.body.role ?? updatedUser.role
-        user = await updatedUser.save()
-        res.send(getOutputUser(user))
-    } else {
+    if (sessionUser.role < Role.ADMIN || sessionUser._id == user._id) {
         if (user._id != sessionUser._id) {
             throwError(EndpointError.NoPermission)
         }
@@ -132,6 +124,14 @@ userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
         }
         user = await updatedUser.save()
         res.send(updateSessionUser(req, user))
+    } else {
+        const updatedUser = await updateUser(req, res, user)
+        if (!updatedUser) {
+            return
+        }
+        updatedUser.role = req.body.role ?? updatedUser.role
+        user = await updatedUser.save()
+        res.send(getOutputUser(user))
     }
 }))
 

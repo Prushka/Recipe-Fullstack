@@ -57,12 +57,12 @@ export function genericErrorChecker(res: Response, e: any) {
                 errorHandler(400, "You cannot follow yourself")
                 break
             default:
-                console.log(e.message)
+                console.log(e)
                 res.status(500).send("Internal Server Error")
                 break
         }
     } else {
-        console.log(e.message)
+        console.log(e)
         res.status(500).send("Internal Server Error")
     }
 }
