@@ -3,12 +3,15 @@
  */
 import './Profile.css';
 import React, {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
 import {BlueBGButton, GreyBorderRedButton} from "../../components/input/Button";
 import {getUserRoleDisplay} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
+import {UserAPI} from "../../axios/Axios";
+import {setUser} from "../../redux/Redux";
+import {useSnackbar} from "notistack";
 
 export default function Profile() {
     const user = useSelector((state) => state.user)
@@ -18,21 +21,56 @@ export default function Profile() {
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [passwordInputType, setPasswordInputType] = useState("password")
+    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const dispatch = useDispatch()
 
+    const updateMyUserInfo = async () => {
+        if (password !== repeatPassword) {
+            enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
+                {
+                    variant: 'error',
+                    persist: false,
+                })
+            return
+        }
+        let updatePayload = {}
+        if(password){
+            updatePayload = {"name": username, "email": email, "password": password}
+        }else{
+            updatePayload = {"name": username, "email": email}
+        }
+        await UserAPI.patch('',
+            updatePayload,
+            {withCredentials: true}).then(res => {
+
+            dispatch(setUser(res.data))
+            enqueueSnackbar(`Success`,
+                {
+                    variant: 'success',
+                    persist: false,
+                })
+        }).catch(error => {
+            enqueueSnackbar(`${error.response.data.message}`,
+                {
+                    variant: 'error',
+                    persist: false,
+                })
+        })
+    }
     return (
         <div className={'profile__container'}>
             <Dialog title={"Edit Password"} open={updatePasswordDialogOpen}
-            onClose={()=>setUpdatePasswordDialogOpen(false)}
+                    onClose={() => setUpdatePasswordDialogOpen(false)}
                     content={
-                <>
-                    <PasswordTextField password={password} setPassword={setPassword}
-                                       passwordInputType={passwordInputType}
-                                       className="auth__input" setPasswordInputType={setPasswordInputType}/>
+                        <>
+                            <PasswordTextField password={password} setPassword={setPassword}
+                                               passwordInputType={passwordInputType}
+                                               className="auth__input" setPasswordInputType={setPasswordInputType}/>
 
-                    <TextField value={repeatPassword} setValue={setRepeatPassword} type={passwordInputType}
-                               className="auth__input"
-                               label={'Repeat Password'}/>
-                </>
+                            <TextField value={repeatPassword} setValue={setRepeatPassword} type={passwordInputType}
+                                       className="auth__input"
+                                       label={'Repeat Password'}/>
+                        </>
                     }
                     footer={<></>
                     }/>
@@ -60,13 +98,15 @@ export default function Profile() {
             <TextField
                 disabled={true}
                 value={getUserRoleDisplay(user.role)}
-                       className="profile__input"
-                       textFieldClassName="profile__input"
-                       label={'Role'}/>
+                className="profile__input"
+                textFieldClassName="profile__input"
+                label={'Role'}/>
 
 
-            <BlueBGButton className={'profile__save-button'} onClick={()=>setUpdatePasswordDialogOpen(true)}>Update Password</BlueBGButton>
-            <BlueBGButton className={'profile__save-button'}>Save</BlueBGButton>
+            <BlueBGButton className={'profile__save-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
+                Password</BlueBGButton>
+            <BlueBGButton className={'profile__save-button'}
+            onClick={async()=>await updateMyUserInfo()}>Save</BlueBGButton>
         </div>
     )
 }
