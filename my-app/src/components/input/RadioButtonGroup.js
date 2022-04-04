@@ -8,7 +8,7 @@ import './Input.css';
 export function RadioButtonGroup({
                                      title,
                                      options,
-                                     selected, className = ''
+                                     selected, setSelected, className = ''
                                  }) {
     return (
         <>
@@ -16,13 +16,13 @@ export function RadioButtonGroup({
                 <div className={'radio-section-title'}>{title}</div>
                 <spaced-horizontal-preferred>
                     {options.map(option => {
-                        let checked = false
-                        if (selected === option) {
-                            checked = true
-                        }
                         return (
                             <div className={'radio-option'} key={option}>
-                                <span><input defaultChecked={checked} type={"radio"} id={option} name={title}/></span>
+                                <span><input
+                                    onChange={(e) => {
+                                        setSelected(e.target.id)
+                                    }}
+                                    defaultChecked={selected === option} type={"radio"} id={option} name={title}/></span>
                                 <div className={'radio-label'}>{option}</div>
                             </div>
                         )
