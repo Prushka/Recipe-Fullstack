@@ -227,9 +227,9 @@ export function AdminManageUsers() {
     const {enqueueSnackbar, closeSnackbar} = useSnackbar()
     const [userData, setUserData] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         const getAllUsers = async () => {
-            UserAPI.get(`/admin/all`,{}).then(res => {
+            UserAPI.get(`/admin/all`, {}).then(res => {
                 setUserData(res.data)
             }).catch((e) => {
                 enqueueSnackbar(e.response.data.message,
@@ -242,14 +242,15 @@ export function AdminManageUsers() {
         getAllUsers().then()
     })
     const [editingUser, setEditingUser] = useState(defaultUser)
-    const [recipeData, setRecipeData] = useState(recipes)
     return <AdvancedGrid headerDialogs={[getUserEditingDialog(userData, setUserData,
-        editingUser, setEditingUser, userHeaders),
-        getRecipesViewDialog(recipeData, setRecipeData, editingUser, setEditingUser, ["Uploaded Recipes"])]}
-                         searchableHeaders={["Username", "Permission", "Email", "Uploaded Recipes"]}
+        editingUser, setEditingUser, userHeaders)]}
+                         searchableHeaders={["name", "email", "role", "_id"]}
                          displayData={userData} setDisplayData={setUserData}
                          excludeHeader={["followers", "following", "__v"]}
-                         cellCallback={cellCallback}/>
+                         cellCallback={(e)=>{
+                             console.log(`header: [${e.header}], value: [${e.value}], id: [${e.id}], cellId: [${e.cellId}], isHeader: [${e.isHeader}]]`)
+                             console.log(e.entity)}
+                         }/>
 }
 
 export function AdminManageRecipes() {

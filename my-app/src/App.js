@@ -43,7 +43,7 @@ export default function App() {
                     <Route path={"dashboard"}
                            element={<PageComponent path={"/dashboard"}><Dashboard/></PageComponent>}/>
                     <Route path={"profile"}
-                           element={<PageComponent path={"/profile"}><Profile/></PageComponent>}/>
+                           element={<PageComponent path={"/profile"}><Profile user={useSelector((state) => state.user)}/></PageComponent>}/>
                     <Route path={"browse"}
                            element={<PageComponent path={"/browse"}><BrowseRecipe/></PageComponent>}/>
                     <Route path="/saved" element={<PageComponent path={"/saved"}><SavedRecipe/></PageComponent>}/>
