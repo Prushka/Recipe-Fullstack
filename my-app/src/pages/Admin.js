@@ -232,6 +232,8 @@ export function AdminManageUsers() {
     const [userData, setUserData] = useState([])
     const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
 
+    const [editingUser, setEditingUser] = useState(userInitialState)
+
     useAsync(async () => {
         try {
             const response = await UserAPI.get(`/admin/all`, {})
@@ -245,12 +247,13 @@ export function AdminManageUsers() {
         }
     }, (r) => {
         setUserData(r)
-    })
-    const [editingUser, setEditingUser] = useState(userInitialState)
-
+    }, [editingUser])
     return <>
         <Dialog size={'l'} title={`Editing ${editingUser.name}`} open={editUserDialogOpen}
-                onClose={() => setEditUserDialogOpen(false)}
+                onClose={() => {
+                    setEditUserDialogOpen(false)
+                    setEditingUser(userInitialState)
+                }}
                 content={
                     <Profile user={editingUser}/>
                 }

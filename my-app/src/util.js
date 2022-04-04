@@ -11,12 +11,14 @@ export function getUserRoleDisplay(role) {
 }
 
 // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
-export function useAsync(asyncFn, onSuccess) {
+export function useAsync(asyncFn, onSuccess, dependencies = []) {
     useEffect(() => {
         let isActive = true;
         asyncFn().then(data => {
             if (isActive) onSuccess(data);
         });
-        return () => { isActive = false };
-    }, []);
+        return () => {
+            isActive = false
+        };
+    }, dependencies);
 }
