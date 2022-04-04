@@ -7,7 +7,7 @@ import * as React from "react";
 import {BlueBGButton} from "../../components/input/Button";
 import {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
-import {login} from '../../redux/Redux'
+import {login, setUser} from '../../redux/Redux'
 import {UserAPI} from "../../axios/Axios";
 import {useEffect, useState} from "react";
 import {Alert, Snackbar} from "@mui/material";
@@ -26,13 +26,16 @@ export default function Login() {
             {"input": usernameEmail, "password": password}).then(res => {
             enqueueSnackbar(`Success`,
                 {
-                    variant: 'success'
+                    variant: 'success',
+                    persist: false,
                 })
-            console.log(res)
+            dispatch(setUser(res.data))
+            navigate("/dashboard")
         }).catch(error => {
             enqueueSnackbar(`${error.response.data.message}`,
                 {
-                    variant: 'error'
+                    variant: 'error',
+                    persist: false,
                 })
         })
     }

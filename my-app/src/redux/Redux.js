@@ -8,15 +8,6 @@ import {UserAPI} from '../axios/Axios'
 // this is just to keep a cache
 // session is handled in backend
 
-export const login = createAsyncThunk(
-    'user/login',
-    async (payload, thunkAPI) => {
-        const response = await UserAPI.post('/login',
-            {"email": payload.email, "password": payload.password})
-        return response.data
-    }
-)
-
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -28,15 +19,15 @@ export const userSlice = createSlice({
         followers: [],
         following: []
     },
-    reducers: {},
-    extraReducers: (builder) => {
-        // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(login.fulfilled, (state, action) => {
-            // Add user to the state array
-            console.log(action.payload)
-        })
-    }
+    reducers: {
+        setUser: (state, action) => {
+            state = {...action.payload}
+            state.id = action.payload._id
+        }
+    },
 })
+
+export const {setUser} = userSlice.actions
 
 export default userSlice.reducer
 

@@ -4,7 +4,6 @@
 
 import * as React from 'react';
 import './Input.css';
-import {useState} from "react";
 
 
 export function RedBGButton(props) {
