@@ -42,6 +42,9 @@ function SideBar(props) {
             <div className={'side-bar__img-group'}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
+
+            <div className={'side-bar__username'}>{user.name}</div>
+
             <div className={'side-bar-top-group'}>
                 <WrappedSideBarButton title='Dashboard' path='/dashboard' icon={<CgHomeAlt/>}/>
                 <WrappedSideBarButton title='My Profile' path='/profile' icon={<CgProfile/>}/>
