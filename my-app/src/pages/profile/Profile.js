@@ -71,13 +71,15 @@ export default function Profile() {
                                        className="auth__input"
                                        label={'Repeat Password'}/>
 
-                            <RedBGButton type={'reset'} onClick={() => {
-                            setPassword('')
-                            setRepeatPassword('')}
-                            }>Clear Password Input</RedBGButton>
                         </>
                     }
-                    footer={<></>
+                    footer={<>
+
+                        <RedBGButton type={'reset'} onClick={() => {
+                            setPassword('')
+                            setRepeatPassword('')}
+                        }>Clear Password Input</RedBGButton>
+                    </>
                     }/>
             <div className={"avatar__container"}>
                 <img src={user.avatar} alt='avatar'/>

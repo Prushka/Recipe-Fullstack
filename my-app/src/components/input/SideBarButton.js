@@ -14,7 +14,6 @@ export default function SideBarButton({
                                           }, setSideBarOpen, title, icon, path, isSelected
                                       }) {
     const navigate = useNavigate()
-    const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     return (
         <>
@@ -24,7 +23,7 @@ export default function SideBarButton({
                      if (path) {
                          await UserAPI.get('', {withCredentials: true}).then(res => {
                              dispatch(setUser(res.data))
-                         }).catch(e => {
+                         }).catch(() => {
                              navigate('/login')
                          })
                          setSideBarOpen(false)

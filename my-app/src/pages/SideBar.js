@@ -18,7 +18,7 @@ function SideBar(props) {
             if (!user.id) {
                 await UserAPI.get('', {withCredentials: true}).then(res => {
                     dispatch(setUser(res.data))
-                }).catch(e => {
+                }).catch(() => {
                     navigate('/login')
                 })
             }
