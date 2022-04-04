@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.css';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
@@ -17,9 +17,12 @@ import RecipePage4 from './components/RecipePage/RecipePage4';
 import RecipePage5 from './components/RecipePage/RecipePage5';
 import Login from "./pages/login/Login";
 import Signup from "./pages/login/Signup";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
+    const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
 
     const PageComponent = ({path, children}) => {
         return (<>
@@ -52,11 +55,16 @@ export default function App() {
                            element={<PageComponent path={"/manage/recipes"}><AdminManageRecipes/></PageComponent>}/>
                     <Route path={"/manage/reviews"}
                            element={<PageComponent path={"/manage/reviews"}><AdminManageReviews/></PageComponent>}/>
-                    <Route path="recipe/1" element={<PageComponent path={"/manage/reviews"}><RecipePage1/></PageComponent>} />
-                    <Route path="recipe/2" element={<PageComponent path={"/manage/reviews"}><RecipePage2/></PageComponent>} />
-                    <Route path="recipe/3" element={<PageComponent path={"/manage/reviews"}><RecipePage3/></PageComponent>} />
-                    <Route path="recipe/4" element={<PageComponent path={"/manage/reviews"}><RecipePage4/></PageComponent>} />
-                    <Route path="recipe/5" element={<PageComponent path={"/manage/reviews"}><RecipePage5/></PageComponent>} />
+                    <Route path="recipe/1"
+                           element={<PageComponent path={"/manage/reviews"}><RecipePage1/></PageComponent>}/>
+                    <Route path="recipe/2"
+                           element={<PageComponent path={"/manage/reviews"}><RecipePage2/></PageComponent>}/>
+                    <Route path="recipe/3"
+                           element={<PageComponent path={"/manage/reviews"}><RecipePage3/></PageComponent>}/>
+                    <Route path="recipe/4"
+                           element={<PageComponent path={"/manage/reviews"}><RecipePage4/></PageComponent>}/>
+                    <Route path="recipe/5"
+                           element={<PageComponent path={"/manage/reviews"}><RecipePage5/></PageComponent>}/>
                 </Routes>
             </BrowserRouter>
         </>

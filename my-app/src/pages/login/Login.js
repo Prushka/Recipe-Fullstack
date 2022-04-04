@@ -23,7 +23,8 @@ export default function Login() {
 
     const login = async (usernameEmail, password) => {
         await UserAPI.post('/login',
-            {"input": usernameEmail, "password": password}).then(res => {
+            {"input": usernameEmail, "password": password},
+            {withCredentials: true}).then(res => {
             enqueueSnackbar(`Success`,
                 {
                     variant: 'success',
@@ -46,8 +47,9 @@ export default function Login() {
                 <div className="auth__title">
                     Log-in
                 </div>
-                <form onSubmit={async(e)=>{
-                    e.preventDefault()}}>
+                <form onSubmit={async (e) => {
+                    e.preventDefault()
+                }}>
                     <TextField value={usernameEmail} setValue={setUsernameEmail} type="username" className="auth__input"
                                label={'Username / Email'}/>
                     <TextField value={password} setValue={setPassword} type="password" className="auth__input"

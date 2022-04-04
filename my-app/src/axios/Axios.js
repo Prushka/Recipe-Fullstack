@@ -4,7 +4,7 @@
 
 import axios from "axios";
 
-const BASE_URL = "https://express.csc309.muddy.ca"
+const BASE_URL = "http://localhost:8000"
 
 export const API = axios.create({
     baseURL: `${BASE_URL}`
@@ -21,3 +21,7 @@ export const ReviewAPI = axios.create({
 export const RecipeAPI = axios.create({
     baseURL: `${BASE_URL}/recipe`
 });
+
+export const logout = async() => {
+    await UserAPI.post("/logout", {},{withCredentials: true})
+}

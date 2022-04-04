@@ -4,17 +4,36 @@ import '../styles/Sidebar.css';
 import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logout, UserAPI} from "../axios/Axios";
+import {setUser} from "../redux/Redux";
 import {useNavigate} from "react-router-dom";
 
 function SideBar(props) {
+    const navigate = useNavigate()
     const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        async function fetchSession() {
+            if (!user.id) {
+                await UserAPI.get('', {withCredentials: true}).then(res => {
+                    dispatch(setUser(res.data))
+                }).catch(e => {
+                    navigate('/login')
+                })
+            }
+        }
+
+        fetchSession().then()
+    }, [dispatch, navigate, user])
+
 
     const isSelected = (path) => {
         return props.currentSelected === path ? 'selected' : ''
     }
-    const WrappedSideBarButton = ({title, path, icon}) => {
-        return (<SideBarButton setSideBarOpen={props.setSideBarOpen} title={title} path={path} isSelected={isSelected} icon={icon}/>)
+    const WrappedSideBarButton = ({title, path, icon, onClick}) => {
+        return (<SideBarButton onClick={onClick} setSideBarOpen={props.setSideBarOpen} title={title} path={path}
+                               isSelected={isSelected} icon={icon}/>)
     }
     return (
         <div className={`side-bar ${props.sideBarOpen ? null : 'closed'}`} onClick={(e) => {
@@ -37,7 +56,12 @@ function SideBar(props) {
                 }
             </div>
             <div className={'side-bar__bottom-group'}>
-                <WrappedSideBarButton title='Log-out' path='/login' icon={<CgLogOut/>}/>
+                <WrappedSideBarButton title='Log-out' path={undefined}
+                                      onClick={async () => {
+                                          await logout()
+                                          navigate("/login")
+                                      }}
+                                      icon={<CgLogOut/>}/>
             </div>
         </div>
     );
