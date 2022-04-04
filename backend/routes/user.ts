@@ -3,7 +3,7 @@
  */
 
 import {getUserFromSession, removeFromOutput, requireObjectIdFromPara, updateUser,} from "../utils/util";
-import {IUser, Role, User} from "../models/user";
+import {DEFAULT_AVATAR, IUser, Role, User} from "../models/user";
 import express, {Request} from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
 import {ObjectId} from "mongoose";
@@ -104,7 +104,12 @@ userRouter.get('/',
     }))
 
 userRouter.get('/admin/all', adminRoute(async (req, res) => {
-    res.send(removeFromOutput(await User.find(), "password"))
+    const users = removeFromOutput(await User.find(), "password")
+
+    res.send(users.map((user: any) => {
+        user.avatar = user.avatar ?? DEFAULT_AVATAR
+        return user
+    }))
 }))
 
 userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
