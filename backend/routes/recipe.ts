@@ -90,15 +90,15 @@ export async function getOutputRecipe(...recipes: IRecipe[]) {
     for (const recipe of recipes) {
         const author = await User.findById(recipe.author)
         recipesOut.push({
-            _id: recipe._id,
+            thumbnail: recipe.thumbnail,
+            authorName: author ? author.name : "",
             category: recipe.category,
             instructions: recipe.instructions,
             ingredients: recipe.ingredients,
-            author: recipe.author,
             tags: recipe.tags,
             approved: recipe.approved,
-            thumbnail: recipe.thumbnail,
-            authorName: author ? author.name : ""
+            _id: recipe._id,
+            author: recipe.author,
         })
     }
     return recipesOut

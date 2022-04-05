@@ -21,12 +21,12 @@ export async function requiredUserById(id: ObjectId): Promise<IUser> {
 
 export function getOutputUser(user: IUser, isPublicInfo: boolean = false) {
     let userOut: any = {
-        _id: user._id,
         name: user.name,
         avatar: user.avatar,
         role: user.role,
         followers: user.followers,
-        following: user.following
+        following: user.following,
+        _id: user._id,
     }
     if (!isPublicInfo) {
         userOut = {
