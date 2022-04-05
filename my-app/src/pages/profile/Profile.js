@@ -9,13 +9,16 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/i
 import {getUserRoleDisplay, roles} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {FileAPI, FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
-import {setUser} from "../../redux/Redux";
+import {FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
+import {setUser} from "../../redux/Redux";
 
-export default function Profile({user}) {
+export default function Profile({
+                                    user, setEditingUser = () => {
+    }
+                                }) {
     const loggedInUser = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
@@ -68,6 +71,7 @@ export default function Profile({user}) {
             if (editingMyProfile) {
                 dispatch(setUser(res.data))
             }
+            setEditingUser(res.data)
             enqueueSnackbar(`Successfully updated the user profile`,
                 {
                     variant: 'success',

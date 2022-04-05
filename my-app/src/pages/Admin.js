@@ -255,7 +255,7 @@ export function AdminManageUsers() {
                     setEditingUser(userInitialState)
                 }}
                 content={
-                    <Profile user={editingUser}/>
+                    <Profile user={editingUser} setEditingUser={setEditingUser}/>
                 }
                 footer={<>
                 </>
