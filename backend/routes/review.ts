@@ -37,7 +37,7 @@ reviewRouter.delete('/report/:id', userRoute(async (req, res, sessionUser) => {
         review._id,
         {$pull: {inappropriateReportUsers: sessionUser._id}},
         {new: true}))!
-    res.send(getOutputReview(review))
+    res.send(await getOutputReview(review))
 }))
 
 reviewRouter.post('/report/:id', userRoute(async (req, res, sessionUser) => {
@@ -47,7 +47,7 @@ reviewRouter.post('/report/:id', userRoute(async (req, res, sessionUser) => {
         review._id,
         {$addToSet: {inappropriateReportUsers: sessionUser._id}},
         {new: true}))!
-    res.send(getOutputReview(review))
+    res.send(await getOutputReview(review))
 }))
 
 // upsert
@@ -68,7 +68,7 @@ reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
         review.userVotes.push(voteIn)
     }
     review = await review.save()
-    res.send(getOutputReview(review))
+    res.send(await getOutputReview(review))
 }))
 
 reviewRouter.delete('/:id', userRoute(async (req, res, sessionUser) => {
@@ -76,7 +76,7 @@ reviewRouter.delete('/:id', userRoute(async (req, res, sessionUser) => {
     let review = await requireReviewFromId(reviewId)
     requireReviewEdit(sessionUser, review)
     await review.delete()
-    res.send(getOutputReview(review))
+    res.send(await getOutputReview(review))
 }))
 
 // update review by review id
@@ -92,7 +92,7 @@ reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
         review.inappropriateReportUsers = req.body.inappropriateReportUsers ?? review.inappropriateReportUsers
     }
     review = await review.save()
-    res.send(getOutputReview(review))
+    res.send(await getOutputReview(review))
 }))
 
 // upsert review on recipe
@@ -117,7 +117,7 @@ reviewRouter.post('/', userRoute(async (req, res, sessionUser) => {
         review.approved = req.body.approved ?? review.approved
     }
     review = await review.save()
-    res.send(getOutputReview(review))
+    res.send(await getOutputReview(review))
 }))
 
 export async function getOutputReview(...reviews: IReview[]) {
