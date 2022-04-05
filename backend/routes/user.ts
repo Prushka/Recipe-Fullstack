@@ -19,7 +19,7 @@ async function requiredUserById(id: ObjectId): Promise<IUser> {
     return user
 }
 
-function getOutputUser(user: IUser) {
+export function getOutputUser(user: IUser) {
     return {
         name: user.name,
         email: user.email,

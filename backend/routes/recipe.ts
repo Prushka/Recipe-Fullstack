@@ -2,13 +2,14 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {requireObjectIdFromPara} from "../utils/util";
-import {IUser, Role, SessionUser} from "../models/user";
+import {getUserFromSession, requireObjectIdFromPara} from "../utils/util";
+import {IUser, Role, SessionUser, User} from "../models/user";
 import {IRecipe, Recipe} from "../models/recipe";
 import express from "express";
 import {publicRoute, userRoute} from "./route";
 import {EndpointError, throwError} from "../errors/errors";
 import {ObjectId as ObjectIdType} from "mongoose";
+import {getOutputUser, userRouter} from "./user";
 
 const {ObjectId} = require('mongodb');
 
@@ -50,6 +51,26 @@ recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     recipe = await recipe.save()
     res.send(recipe)
 
+}))
+
+recipeRouter.post('/save/:id', userRoute(async (req, res, sessionUser) => {
+    const id = requireObjectIdFromPara(req)
+    let recipe = await requireRecipeFromId(id)
+    const user = await User.findByIdAndUpdate(
+        sessionUser._id,
+        {$addToSet: {savedRecipes: recipe._id}},
+        {new: true})
+    res.send(getOutputUser(user!))
+}))
+
+recipeRouter.delete('/save/:id', userRoute(async (req, res, sessionUser) => {
+    const id = requireObjectIdFromPara(req)
+    let recipe = await requireRecipeFromId(id)
+    const user = await User.findByIdAndUpdate(
+        sessionUser._id,
+        {$pull: {savedRecipes: recipe._id}},
+        {new: true})
+    res.send(getOutputUser(user!))
 }))
 
 recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {

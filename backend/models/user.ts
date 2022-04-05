@@ -12,6 +12,7 @@ export interface SessionUser {
     role: 0 | 1
     followers: string[]
     following: string[]
+    savedRecipes: string[]
 }
 
 export interface IUser extends SessionUser, Document<ObjectId> {
@@ -50,6 +51,9 @@ const UserSchema = new Schema<IUser, UserModel>({
         {type: String}
     ],
     following: [
+        {type: String}
+    ],
+    savedRecipes: [
         {type: String}
     ]
 });
