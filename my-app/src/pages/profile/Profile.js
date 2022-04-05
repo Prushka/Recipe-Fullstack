@@ -15,12 +15,14 @@ import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {setUser} from "../../redux/Redux";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
+import {useNavigate} from "react-router-dom";
 
 export default function Profile({
                                     user, setEditingUser = () => {
     }, onDelete = () => {
     }
                                 }) {
+    const navigate = useNavigate()
     const loggedInUser = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
@@ -38,6 +40,8 @@ export default function Profile({
     const [selectedRole, setSelectedRole] = useState(getUserRoleDisplay(user.role))
     const editingMyProfile = loggedInUser._id === user._id
     const [deleteUserConfirmationOpen, setDeleteUserConfirmationOpen] = useState(false)
+
+    const pronoun = editingMyProfile ? "this account" : "this user"
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
             enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
@@ -202,16 +206,21 @@ export default function Profile({
 
             <ConfirmationDialog open={deleteUserConfirmationOpen}
                                 setOpen={setDeleteUserConfirmationOpen}
-                                title={"Are you sure you want to remove this user?"}
+                                title={`Are you sure you want to remove ${pronoun}?`}
                                 content={"You cannot undo this operation."}
                                 onConfirm={async () => {
                                     await UserAPI.delete(`/${user._id}`).then(res => {
-                                        enqueueSnackbar(`Successfully deleted this user`,
+                                        enqueueSnackbar(`Successfully deleted`,
                                             {
                                                 variant: 'success',
                                                 persist: false,
                                             })
                                         onDelete()
+                                        if (editingMyProfile) {
+                                            logout().then(() => {
+                                                navigate("/login")
+                                            })
+                                        }
                                     }).catch(error => {
                                         console.log(error)
                                         enqueueSnackbar(`${error.response.data.message}`,
@@ -222,10 +231,9 @@ export default function Profile({
                                     })
                                 }}
             />
-            {!editingMyProfile ?
-                <RedBGButton className={'profile__action-button'} onClick={() => {
-                    setDeleteUserConfirmationOpen(true)
-                }}>DELETE THIS USER</RedBGButton> : <></>}
+            <RedBGButton className={'profile__action-button'} onClick={() => {
+                setDeleteUserConfirmationOpen(true)
+            }}>DELETE {pronoun.toUpperCase()}</RedBGButton>
 
         </div>
     )
