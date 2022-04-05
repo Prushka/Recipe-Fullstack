@@ -31,7 +31,7 @@ recipeRouter.delete('/:id', userRoute(async (req, res, sessionUser) => {
     let recipe = await requireRecipeFromId(id)
     requireRecipeEdit(sessionUser, recipe)
     await recipe.delete()
-    res.send(getOutputRecipe(recipe))
+    res.send(await getOutputRecipe(recipe))
 }))
 
 recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
@@ -90,6 +90,7 @@ export async function getOutputRecipe(...recipes: IRecipe[]) {
     for (const recipe of recipes) {
         const author = await User.findById(recipe.author)
         recipesOut.push({
+            title: recipe.title,
             thumbnail: recipe.thumbnail,
             authorName: author ? author.name : "",
             category: recipe.category,
