@@ -10,7 +10,8 @@ import {connectionString} from "../db/mongoose";
 import multer from "multer";
 import mongoose from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
-import {BASE_URL} from "../server";
+import {getImageURLFromFilename, requireObjectIdFromPara} from "../utils/util";
+import {ObjectId} from "mongodb";
 
 export const fileRouter = express.Router()
 const storage = new GridFsStorage({
@@ -31,7 +32,7 @@ connect.once('open', () => {
 
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml']
 
-const requireNonEmptyFiles = (files:any) =>{
+const requireNonEmptyFiles = (files: any) => {
     if (!files[0] || files.length === 0) {
         throwError(EndpointError.FileNotFound)
     }
@@ -89,9 +90,9 @@ fileRouter.get("/", adminRoute(async (req, res) => {
     gfs.find().toArray((err: any, files: any) => {
         try {
             requireNonEmptyFiles(files)
-            const filesOut = files.map((file:any) => {
-                if(IMAGE_TYPES.includes(file.contentType)){
-                    return {...file, url: `${BASE_URL}/file/image/${file.filename}`}
+            const filesOut = files.map((file: any) => {
+                if (IMAGE_TYPES.includes(file.contentType)) {
+                    return {...file, url: getImageURLFromFilename(file.filename)}
                 }
                 return file
             })
@@ -99,5 +100,15 @@ fileRouter.get("/", adminRoute(async (req, res) => {
         } catch (e) {
             genericErrorChecker(res, e)
         }
+    });
+}))
+
+fileRouter.delete('/:id', adminRoute(async (req, res) => {
+    const id = requireObjectIdFromPara(req)
+    gfs.delete(id, (err: any, file: any) => {
+        if (err) {
+            return res.status(404).json({message: err.message})
+        }
+        res.send("deleted");
     });
 }))

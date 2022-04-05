@@ -7,8 +7,13 @@ import {IUser, Role, User} from "../models/user";
 
 import {Document, ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
+import {BASE_URL} from "../server";
 
 const {ObjectId} = require('mongodb');
+
+export function getImageURLFromFilename(fileName: string) {
+    return `${BASE_URL}/file/image/${fileName}`
+}
 
 export function idToObjectId(id: string): ObjectIdType {
     if (!ObjectId.isValid(id)) {
