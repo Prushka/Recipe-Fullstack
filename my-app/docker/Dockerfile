@@ -1,6 +1,6 @@
 # https://dev.to/karanpratapsingh/dockerize-your-react-app-4j2e
 FROM node:current-alpine3.15 AS build
-ENV BACKEND_URL "https://express.csc309.muddy.ca"
+ENV BASE_URL "https://express.csc309.muddy.ca"
 ENV NODE_ENV production
 # Add a work directory
 WORKDIR /app
