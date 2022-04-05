@@ -31,7 +31,7 @@ recipeRouter.delete('/:id', userRoute(async (req, res, sessionUser) => {
     let recipe = await requireRecipeFromId(id)
     requireRecipeEdit(sessionUser, recipe)
     await recipe.delete()
-    res.send("deleted")
+    res.send(getOutputRecipe(recipe))
 }))
 
 recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
