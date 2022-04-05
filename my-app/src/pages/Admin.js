@@ -238,7 +238,7 @@ export function AdminManageReviews() {
                             setEditingReview(initialReviewState)
                         }
                         }
-                        user={editingReview}
+                        review={editingReview}
                         setEditingReview={setEditingReview}
                     />
                 }
