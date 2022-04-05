@@ -14,12 +14,15 @@ export default function Grid({
     return (
         <table>
             <tbody>
-            <GridRow sortValues={sortValues} setSortValues={setSortValues} key={-1} id={-1} headers={headers} values={headers} isHeader={true}
+            <GridRow sortValues={sortValues} setSortValues={setSortValues} key={-1} id={-1} headers={headers}
+                     values={headers} isHeader={true}
                      onClickHandler={onClickHandler} entity={headers}/>
             {tableData.map(value => {
                 const rowValues = []
                 headers.forEach((item) => {
-                    if (value[item] != null) {
+                    if (Array.isArray(value[item])) {
+                        rowValues.push(`Count: ${value[item].length}`)
+                    } else if (value[item] != null) {
                         rowValues.push(value[item].toString())
                     } else {
                         rowValues.push("")
