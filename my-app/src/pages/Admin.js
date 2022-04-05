@@ -21,7 +21,7 @@ import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 import {addSnackbar, SnackbarProperties} from "../components/snack/Snackbar";
 import {useSelector} from "react-redux";
-import {UserAPI} from "../axios/Axios";
+import {RecipeAPI, UserAPI} from "../axios/Axios";
 import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
@@ -227,11 +227,9 @@ export function AdminManageReviews() {
 
 
 export function AdminManageUsers() {
-    const user = useSelector((state) => state.user)
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
     const [userData, setUserData] = useState([])
     const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
-
     const [editingUser, setEditingUser] = useState(userInitialState)
 
     useAsync(async () => {
@@ -273,22 +271,27 @@ export function AdminManageUsers() {
 
 export function AdminManageRecipes() {
 
-    const [editingUser, setEditingUser] = useState(defaultUser)
+    const {enqueueSnackbar} = useSnackbar()
+    const [editRecipeDataDialogOpen, setEditRecipeDataDialogOpen] = useState(false)
     const [editingRecipe, setEditingRecipe] = useState(defaultUser)
-    const [userData, setUserData] = useState(users)
     const [recipeData, setRecipeData] = useState(recipes)
-    const [editingReview, setEditingReview] = useState(defaultReview)
-    const [reviewsData, setReviewsData] = useState(reviews)
-    const recipeEditingDialog = getRecipeEditingDialog(recipeData, setRecipeData, editingRecipe, setEditingRecipe, recipeHeaders)
-    recipeEditingDialog.addCallback((e) => {
-        recipeEditingDialog.setEditingEntity(e.entity)
-    })
-    return <AdvancedGrid
-        headerDialogs={[getUserEditingDialog(userData, setUserData,
-            editingUser, setEditingUser, userHeaders),
-            recipeEditingDialog,
-            getReviewsViewDialog(reviewsData, setReviewsData, editingReview, setEditingReview,
-                ["Reviews"])]}
-        searchableHeaders={['Recipe Name', 'Category', 'Created By']} displayData={recipeData}
+
+    useAsync(async () => {
+        try {
+            const response = await RecipeAPI.get(``, {})
+            return response.data
+        } catch (e) {
+            enqueueSnackbar(e.response.data.message,
+                {
+                    variant: 'error',
+                    persist: false,
+                })
+        }
+    }, (r) => {
+        setRecipeData(r)
+    }, [editingRecipe])
+
+    return <AdvancedGrid excludeHeader={["__v"]}
+        searchableHeaders={['_id','title','category','instructions','ingredients','author','tags']} displayData={recipeData}
         setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }
