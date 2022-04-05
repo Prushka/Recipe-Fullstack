@@ -71,6 +71,19 @@
     margin-left: auto;
 }
 
+.confirmation__button-group{
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+.confirmation__content {
+    font-size: 20px;
+    color: var(--theme-red);
+    font-weight: 600;
+}
+
 @media (max-width: 900px) {
 
     .dialog__modal--s {
