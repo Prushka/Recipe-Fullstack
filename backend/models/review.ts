@@ -2,7 +2,7 @@ import {Document, Model, model, ObjectId, Schema} from "mongoose";
 
 type SimpleRating = 1 | 0 | -1
 
-interface IUserReviewVote {
+export interface IUserReviewVote {
     positivity: SimpleRating
     author?: ObjectId
 }

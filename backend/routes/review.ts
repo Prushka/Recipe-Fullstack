@@ -3,7 +3,7 @@
  */
 
 import {requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
-import {IReview, Review} from "../models/review";
+import {IReview, IUserReviewVote, Review} from "../models/review";
 import express from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
 import {IUser, Role, SessionUser, User} from "../models/user";
@@ -124,13 +124,23 @@ export async function getOutputReview(...reviews: IReview[]) {
     const reviewsOut = []
     for (const review of reviews) {
         const author = await User.findById(review.author)
+        const userVotes = []
+        for (const vote of review.userVotes) {
+            const voteAuthor = await User.findById(vote.author)
+            userVotes.push({
+                    authorName: voteAuthor ? voteAuthor.name : "",
+                    positivity: vote.positivity,
+                    author: vote.author
+                }
+            )
+        }
         reviewsOut.push({
             authorName: author ? author.name : "",
             rating: review.rating,
             approved: review.approved,
             content: review.content,
             inappropriateReportUsers: review.inappropriateReportUsers,
-            userVotes: review.userVotes,
+            userVotes: userVotes,
             _id: review._id,
             author: review.author,
             reviewedRecipe: review.reviewedRecipe
