@@ -78,7 +78,8 @@ recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {
         instructions: req.body.instructions,
         ingredients: req.body.ingredients,
         author: sessionUser._id,
-        tags: req.body.tags
+        tags: req.body.tags,
+        thumbnail: req.body.thumbnail
     })
     recipe = await recipe.save()
     res.send(getOutputRecipe(recipe))

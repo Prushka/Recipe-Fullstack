@@ -87,7 +87,7 @@ userRouter.delete('/:id',
         const id = requireObjectIdFromPara(req)
         let user = await requiredUserById(id)
         await user.delete()
-        res.send()
+        res.send(getOutputUser(user))
     }))
 
 userRouter.get('/:id',
