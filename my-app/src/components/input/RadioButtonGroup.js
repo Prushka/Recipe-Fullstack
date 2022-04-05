@@ -12,7 +12,7 @@ export function RadioButtonGroup({
                                  }) {
     return (
         <>
-            <div className={`radio-section ${className}`}>
+            <div className={`radio-section input__box ${className}`}>
                 <div className={'radio-section-title'}>{title}</div>
                 <spaced-horizontal-preferred>
                     {options.map(option => {
