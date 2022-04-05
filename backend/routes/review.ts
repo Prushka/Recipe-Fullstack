@@ -3,16 +3,14 @@
  */
 
 import {requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
-import {IReview, IUserReviewVote, Review} from "../models/review";
+import {IReview, Review} from "../models/review";
 import express from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
-import {IUser, Role, SessionUser, User} from "../models/user";
+import { Role, SessionUser, User} from "../models/user";
 import {ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {requireRecipeFromId} from "./recipe";
-import {IRecipe, Recipe} from "../models/recipe";
-
-const {ObjectId} = require('mongodb');
+import {Recipe} from "../models/recipe";
 
 export const reviewRouter = express.Router()
 

@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import express, {Response} from "express";
+import express from "express";
 import {adminRoute, genericErrorChecker, publicRoute, userRoute} from "./route";
 import * as fs from "fs";
 import {GridFsStorage} from "multer-gridfs-storage";

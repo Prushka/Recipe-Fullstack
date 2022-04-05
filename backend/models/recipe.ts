@@ -1,6 +1,5 @@
 import {Document, Model, model, ObjectId, Schema} from "mongoose";
 import {getFileURLFromStoredString} from "../utils/util";
-import {DEFAULT_AVATAR} from "./user";
 
 export const DEFAULT_RECIPE_THUMBNAIL = "https://s2.loli.net/2022/04/06/TOJBZgKVxko4lA6.png"
 
