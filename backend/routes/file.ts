@@ -41,7 +41,7 @@ fileRouter.post("/", userRoute(async (req, res) => {
     upload.single('file')(req, res, () => {
         const file = req.file
         if (!file) {
-            res.status(400).send("File not found")
+            res.status(400).send("File not found in form data")
         } else {
             res.send(file)
         }
