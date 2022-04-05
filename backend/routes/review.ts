@@ -61,9 +61,9 @@ reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
         positivity: req.body.positivity ?? 0,
         author: sessionUser._id
     }
-    if(prevVote){
+    if (prevVote) {
         prevVote.positivity = voteIn.positivity ?? prevVote.positivity
-    }else{
+    } else {
         review.userVotes.push(voteIn)
     }
     review = await review.save()
@@ -85,6 +85,11 @@ reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     requireReviewEdit(sessionUser, review)
     review.content = req.body.content ?? review.content
     review.rating = req.body.rating ?? review.rating
+
+    if (sessionUser.role > Role.USER) {
+        review.approved = req.body.approved ?? review.approved
+        review.inappropriateReportUsers = req.body.inappropriateReportUsers ?? review.inappropriateReportUsers
+    }
     review = await review.save()
     res.send(review)
 }))
@@ -93,27 +98,29 @@ reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
 reviewRouter.post('/', userRoute(async (req, res, sessionUser) => {
     const id = requireIdAsObjectId(req.body.reviewedRecipe)
     await requireRecipeFromId(id)
-    let preReview = await Review.findOne({author: req.session.user!._id, reviewedRecipe: id})
-    if (preReview) {
-        requireReviewEdit(sessionUser, preReview)
-        preReview.content = req.body.content ?? preReview.content
-        preReview.rating = req.body.rating ?? preReview.rating
-        preReview = await preReview.save()
-        res.send(preReview)
-    }else{
-        let review = new Review({
+    let review = await Review.findOne({author: req.session.user!._id, reviewedRecipe: id})
+    if (review) {
+        requireReviewEdit(sessionUser, review)
+        review.content = req.body.content ?? review.content
+        review.rating = req.body.rating ?? review.rating
+    } else {
+        review = new Review({
             title: req.body.title,
             content: req.body.content,
             reviewedRecipe: req.body.reviewedRecipe,
             rating: req.body.rating,
             author: req.session.user!._id
         })
-        review = await review.save()
-        res.send(review)
     }
+    if (sessionUser.role > Role.USER) {
+        review.approved = req.body.approved ?? review.approved
+    }
+    console.log(review)
+    review = await review.save()
+    res.send(review)
 }))
 
-reviewRouter.get('/admin/all', adminRoute(async(req, res)=>{
+reviewRouter.get('/admin/all', adminRoute(async (req, res) => {
     res.send(await Review.find())
 }))
 
