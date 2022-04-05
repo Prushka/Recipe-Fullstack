@@ -21,7 +21,7 @@ import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
 import {addSnackbar, SnackbarProperties} from "../components/snack/Snackbar";
 import {useSelector} from "react-redux";
-import {RecipeAPI, UserAPI} from "../axios/Axios";
+import {RecipeAPI, ReviewAPI, UserAPI} from "../axios/Axios";
 import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
@@ -198,30 +198,32 @@ function cellCallback(e) {
 }
 
 export function AdminManageReviews() {
-    const [editingUser, setEditingUser] = useState(defaultUser)
+
+    const {enqueueSnackbar} = useSnackbar()
+    const [editReviewDataDialogOpen, setEditReviewDataDialogOpen] = useState(false)
+
     const [editingReview, setEditingReview] = useState(defaultReview)
-    const [editingRecipe, setEditingRecipe] = useState(defaultReview)
-    const [userData, setUserData] = useState(users)
-    const [reviewsData, setReviewsData] = useState(reviews)
-    const [reportData, setReportData] = useState(reports)
-    const [recipeData, setRecipeData] = useState(recipes)
-    const recipeEditingDialog = getRecipeEditingDialog(recipeData, setRecipeData,
-        editingRecipe, setEditingRecipe, recipeHeaders, () => {
-            addSnackbar(new SnackbarProperties({
-                text: "Saved (frontend demo)", timeout: 5000, type: "success", position: "bottom-left"
-            }))
-        })
-    recipeEditingDialog.addCallback((e) => {
-        recipeEditingDialog.setEditingEntity(findRecipesByRecipeName(e.value))
-    })
+    const [reviewData, setReviewData] = useState([])
+
+    useAsync(async () => {
+        try {
+            const response = await ReviewAPI.get(`/admin/all`, {})
+            return response.data
+        } catch (e) {
+            enqueueSnackbar(e.response.data.message,
+                {
+                    variant: 'error',
+                    persist: false,
+                })
+        }
+    }, (r) => {
+        setReviewData(r)
+    }, [editingReview])
+
     return <AdvancedGrid
-        headerDialogs={[getUserEditingDialog(userData, setUserData,
-            editingUser, setEditingUser, userHeaders),
-            getReportEditingDialog(reportData, setReportData,
-                editingReview, setEditingReview, ["Report Count"]),
-            recipeEditingDialog]}
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Comment Author", "Public"]}
-        displayData={reviewsData} setDisplayData={setReviewsData}
+        displayData={reviewData} setDisplayData={setReviewData}
+        excludeHeader={['__v']}
         cellCallback={cellCallback}/>
 }
 
@@ -274,7 +276,7 @@ export function AdminManageRecipes() {
     const {enqueueSnackbar} = useSnackbar()
     const [editRecipeDataDialogOpen, setEditRecipeDataDialogOpen] = useState(false)
     const [editingRecipe, setEditingRecipe] = useState(defaultUser)
-    const [recipeData, setRecipeData] = useState(recipes)
+    const [recipeData, setRecipeData] = useState([])
 
     useAsync(async () => {
         try {
