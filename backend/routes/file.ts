@@ -30,6 +30,12 @@ connect.once('open', () => {
 
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml']
 
+const requireNonEmptyFiles = (files:any) =>{
+    if (!files[0] || files.length === 0) {
+        throwError(EndpointError.FileNotFound)
+    }
+}
+
 fileRouter.post("/", userRoute(async (req, res) => {
     upload.single('file')(req, res, () => {
         const file = req.file
@@ -44,9 +50,7 @@ fileRouter.post("/", userRoute(async (req, res) => {
 fileRouter.get("/image/:filename", publicRoute(async (req, res) => {
     gfs.find({filename: req.params.filename}).toArray((err: any, files: any) => {
         try {
-            if (!files[0] || files.length === 0) {
-                throwError(EndpointError.FileNotFound)
-            }
+            requireNonEmptyFiles(files)
             if (IMAGE_TYPES.includes(files[0].contentType)) {
                 gfs.openDownloadStreamByName(req.params.filename).pipe(res);
             } else {
@@ -58,18 +62,35 @@ fileRouter.get("/image/:filename", publicRoute(async (req, res) => {
     });
 }))
 
-fileRouter.get("/", adminRoute(async (req, res) => {
-    const connection = mongoose.connection.db
-    const files = connection.collection('fs.files')
-    files.find({}).toArray((err, data) => {
-        res.send(data)
-    })
+fileRouter.get("/:filename", publicRoute(async (req, res) => {
+    gfs.find({filename: req.params.filename}).toArray((err: any, files: any) => {
+        try {
+            requireNonEmptyFiles(files)
+            gfs.openDownloadStreamByName(req.params.filename).pipe(res)
+        } catch (e) {
+            genericErrorChecker(res, e)
+        }
+    });
 }))
 
-fileRouter.get("/chunk", adminRoute(async (req, res) => {
-    const connection = mongoose.connection.db
-    const chunks = connection.collection('fs.chunks')
-    chunks.find({}).toArray((err, data) => {
-        res.send(data)
-    })
+fileRouter.get("/info/:filename", publicRoute(async (req, res) => {
+    gfs.find({filename: req.params.filename}).toArray((err: any, files: any) => {
+        try {
+            requireNonEmptyFiles(files)
+            res.send(files[0])
+        } catch (e) {
+            genericErrorChecker(res, e)
+        }
+    });
+}))
+
+fileRouter.get("/", adminRoute(async (req, res) => {
+    gfs.find().toArray((err: any, files: any) => {
+        try {
+            requireNonEmptyFiles(files)
+            res.send(files);
+        } catch (e) {
+            genericErrorChecker(res, e)
+        }
+    });
 }))
