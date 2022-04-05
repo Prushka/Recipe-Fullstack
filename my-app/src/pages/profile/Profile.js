@@ -47,7 +47,7 @@ export default function Profile({user}) {
             formData.append("file", selectedFile);
             try {
                 const response = await FileUploadAPI.post("", formData)
-                avatar = response.data.id
+                avatar = response.data['storeWith']
             } catch (error) {
                 enqueueSnackbar(`${error.response.data.message}`,
                     {
