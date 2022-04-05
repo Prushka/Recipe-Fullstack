@@ -56,6 +56,12 @@ export function genericErrorChecker(res: Response, e: any) {
             case EndpointError.FollowMyself:
                 errorHandler(400, "You cannot follow yourself")
                 break
+            case EndpointError.FileNotFound:
+                errorHandler(404, "File not found")
+                break
+            case EndpointError.NotImageFile:
+                errorHandler(400, "File is not an image")
+                break
             default:
                 console.log(e)
                 res.status(500).send("Internal Server Error")

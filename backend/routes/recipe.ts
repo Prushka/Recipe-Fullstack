@@ -2,17 +2,14 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {getUserFromSession, requireObjectIdFromPara} from "../utils/util";
-import {IUser, Role, SessionUser, User} from "../models/user";
+import {requireObjectIdFromPara} from "../utils/util";
+import {Role, SessionUser, User} from "../models/user";
 import {IRecipe, Recipe} from "../models/recipe";
 import express from "express";
 import {publicRoute, userRoute} from "./route";
 import {EndpointError, throwError} from "../errors/errors";
 import {ObjectId as ObjectIdType} from "mongoose";
-import {getOutputUser, userRouter} from "./user";
-
-const {ObjectId} = require('mongodb');
-
+import {getOutputUser} from "./user";
 export async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
     const recipe = await Recipe.findById(id)
     if (!recipe) {

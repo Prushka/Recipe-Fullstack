@@ -9,7 +9,9 @@ export enum EndpointError {
     UsernameEmailExists = "UsernameEmailExists",
     UsernameExists = "UsernameExists",
     EmailExists = "EmailExists",
-    FollowMyself = "FollowMyself"
+    FollowMyself = "FollowMyself",
+    FileNotFound = "FileNotFound",
+    NotImageFile = "NotImageFile"
 }
 
 export function throwError(name: EndpointError) {
