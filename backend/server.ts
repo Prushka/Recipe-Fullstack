@@ -10,12 +10,14 @@ import {recipeRouter} from "./routes/recipe";
 import cors from 'cors';
 import {fileRouter} from "./routes/file";
 
+export const BASE_URL = process.env.BASE_URL ?? "http://localhost:8000"
+
 console.log("Starting")
 connectToMongoDB().catch(err => console.log(err))
 
 const options: cors.CorsOptions = {
     origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",")
-        : ['http://localhost:3000','https://react.muddy.ca'],
+        : ['http://localhost:3000', 'https://react.muddy.ca'],
     credentials: true
 };
 

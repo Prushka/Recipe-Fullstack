@@ -15,6 +15,7 @@ services:
       - "PORT=8000"
       - "MONGODB_URI=mongodb://root:SyX2A54rb6kw@mongo:27017/RecipeAPI?authSource=admin"
       - "ALLOWED_ORIGINS=http://localhost:3000,https://react.muddy.ca"
+      - "BASE_URL=https://express.csc309.muddy.ca"
   mongo:
     image: mongo
     restart: always
