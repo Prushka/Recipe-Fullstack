@@ -93,6 +93,12 @@ recipeRouter.get('/me', userRoute(async (req, res) => {
 
 recipeRouter.get('/:id', publicRoute(async (req, res) => {
         const id = requireObjectIdFromPara(req)
+        res.send(await requireRecipeFromId(id))
+    })
+)
+
+recipeRouter.get('/author/:id', publicRoute(async (req, res) => {
+        const id = requireObjectIdFromPara(req)
         res.send(await Recipe.findRecipeByUser(id))
     })
 )
