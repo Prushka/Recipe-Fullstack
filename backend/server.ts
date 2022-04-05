@@ -53,7 +53,7 @@ app.use('/file', fileRouter)
 export async function createUserIfNotExist(email: string, name: string, password: string, role: Role) {
     const preUser = await User.findByEmailName(email, name)
     if (!preUser) {
-        console.log("Creating default admin user")
+        console.log(`Creating default user: ${name}`)
         let user = new User({
             name: name,
             email: email,

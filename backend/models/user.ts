@@ -48,7 +48,7 @@ const UserSchema = new Schema<IUser, UserModel>({
     },
     password: {
         type: String, required: true,
-        minlength: 6
+        minlength: 3
     },
     role: {type: Number, default: 0},
     followers: [
