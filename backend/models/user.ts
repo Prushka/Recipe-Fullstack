@@ -1,7 +1,7 @@
 import {Schema, model, Model, Document, ObjectId} from 'mongoose';
 import validator from "validator";
 import {genSalt, hash, compare} from "bcryptjs";
-import {getImageURLFromString} from "../utils/util";
+import {getFileURLFromStoredString} from "../utils/util";
 
 export const DEFAULT_AVATAR = "https://s2.loli.net/2022/04/04/LWscZaKF8MpgBQf.png"
 
@@ -44,7 +44,7 @@ const UserSchema = new Schema<IUser, UserModel>({
     },
     avatar: {
         type: String, get:
-            (avatar: string) => getImageURLFromString(avatar) ?? DEFAULT_AVATAR
+            (avatar: string) => getFileURLFromStoredString(avatar) ?? DEFAULT_AVATAR
     },
     password: {
         type: String, required: true,

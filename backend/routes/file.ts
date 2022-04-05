@@ -10,7 +10,7 @@ import {MONGO_URI} from "../db/mongoose";
 import multer from "multer";
 import mongoose, {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
-import {getFileURLFromFile, getImageURLFromFilename, requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
+import {getFileURLFromFile, requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
 import {BASE_URL} from "../server";
 
 export const fileRouter = express.Router()
@@ -73,7 +73,8 @@ fileRouter.get("/info/:id", publicRoute(async (req, res) => {
     gfs.find({_id: id}).toArray((err: any, files: any) => {
         try {
             requireNonEmptyFiles(files)
-            res.send(files[0])
+            const file = files[0]
+            res.send({...file, url: getFileURLFromFile(file)})
         } catch (e) {
             genericErrorChecker(res, e)
         }

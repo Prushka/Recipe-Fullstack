@@ -12,22 +12,22 @@ import {BASE_URL} from "../server";
 const {ObjectId} = require('mongodb');
 
 export function getFileURLFromFile(file: any) {
-    return getImageURLFromFilename(file._id, file.contentType.split("/")[1])
+    return getFileURLFromId(file._id, file.contentType.split("/")[1])
 }
 
-export function getImageURLFromFilename(id: string | ObjectIdType, suffix = '') {
+export function getFileURLFromId(id: string | ObjectIdType, suffix = '') {
     const _suffix = suffix ? `.${suffix}` : ''
-    return `${BASE_URL}/file/image/${id}${_suffix}`
+    return `${BASE_URL}/file/${id}${_suffix}`
 }
 
-export function getImageURLFromString(input: string) {
+export function getFileURLFromStoredString(input: string) {
     if (!input) {
         return input
     }
     if (input.toLowerCase().includes("http")) {
         return input
     }
-    return getImageURLFromFilename(input)
+    return getFileURLFromId(input)
 }
 
 export function requireIdAsObjectId(id: string): ObjectIdType {
