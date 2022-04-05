@@ -9,9 +9,10 @@ import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {useSelector} from "react-redux";
 import {BlueBGButton, RedBGButton} from "../../components/input/Button";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
-import {logout, ReviewAPI, UserAPI} from "../../axios/Axios";
+import {ReviewAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
+import {roles as Role} from "../../util";
 
 export default function EditReview({
                                        review, setEditingReview, onDelete = () => {
@@ -25,33 +26,45 @@ export default function EditReview({
     const [deleteReviewConfirmationOpen, setDeleteReviewConfirmationOpen] = useState(false)
 
     const user = useSelector((state) => state.user)
+    const userIsAdmin = user.role > Role.User
+
     return (
         <div className={'edit__container'}>
 
-            <TextField value={review._id}
+            <TextField value={review.reviewedRecipeTitle}
                        className="edit__input"
                        textFieldClassName="edit__input"
-                       label={'Review Id'} disabled={true}/>
+                       label={'Reviewed Recipe Name'} disabled={true}/>
 
-            <TextField value={review.reviewedRecipe}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Reviewed Recipe'} disabled={true}/>
+            {userIsAdmin && <>
+                <TextField value={review._id}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Review Id'} disabled={true}/>
 
-            <TextField value={review.author}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Author'} disabled={true}/>
+                <TextField value={review.reviewedRecipe}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Reviewed Recipe'} disabled={true}/>
+
+                <TextField value={review.author}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Author'} disabled={true}/>
+            </>}
+
 
             <TextField size={'m'} value={content} setValue={setContent}
                        className="edit__input"
                        textFieldClassName="edit__input"
                        label={'Content'}/>
 
-            <TextField value={inappropriateReports} setValue={setInappropriateReports}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Users who reported this review as inappropriate'}/>
+            {userIsAdmin &&
+                <TextField value={inappropriateReports} setValue={setInappropriateReports}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Users who reported this review as inappropriate'}/>}
+
             <RadioButtonGroup className={'edit__radio'}
                               title={'Rating'}
                               options={[-1, 0, 1]}
@@ -61,21 +74,35 @@ export default function EditReview({
                               }
                               }/>
 
-            {user.role > 0 ? <RadioButtonGroup className={'edit__radio'}
-                                               title={'Approved'}
-                                               options={["true", "false"]}
-                                               selected={selectedApproved}
-                                               setSelected={(d) => {
-                                                   setSelectedApproved(d)
-                                               }
-                                               }/> : <></>}
 
-            <div className={"edit__grid-container input__box"}>
+            {userIsAdmin && <RadioButtonGroup className={'edit__radio'}
+                                              title={'Approved'}
+                                              options={["true", "false"]}
+                                              selected={selectedApproved}
+                                              setSelected={(d) => {
+                                                  setSelectedApproved(d)
+                                              }
+                                              }/>}
+
+
+            <TextField value={review.upVotes}
+                       className="edit__input"
+                       textFieldClassName="edit__input"
+                       label={'Upvotes'} disabled={true}/>
+
+
+            <TextField value={review.downVotes}
+                       className="edit__input"
+                       textFieldClassName="edit__input"
+                       label={'Downvotes'} disabled={true}/>
+
+            {userIsAdmin && <div className={"edit__grid-container input__box"}>
                 <div className={"edit__grid-container__title"}>Voting on this review:</div>
                 <AdvancedGrid
-                    searchableHeaders={['positivity', 'author']} displayData={review.userVotes}
+                    searchableHeaders={['positivity', 'author', 'authorName']} displayData={review.userVotes}
                     excludeHeader={['_id']}/>
-            </div>
+            </div>}
+
 
             <BlueBGButton className={'edit__action-button'}
                           onClick={async () => {
