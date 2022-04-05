@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import express from "express";
+import express, {Response} from "express";
 import {adminRoute, genericErrorChecker, publicRoute, userRoute} from "./route";
 import * as fs from "fs";
 import {GridFsStorage} from "multer-gridfs-storage";
@@ -11,6 +11,7 @@ import multer from "multer";
 import mongoose from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {getImageURLFromFilename, requireObjectIdFromPara} from "../utils/util";
+import {BASE_URL} from "../server";
 
 export const fileRouter = express.Router()
 const storage = new GridFsStorage({
@@ -48,22 +49,6 @@ fileRouter.post("/", userRoute(async (req, res) => {
     })
 }))
 
-fileRouter.get("/image/:id", publicRoute(async (req, res) => {
-    const id = requireObjectIdFromPara(req)
-    gfs.find({_id: id}).toArray((err: any, files: any) => {
-        try {
-            requireNonEmptyFiles(files)
-            if (IMAGE_TYPES.includes(files[0].contentType)) {
-                gfs.openDownloadStream(id).pipe(res);
-            } else {
-                throwError(EndpointError.NotImageFile)
-            }
-        } catch (e) {
-            genericErrorChecker(res, e)
-        }
-    });
-}))
-
 fileRouter.get("/:id", publicRoute(async (req, res) => {
     const id = requireObjectIdFromPara(req)
     gfs.find({_id: id}).toArray((err: any, files: any) => {
@@ -93,10 +78,7 @@ fileRouter.get("/", adminRoute(async (req, res) => {
         try {
             requireNonEmptyFiles(files)
             const filesOut = files.map((file: any) => {
-                if (IMAGE_TYPES.includes(file.contentType)) {
-                    return {...file, url: getImageURLFromFilename(file._id)}
-                }
-                return file
+                return {...file, url: getImageURLFromFilename(file._id, file.contentType.split("/")[1])}
             })
             res.send(filesOut);
         } catch (e) {
