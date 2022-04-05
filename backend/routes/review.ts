@@ -126,8 +126,12 @@ export async function getOutputReview(...reviews: IReview[]) {
         const author = await User.findById(review.author)
         const recipe = await Recipe.findById(review.reviewedRecipe)
         const userVotes = []
+        let upVotes = 0
+        let downVotes = 0
         for (const vote of review.userVotes) {
             const voteAuthor = await User.findById(vote.author)
+            upVotes += vote.positivity === 1 ? 1 : 0
+            downVotes += vote.positivity === -1 ? 1 : 0
             userVotes.push({
                     authorName: voteAuthor ? voteAuthor.name : "",
                     positivity: vote.positivity,
@@ -140,6 +144,8 @@ export async function getOutputReview(...reviews: IReview[]) {
             rating: review.rating,
             approved: review.approved,
             content: review.content,
+            upVotes: upVotes,
+            downVotes: downVotes,
             inappropriateReportUsers: review.inappropriateReportUsers,
             userVotes: userVotes,
             reviewedRecipeTitle: recipe ? recipe.title : "",
