@@ -17,7 +17,7 @@ connectToMongoDB().catch(err => console.log(err))
 
 const options: cors.CorsOptions = {
     origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",")
-        : ['http://localhost:3000', 'https://react.muddy.ca'],
+        : ['http://localhost:3000'],
     credentials: true
 };
 
