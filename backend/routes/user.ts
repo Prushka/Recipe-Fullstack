@@ -19,17 +19,23 @@ async function requiredUserById(id: ObjectId): Promise<IUser> {
     return user
 }
 
-export function getOutputUser(user: IUser) {
-    return {
+export function getOutputUser(user: IUser, isPublicInfo: boolean = false) {
+    let userOut: any = {
+        _id: user._id,
         name: user.name,
-        email: user.email,
         avatar: user.avatar,
         role: user.role,
         followers: user.followers,
-        following: user.following,
-        _id: user._id,
-        savedRecipes: user.savedRecipes
+        following: user.following
     }
+    if (!isPublicInfo) {
+        userOut = {
+            ...userOut,
+            email: user.email,
+            savedRecipes: user.savedRecipes
+        }
+    }
+    return userOut
 }
 
 function updateSessionUser(req: Request, user: IUser) {
@@ -88,14 +94,7 @@ userRouter.get('/:id',
     publicRoute(async (req, res) => {
         const id = requireObjectIdFromPara(req)
         const user = await requiredUserById(id)
-        res.send({
-            _id: user._id,
-            name: user.name,
-            avatar: user.avatar,
-            role: user.role,
-            followers: user.followers,
-            following: user.following
-        })
+        res.send(getOutputUser(user, true))
     }))
 
 userRouter.get('/',
