@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {logout, UserAPI} from "../axios/Axios";
 import {setUser} from "../redux/Redux";
 import {useNavigate} from "react-router-dom";
+import {userIsAdmin} from "../util";
+import {BsFillStarFill} from "react-icons/bs";
 
 function SideBar(props) {
     const navigate = useNavigate()
@@ -51,10 +53,12 @@ function SideBar(props) {
                 <WrappedSideBarButton title='Browse Recipes' path='/browse' icon={<CgSearch/>}/>
                 <WrappedSideBarButton title='Saved Recipes' path='/saved' icon={<CgHeart/>}/>
                 <WrappedSideBarButton title='Personal Recipes' path='/personal-recipes' icon={<CgPen/>}/>
-                {user.role > 0 && <>
+                {userIsAdmin(user) ? <>
                     <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
                     <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>
                     <WrappedSideBarButton title='Manage Reviews' path='/manage/reviews' icon={<MdOutlinePreview/>}/>
+                </> : <>
+                    <WrappedSideBarButton title='My Reviews' path='/reviews' icon={<BsFillStarFill/>}/>
                 </>
                 }
             </div>

@@ -26,7 +26,7 @@ import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
 import Dialog from "../components/dialog/Dialog";
-import {useAsync} from "../util";
+import {roles as Role, useAsync, userIsAdmin} from "../util";
 import EditReview from "./review/EditReview";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
@@ -198,7 +198,8 @@ function cellCallback(e) {
     console.log(e.entity)
 }
 
-export function AdminManageReviews() {
+export function ManageReviews() {
+    const user = useSelector((state) => state.user)
     const initialReviewState = {
         rating: -1,
         content: "",
@@ -212,7 +213,9 @@ export function AdminManageReviews() {
 
     useAsync(async () => {
         try {
-            const response = await ReviewAPI.get(`/admin/all`, {})
+            const response = await ReviewAPI.get(
+                userIsAdmin(user) ? "/admin/all" : "",
+                {})
             return response.data
         } catch (e) {
             enqueueSnackbar(e.response.data.message,

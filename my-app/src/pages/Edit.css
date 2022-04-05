@@ -56,3 +56,13 @@
     margin-right: 10px;
     font-weight: 700;
 }
+
+.edit__input-group {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit__input-group .edit__input {
+    width: auto !important;
+}

@@ -9,44 +9,45 @@ import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {useSelector} from "react-redux";
 import {BlueBGButton, RedBGButton} from "../../components/input/Button";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
-import {ReviewAPI} from "../../axios/Axios";
+import {RecipeAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
-import {userIsAdmin} from "../../util";
+import {roles as Role} from "../../util";
 
-export default function EditReview({
-                                       review, setEditingReview, onDelete = () => {
+export default function EditRecipe({
+                                       recipe, setEditingRecipe, onDelete = () => {
     }
                                    }) {
     const {enqueueSnackbar} = useSnackbar()
-    const [content, setContent] = useState(review.content)
-    const [inappropriateReports, setInappropriateReports] = useState(review.inappropriateReportUsers)
-    const [selectedApproved, setSelectedApproved] = useState(review.approved.toString())
-    const [selectedRating, setSelectedRating] = useState(review.rating)
-    const [deleteReviewConfirmationOpen, setDeleteReviewConfirmationOpen] = useState(false)
+    const [content, setContent] = useState(recipe.content)
+    const [inappropriateReports, setInappropriateReports] = useState(recipe.inappropriateReportUsers)
+    const [selectedApproved, setSelectedApproved] = useState(recipe.approved.toString())
+    const [selectedRating, setSelectedRating] = useState(recipe.rating)
+    const [deleteRecipeConfirmationOpen, setDeleteRecipeConfirmationOpen] = useState(false)
 
     const user = useSelector((state) => state.user)
+    const userIsAdmin = user.role > Role.User
 
     return (
         <div className={'edit__container'}>
 
-            <TextField value={review.reviewedRecipeTitle}
+            <TextField value={recipe.recipeedRecipeTitle}
                        className="edit__input"
                        textFieldClassName="edit__input"
-                       label={'Reviewed Recipe Name'} disabled={true}/>
+                       label={'Recipeed Recipe Name'} disabled={true}/>
 
-            {userIsAdmin(user) && <>
-                <TextField value={review._id}
+            {userIsAdmin && <>
+                <TextField value={recipe._id}
                            className="edit__input"
                            textFieldClassName="edit__input"
-                           label={'Review Id'} disabled={true}/>
+                           label={'Recipe Id'} disabled={true}/>
 
-                <TextField value={review.reviewedRecipe}
+                <TextField value={recipe.recipeedRecipe}
                            className="edit__input"
                            textFieldClassName="edit__input"
-                           label={'Reviewed Recipe'} disabled={true}/>
+                           label={'Recipeed Recipe'} disabled={true}/>
 
-                <TextField value={review.author}
+                <TextField value={recipe.author}
                            className="edit__input"
                            textFieldClassName="edit__input"
                            label={'Author'} disabled={true}/>
@@ -58,11 +59,11 @@ export default function EditReview({
                        textFieldClassName="edit__input"
                        label={'Content'}/>
 
-            {userIsAdmin(user) &&
+            {userIsAdmin &&
                 <TextField value={inappropriateReports} setValue={setInappropriateReports}
                            className="edit__input"
                            textFieldClassName="edit__input"
-                           label={'Users who reported this review as inappropriate'}/>}
+                           label={'Users who reported this recipe as inappropriate'}/>}
 
             <RadioButtonGroup className={'edit__radio'}
                               title={'Rating'}
@@ -74,7 +75,7 @@ export default function EditReview({
                               }/>
 
 
-            {userIsAdmin(user) && <RadioButtonGroup className={'edit__radio'}
+            {userIsAdmin && <RadioButtonGroup className={'edit__radio'}
                                               title={'Approved'}
                                               options={["true", "false"]}
                                               selected={selectedApproved}
@@ -84,34 +85,34 @@ export default function EditReview({
                                               }/>}
 
 
-            <TextField value={review.upVotes}
+            <TextField value={recipe.upVotes}
                        className="edit__input"
                        textFieldClassName="edit__input"
                        label={'Upvotes'} disabled={true}/>
 
 
-            <TextField value={review.downVotes}
+            <TextField value={recipe.downVotes}
                        className="edit__input"
                        textFieldClassName="edit__input"
                        label={'Downvotes'} disabled={true}/>
 
-            {userIsAdmin(user) && <div className={"edit__grid-container input__box"}>
-                <div className={"edit__grid-container__title"}>Voting on this review:</div>
+            {userIsAdmin && <div className={"edit__grid-container input__box"}>
+                <div className={"edit__grid-container__title"}>Voting on this recipe:</div>
                 <AdvancedGrid
-                    searchableHeaders={['positivity', 'author', 'authorName']} displayData={review.userVotes}
+                    searchableHeaders={['positivity', 'author', 'authorName']} displayData={recipe.userVotes}
                     excludeHeader={['_id']}/>
             </div>}
 
 
             <BlueBGButton className={'edit__action-button'}
                           onClick={async () => {
-                              await ReviewAPI.patch(`/${review._id}`, {
+                              await RecipeAPI.patch(`/${recipe._id}`, {
                                   rating: selectedRating,
                                   content: content,
                                   approved: selectedApproved,
                                   inappropriateReportUsers: inappropriateReports
                               }).then(res => {
-                                  enqueueSnackbar(`Successfully updated this review`,
+                                  enqueueSnackbar(`Successfully updated this recipe`,
                                       {
                                           variant: 'success',
                                           persist: false,
@@ -125,12 +126,12 @@ export default function EditReview({
                               })
                           }}>Save</BlueBGButton>
 
-            <ConfirmationDialog open={deleteReviewConfirmationOpen}
-                                setOpen={setDeleteReviewConfirmationOpen}
-                                title={`Are you sure you want to remove this review?`}
+            <ConfirmationDialog open={deleteRecipeConfirmationOpen}
+                                setOpen={setDeleteRecipeConfirmationOpen}
+                                title={`Are you sure you want to remove this recipe?`}
                                 content={"You cannot undo this operation."}
                                 onConfirm={async () => {
-                                    await ReviewAPI.delete(`/${review._id}`).then(res => {
+                                    await RecipeAPI.delete(`/${recipe._id}`).then(res => {
                                         enqueueSnackbar(`Successfully deleted`,
                                             {
                                                 variant: 'success',
@@ -148,7 +149,7 @@ export default function EditReview({
             />
 
             <RedBGButton className={'edit__action-button'} onClick={() => {
-                setDeleteReviewConfirmationOpen(true)
+                setDeleteRecipeConfirmationOpen(true)
             }}>DELETE THIS REVIEW</RedBGButton>
         </div>
     )

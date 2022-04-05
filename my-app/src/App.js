@@ -7,7 +7,7 @@ import BrowseRecipe from "./components/browse/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe/SavedRecipe";
 import PersonalRecipes from "./components/PersonalRecipes";
 import SideBar from "./pages/SideBar";
-import {AdminManageRecipes, AdminManageUsers, AdminManageReviews} from "./pages/Admin";
+import {AdminManageRecipes, AdminManageUsers, ManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
 import RecipePage2 from './components/RecipePage/RecipePage2';
 import RecipePage1 from './components/RecipePage/RecipePage1';
@@ -49,12 +49,14 @@ export default function App() {
                     <Route path="/saved" element={<PageComponent path={"/saved"}><SavedRecipe/></PageComponent>}/>
                     <Route path="personal-recipes"
                            element={<PageComponent path={"/personal-recipes"}><PersonalRecipes/></PageComponent>}/>
+                    <Route path={"/reviews"}
+                           element={<PageComponent path={"/reviews"}><ManageReviews/></PageComponent>}/>
                     <Route path={"/manage/users"}
                            element={<PageComponent path={"/manage/users"}><AdminManageUsers/></PageComponent>}/>
                     <Route path={"/manage/recipes"}
                            element={<PageComponent path={"/manage/recipes"}><AdminManageRecipes/></PageComponent>}/>
                     <Route path={"/manage/reviews"}
-                           element={<PageComponent path={"/manage/reviews"}><AdminManageReviews/></PageComponent>}/>
+                           element={<PageComponent path={"/manage/reviews"}><ManageReviews/></PageComponent>}/>
                     <Route path="recipe/1"
                            element={<PageComponent path={"/manage/reviews"}><RecipePage1/></PageComponent>}/>
                     <Route path="recipe/2"
