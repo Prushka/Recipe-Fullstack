@@ -48,8 +48,7 @@ recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
         recipe.approved = req.body.approved ?? recipe.approved
     }
     recipe = await recipe.save()
-    res.send(recipe)
-
+    res.send(getOutputRecipe(recipe))
 }))
 
 recipeRouter.post('/save/:id', userRoute(async (req, res, sessionUser) => {
@@ -76,14 +75,13 @@ recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {
     let recipe = new Recipe({
         title: req.body.title,
         category: req.body.category,
-        // content: req.body.content,
         instructions: req.body.instructions,
         ingredients: req.body.ingredients,
         author: sessionUser._id,
         tags: req.body.tags
     })
     recipe = await recipe.save()
-    res.send(recipe)
+    res.send(getOutputRecipe(recipe))
 }))
 
 export function getOutputRecipe(...recipes: IRecipe[]) {
