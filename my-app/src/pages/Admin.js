@@ -255,7 +255,13 @@ export function AdminManageUsers() {
                     setEditingUser(userInitialState)
                 }}
                 content={
-                    <Profile user={editingUser} setEditingUser={setEditingUser}/>
+                    <Profile
+                        onDelete={() => {
+                            setEditUserDialogOpen(false)
+                            setEditingUser(userInitialState)
+                        }
+                        }
+                        user={editingUser} setEditingUser={setEditingUser}/>
                 }
                 footer={<>
                 </>
@@ -294,6 +300,7 @@ export function AdminManageRecipes() {
     }, [editingRecipe])
 
     return <AdvancedGrid excludeHeader={["__v"]}
-        searchableHeaders={['_id','title','category','instructions','ingredients','author','tags']} displayData={recipeData}
-        setDisplayData={setRecipeData} cellCallback={cellCallback}/>
+                         searchableHeaders={['_id', 'title', 'category', 'instructions', 'ingredients', 'author', 'tags']}
+                         displayData={recipeData}
+                         setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }

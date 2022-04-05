@@ -8,7 +8,7 @@ import Dialog from "./Dialog";
 import {BlueBGButton, RedBGButton} from "../input/Button";
 
 export default function ConfirmationDialog({
-                                               title, open, setOpen, content, onConfirm = () => {
+                                               title, open, setOpen, content, onConfirm = async () => {
     }
                                            }) {
     return (
@@ -19,7 +19,11 @@ export default function ConfirmationDialog({
                 footer={
                     <div className={'confirmation__button-group'}>
                         <BlueBGButton onClick={() => setOpen(false)}>CANCEL</BlueBGButton>
-                        <RedBGButton onClick={onConfirm}>CONFIRM</RedBGButton>
+                        <RedBGButton onClick={async () => {
+                            await onConfirm()
+                            setOpen(false)
+                        }
+                        }>CONFIRM</RedBGButton>
                     </div>
                 }
         >

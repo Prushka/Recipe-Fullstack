@@ -9,14 +9,16 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/i
 import {getUserRoleDisplay, roles} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
+import {FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, logout, UserAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {setUser} from "../../redux/Redux";
+import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
 
 export default function Profile({
                                     user, setEditingUser = () => {
+    }, onDelete = () => {
     }
                                 }) {
     const loggedInUser = useSelector((state) => state.user)
@@ -35,6 +37,7 @@ export default function Profile({
     const [selectedFile, setSelectedFile] = useState(null)
     const [selectedRole, setSelectedRole] = useState(getUserRoleDisplay(user.role))
     const editingMyProfile = loggedInUser._id === user._id
+    const [deleteUserConfirmationOpen, setDeleteUserConfirmationOpen] = useState(false)
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
             enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
@@ -192,10 +195,38 @@ export default function Profile({
             }
 
 
-            <BlueBGButton className={'profile__save-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
+            <BlueBGButton className={'profile__action-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
                 Password</BlueBGButton>
-            <BlueBGButton className={'profile__save-button'}
+            <BlueBGButton className={'profile__action-button'}
                           onClick={async () => await updateMyUserInfo()}>Save</BlueBGButton>
+
+            <ConfirmationDialog open={deleteUserConfirmationOpen}
+                                setOpen={setDeleteUserConfirmationOpen}
+                                title={"Are you sure you want to remove this user?"}
+                                content={"You cannot undo this operation."}
+                                onConfirm={async () => {
+                                    await UserAPI.delete(`/${user._id}`).then(res => {
+                                        enqueueSnackbar(`Successfully deleted this user`,
+                                            {
+                                                variant: 'success',
+                                                persist: false,
+                                            })
+                                        onDelete()
+                                    }).catch(error => {
+                                        console.log(error)
+                                        enqueueSnackbar(`${error.response.data.message}`,
+                                            {
+                                                variant: 'error',
+                                                persist: false,
+                                            })
+                                    })
+                                }}
+            />
+            {!editingMyProfile ?
+                <RedBGButton className={'profile__action-button'} onClick={() => {
+                    setDeleteUserConfirmationOpen(true)
+                }}>DELETE THIS USER</RedBGButton> : <></>}
+
         </div>
     )
 }
