@@ -10,7 +10,7 @@ import {MONGO_URI} from "../db/mongoose";
 import multer from "multer";
 import mongoose, {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
-import {getFileURLFromFile, requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
+import {getFileIdWithExtension, getFileURLFromFile, requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
 import {BASE_URL} from "../server";
 
 export const fileRouter = express.Router()
@@ -40,11 +40,11 @@ const requireNonEmptyFiles = (files: any) => {
 
 fileRouter.post("/", userRoute(async (req, res) => {
     upload.single('file')(req, res, () => {
-        const file = req.file
+        const file: any = req.file
         if (!file) {
             res.status(400).send("File not found in form data")
         } else {
-            res.send(file)
+            res.send({...file, storeWith: getFileIdWithExtension(file)})
         }
     })
 }))

@@ -11,6 +11,10 @@ import {BASE_URL} from "../server";
 
 const {ObjectId} = require('mongodb');
 
+export function getFileIdWithExtension(file: any) {
+    return `${file.id}.${file.contentType.split("/")[1]}`
+}
+
 export function getFileURLFromFile(file: any) {
     return getFileURLFromId(file._id, file.contentType.split("/")[1])
 }
