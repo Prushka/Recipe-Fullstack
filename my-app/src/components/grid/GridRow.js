@@ -24,9 +24,9 @@ export default function GridRow({
                                     entity,
                                     onClickHandler, clickableHeader = []
                                 }) {
-    const images = ['.jpg', '.png']
+    const images = ['.jpg', '.png', '.jpeg']
     return (
-        <tr key={id} className={!isHeader ? 'table__row':''}>
+        <tr key={id} className={!isHeader ? 'table__row' : ''}>
             {
                 values.map((value, index) => {
                     const CTag = isHeader ? `th` : `td`;

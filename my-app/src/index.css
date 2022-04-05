@@ -86,6 +86,13 @@ right-pane {
     border-radius: 50%;
 }
 
+.input__box {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin: 7px;
+}
+
 @media (max-width: 900px) {
     spaced-horizontal-preferred {
         flex-direction: column;

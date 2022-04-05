@@ -8,6 +8,10 @@ export function setAddState(uid, value, state, setState) {
 
 export const roles = {"User": 0, "Admin": 1}
 
+export function userIsAdmin(user) {
+    return user.role > roles.User
+}
+
 export function getUserRoleDisplay(role) {
     for (let rolesKey in roles) {
         if (roles[rolesKey] === role) {

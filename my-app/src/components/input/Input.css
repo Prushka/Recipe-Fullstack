@@ -15,7 +15,7 @@
     padding: 15px 26px;
 }
 
-.button span{
+.button span {
     font-family: Roboto, serif;
     font-weight: 500;
 }
@@ -130,7 +130,7 @@
     border: 2px solid var(--theme-dark-gray);
 }
 
-.textfield-section{
+.textfield-section {
     font-family: Roboto, serif;
     font-weight: 500;
     display: flex;
@@ -138,14 +138,14 @@
     margin: 7px
 }
 
-.textfield-section label{
+.textfield-section label {
 }
 
 .textfield-header {
     display: flex;
 }
 
-.textfield-section__input{
+.textfield-section__input {
     width: 100%;
     padding: 16px 20px 15px 20px;
     margin: 8px 0;
@@ -154,21 +154,35 @@
     border: 2px solid var(--dgray-text);
     border-radius: 8px;
     box-sizing: border-box;
+    box-shadow: unset !important;
+    /*someone made a global textarea*/
 }
 
+.textfield-section__input--s {
+
+}
+
+.textfield-section__input--m {
+    min-height: 150px;
+}
+
+.textfield-section__input--l {
+
+}
 
 .textfield-section__input:focus {
     transition: 0.2s all linear;
     border: 2px solid var(--theme-dark-purple);
 }
 
-.textfield-section__input, .textfield-section__input::placeholder{
+.textfield-section__input, .textfield-section__input::placeholder {
     font-size: 15px
 }
 
 @media (max-width: 900px) {
-    .textfield-section{
+    .textfield-section {
     }
+
     input[type=text] {
         padding: 10px 14px 12px 14px;
         margin: 6px 0;
@@ -176,35 +190,28 @@
 }
 
 
-
-
-
-.radio-section{
+.radio-section {
     font-family: Roboto, serif;
     font-weight: 500;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
-    border-radius: 8px;
-    padding: 18px 20px;
     align-items: center;
-    margin: 7px;
     box-sizing: border-box;
 }
 
-.radio-section-title{
+.radio-section-title {
     margin-bottom: 16px;
     font-size: 20px;
 }
 
 
-.radio-option{
+.radio-option {
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
-.radio-label{
+.radio-label {
     font-size: 15px;
     font-weight: 600;
 }
@@ -227,6 +234,7 @@ input[type="radio"] {
 
     margin-bottom: 10px;
 }
+
 input[type='radio']:checked {
     border: 7px solid var(--dgray-text);
     color: black;

@@ -15,28 +15,35 @@ export function TextField({
                               label,
                               id,
                               className,
-                              value,
+                              value = "",
                               setValue,
                               placeholder = "",
-                              name
+                              name,
+                              size = 's'
                           }) {
+    const combinedClassName = `textfield-section__input textfield-section__input--${size} ${className}`
+    const combinedOnChange = e => {
+        if (setValue) {
+            setValue(e.target.value)
+        }
+        onChange(e)
+    }
     return (
         <div className={`textfield-section ${textFieldClassName}`}>
             <div className={`textfield-header`}>
                 {label && <label htmlFor={id}>{label}</label>}
                 {children}
             </div>
-            <input value={value} disabled={disabled}
-                   onChange={e => {
-                       if (setValue) {
-                           setValue(e.target.value)
-                       }
-                       onChange(e)
-                   }}
-                   className={`textfield-section__input ${className}`} id={id} name={name}
-                   placeholder={placeholder}
-                   type={type}
-            />
+            {size === 's' ? <input value={value ?? ""} disabled={disabled}
+                                   onChange={combinedOnChange}
+                                   className={combinedClassName} id={id} name={name}
+                                   placeholder={placeholder}
+                                   type={type}
+            /> : <textarea value={value ?? ""} disabled={disabled}
+                           onChange={combinedOnChange}
+                           className={combinedClassName} id={id} name={name}
+                           placeholder={placeholder}
+            />}
         </div>
     );
 }

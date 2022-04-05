@@ -1,0 +1,68 @@
+/*
+ * Copyright 2022 Dan Lyu.
+ */
+
+.edit__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    align-self: center;
+}
+
+.edit__info {
+    font-weight: 600;
+    color: var(--theme-dark-gray);
+    width: 100%;
+}
+
+.edit__follow-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit__dialog__button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--theme-dark-red);
+}
+
+.edit__input {
+    width: 100%;
+}
+
+.edit__action-button {
+    width: 100%;
+}
+
+.edit__radio {
+    width: 100%;
+}
+
+.edit__upload-input {
+    border: 2px solid var(--theme-gray);
+    border-radius: 4px;
+    padding: 10px 17px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit__upload-input span {
+    color: var(--theme-dark-gray);
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+.edit__input-group {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit__input-group .edit__input {
+    width: auto !important;
+}

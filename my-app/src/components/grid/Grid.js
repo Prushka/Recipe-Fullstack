@@ -5,6 +5,7 @@
 import * as React from 'react';
 import './Grid.css';
 import GridRow from "./GridRow";
+import {uid} from "react-uid";
 
 
 export default function Grid({
@@ -14,18 +15,21 @@ export default function Grid({
     return (
         <table>
             <tbody>
-            <GridRow sortValues={sortValues} setSortValues={setSortValues} key={-1} id={-1} headers={headers} values={headers} isHeader={true}
+            <GridRow sortValues={sortValues} setSortValues={setSortValues} key={-1} id={-1} headers={headers}
+                     values={headers} isHeader={true}
                      onClickHandler={onClickHandler} entity={headers}/>
             {tableData.map(value => {
                 const rowValues = []
                 headers.forEach((item) => {
-                    if (value[item] != null) {
+                    if (Array.isArray(value[item])) {
+                        rowValues.push(`Count: ${value[item].length}`)
+                    } else if (value[item] != null) {
                         rowValues.push(value[item].toString())
                     } else {
                         rowValues.push("")
                     }
                 })
-                const id = value["id"] ?? value["_id"]
+                const id = value["id"] ?? value["_id"] ?? uid(value)
                 return <GridRow key={id} id={id} entity={value} values={rowValues}
                                 headers={headers}
                                 onClickHandler={onClickHandler}

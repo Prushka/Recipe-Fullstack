@@ -1,7 +1,7 @@
 /*
  * Copyright 2022 Dan Lyu.
  */
-import './Profile.css';
+import '../Edit.css';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
@@ -9,14 +9,20 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/i
 import {getUserRoleDisplay, roles} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
-import {setUser} from "../../redux/Redux";
+import {FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, logout, UserAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
+import {setUser} from "../../redux/Redux";
+import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
+import {useNavigate} from "react-router-dom";
 
-export default function Profile({user}) {
-    console.log(user)
+export default function Profile({
+                                    user, setEditingUser = () => {
+    }, onDelete = () => {
+    }
+                                }) {
+    const navigate = useNavigate()
     const loggedInUser = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
@@ -26,12 +32,16 @@ export default function Profile({user}) {
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [passwordInputType, setPasswordInputType] = useState("password")
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
     const dispatch = useDispatch()
     const [following, setFollowing] = useState([])
     const [followers, setFollowers] = useState([])
+    const [selectedFile, setSelectedFile] = useState(null)
     const [selectedRole, setSelectedRole] = useState(getUserRoleDisplay(user.role))
     const editingMyProfile = loggedInUser._id === user._id
+    const [deleteUserConfirmationOpen, setDeleteUserConfirmationOpen] = useState(false)
+
+    const pronoun = editingMyProfile ? "this account" : "this user"
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
             enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
@@ -41,15 +51,34 @@ export default function Profile({user}) {
                 })
             return
         }
+        let avatar = ""
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append("file", selectedFile);
+            try {
+                const response = await FileUploadAPI.post("", formData)
+                avatar = response.data['storeWith']
+            } catch (error) {
+                enqueueSnackbar(`${error.response.data.message}`,
+                    {
+                        variant: 'error',
+                        persist: false,
+                    })
+            }
+        }
         let updatePayload = {"name": username, "email": email, "role": roles[selectedRole]}
         if (password) {
             updatePayload = {...updatePayload, "password": password}
+        }
+        if (avatar) {
+            updatePayload = {...updatePayload, "avatar": avatar}
         }
         await UserAPI.patch(`/${user._id}`,
             updatePayload).then(res => {
             if (editingMyProfile) {
                 dispatch(setUser(res.data))
             }
+            setEditingUser(res.data)
             enqueueSnackbar(`Successfully updated the user profile`,
                 {
                     variant: 'success',
@@ -65,7 +94,7 @@ export default function Profile({user}) {
     }
 
     return (
-        <div className={'profile__container'}>
+        <div className={'edit__container'}>
             <Dialog title={"Edit Password"} open={updatePasswordDialogOpen}
                     onClose={() => setUpdatePasswordDialogOpen(false)}
                     content={
@@ -114,9 +143,17 @@ export default function Profile({user}) {
             <div className={"avatar__container"}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
-            <div className={"profile__follow-container"}>
+
+            <div className={'edit__upload-input'}>
+                <span>Upload Avatar: </span>
+                <input type="file" id="img" name="img" accept="image/*"
+                       onChange={(e) => {
+                           setSelectedFile(e.target.files[0])
+                       }}/>
+            </div>
+            <div className={"edit__follow-container"}>
                 <GreyBorderRedButton
-                    className={"profile__dialog__button"}
+                    className={"edit__dialog__button"}
                     onClick={async () => {
                         getAllFollowerUsers(user).then(users => {
                             setFollowers(users)
@@ -124,7 +161,7 @@ export default function Profile({user}) {
                         })
                     }}>Followers: {user.followers.length}</GreyBorderRedButton>
                 <GreyBorderRedButton
-                    className={"profile__dialog__button"}
+                    className={"edit__dialog__button"}
                     onClick={async () => {
                         getAllFollowingUsers(user).then(users => {
                             setFollowing(users)
@@ -137,35 +174,67 @@ export default function Profile({user}) {
 
             <TextField value={username} setValue={setUsername}
                        type="username"
-                       className="profile__input"
-                       textFieldClassName="profile__input"
+                       className="edit__input"
+                       textFieldClassName="edit__input"
                        label={'Username'}/>
             <TextField value={email} setValue={setEmail}
                        type="email"
-                       className="profile__input"
-                       textFieldClassName="profile__input"
+                       className="edit__input"
+                       textFieldClassName="edit__input"
                        label={'Email'}/>
             {editingMyProfile ? <TextField
                     disabled={true}
                     value={getUserRoleDisplay(user.role)}
-                    className="profile__input"
-                    textFieldClassName="profile__input"
+                    className="edit__input"
+                    textFieldClassName="edit__input"
                     label={'Role'}/> :
-                <RadioButtonGroup className={'profile__radio'}
+                <RadioButtonGroup className={'edit__radio'}
                                   title={'Role'}
                                   options={Object.keys(roles)}
                                   selected={selectedRole}
-                setSelected={(id)=>{
-                    setSelectedRole(id)
-                }
-                }/>
+                                  setSelected={(id) => {
+                                      setSelectedRole(id)
+                                  }
+                                  }/>
             }
 
 
-            <BlueBGButton className={'profile__save-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
+            <BlueBGButton className={'edit__action-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
                 Password</BlueBGButton>
-            <BlueBGButton className={'profile__save-button'}
+            <BlueBGButton className={'edit__action-button'}
                           onClick={async () => await updateMyUserInfo()}>Save</BlueBGButton>
+
+            <ConfirmationDialog open={deleteUserConfirmationOpen}
+                                setOpen={setDeleteUserConfirmationOpen}
+                                title={`Are you sure you want to remove ${pronoun}?`}
+                                content={"You cannot undo this operation."}
+                                onConfirm={async () => {
+                                    await UserAPI.delete(`/${user._id}`).then(res => {
+                                        enqueueSnackbar(`Successfully deleted`,
+                                            {
+                                                variant: 'success',
+                                                persist: false,
+                                            })
+                                        onDelete()
+                                        if (editingMyProfile) {
+                                            logout().then(() => {
+                                                navigate("/login")
+                                            })
+                                        }
+                                    }).catch(error => {
+                                        console.log(error)
+                                        enqueueSnackbar(`${error.response.data.message}`,
+                                            {
+                                                variant: 'error',
+                                                persist: false,
+                                            })
+                                    })
+                                }}
+            />
+            <RedBGButton className={'edit__action-button'} onClick={() => {
+                setDeleteUserConfirmationOpen(true)
+            }}>DELETE {pronoun.toUpperCase()}</RedBGButton>
+
         </div>
     )
 }

@@ -24,6 +24,15 @@ export const RecipeAPI = axios.create({
     baseURL: `${BASE_URL}/recipe`
 });
 
+export const FileAPI = axios.create({
+    baseURL: `${BASE_URL}/file`
+});
+
+export const FileUploadAPI = axios.create({
+    baseURL: `${BASE_URL}/file`,
+    headers: {"Content-Type": "multipart/form-data"}
+});
+
 export const logout = async () => {
     await UserAPI.post("/logout", {}, {withCredentials: true})
 }
