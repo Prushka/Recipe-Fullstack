@@ -9,7 +9,7 @@ import express from "express";
 import {publicRoute, userRoute} from "./route";
 import {EndpointError, throwError} from "../errors/errors";
 import {ObjectId as ObjectIdType} from "mongoose";
-import {getOutputUser, requiredUserById} from "./user";
+import {getOutputUser} from "./user";
 
 export async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
     const recipe = await Recipe.findById(id)

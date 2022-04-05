@@ -10,7 +10,7 @@ import {IUser, Role, SessionUser, User} from "../models/user";
 import {ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {requireRecipeFromId} from "./recipe";
-import {IRecipe} from "../models/recipe";
+import {IRecipe, Recipe} from "../models/recipe";
 
 const {ObjectId} = require('mongodb');
 
@@ -124,6 +124,7 @@ export async function getOutputReview(...reviews: IReview[]) {
     const reviewsOut = []
     for (const review of reviews) {
         const author = await User.findById(review.author)
+        const recipe = await Recipe.findById(review.reviewedRecipe)
         const userVotes = []
         for (const vote of review.userVotes) {
             const voteAuthor = await User.findById(vote.author)
@@ -141,9 +142,10 @@ export async function getOutputReview(...reviews: IReview[]) {
             content: review.content,
             inappropriateReportUsers: review.inappropriateReportUsers,
             userVotes: userVotes,
+            reviewedRecipeTitle: recipe ? recipe.title : "",
             _id: review._id,
             author: review.author,
-            reviewedRecipe: review.reviewedRecipe
+            reviewedRecipe: review.reviewedRecipe,
         })
     }
     return reviewsOut
