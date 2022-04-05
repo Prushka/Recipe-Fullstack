@@ -11,7 +11,6 @@ import multer from "multer";
 import mongoose from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {getImageURLFromFilename, requireObjectIdFromPara} from "../utils/util";
-import {ObjectId} from "mongodb";
 
 export const fileRouter = express.Router()
 const storage = new GridFsStorage({
@@ -49,12 +48,13 @@ fileRouter.post("/", userRoute(async (req, res) => {
     })
 }))
 
-fileRouter.get("/image/:filename", publicRoute(async (req, res) => {
-    gfs.find({filename: req.params.filename}).toArray((err: any, files: any) => {
+fileRouter.get("/image/:id", publicRoute(async (req, res) => {
+    const id = requireObjectIdFromPara(req)
+    gfs.find({_id: id}).toArray((err: any, files: any) => {
         try {
             requireNonEmptyFiles(files)
             if (IMAGE_TYPES.includes(files[0].contentType)) {
-                gfs.openDownloadStreamByName(req.params.filename).pipe(res);
+                gfs.openDownloadStream(id).pipe(res);
             } else {
                 throwError(EndpointError.NotImageFile)
             }
@@ -64,19 +64,21 @@ fileRouter.get("/image/:filename", publicRoute(async (req, res) => {
     });
 }))
 
-fileRouter.get("/:filename", publicRoute(async (req, res) => {
-    gfs.find({filename: req.params.filename}).toArray((err: any, files: any) => {
+fileRouter.get("/:id", publicRoute(async (req, res) => {
+    const id = requireObjectIdFromPara(req)
+    gfs.find({_id: id}).toArray((err: any, files: any) => {
         try {
             requireNonEmptyFiles(files)
-            gfs.openDownloadStreamByName(req.params.filename).pipe(res)
+            gfs.openDownloadStream(id).pipe(res)
         } catch (e) {
             genericErrorChecker(res, e)
         }
     });
 }))
 
-fileRouter.get("/info/:filename", publicRoute(async (req, res) => {
-    gfs.find({filename: req.params.filename}).toArray((err: any, files: any) => {
+fileRouter.get("/info/:id", publicRoute(async (req, res) => {
+    const id = requireObjectIdFromPara(req)
+    gfs.find({_id: id}).toArray((err: any, files: any) => {
         try {
             requireNonEmptyFiles(files)
             res.send(files[0])
@@ -92,7 +94,7 @@ fileRouter.get("/", adminRoute(async (req, res) => {
             requireNonEmptyFiles(files)
             const filesOut = files.map((file: any) => {
                 if (IMAGE_TYPES.includes(file.contentType)) {
-                    return {...file, url: getImageURLFromFilename(file.filename)}
+                    return {...file, url: getImageURLFromFilename(file._id)}
                 }
                 return file
             })

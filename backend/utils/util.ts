@@ -11,8 +11,8 @@ import {BASE_URL} from "../server";
 
 const {ObjectId} = require('mongodb');
 
-export function getImageURLFromFilename(fileName: string) {
-    return `${BASE_URL}/file/image/${fileName}`
+export function getImageURLFromFilename(id: string | ObjectIdType) {
+    return `${BASE_URL}/file/image/${id}`
 }
 
 export function idToObjectId(id: string): ObjectIdType {
