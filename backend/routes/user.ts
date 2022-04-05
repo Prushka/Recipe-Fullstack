@@ -2,8 +2,8 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {getUserFromSession, removeFromOutput, requireObjectIdFromPara, updateUser,} from "../utils/util";
-import {DEFAULT_AVATAR, IUser, Role, User} from "../models/user";
+import {getUserFromSession, requireObjectIdFromPara, updateUser,} from "../utils/util";
+import {IUser, Role, User} from "../models/user";
 import express, {Request} from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
 import {ObjectId} from "mongoose";
@@ -27,7 +27,8 @@ function getOutputUser(user: IUser) {
         role: user.role,
         followers: user.followers,
         following: user.following,
-        _id: user._id
+        _id: user._id,
+        savedRecipes: user.savedRecipes
     }
 }
 
@@ -104,11 +105,10 @@ userRouter.get('/',
     }))
 
 userRouter.get('/admin/all', adminRoute(async (req, res) => {
-    const users = removeFromOutput(await User.find(), "password")
+    const users = await User.find()
 
     res.send(users.map((user: any) => {
-        user.avatar = user.avatar ?? DEFAULT_AVATAR
-        return user
+        return getOutputUser(user)
     }))
 }))
 
