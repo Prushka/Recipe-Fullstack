@@ -11,7 +11,7 @@ import {EndpointError, throwError} from "../errors/errors";
 
 export const userRouter = express.Router()
 
-async function requiredUserById(id: ObjectId): Promise<IUser> {
+export async function requiredUserById(id: ObjectId): Promise<IUser> {
     let user: IUser = (await User.findById(id))!
     if (!user) {
         throwError(EndpointError.UserNotFound)
