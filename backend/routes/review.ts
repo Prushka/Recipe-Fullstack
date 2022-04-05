@@ -5,7 +5,7 @@
 import {idToObjectId, requireObjectIdFromPara} from "../utils/util";
 import {IReview, Review} from "../models/review";
 import express from "express";
-import {publicRoute, userRoute} from "./route";
+import {adminRoute, publicRoute, userRoute} from "./route";
 import {IUser, Role, SessionUser} from "../models/user";
 import {ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
@@ -113,7 +113,11 @@ reviewRouter.post('/', userRoute(async (req, res, sessionUser) => {
     }
 }))
 
-reviewRouter.get('/', publicRoute(async (req, res) => {
+reviewRouter.get('/admin/all', adminRoute(async(req, res)=>{
+    res.send(await Review.find())
+}))
+
+reviewRouter.get('/', userRoute(async (req, res) => {
     res.send(await Review.find({author: req.session.user!._id}))
 }))
 
