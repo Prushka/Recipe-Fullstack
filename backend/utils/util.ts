@@ -11,6 +11,10 @@ import {BASE_URL} from "../server";
 
 const {ObjectId} = require('mongodb');
 
+export function getFileURLFromFile(file: any) {
+    return getImageURLFromFilename(file._id, file.contentType.split("/")[1])
+}
+
 export function getImageURLFromFilename(id: string | ObjectIdType, suffix = '') {
     const _suffix = suffix ? `.${suffix}` : ''
     return `${BASE_URL}/file/image/${id}${_suffix}`
@@ -26,7 +30,7 @@ export function getImageURLFromString(input: string) {
     return getImageURLFromFilename(input)
 }
 
-export function idToObjectId(id: string): ObjectIdType {
+export function requireIdAsObjectId(id: string): ObjectIdType {
     if (!ObjectId.isValid(id)) {
         throwError(EndpointError.InvalidObjectId)
     }
@@ -35,7 +39,7 @@ export function idToObjectId(id: string): ObjectIdType {
 
 export function requireObjectIdFromPara(req: Request): ObjectIdType {
     const id = req.params.id
-    return idToObjectId(id)
+    return requireIdAsObjectId(id)
 }
 
 export async function createAdminIfNotExist() {

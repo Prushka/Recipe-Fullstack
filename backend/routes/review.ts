@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu
  */
 
-import {idToObjectId, requireObjectIdFromPara} from "../utils/util";
+import {requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
 import {IReview, Review} from "../models/review";
 import express from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
@@ -91,7 +91,7 @@ reviewRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
 
 // upsert review on recipe
 reviewRouter.post('/', userRoute(async (req, res, sessionUser) => {
-    const id = idToObjectId(req.body.reviewedRecipe)
+    const id = requireIdAsObjectId(req.body.reviewedRecipe)
     await requireRecipeFromId(id)
     let preReview = await Review.findOne({author: req.session.user!._id, reviewedRecipe: id})
     if (preReview) {
