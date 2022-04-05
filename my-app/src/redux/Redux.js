@@ -2,8 +2,7 @@
  * Copyright 2022 Dan Lyu.
  */
 
-import {configureStore, createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {UserAPI} from '../axios/Axios'
+import {configureStore, createSlice} from "@reduxjs/toolkit";
 
 // this is just to keep a cache
 // session is handled in backend

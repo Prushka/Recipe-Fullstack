@@ -6,7 +6,7 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true
 
-const BASE_URL = "http://localhost:8000"
+const BASE_URL = process.env.BASE_URL ?? "http://localhost:8000"
 
 export const API = axios.create({
     baseURL: `${BASE_URL}`

@@ -7,17 +7,16 @@ import * as React from "react";
 import {BlueBGButton} from "../../components/input/Button";
 import {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux'
-import {login, setUser} from '../../redux/Redux'
+import {setUser} from '../../redux/Redux'
 import {UserAPI} from "../../axios/Axios";
-import {useEffect, useState} from "react";
-import {Alert, Snackbar} from "@mui/material";
+import {useState} from "react";
 import {useSnackbar} from "notistack";
 import PasswordTextField from "../../components/input/PasswordTextField";
 
 export default function Login() {
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
     const navigate = useNavigate()
-    const user = useSelector((state) => state.user)
+    useSelector((state) => state.user);
     const dispatch = useDispatch()
     const [usernameEmail, setUsernameEmail] = useState("")
     const [password, setPassword] = useState("")

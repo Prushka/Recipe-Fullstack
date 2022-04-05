@@ -3,34 +3,24 @@
  */
 
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import '../styles/Admin.css';
 import AdvancedGrid from "../components/grid/AdvancedGrid";
 import {
-    defaultReview,
     defaultUser,
-    findRecipesByRecipeName,
     findUserByName,
-    recipes,
-    reports,
-    reviews,
-    users
 } from "../MockupData";
 import {TextField} from "../components/input/TextField";
 import {RadioButtonGroup} from "../components/input/RadioButtonGroup";
 import {BlueBGButton, RedBGButton} from "../components/input/Button";
-import {addSnackbar, SnackbarProperties} from "../components/snack/Snackbar";
 import {useSelector} from "react-redux";
 import {RecipeAPI, ReviewAPI, UserAPI} from "../axios/Axios";
 import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
 import Dialog from "../components/dialog/Dialog";
-import {roles as Role, useAsync, userIsAdmin} from "../util";
+import {useAsync, userIsAdmin} from "../util";
 import EditReview from "./review/EditReview";
-
-const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
-const recipeHeaders = ['Recipe Name', 'Recipe']
 
 class DialogWrapper {
     constructor(uid, data, setData, editingEntity, setEditingEntity, contentGetter, footerGetter, titleGetter,

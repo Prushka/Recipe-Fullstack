@@ -1,13 +1,14 @@
 version: '3'
 
 services:
-  frontend:
+  react:
     build:
       context: ..
       dockerfile: "docker/Dockerfile"
-    container_name: frontend-csc309-team
+    image: csc309-react:1.0
+    container_name: csc309-react-frontend
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "7120:80"
     environment:
       - "TZ=America/Toronto"

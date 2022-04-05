@@ -6,16 +6,15 @@ import {TextField} from "../../components/input/TextField";
 import * as React from "react";
 import {BlueBGButton} from "../../components/input/Button";
 import {useNavigate} from "react-router-dom";
-import {useSelector, useDispatch} from 'react-redux'
-import {login, setUser} from '../../redux/Redux'
+import {useDispatch} from 'react-redux'
+import {setUser} from '../../redux/Redux'
 import {UserAPI} from "../../axios/Axios";
-import {useEffect, useState} from "react";
-import {Alert, Snackbar} from "@mui/material";
+import {useState} from "react";
 import {useSnackbar} from "notistack";
 import PasswordTextField from "../../components/input/PasswordTextField";
 
 export default function Signup() {
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [username, setUsername] = useState("")
