@@ -5,6 +5,7 @@
 import * as React from 'react';
 import './Grid.css';
 import GridRow from "./GridRow";
+import {uid} from "react-uid";
 
 
 export default function Grid({
@@ -28,7 +29,7 @@ export default function Grid({
                         rowValues.push("")
                     }
                 })
-                const id = value["id"] ?? value["_id"]
+                const id = value["id"] ?? value["_id"] ?? uid(value)
                 return <GridRow key={id} id={id} entity={value} values={rowValues}
                                 headers={headers}
                                 onClickHandler={onClickHandler}
