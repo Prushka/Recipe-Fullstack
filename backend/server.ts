@@ -3,12 +3,12 @@ import * as bodyParser from "body-parser";
 import connectToMongoDB, {MONGO_URI} from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
-import {createAdminIfNotExist} from "./utils/util";
 import {reviewRouter} from "./routes/review";
 import {userRouter} from "./routes/user";
 import {recipeRouter} from "./routes/recipe";
 import cors from 'cors';
 import {fileRouter} from "./routes/file";
+import {Role, User} from "./models/user";
 
 export const BASE_URL = process.env.BASE_URL ?? "http://localhost:8000"
 
@@ -50,8 +50,29 @@ app.use('/recipe', recipeRouter)
 app.use('/file', fileRouter)
 
 
+export async function createUserIfNotExist(email: string, name: string, password: string, role: Role) {
+    const preUser = await User.findByEmailName(email, name)
+    if (!preUser) {
+        console.log("Creating default admin user")
+        let user = new User({
+            name: name,
+            email: email,
+            password: password,
+            role: role
+        })
+        await user.save()
+    }
+}
+
 const port = process.env.PORT || 5001
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`)
 });
-createAdminIfNotExist().then()
+
+const setup = async () => {
+    await createUserIfNotExist("admin@admin.com", "admin", "admin", Role.ADMIN)
+    await createUserIfNotExist("user@example.com", "user", "user", Role.USER)
+    await createUserIfNotExist("user1@example.com", "user1", "user1", Role.USER)
+    await createUserIfNotExist("user2@example.com", "user2", "user2", Role.USER)
+}
+setup().then()
