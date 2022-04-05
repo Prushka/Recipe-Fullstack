@@ -1,4 +1,8 @@
 import {Document, Model, model, ObjectId, Schema} from "mongoose";
+import {getFileURLFromStoredString} from "../utils/util";
+import {DEFAULT_AVATAR} from "./user";
+
+export const DEFAULT_RECIPE_THUMBNAIL = "https://s2.loli.net/2022/04/06/TOJBZgKVxko4lA6.png"
 
 enum RecipeCategory {
     Japanese = "Japanese",
@@ -14,10 +18,11 @@ export interface IRecipe extends Document {
     author?: ObjectId
     tags: string[]
     approved: boolean
+    thumbnail?: string
 }
 
 interface RecipeModel extends Model<IRecipe> {
-    findRecipeByUser: (id: string|ObjectId) => Promise<IRecipe>
+    findRecipeByUser: (id: string|ObjectId) => Promise<IRecipe[]>
 }
 
 const RecipeSchema = new Schema<IRecipe, RecipeModel>({
@@ -34,7 +39,9 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     tags: [{
         type: String
     }],
-    approved: {type: "boolean", required: true, default: false}
+    approved: {type: "boolean", required: true, default: false},
+    thumbnail: {type: String, required: false, get:
+            (thumbnail: string) => getFileURLFromStoredString(thumbnail) ?? DEFAULT_RECIPE_THUMBNAIL}
 });
 
 RecipeSchema.static('findRecipeByUser', async function findRecipeByUser(id: string) {

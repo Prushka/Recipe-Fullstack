@@ -11,7 +11,6 @@ import multer from "multer";
 import mongoose, {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {getFileIdWithExtension, getFileURLFromFile, requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
-import {BASE_URL} from "../server";
 
 export const fileRouter = express.Router()
 const storage = new GridFsStorage({

@@ -10,6 +10,7 @@ import {publicRoute, userRoute} from "./route";
 import {EndpointError, throwError} from "../errors/errors";
 import {ObjectId as ObjectIdType} from "mongoose";
 import {getOutputUser} from "./user";
+
 export async function requireRecipeFromId(id: ObjectIdType): Promise<IRecipe> {
     const recipe = await Recipe.findById(id)
     if (!recipe) {
@@ -42,6 +43,7 @@ recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     recipe.ingredients = req.body.ingredients ?? recipe.ingredients
     recipe.category = req.body.category ?? recipe.category
     recipe.tags = req.body.tags ?? recipe.tags
+    recipe.thumbnail = req.body.thumbnail ?? recipe.thumbnail
     if (sessionUser!.role > Role.USER) {
         recipe.approved = req.body.approved ?? recipe.approved
     }
@@ -84,22 +86,38 @@ recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {
     res.send(recipe)
 }))
 
+export function getOutputRecipe(...recipes: IRecipe[]) {
+    return recipes.map(recipe => {
+        return {
+            _id: recipe._id,
+            category: recipe.category,
+            instructions: recipe.instructions,
+            ingredients: recipe.ingredients,
+            author: recipe.author,
+            tags: recipe.tags,
+            approved: recipe.approved,
+            thumbnail: recipe.thumbnail
+        }
+    })
+}
+
 recipeRouter.get('/me', userRoute(async (req, res) => {
-    res.send(await Recipe.findRecipeByUser(req.session.user!._id!))
+    res.send(getOutputRecipe(...await Recipe.findRecipeByUser(req.session.user!._id!)))
 }))
 
 recipeRouter.get('/:id', publicRoute(async (req, res) => {
         const id = requireObjectIdFromPara(req)
-        res.send(await requireRecipeFromId(id))
+        const recipe = await requireRecipeFromId(id)
+        res.send(getOutputRecipe(recipe))
     })
 )
 
 recipeRouter.get('/author/:id', publicRoute(async (req, res) => {
         const id = requireObjectIdFromPara(req)
-        res.send(await Recipe.findRecipeByUser(id))
+        res.send(getOutputRecipe(...(await Recipe.findRecipeByUser(id))))
     })
 )
 
 recipeRouter.get('/', publicRoute(async (req, res) => {
-    res.send(await Recipe.find())
+    res.send(getOutputRecipe(...(await Recipe.find())))
 }))
