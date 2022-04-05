@@ -1,6 +1,6 @@
 import express from 'express';
 import * as bodyParser from "body-parser";
-import connectToMongoDB from "./db/mongoose";
+import connectToMongoDB, {MONGO_URI} from "./db/mongoose";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import {createAdminIfNotExist} from "./utils/util";
@@ -39,7 +39,7 @@ app.use(
         },
         // store the sessions on the database in production
         store: MongoStore.create({
-            mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/RecipeAPI'
+            mongoUrl: MONGO_URI
         })
     })
 );

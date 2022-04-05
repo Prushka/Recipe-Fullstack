@@ -6,7 +6,7 @@ import express from "express";
 import {adminRoute, genericErrorChecker, publicRoute, userRoute} from "./route";
 import * as fs from "fs";
 import {GridFsStorage} from "multer-gridfs-storage";
-import {connectionString} from "../db/mongoose";
+import {MONGO_URI} from "../db/mongoose";
 import multer from "multer";
 import mongoose from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
@@ -14,12 +14,12 @@ import {getImageURLFromFilename, requireObjectIdFromPara} from "../utils/util";
 
 export const fileRouter = express.Router()
 const storage = new GridFsStorage({
-    url: connectionString
+    url: MONGO_URI
 });
 
 const upload = multer({storage})
 
-const connect = mongoose.createConnection(connectionString);
+const connect = mongoose.createConnection(MONGO_URI);
 
 let gfs: any;
 
