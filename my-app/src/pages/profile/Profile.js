@@ -137,10 +137,13 @@ export default function Profile({
                 <img src={user.avatar} alt='avatar'/>
             </div>
 
-            <input className={'profile__upload-input'} type="file" id="img" name="img" accept="image/*"
-                   onChange={(e) => {
-                       setSelectedFile(e.target.files[0])
-                   }}/>
+            <div className={'profile__upload-input'}>
+                <span>Upload Avatar: </span>
+                <input type="file" id="img" name="img" accept="image/*"
+                       onChange={(e) => {
+                           setSelectedFile(e.target.files[0])
+                       }}/>
+            </div>
             <div className={"profile__follow-container"}>
                 <GreyBorderRedButton
                     className={"profile__dialog__button"}

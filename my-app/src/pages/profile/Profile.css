@@ -44,8 +44,15 @@
 .profile__upload-input {
     border: 2px solid var(--theme-gray);
     border-radius: 4px;
-    display: inline-block;
     padding: 10px 17px;
-    cursor: pointer;
     margin-bottom: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__upload-input span {
+    color: var(--theme-dark-gray);
+    margin-right: 10px;
+    font-weight: 700;
 }
