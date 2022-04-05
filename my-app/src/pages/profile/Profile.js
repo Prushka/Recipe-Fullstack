@@ -9,14 +9,13 @@ import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/i
 import {getUserRoleDisplay, roles} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
+import {FileAPI, FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, UserAPI} from "../../axios/Axios";
 import {setUser} from "../../redux/Redux";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 
 export default function Profile({user}) {
-    console.log(user)
     const loggedInUser = useSelector((state) => state.user)
     const [username, setUsername] = useState(user.name)
     const [email, setEmail] = useState(user.email)
@@ -26,10 +25,11 @@ export default function Profile({user}) {
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [passwordInputType, setPasswordInputType] = useState("password")
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
     const dispatch = useDispatch()
     const [following, setFollowing] = useState([])
     const [followers, setFollowers] = useState([])
+    const [selectedFile, setSelectedFile] = useState(null)
     const [selectedRole, setSelectedRole] = useState(getUserRoleDisplay(user.role))
     const editingMyProfile = loggedInUser._id === user._id
     const updateMyUserInfo = async () => {
@@ -41,9 +41,27 @@ export default function Profile({user}) {
                 })
             return
         }
+        let avatar = ""
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append("file", selectedFile);
+            try {
+                const response = await FileUploadAPI.post("", formData)
+                avatar = response.data.id
+            } catch (error) {
+                enqueueSnackbar(`${error.response.data.message}`,
+                    {
+                        variant: 'error',
+                        persist: false,
+                    })
+            }
+        }
         let updatePayload = {"name": username, "email": email, "role": roles[selectedRole]}
         if (password) {
             updatePayload = {...updatePayload, "password": password}
+        }
+        if (avatar) {
+            updatePayload = {...updatePayload, "avatar": avatar}
         }
         await UserAPI.patch(`/${user._id}`,
             updatePayload).then(res => {
@@ -114,6 +132,11 @@ export default function Profile({user}) {
             <div className={"avatar__container"}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
+
+            <input type="file" id="img" name="img" accept="image/*"
+                   onChange={(e) => {
+                       setSelectedFile(e.target.files[0])
+                   }}/>
             <div className={"profile__follow-container"}>
                 <GreyBorderRedButton
                     className={"profile__dialog__button"}
@@ -155,10 +178,10 @@ export default function Profile({user}) {
                                   title={'Role'}
                                   options={Object.keys(roles)}
                                   selected={selectedRole}
-                setSelected={(id)=>{
-                    setSelectedRole(id)
-                }
-                }/>
+                                  setSelected={(id) => {
+                                      setSelectedRole(id)
+                                  }
+                                  }/>
             }
 
 

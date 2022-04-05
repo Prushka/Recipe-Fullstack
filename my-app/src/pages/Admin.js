@@ -262,7 +262,7 @@ export function AdminManageUsers() {
                 }/>
         <AdvancedGrid searchableHeaders={["name", "email", "role", "_id"]}
                       displayData={userData} setDisplayData={setUserData}
-                      excludeHeader={["followers", "following", "__v"]}
+                      excludeHeader={["__v"]}
                       cellCallback={(e) => {
                           setEditingUser(e.entity)
                           setEditUserDialogOpen(true)

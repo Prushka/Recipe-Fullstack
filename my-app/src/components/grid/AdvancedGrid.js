@@ -107,9 +107,10 @@ export default function AdvancedGrid({
                 {
                     searchableHeaders.map((searchHeader) => {
                         return (
-                            <TextField onChange={(e) => {
-                                setAddState(searchHeader, e.target.value, searchValues, setSearchValues)
-                            }}
+                            <TextField value={searchValues[searchHeader]}
+                                       setValue={(value) => {
+                                           setAddState(searchHeader, value, searchValues, setSearchValues)
+                                       }}
                                        label={`Search ${searchHeader}`} key={searchHeader}/>)
                     })
                 }

@@ -15,7 +15,7 @@ export function TextField({
                               label,
                               id,
                               className,
-                              value,
+                              value = "",
                               setValue,
                               placeholder = "",
                               name
@@ -26,7 +26,7 @@ export function TextField({
                 {label && <label htmlFor={id}>{label}</label>}
                 {children}
             </div>
-            <input value={value} disabled={disabled}
+            <input value={value ?? ""} disabled={disabled}
                    onChange={e => {
                        if (setValue) {
                            setValue(e.target.value)
