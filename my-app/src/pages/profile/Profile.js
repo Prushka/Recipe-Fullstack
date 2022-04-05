@@ -1,7 +1,7 @@
 /*
  * Copyright 2022 Dan Lyu.
  */
-import './Profile.css';
+import '../Edit.css';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
@@ -94,7 +94,7 @@ export default function Profile({
     }
 
     return (
-        <div className={'profile__container'}>
+        <div className={'edit__container'}>
             <Dialog title={"Edit Password"} open={updatePasswordDialogOpen}
                     onClose={() => setUpdatePasswordDialogOpen(false)}
                     content={
@@ -144,16 +144,16 @@ export default function Profile({
                 <img src={user.avatar} alt='avatar'/>
             </div>
 
-            <div className={'profile__upload-input'}>
+            <div className={'edit__upload-input'}>
                 <span>Upload Avatar: </span>
                 <input type="file" id="img" name="img" accept="image/*"
                        onChange={(e) => {
                            setSelectedFile(e.target.files[0])
                        }}/>
             </div>
-            <div className={"profile__follow-container"}>
+            <div className={"edit__follow-container"}>
                 <GreyBorderRedButton
-                    className={"profile__dialog__button"}
+                    className={"edit__dialog__button"}
                     onClick={async () => {
                         getAllFollowerUsers(user).then(users => {
                             setFollowers(users)
@@ -161,7 +161,7 @@ export default function Profile({
                         })
                     }}>Followers: {user.followers.length}</GreyBorderRedButton>
                 <GreyBorderRedButton
-                    className={"profile__dialog__button"}
+                    className={"edit__dialog__button"}
                     onClick={async () => {
                         getAllFollowingUsers(user).then(users => {
                             setFollowing(users)
@@ -174,21 +174,21 @@ export default function Profile({
 
             <TextField value={username} setValue={setUsername}
                        type="username"
-                       className="profile__input"
-                       textFieldClassName="profile__input"
+                       className="edit__input"
+                       textFieldClassName="edit__input"
                        label={'Username'}/>
             <TextField value={email} setValue={setEmail}
                        type="email"
-                       className="profile__input"
-                       textFieldClassName="profile__input"
+                       className="edit__input"
+                       textFieldClassName="edit__input"
                        label={'Email'}/>
             {editingMyProfile ? <TextField
                     disabled={true}
                     value={getUserRoleDisplay(user.role)}
-                    className="profile__input"
-                    textFieldClassName="profile__input"
+                    className="edit__input"
+                    textFieldClassName="edit__input"
                     label={'Role'}/> :
-                <RadioButtonGroup className={'profile__radio'}
+                <RadioButtonGroup className={'edit__radio'}
                                   title={'Role'}
                                   options={Object.keys(roles)}
                                   selected={selectedRole}
@@ -199,9 +199,9 @@ export default function Profile({
             }
 
 
-            <BlueBGButton className={'profile__action-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
+            <BlueBGButton className={'edit__action-button'} onClick={() => setUpdatePasswordDialogOpen(true)}>Update
                 Password</BlueBGButton>
-            <BlueBGButton className={'profile__action-button'}
+            <BlueBGButton className={'edit__action-button'}
                           onClick={async () => await updateMyUserInfo()}>Save</BlueBGButton>
 
             <ConfirmationDialog open={deleteUserConfirmationOpen}
@@ -231,7 +231,7 @@ export default function Profile({
                                     })
                                 }}
             />
-            <RedBGButton className={'profile__action-button'} onClick={() => {
+            <RedBGButton className={'edit__action-button'} onClick={() => {
                 setDeleteUserConfirmationOpen(true)
             }}>DELETE {pronoun.toUpperCase()}</RedBGButton>
 

@@ -27,6 +27,7 @@ import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
 import Dialog from "../components/dialog/Dialog";
 import {useAsync} from "../util";
+import EditReview from "./review/EditReview";
 
 const userHeaders = ['Created By', 'Username', 'Recipe Author', 'Comment Author']
 const recipeHeaders = ['Recipe Name', 'Recipe']
@@ -198,11 +199,15 @@ function cellCallback(e) {
 }
 
 export function AdminManageReviews() {
-
+    const initialReviewState = {
+        rating: -1,
+        content: "",
+        recipe: ""
+    }
     const {enqueueSnackbar} = useSnackbar()
     const [editReviewDataDialogOpen, setEditReviewDataDialogOpen] = useState(false)
 
-    const [editingReview, setEditingReview] = useState(defaultReview)
+    const [editingReview, setEditingReview] = useState(initialReviewState)
     const [reviewData, setReviewData] = useState([])
 
     useAsync(async () => {
@@ -220,11 +225,36 @@ export function AdminManageReviews() {
         setReviewData(r)
     }, [editingReview])
 
-    return <AdvancedGrid
+    return <>
+        <Dialog size={'l'} title={`Editing Review`} open={editReviewDataDialogOpen}
+                onClose={() => {
+                    setEditReviewDataDialogOpen(false)
+                    setEditingReview(initialReviewState)
+                }}
+                content={
+                    <EditReview
+                        onDelete={() => {
+                            setEditReviewDataDialogOpen(false)
+                            setEditingReview(initialReviewState)
+                        }
+                        }
+                        user={editingReview}
+                        setEditingReview={setEditingReview}
+                    />
+                }
+                footer={<>
+                </>
+                }/>
+        <AdvancedGrid
         searchableHeaders={["Recipe", "Recipe Author", "Rating", "Comment Author", "Public"]}
         displayData={reviewData} setDisplayData={setReviewData}
         excludeHeader={['__v']}
-        cellCallback={cellCallback}/>
+        cellCallback={(e) => {
+            setEditingReview(e.entity)
+            setEditReviewDataDialogOpen(true)
+        }
+        }/>
+    </>
 }
 
 

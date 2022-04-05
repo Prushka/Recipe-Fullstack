@@ -2,7 +2,7 @@
  * Copyright 2022 Dan Lyu.
  */
 
-.profile__container {
+.edit__container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,37 +11,37 @@
     align-self: center;
 }
 
-.profile__info {
+.edit__info {
     font-weight: 600;
     color: var(--theme-dark-gray);
     width: 100%;
 }
 
-.profile__follow-container {
+.edit__follow-container {
     display: flex;
     justify-content: space-between;
 }
 
-.profile__dialog__button {
+.edit__dialog__button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--theme-dark-red);
 }
 
-.profile__input {
+.edit__input {
     width: 100%;
 }
 
-.profile__action-button {
+.edit__action-button {
     width: 100%;
 }
 
-.profile__radio {
+.edit__radio {
     width: 100%;
 }
 
-.profile__upload-input {
+.edit__upload-input {
     border: 2px solid var(--theme-gray);
     border-radius: 4px;
     padding: 10px 17px;
@@ -51,7 +51,7 @@
     align-items: center;
 }
 
-.profile__upload-input span {
+.edit__upload-input span {
     color: var(--theme-dark-gray);
     margin-right: 10px;
     font-weight: 700;
