@@ -9,15 +9,21 @@ import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {useSelector} from "react-redux";
 import {BlueBGButton, RedBGButton} from "../../components/input/Button";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
-import {ReviewAPI} from "../../axios/Axios";
+import {logout, ReviewAPI, UserAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
+import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
 
-export default function EditReview({review, setEditingReview}) {
+export default function EditReview({
+                                       review, setEditingReview, onDelete = () => {
+    }
+                                   }) {
     const {enqueueSnackbar} = useSnackbar()
     const [content, setContent] = useState(review.content)
     const [inappropriateReports, setInappropriateReports] = useState(review.inappropriateReportUsers)
     const [selectedApproved, setSelectedApproved] = useState(review.approved.toString())
     const [selectedRating, setSelectedRating] = useState(review.rating)
+    const [deleteReviewConfirmationOpen, setDeleteReviewConfirmationOpen] = useState(false)
+
     const user = useSelector((state) => state.user)
     return (
         <div className={'edit__container'}>
@@ -93,8 +99,30 @@ export default function EditReview({review, setEditingReview}) {
                               })
                           }}>Save</BlueBGButton>
 
-            <RedBGButton className={'edit__action-button'} onClick={() => {
+            <ConfirmationDialog open={deleteReviewConfirmationOpen}
+                                setOpen={setDeleteReviewConfirmationOpen}
+                                title={`Are you sure you want to remove this review?`}
+                                content={"You cannot undo this operation."}
+                                onConfirm={async () => {
+                                    await ReviewAPI.delete(`/${review._id}`).then(res => {
+                                        enqueueSnackbar(`Successfully deleted`,
+                                            {
+                                                variant: 'success',
+                                                persist: false,
+                                            })
+                                        onDelete()
+                                    }).catch(error => {
+                                        enqueueSnackbar(`${error.response.data.message}`,
+                                            {
+                                                variant: 'error',
+                                                persist: false,
+                                            })
+                                    })
+                                }}
+            />
 
+            <RedBGButton className={'edit__action-button'} onClick={() => {
+                setDeleteReviewConfirmationOpen(true)
             }}>DELETE THIS REVIEW</RedBGButton>
         </div>
     )

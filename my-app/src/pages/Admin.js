@@ -246,14 +246,14 @@ export function AdminManageReviews() {
                 </>
                 }/>
         <AdvancedGrid
-        searchableHeaders={["Recipe", "Recipe Author", "Rating", "Comment Author", "Public"]}
-        displayData={reviewData} setDisplayData={setReviewData}
-        excludeHeader={['__v']}
-        cellCallback={(e) => {
-            setEditingReview(e.entity)
-            setEditReviewDataDialogOpen(true)
-        }
-        }/>
+            searchableHeaders={["Recipe", "Recipe Author", "Rating", "Comment Author", "Public"]}
+            displayData={reviewData} setDisplayData={setReviewData}
+            excludeHeader={['__v']}
+            cellCallback={(e) => {
+                setEditingReview(e.entity)
+                setEditReviewDataDialogOpen(true)
+            }
+            }/>
     </>
 }
 
@@ -330,7 +330,7 @@ export function AdminManageRecipes() {
     }, [editingRecipe])
 
     return <AdvancedGrid excludeHeader={["__v"]}
-                         searchableHeaders={['_id', 'title', 'category', 'instructions', 'ingredients', 'author', 'tags']}
+                         searchableHeaders={['_id', 'title', 'category', 'instructions', 'ingredients', 'author', 'authorName', 'tags']}
                          displayData={recipeData}
                          setDisplayData={setRecipeData} cellCallback={cellCallback}/>
 }
