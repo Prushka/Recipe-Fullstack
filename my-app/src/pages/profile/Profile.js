@@ -137,7 +137,7 @@ export default function Profile({
                 <img src={user.avatar} alt='avatar'/>
             </div>
 
-            <input type="file" id="img" name="img" accept="image/*"
+            <input className={'profile__upload-input'} type="file" id="img" name="img" accept="image/*"
                    onChange={(e) => {
                        setSelectedFile(e.target.files[0])
                    }}/>
