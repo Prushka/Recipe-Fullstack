@@ -43,7 +43,7 @@ export default function EditReview({
                        textFieldClassName="edit__input"
                        label={'Author'} disabled={true}/>
 
-            <TextField value={content} setValue={setContent}
+            <TextField size={'m'} value={content} setValue={setContent}
                        className="edit__input"
                        textFieldClassName="edit__input"
                        label={'Content'}/>
