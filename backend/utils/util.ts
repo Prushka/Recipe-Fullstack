@@ -15,6 +15,16 @@ export function getImageURLFromFilename(id: string | ObjectIdType) {
     return `${BASE_URL}/file/image/${id}`
 }
 
+export function getImageURLFromString(input: string) {
+    if (!input) {
+        return input
+    }
+    if (input.toLowerCase().includes("http")) {
+        return input
+    }
+    return getImageURLFromFilename(input)
+}
+
 export function idToObjectId(id: string): ObjectIdType {
     if (!ObjectId.isValid(id)) {
         throwError(EndpointError.InvalidObjectId)
@@ -80,6 +90,7 @@ export async function updateUser(req: Request, res: Response, user: IUser) {
     }
     user.name = name
     user.email = email
+    user.avatar = req.body.avatar ?? user.avatar
     if (req.body.password) {
         user.password = req.body.password
     }
