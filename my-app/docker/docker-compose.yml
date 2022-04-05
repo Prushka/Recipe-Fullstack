@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: "docker/Dockerfile"
-    image: csc309-react:1.0
+    image: csc309-react:1.1
     container_name: csc309-react-frontend
     restart: unless-stopped
     ports:
