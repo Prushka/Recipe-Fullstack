@@ -239,7 +239,8 @@ export function ManageReviews() {
                 </>
                 }/>
         <AdvancedGrid
-            searchableHeaders={["Recipe", "Recipe Author", "Rating", "Comment Author", "Public"]}
+            searchableHeaders=
+                {["authorName", "reviewedRecipeTitle", "rating", "content", "upVotes", "downVotes"]}
             displayData={reviewData} setDisplayData={setReviewData}
             excludeHeader={['__v']}
             cellCallback={(e) => {
