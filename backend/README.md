@@ -30,7 +30,7 @@ Note you can access all routes in `/postman/CSC309 - Recipe.postman_collection.j
 
 There are a few routes that require extra instructions:
 
-1. `/file/upload` This route accepts a file in form-data with key `key` and returns the GridFS json. 
+1. `/file/upload` This route accepts a file in form-data with key `file` and returns the GridFS json. 
 It's required to store any file uploaded to this route using the property `storeWith`. 
 * For instance, after uploading a file, return format can be: 
 ```json
@@ -51,7 +51,7 @@ It's required to store any file uploaded to this route using the property `store
 }
 ```
 * You should store `624ce45ffe32ba5548849c0d.png` as thumbnail or avatar
-* This file will be stored as is. However, on return, this field will become `BASE_URL/file/624ce45ffe32ba5548849c0d.png`
+* This file string will be stored as is. However, on return, this field will become `BASE_URL/file/624ce45ffe32ba5548849c0d.png`
 * You'll be able to access that file from the previous link (e.g., [https://express.csc309.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg](https://express.csc309.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg)).
 
 ## Error Handling
