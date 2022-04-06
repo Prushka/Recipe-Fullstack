@@ -109,6 +109,19 @@ recipeRouter.get('/me', userRoute(async (req, res) => {
     res.send(await getOutputRecipe(...await Recipe.findRecipeByUser(req.session.user!._id!)))
 }))
 
+
+recipeRouter.get('/public', publicRoute(async (req, res) => {
+    res.send(await getOutputRecipe(...(await Recipe.find({approved: true}))))
+}))
+
+recipeRouter.get('/saved', userRoute(async (req, res, sessionUser) => {
+    const recipes = []
+    for (let savedRecipe of sessionUser.savedRecipes) {
+        recipes.push(await Recipe.findById(savedRecipe))
+    }
+    res.send(recipes)
+}))
+
 recipeRouter.get('/:id', publicRoute(async (req, res) => {
         const id = requireObjectIdFromPara(req)
         const recipe = await requireRecipeFromId(id)
