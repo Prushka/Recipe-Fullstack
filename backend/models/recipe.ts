@@ -3,15 +3,15 @@ import {getFileURLFromStoredString} from "../utils/util";
 
 export const DEFAULT_RECIPE_THUMBNAIL = "https://s2.loli.net/2022/04/06/TOJBZgKVxko4lA6.png"
 
-enum RecipeCategory {
+enum RecipeCats {
     Japanese = "Japanese",
     Unknown = "Unknown"
 }
 
 export interface IRecipe extends Document {
     title: string
-    category: RecipeCategory
-    // content: string
+    category: string
+    diet: string
     instructions: string
     ingredients: string[]
     author?: ObjectId
@@ -21,13 +21,13 @@ export interface IRecipe extends Document {
 }
 
 interface RecipeModel extends Model<IRecipe> {
-    findRecipeByUser: (id: string|ObjectId) => Promise<IRecipe[]>
+    findRecipeByUser: (id: string | ObjectId) => Promise<IRecipe[]>
 }
 
 const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     title: {type: String, required: true},
-    category: {type: String, required: true, default: RecipeCategory.Unknown},
-    // content: {type: String, required: true, default: ""},
+    category: {type: String, required: true, default: RecipeCats.Unknown},
+    diet: {type: String, required: true, default: RecipeCats.Unknown},
     instructions: {type: String, required: true, default: ""},
     ingredients: [{
         type: String,
@@ -39,8 +39,10 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>({
         type: String
     }],
     approved: {type: "boolean", required: true, default: false},
-    thumbnail: {type: String, required: false, get:
-            (thumbnail: string) => getFileURLFromStoredString(thumbnail) ?? DEFAULT_RECIPE_THUMBNAIL}
+    thumbnail: {
+        type: String, required: false, get:
+            (thumbnail: string) => getFileURLFromStoredString(thumbnail) ?? DEFAULT_RECIPE_THUMBNAIL
+    }
 });
 
 RecipeSchema.static('findRecipeByUser', async function findRecipeByUser(id: string) {
