@@ -11,7 +11,9 @@ export enum EndpointError {
     EmailExists = "EmailExists",
     FollowMyself = "FollowMyself",
     FileNotFound = "FileNotFound",
-    NotImageFile = "NotImageFile"
+    NotImageFile = "NotImageFile",
+    InvalidCategory = "InvalidCategory",
+    InvalidDiet = "InvalidDiet"
 }
 
 export function throwError(name: EndpointError) {

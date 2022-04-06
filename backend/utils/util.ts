@@ -11,6 +11,10 @@ import {BASE_URL} from "../server";
 
 const {ObjectId} = require('mongodb');
 
+export function getAllEnums(e:any) {
+    return Object.keys(e)
+}
+
 export function getFileIdWithExtension(file: any) {
     return `${file.id}.${file.contentType.split("/")[1]}`
 }

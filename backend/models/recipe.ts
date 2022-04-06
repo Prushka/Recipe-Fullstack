@@ -1,11 +1,41 @@
 import {Document, Model, model, ObjectId, Schema} from "mongoose";
-import {getFileURLFromStoredString} from "../utils/util";
+import {getAllEnums, getFileURLFromStoredString} from "../utils/util";
+import {EndpointError, throwError} from "../errors/errors";
 
 export const DEFAULT_RECIPE_THUMBNAIL = "https://s2.loli.net/2022/04/06/TOJBZgKVxko4lA6.png"
 
-enum RecipeCats {
-    Japanese = "Japanese",
-    Unknown = "Unknown"
+export enum RecipeCategories {
+    Unknown = 'Unknown'
+    //'Japanese',
+    //'Chinese',
+    //'French',
+    //'Italian',
+    //'Vietnamese',
+    //'Mexican',
+    //'Indian',
+    //'Pastry',
+    //'Drinks',
+    //'Korean',
+    //'Unknown'
+}
+
+export enum RecipeDiets {
+    Omnivore = 'Omnivore',
+    Pescatarian = 'Pescatarian',
+    Vegetarian = 'Vegetarian',
+    Unknown = 'Unknown'
+}
+
+export function requireValidRecipeDiet(input:string) {
+    if(input && !getAllEnums(RecipeDiets).includes(input)){
+        throwError(EndpointError.InvalidDiet)
+    }
+}
+
+export function requireValidRecipeCategory(input:string) {
+    if(input && !getAllEnums(RecipeCategories).includes(input)){
+        throwError(EndpointError.InvalidCategory)
+    }
 }
 
 export interface IRecipe extends Document {
@@ -26,8 +56,8 @@ interface RecipeModel extends Model<IRecipe> {
 
 const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     title: {type: String, required: true},
-    category: {type: String, required: true, default: RecipeCats.Unknown},
-    diet: {type: String, required: true, default: RecipeCats.Unknown},
+    category: {type: String, required: true, default: RecipeCategories.Unknown},
+    diet: {type: String, required: true, default: RecipeCategories.Unknown},
     instructions: {type: String, required: true, default: ""},
     ingredients: [{
         type: String,

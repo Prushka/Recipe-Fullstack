@@ -4,7 +4,7 @@
 
 import {requireObjectIdFromPara} from "../utils/util";
 import {Role, SessionUser, User} from "../models/user";
-import {IRecipe, Recipe} from "../models/recipe";
+import {IRecipe, Recipe, requireValidRecipeCategory, requireValidRecipeDiet} from "../models/recipe";
 import express from "express";
 import {publicRoute, userRoute} from "./route";
 import {EndpointError, throwError} from "../errors/errors";
@@ -38,6 +38,8 @@ recipeRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
     const id = requireObjectIdFromPara(req)
     let recipe = await requireRecipeFromId(id)
     requireRecipeEdit(sessionUser, recipe)
+    requireValidRecipeCategory(req.body.category)
+    requireValidRecipeDiet(req.body.diet)
     recipe.title = req.body.title ?? recipe.title
     recipe.instructions = req.body.instructions ?? recipe.instructions
     recipe.ingredients = req.body.ingredients ?? recipe.ingredients
@@ -73,6 +75,8 @@ recipeRouter.delete('/save/:id', userRoute(async (req, res, sessionUser) => {
 }))
 
 recipeRouter.post('/', userRoute(async (req, res, sessionUser) => {
+    requireValidRecipeCategory(req.body.category)
+    requireValidRecipeDiet(req.body.diet)
     let recipe = new Recipe({
         title: req.body.title,
         category: req.body.category,
