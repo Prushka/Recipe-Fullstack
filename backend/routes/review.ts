@@ -48,7 +48,7 @@ reviewRouter.post('/report/:id', userRoute(async (req, res, sessionUser) => {
     res.send(await getOutputReview(review))
 }))
 
-// upsert
+// upsert vote on review
 reviewRouter.post('/vote/:id', userRoute(async (req, res, sessionUser) => {
     const reviewId = requireObjectIdFromPara(req)
     let review = await requireReviewFromId(reviewId)

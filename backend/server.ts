@@ -64,7 +64,7 @@ export async function createUserIfNotExist(email: string, name: string, password
     }
 }
 
-const port = process.env.PORT || 5001
+const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`)
 });
