@@ -82,6 +82,16 @@
     font-size: 20px;
 }
 
+.recipe__card__title span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    max-width: 150px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
 .recipe__card__tick{
     margin-left: 4px;
 }
