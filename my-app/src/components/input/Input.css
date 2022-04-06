@@ -125,6 +125,16 @@
     background-color: var(--theme-dark-red);
 }
 
+.button--green {
+    color: white;
+    background-color: var(--theme-d-green);
+}
+
+.button--green:hover {
+    color: white;
+    background-color: var(--theme-dd-green);
+}
+
 .button--purple {
     color: white;
     background-color: var(--theme-purple);
@@ -144,11 +154,11 @@
 }
 
 .textfield-section {
-    font-family: Roboto, serif;
+    font-family: Roboto, serif !important;
     font-weight: 500;
     display: flex;
     flex-direction: column;
-    margin: 7px
+    margin: 7px;
 }
 
 .textfield-section label {
@@ -158,19 +168,12 @@
     display: flex;
 }
 
-.autocomplete {
-    box-sizing: border-box;
-}
-
 .textfield-section__input {
     width: 100%;
     padding: 16px 20px 15px 20px;
     margin: 8px 0;
     outline: none;
     display: inline-block;
-    border: 2px solid var(--dgray-text);
-    border-radius: 8px;
-    box-sizing: border-box;
     box-shadow: unset !important;
     /*someone made a global textarea*/
 }
@@ -267,4 +270,68 @@ input[type='radio']:checked {
     color: var(--theme-dark-gray);
     margin-right: 20px;
     font-weight: 500;
+}
+
+.list__container {
+    box-sizing: border-box;
+}
+
+.list__input{
+    display: flex;
+    align-items: end;
+}
+
+.list__input__textfield {
+    flex: 5;
+}
+.list__input__button {
+    margin: auto 10px 15px 10px;
+    flex: 1;
+}
+
+.list__items{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list__items__item{
+    font-weight: 400;
+    background-color: rgb(230, 230, 230);
+    padding: 8px 16px;
+    margin: 7px;
+    border-radius: 7px;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list__items__icon{
+    margin-left: 9px;
+    color: var(--theme-gray);
+}
+
+.list__items__item:hover{
+    background-color: rgb(205, 205, 205);
+}
+
+.rating__container {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px 14px 20px;
+}
+
+.rating__container span{
+    margin-right: 6px;
+}
+
+.rating__title {
+    font-weight: 500;
+    margin-right: 20px !important;
+}
+
+.text__box{
+    font-family: 'Comfortaa', cursive;
 }

@@ -4,23 +4,40 @@
 
 .edit__container {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.edit__container__column {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.edit__container__column--1{
     width: 80%;
+    align-items: center;
     align-self: center;
 }
 
-.edit__container img {
-    max-height: 200px;
-    max-width: 100%;
-    margin-bottom: 10px;
+.edit__container__column--2{
+    width: 47%;
 }
 
-.edit__info {
-    font-weight: 600;
-    color: var(--theme-dark-gray);
-    width: 100%;
+.edit__container__thumbnail__container{
+    display: flex;
+    max-height: 230px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit__container__thumbnail__container img {
+    max-height: 230px;
+    max-width: 100%;
+    margin-bottom: 10px;
 }
 
 .edit__follow-container {
@@ -36,17 +53,12 @@
 }
 
 .edit__input {
-    width: 100%;
 }
+
 
 .edit__action-button {
     width: 100%;
 }
-
-.edit__radio {
-    width: 100%;
-}
-
 
 .edit__input-group {
     display: flex;
@@ -56,4 +68,10 @@
 
 .edit__input-group .edit__input {
     width: auto !important;
+}
+
+.edit__follow__user__text {
+    margin-left: 10px;
+    cursor: pointer;
+    color: var(--theme-red);
 }

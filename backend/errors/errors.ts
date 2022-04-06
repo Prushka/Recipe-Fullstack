@@ -13,7 +13,9 @@ export enum EndpointError {
     FileNotFound = "FileNotFound",
     NotImageFile = "NotImageFile",
     InvalidCategory = "InvalidCategory",
-    InvalidDiet = "InvalidDiet"
+    InvalidDiet = "InvalidDiet",
+    FakeValidationError = "FakeValidationError",
+    NoInputFile = "NoInputFile"
 }
 
 export function throwError(name: EndpointError) {

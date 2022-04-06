@@ -8,7 +8,8 @@ import './Input.css';
 export function RadioButtonGroup({
                                      title,
                                      options,
-                                     selected, setSelected, className = ''
+                                     selected, setSelected, className = '',
+    disabled=false
                                  }) {
     return (
         <>
@@ -18,11 +19,12 @@ export function RadioButtonGroup({
                     {options.map(option => {
                         return (
                             <div className={'radio-option'} key={option}>
-                                <span><input
+                                <span><input disabled={disabled}
                                     onChange={(e) => {
-                                        setSelected(e.target.id)
+                                        setSelected && setSelected(e.target.id)
                                     }}
-                                    defaultChecked={selected === option} type={"radio"} id={option} name={title}/></span>
+                                    defaultChecked={selected === option} type={"radio"} id={option}
+                                    name={title}/></span>
                                 <div className={'radio-label'}>{option}</div>
                             </div>
                         )

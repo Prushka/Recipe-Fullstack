@@ -5,18 +5,17 @@ import {EndpointError, throwError} from "../errors/errors";
 export const DEFAULT_RECIPE_THUMBNAIL = "https://s2.loli.net/2022/04/06/TOJBZgKVxko4lA6.png"
 
 export enum RecipeCategories {
-    Unknown = 'Unknown'
-    //'Japanese',
-    //'Chinese',
-    //'French',
-    //'Italian',
-    //'Vietnamese',
-    //'Mexican',
-    //'Indian',
-    //'Pastry',
-    //'Drinks',
-    //'Korean',
-    //'Unknown'
+    Unknown = 'Unknown',
+    Japanese = 'Japanese',
+    Chinese = 'Chinese',
+    French = 'French',
+    Italian = 'Italian',
+    Vietnamese = 'Vietnamese',
+    Mexican = 'Mexican',
+    Indian = 'Indian',
+    Pastry = 'Pastry',
+    Drinks = 'Drinks',
+    Korean = 'Korean',
 }
 
 export enum RecipeDiets {
@@ -26,14 +25,14 @@ export enum RecipeDiets {
     Unknown = 'Unknown'
 }
 
-export function requireValidRecipeDiet(input:string) {
-    if(input && !getAllEnums(RecipeDiets).includes(input)){
+export function requireValidRecipeDiet(input: string) {
+    if (input && !getAllEnums(RecipeDiets).includes(input)) {
         throwError(EndpointError.InvalidDiet)
     }
 }
 
-export function requireValidRecipeCategory(input:string) {
-    if(input && !getAllEnums(RecipeCategories).includes(input)){
+export function requireValidRecipeCategory(input: string) {
+    if (input && !getAllEnums(RecipeCategories).includes(input)) {
         throwError(EndpointError.InvalidCategory)
     }
 }
@@ -66,7 +65,8 @@ const RecipeSchema = new Schema<IRecipe, RecipeModel>({
     }],
     author: {type: String},
     tags: [{
-        type: String
+        type: String,
+        required: true
     }],
     approved: {type: "boolean", required: true, default: false},
     thumbnail: {

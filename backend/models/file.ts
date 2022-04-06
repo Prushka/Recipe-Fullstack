@@ -1,4 +1,4 @@
-import {Document, Model, model, ObjectId, Schema} from "mongoose";
+import {Document, model, Schema} from "mongoose";
 
 
 export interface IFile extends Document {

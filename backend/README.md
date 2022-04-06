@@ -1,5 +1,3 @@
-
-
 # Getting started
 #### Deployed URL: [https://express.csc309.muddy.ca](https://express.csc309.muddy.ca)
 ## Running the backend
@@ -92,3 +90,1044 @@ For all errors returned, they shared the same structure. **For example**:
   ```
 
 Errors can be found in `errors/error.ts`
+
+# Disclaimer
+**Note that the generation of following routes doesn't rely on additional libraries and is original.**
+
+**I've included route, method, path parameters, request body, form data and error types.**
+
+# Router: /review
+### :heavy_minus_sign: DELETE&nbsp; /review/report/:id
+**Description**: Delete a review's report by review id (Effective only when logged-in-user is the author who reported this review)
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`ReviewNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Review ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /review/report/:id
+**Description**: Report a review as inappropriate by review id
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`ReviewNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Review ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /review/vote/:id
+**Description**: Upvote or downvote a review (upsert action)
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`ReviewNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+**Request Body**
+```json
+{
+  "positivity": {
+    "type": "integer",
+    "default": "0",
+    "required": false
+  }
+}
+```
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Review ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_minus_sign: DELETE&nbsp; /review/:id
+**Description**: Delete a review by review id
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`NoPermission(401)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Review ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D9; PATCH&nbsp; /review/:id
+**Description**: Update a review by review id
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`ReviewNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+**Request Body**
+```json
+{
+  "content": {
+    "type": "string",
+    "required": false
+  },
+  "rating": {
+    "type": "integer",
+    "description": "Can only be -1, 0 or 1",
+    "required": false
+  },
+  "approved": {
+    "type": "boolean",
+    "effectiveWhen": "User is admin",
+    "required": false
+  },
+  "inappropriateReportUsers": {
+    "type": "array of ObjectIds",
+    "effectiveWhen": "User is admin",
+    "required": false
+  }
+}
+```
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Review ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /review/:id
+**Description**: Post or Update a review on recipe by recipe id (upsert action)
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`ReviewNotFound(404)` `RecipeNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+**Request Body**
+```json
+{
+  "content": {
+    "type": "string",
+    "required": false
+  },
+  "rating": {
+    "type": "integer",
+    "description": "Can only be -1, 0 or 1",
+    "required": false
+  },
+  "approved": {
+    "type": "boolean",
+    "effectiveWhen": "User is admin",
+    "required": false
+  },
+  "inappropriateReportUsers": {
+    "type": "array of ObjectIds",
+    "effectiveWhen": "User is admin",
+    "required": false
+  }
+}
+```
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /review/admin/all
+**Description**: Get all reviews
+
+**Returns** an array of: Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in admin|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)` `NoPermission(401)`|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /review/
+**Description**: Get logged-in-user's reviews
+
+**Returns** an array of: Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)`|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /review/:id
+**Description**: Get review by review id
+
+**Returns** : Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`ReviewNotFound(404)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Review ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /review/recipe/:id
+**Description**: Get all reviews on recipe by recipe id
+
+**Returns** an array of: Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /review/user/:id
+**Description**: Get all reviews a user has posted by user id
+
+**Returns** an array of: Review data with review's author, rating, comment, also contains votes and reports this review's got
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+# Router: /user
+### :heavy_plus_sign: POST&nbsp; /user/follow/:id
+**Description**: Follow user by user id
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_minus_sign: DELETE&nbsp; /user/follow/:id
+**Description**: Unfollow user by user id
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_minus_sign: DELETE&nbsp; /user/
+**Description**: Delete my account and logout
+
+**Returns** : Deleted
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)`|
+
+
+
+
+
+
+---
+
+### :heavy_minus_sign: DELETE&nbsp; /user/:id
+**Description**: Delete user by user id
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in admin|
+|-|-|
+|Possible Errors|`UserNotFound(404)` `UserNotLoggedIn(401)` `NoPermission(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /user/:id
+**Description**: Get user public information by user id
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password, email)
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`UserNotFound(404)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /user/
+**Description**: Get my (the logged in user's) latest user information
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)`|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /user/admin/all
+**Description**: Get all users
+
+**Returns** an array of: User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in admin|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)` `NoPermission(401)`|
+
+
+
+
+
+
+---
+
+### &#x1F4D9; PATCH&nbsp; /user/:id
+**Description**: Update user information by user id (can be used by both admin to update any user OR user to update their own information)
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotFound(404)` `NoPermission(401)` `UsernameExists(400)` `EmailExists(400)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /user/logout
+**Description**: Logout
+
+
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)`|
+
+
+
+
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /user/login
+**Description**: Login using [email OR username] and [password]
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`InvalidAuth(400)`|
+
+**Request Body**
+```json
+{
+  "input": {
+    "type": "string",
+    "description": "Username Or Email",
+    "required": true
+  },
+  "password": {
+    "type": "string",
+    "required": true
+  }
+}
+```
+
+
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /user/register
+**Description**: Register
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`UsernameEmailExists(400)` `FakeValidationError(400)`|
+
+**Request Body**
+```json
+{
+  "email": {
+    "type": "string",
+    "required": true
+  },
+  "name": {
+    "type": "string",
+    "required": true
+  },
+  "password": {
+    "type": "string",
+    "required": true,
+    "description": "Should be at least 3 characters long"
+  }
+}
+```
+
+
+
+
+---
+
+# Router: /recipe
+### :heavy_minus_sign: DELETE&nbsp; /recipe/:id
+**Description**: Delete recipe by recipe id
+
+**Returns** : Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`RecipeNotFound(404)` `NoPermission(401)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D9; PATCH&nbsp; /recipe/:id
+**Description**: Update recipe by recipe id
+
+**Returns** : Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`RecipeNotFound(404)` `NoPermission(401)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+**Request Body**
+```json
+{
+  "title": {
+    "type": "string",
+    "required": false
+  },
+  "category": {
+    "type": "string",
+    "required": false
+  },
+  "diet": {
+    "type": "string",
+    "required": false
+  },
+  "instructions": {
+    "type": "string",
+    "required": false
+  },
+  "thumbnail": {
+    "type": "string",
+    "required": false
+  },
+  "approved": {
+    "type": "boolean",
+    "effectiveWhen": "User is admin",
+    "required": false
+  },
+  "tags": {
+    "type": "array of String",
+    "required": false
+  },
+  "ingredients": {
+    "type": "array of String",
+    "required": false
+  }
+}
+```
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /recipe/save/:id
+**Description**: Save a recipe (by recipe id) as favorite
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`RecipeNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_minus_sign: DELETE&nbsp; /recipe/save/:id
+**Description**: Remove a favorite recipe from saved recipes by recipe id
+
+**Returns** : User data with user's followers, following users, saved recipe ids (exclude password)
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`RecipeNotFound(404)` `UserNotLoggedIn(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### :heavy_plus_sign: POST&nbsp; /recipe/
+**Description**: Create a recipe
+
+**Returns** : Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`InvalidCategory(400)` `InvalidDiet(400)` `UserNotLoggedIn(401)`|
+
+**Request Body**
+```json
+{
+  "title": {
+    "type": "string",
+    "required": true
+  },
+  "category": {
+    "type": "string",
+    "required": false
+  },
+  "diet": {
+    "type": "string",
+    "required": false
+  },
+  "instructions": {
+    "type": "string",
+    "required": false
+  },
+  "thumbnail": {
+    "type": "string",
+    "required": false
+  },
+  "approved": {
+    "type": "boolean",
+    "effectiveWhen": "User is admin",
+    "required": false
+  },
+  "tags": {
+    "type": "array of String",
+    "required": false
+  },
+  "ingredients": {
+    "type": "array of String",
+    "required": false
+  }
+}
+```
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /recipe/me
+**Description**: Get all recipes created by the logged-in-user
+
+**Returns** an array of: Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)`|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /recipe/public
+**Description**: Get all recipes with approved === true
+
+**Returns** an array of: Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|None|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /recipe/saved
+**Description**: Get logged-in-user's saved (favorite) recipes
+
+**Returns** an array of: Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)`|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /recipe/:id
+**Description**: Get recipe data by recipe id
+
+**Returns** : Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "Recipe ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /recipe/author/:id
+**Description**: Get all recipes created by user
+
+**Returns** an array of: Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "User ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /recipe/
+**Description**: Get all recipes regardless of approved or not
+
+**Returns** an array of: Recipe data with all reviews of this recipe, every review contains user votes and reports
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|None|
+
+
+
+
+
+
+---
+
+# Router: /file
+### :heavy_plus_sign: POST&nbsp; /file/
+**Description**: Upload file using form-data (GridFS implementation)
+
+**Returns** : Standard GridFS json with filename, content_type, _id, url, etc.
+
+|Permission Level|Require logged-in user|
+|-|-|
+|Possible Errors|`NoInputFile(400)` `UserNotLoggedIn(401)`|
+
+
+
+
+
+**Form-Data**
+```json
+{
+  "file": {
+    "type": "file",
+    "required": true
+  }
+}
+```
+---
+
+### &#x1F4D7; GET&nbsp; /file/:id
+**Description**: Get/Download file by file id
+
+**Returns** : Downloads/Loads the file
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`FileNotFound(404)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "File ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /file/info/:id
+**Description**: Get file information by file id
+
+**Returns** : Standard GridFS json with filename, content_type, _id, url, etc.
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|`FileNotFound(404)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "File ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /file/
+**Description**: Get all files' information
+
+**Returns** an array of: Standard GridFS json with filename, content_type, _id, url, etc.
+
+|Permission Level|Require logged-in admin|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)` `NoPermission(401)`|
+
+
+
+
+
+
+---
+
+### :heavy_minus_sign: DELETE&nbsp; /file/:id
+**Description**: Delete file by file id
+
+**Returns** : Standard GridFS json with filename, content_type, _id, url, etc.
+
+|Permission Level|Require logged-in admin|
+|-|-|
+|Possible Errors|`UserNotLoggedIn(401)` `NoPermission(401)` `InvalidObjectId(400)`|
+
+
+
+**Path Parameters**
+```json
+{
+  "id": {
+    "type": "string",
+    "description": "File ObjectId",
+    "required": true
+  }
+}
+```
+
+
+---
+
+# Router: /constant
+### &#x1F4D7; GET&nbsp; /constant/recipe/categories
+**Description**: Get all available recipe categories
+
+
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|None|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /constant/recipe/diets
+**Description**: Get all available recipe diets
+
+
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|None|
+
+
+
+
+
+
+---
+
+### &#x1F4D7; GET&nbsp; /constant/routes
+**Description**: Get all routes in json format
+
+
+
+|Permission Level|Public Route|
+|-|-|
+|Possible Errors|None|
+
+
+
+
+
+
+---
+

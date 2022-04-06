@@ -12,6 +12,7 @@ import {UserAPI} from "../../axios/Axios";
 import {useState} from "react";
 import {useSnackbar} from "notistack";
 import PasswordTextField from "../../components/input/PasswordTextField";
+import {snackBarHandleError} from "../../util";
 
 export default function Signup() {
     const {enqueueSnackbar} = useSnackbar()
@@ -25,11 +26,7 @@ export default function Signup() {
 
     const signup = async () => {
         if(password !== repeatPassword){
-            enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+            snackBarHandleError(enqueueSnackbar, `Your passwords don't match (Repeat Password and Password)`)
             return
         }
         await UserAPI.post('/register',
@@ -42,12 +39,8 @@ export default function Signup() {
                 })
             dispatch(setUser(res.data))
             navigate("/dashboard")
-        }).catch(error => {
-            enqueueSnackbar(`${error.response.data.message}`,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+        }).catch(e => {
+            snackBarHandleError(enqueueSnackbar, e)
         })
     }
 

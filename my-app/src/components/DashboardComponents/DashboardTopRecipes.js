@@ -3,10 +3,6 @@ import '../../styles/Dashboard.css';
 import {Button} from '../input/Button';
 import {CgHeart} from 'react-icons/cg';
 import {Link} from 'react-router-dom';
-// import VeganFood from '../../resources/vegan-food.jpg';
-// import PorkChop from '../../resources/pork-chop.jpg';
-// import Chicken from '../../resources/chicken.jpg';
-// import Salmon from '../../resources/salmon.jpg';
 import {RecipeAPI} from '../../axios/Axios';
 
 class DashboardTopRecipes extends React.Component {
@@ -48,7 +44,7 @@ class DashboardTopRecipeItem extends React.Component {
                 <img src={this.props.recipe.thumbnail} alt={this.props.recipe.title}></img>
                 <p>{this.props.recipe.title}</p>
                 <div className='top-recipes-button-container'>
-                    <CgHeart/> {this.props.recipe.likes} 
+                    <CgHeart/> {this.props.recipe.likes}
                     <Link to={`/recipe/${this.props.recipe.url}`}><Button className='button-explore-recipe'>Explore</Button></Link>
                 </div>
             </div>

@@ -19,3 +19,15 @@ We didn't use environment variables since react embeds this to the production bu
 
 This affects the cookie [see this issue](https://stackoverflow.com/questions/67821709/this-set-cookie-didnt-specify-a-samesite-attribute-and-was-default-to-samesi).
 
+# Disclaimer
+
+I used mui's rating and autocomplete with custom styles.
+
+Following libraries were also used:
+* Redux
+* Axios
+* React-Icons
+* React-UID
+* Notistack (for snackbar)
+
+Almost everything else was created and styled from scratch.

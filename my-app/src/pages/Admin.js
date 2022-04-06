@@ -19,7 +19,7 @@ import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
 import Dialog from "../components/dialog/Dialog";
-import {initialReviewState, useAsync, userIsAdmin} from "../util";
+import {initialReviewState, snackBarHandleError, useAsync, userIsAdmin} from "../util";
 import EditReview from "./review/EditReview";
 
 class DialogWrapper {
@@ -202,11 +202,7 @@ export function ManageReviews() {
                 userIsAdmin(user) ? "/admin/all" : "")
             return response.data
         } catch (e) {
-            enqueueSnackbar(e.response.data.message,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+            snackBarHandleError(enqueueSnackbar, e)
         }
     }, (r) => {
         setReviewData(r)
@@ -220,7 +216,7 @@ export function ManageReviews() {
                 }}
                 content={
                     <EditReview
-                        onDelete={() => {
+                        onClose={() => {
                             setEditReviewDataDialogOpen(false)
                             setEditingReview(initialReviewState)
                         }
@@ -257,11 +253,7 @@ export function AdminManageUsers() {
             const response = await UserAPI.get(`/admin/all`, {})
             return response.data
         } catch (e) {
-            enqueueSnackbar(e.response.data.message,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+            snackBarHandleError(enqueueSnackbar, e)
         }
     }, (r) => {
         setUserData(r)
@@ -274,7 +266,7 @@ export function AdminManageUsers() {
                 }}
                 content={
                     <Profile
-                        onDelete={() => {
+                        onClose={() => {
                             setEditUserDialogOpen(false)
                             setEditingUser(userInitialState)
                         }
@@ -307,11 +299,7 @@ export function AdminManageRecipes() {
             const response = await RecipeAPI.get(``, {})
             return response.data
         } catch (e) {
-            enqueueSnackbar(e.response.data.message,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+            snackBarHandleError(enqueueSnackbar, e)
         }
     }, (r) => {
         setRecipeData(r)

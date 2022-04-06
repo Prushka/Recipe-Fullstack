@@ -10,18 +10,17 @@ import {BlueBGButton, RedBGButton} from "../../components/input/Button";
 import {RecipeAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
-import {categories, diets, userIsAdmin} from "../../util";
-import {Autocomplete, TextField as MuiTextField} from "@mui/material";
+import {categories, diets, snackBarHandleError, uploadFile, userIsAdmin} from "../../util";
 
 import {TextField} from "../../components/input/TextField";
 import SingleFileField from "../../components/input/SingleFileField";
 import DropdownTextField from "../../components/input/DropdownTextField";
+import ListInput from "../../components/input/ListInput";
 
 export default function EditRecipe({
-                                       recipe, setEditingRecipe, onDelete = () => {
-    }
+                                       recipe, setEditingRecipe, onClose = () => {
+    }, isNew = false
                                    }) {
-    console.log(recipe)
     const {enqueueSnackbar} = useSnackbar()
     const [title, setTitle] = useState(recipe.title)
     const [instructions, setInstructions] = useState(recipe.instructions)
@@ -30,20 +29,37 @@ export default function EditRecipe({
     const [diet, setSelectedDiet] = useState(recipe.diet)
     const [deleteRecipeConfirmationOpen, setDeleteRecipeConfirmationOpen] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null)
+    const [ingredients, setIngredients] = useState(recipe.ingredients)
+    const [tags, setTags] = useState(recipe.tags)
 
     const user = useSelector((state) => state.user)
 
     return (
-        <div className={'edit__container'}>
+        <div className={'edit__container edit__container__column edit__container__column--1'}>
+            <div className={'edit__container__thumbnail__container'}>
+                <img src={recipe.thumbnail} alt={'thumbnail'}/>
+            </div>
 
-            <img src={recipe.thumbnail} alt={'thumbnail'}/>
-
-            <SingleFileField className={'edit__input'} title={'Upload Recipe Thumbnail'} file={selectedFile} setFile={setSelectedFile}/>
+            <SingleFileField className={'edit__input'} title={'Upload Recipe Thumbnail'} file={selectedFile}
+                             setFile={setSelectedFile}/>
             <TextField value={title}
                        setValue={setTitle}
                        className="edit__input"
                        textFieldClassName="edit__input"
                        label={'Recipe Title'}/>
+
+
+            <DropdownTextField label={'Categories'} value={category} setValue={setSelectedCategory}
+                               options={categories} className={'edit__input'} textFieldClassName="edit__input"/>
+
+            <RadioButtonGroup
+                              title={'Diet'}
+                              options={diets}
+                              selected={diet}
+                              setSelected={(d) => {
+                                  setSelectedDiet(d)
+                              }
+                              }/>
 
 
             <TextField value={instructions}
@@ -53,10 +69,11 @@ export default function EditRecipe({
                        textFieldClassName="edit__input"
                        label={'Recipe Instructions'}/>
 
-            <DropdownTextField label={'Categories'} value={category} setValue={setSelectedCategory}
-            options={categories} className={'edit__input'} textFieldClassName="edit__input"/>
+            <ListInput className={'edit__input'} label={"Recipe Ingredients"} list={ingredients}
+                       setList={setIngredients}/>
+            <ListInput className={'edit__input'} label={"Recipe Tags"} list={tags} setList={setTags}/>
 
-            {userIsAdmin(user) && <>
+            {(userIsAdmin(user) && !isNew) && <>
                 <TextField value={recipe.authorName}
                            className="edit__input"
                            textFieldClassName="edit__input"
@@ -66,39 +83,45 @@ export default function EditRecipe({
                            textFieldClassName="edit__input"
                            label={'Recipe Id'} disabled={true}/>
             </>}
-            <RadioButtonGroup className={'edit__radio'}
-                              title={'Diet'}
-                              options={diets}
-                              selected={diet}
-                              setSelected={(d) => {
-                                  setSelectedDiet(d)
-                              }
-                              }/>
 
-            {userIsAdmin && <RadioButtonGroup className={'edit__radio'}
-                                              title={'Approved'}
-                                              options={["true", "false"]}
-                                              selected={selectedApproved}
-                                              setSelected={(d) => {
-                                                  setSelectedApproved(d)
-                                              }
-                                              }/>}
+            {userIsAdmin(user) && <RadioButtonGroup
+                                                    title={'Approved'}
+                                                    options={["true", "false"]}
+                                                    selected={selectedApproved}
+                                                    setSelected={(d) => {
+                                                        setSelectedApproved(d)
+                                                    }
+                                                    }/>}
 
 
             <BlueBGButton className={'edit__action-button'}
                           onClick={async () => {
-                              await RecipeAPI.patch(`/${recipe._id}`, {}).then(res => {
-                                  enqueueSnackbar(`Successfully updated this recipe`,
+                              let payload = {
+                                  title: title,
+                                  category: category,
+                                  diet: diet,
+                                  instructions: instructions,
+                                  ingredients: ingredients,
+                                  tags: tags
+                              }
+                              const thumbnail = await uploadFile(selectedFile, enqueueSnackbar)
+                              if (thumbnail) {
+                                  payload = {...payload, thumbnail}
+                              }
+                              if (userIsAdmin(user)) {
+                                  payload = {...payload, approved: selectedApproved}
+                              }
+                              const route = () => isNew ? RecipeAPI.post(``, payload) : RecipeAPI.patch(`/${recipe._id}`, payload)
+                              await route().then(res => {
+                                  setEditingRecipe(res.data)
+                                  enqueueSnackbar(`Successfully ${isNew ? 'created' : 'updated'} this recipe`,
                                       {
                                           variant: 'success',
                                           persist: false,
                                       })
-                              }).catch(error => {
-                                  enqueueSnackbar(`${error.response.data.message}`,
-                                      {
-                                          variant: 'error',
-                                          persist: false,
-                                      })
+                                  isNew && onClose()
+                              }).catch(e => {
+                                  snackBarHandleError(enqueueSnackbar, e)
                               })
                           }}>Save</BlueBGButton>
 
@@ -113,20 +136,16 @@ export default function EditRecipe({
                                                 variant: 'success',
                                                 persist: false,
                                             })
-                                        onDelete()
-                                    }).catch(error => {
-                                        enqueueSnackbar(`${error.response.data.message}`,
-                                            {
-                                                variant: 'error',
-                                                persist: false,
-                                            })
+                                        onClose()
+                                    }).catch(e => {
+                                        snackBarHandleError(enqueueSnackbar, e)
                                     })
                                 }}
             />
 
-            <RedBGButton className={'edit__action-button'} onClick={() => {
+            {!isNew && <RedBGButton className={'edit__action-button'} onClick={() => {
                 setDeleteRecipeConfirmationOpen(true)
-            }}>DELETE THIS REVIEW</RedBGButton>
+            }}>DELETE THIS RECIPE</RedBGButton>}
         </div>
     )
 }

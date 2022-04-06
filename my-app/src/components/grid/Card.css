@@ -1,0 +1,156 @@
+.custom__card {
+    display: flex;
+    padding: 18px 20px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 7px;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+    cursor: pointer;
+}
+
+.recipe__card {
+    width: 420px;
+    height: 110px;
+}
+
+.review__card {
+    padding-bottom: 28px;
+    width: 100%;
+    flex-direction: column;
+    background-color: #fafafa;
+}
+
+.review__card__header{
+    display: flex;
+    align-items: center;
+}
+
+.review__card__rating{
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+.review__card__header span{
+    margin-left: 16px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.review__card__avatar__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+}
+
+.avatar {
+    max-height: 50px;
+    max-width: 50px;
+    border-radius: 50%;
+}
+
+.custom__card:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.recipe__card__img__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+}
+
+.recipe__card img {
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 8px;
+}
+
+.recipe__card__information {
+    display: flex;
+    flex-direction: column;
+    margin-left: 18px;
+    justify-content: space-between;
+}
+
+.recipe__card__title {
+    display: flex;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.recipe__card__tick{
+    margin-left: 4px;
+}
+
+.recipe__card__author {
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--theme-gray);
+}
+
+.recipe__card__category {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.recipe__card__instructions {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.recipe__card__favorite {
+    color: var(--theme-red);
+}
+
+.recipe__card__right__pane {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: 3px;
+    align-items: end;
+}
+
+.recipe__card__view__button {
+    font-size: 13px;
+    margin: auto 0 0 0 !important;
+    padding: 10px 13px;
+    align-self: flex-end;
+}
+
+.recipe__card__rating{
+    margin-top: 9px;
+}
+
+.review__card__voting__container{
+    display: flex;
+    margin-left: auto;
+}
+
+.review__card__voting__icon__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.review__card__voting__icon{
+    color: var(--theme-dark-gray);
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+}
+
+.review__card__voting__icon:hover, .review__card__voting__icon--selected{
+    color: var(--theme-red)
+}
+
+.review__card__voting__text {
+    margin-top: 7px
+}

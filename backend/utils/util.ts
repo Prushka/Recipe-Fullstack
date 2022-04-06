@@ -3,7 +3,7 @@
  */
 
 import {Request, Response} from "express";
-import {IUser, Role, User} from "../models/user";
+import {IUser, User} from "../models/user";
 
 import {Document, ObjectId as ObjectIdType} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";

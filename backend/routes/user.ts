@@ -8,6 +8,7 @@ import express, {Request} from "express";
 import {adminRoute, publicRoute, userRoute} from "./route";
 import {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
+import {PublicUserOutput, UserLoginIn, UserObjectId, UserOutput, UserRegister} from "../business-schemas";
 
 export const userRouter = express.Router()
 
@@ -58,6 +59,10 @@ userRouter.post('/follow/:id', userRoute(async (req, res, sessionUser) => {
         {$addToSet: {followers: sessionUser._id}},
         {new: true})
     res.send(updateSessionUser(req, user!))
+}, {
+    description: "Follow user by user id",
+    possibleErrors: [EndpointError.UserNotFound], paramMapping: UserObjectId,
+    returns: UserOutput
 }))
 
 userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
@@ -72,6 +77,9 @@ userRouter.delete('/follow/:id', userRoute(async (req, res, sessionUser) => {
         {$pull: {followers: sessionUser._id}},
         {new: true})
     res.send(updateSessionUser(req, user!))
+}, {
+    description: "Unfollow user by user id",
+    possibleErrors: [EndpointError.UserNotFound], paramMapping: UserObjectId, returns: UserOutput
 }))
 
 userRouter.delete('/',
@@ -80,7 +88,7 @@ userRouter.delete('/',
         await user!.delete()
         req.session.user = undefined
         res.send("Deleted")
-    }))
+    }, {description: "Delete my account and logout", returns: "Deleted"}))
 
 userRouter.delete('/:id',
     adminRoute(async (req, res) => {
@@ -88,6 +96,11 @@ userRouter.delete('/:id',
         let user = await requiredUserById(id)
         await user.delete()
         res.send(getOutputUser(user))
+    }, {
+        description: "Delete user by user id",
+        possibleErrors: [EndpointError.UserNotFound],
+        paramMapping: UserObjectId,
+        returns: UserOutput
     }))
 
 userRouter.get('/:id',
@@ -95,12 +108,20 @@ userRouter.get('/:id',
         const id = requireObjectIdFromPara(req)
         const user = await requiredUserById(id)
         res.send(getOutputUser(user, true))
+    }, {
+        description: "Get user public information by user id",
+        possibleErrors: [EndpointError.UserNotFound],
+        paramMapping: UserObjectId,
+        returns: PublicUserOutput
     }))
 
 userRouter.get('/',
     userRoute(async (req, res) => {
         const user = await getUserFromSession(req)
         res.send(updateSessionUser(req, user))
+    }, {
+        description: "Get my (the logged in user's) latest user information",
+        returns: UserOutput
     }))
 
 userRouter.get('/admin/all', adminRoute(async (req, res) => {
@@ -109,6 +130,9 @@ userRouter.get('/admin/all', adminRoute(async (req, res) => {
     res.send(users.map((user: any) => {
         return getOutputUser(user)
     }))
+}, {
+    description: "Get all users",
+    returns: UserOutput, returnsArray: true
 }))
 
 userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
@@ -137,6 +161,11 @@ userRouter.patch('/:id', userRoute(async (req, res, sessionUser) => {
         user = await updatedUser.save()
         res.send(getOutputUser(user))
     }
+}, {
+    description: "Update user information by user id (can be used by both admin to update any user OR user to update their own information)",
+    possibleErrors: [EndpointError.UserNotFound, EndpointError.NoPermission, EndpointError.UsernameExists, EndpointError.EmailExists],
+    paramMapping: UserObjectId,
+    returns: UserOutput
 }))
 
 userRouter.post("/logout", userRoute(async (req, res) => {
@@ -147,7 +176,7 @@ userRouter.post("/logout", userRoute(async (req, res) => {
             res.send()
         }
     });
-}));
+}, {description: "Logout"}));
 
 userRouter.post('/login', publicRoute(async (req, res) => {
     const input = req.body.input
@@ -158,6 +187,11 @@ userRouter.post('/login', publicRoute(async (req, res) => {
         throwError(EndpointError.InvalidAuth)
     }
     res.send(updateSessionUser(req, user))
+}, {
+    description: "Login using [email OR username] and [password]",
+    possibleErrors: [EndpointError.InvalidAuth],
+    requestBody: UserLoginIn,
+    returns: UserOutput
 }));
 
 userRouter.post('/register', publicRoute(async (req, res) => {
@@ -176,4 +210,8 @@ userRouter.post('/register', publicRoute(async (req, res) => {
     })
     user = await user.save()
     res.send(updateSessionUser(req, user))
+}, {
+    description: "Register", possibleErrors: [EndpointError.UsernameEmailExists, EndpointError.FakeValidationError],
+    requestBody: UserRegister,
+    returns: UserOutput
 }));

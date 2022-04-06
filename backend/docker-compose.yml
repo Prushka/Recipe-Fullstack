@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: csc309-express-backend
-    image: csc309-express:2.14
+    image: csc309-express:2.2
     restart: unless-stopped
     ports:
       - "9100:8000"

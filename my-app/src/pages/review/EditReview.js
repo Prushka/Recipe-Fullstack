@@ -12,11 +12,12 @@ import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {ReviewAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
-import {userIsAdmin} from "../../util";
+import {snackBarHandleError, userIsAdmin} from "../../util";
+import CustomRating from "../../components/input/CustomRating";
 
 export default function EditReview({
-                                       review, setEditingReview, onDelete = () => {
-    }
+                                       review, setEditingReview, onClose = () => {
+    }, isManage = true
                                    }) {
     const {enqueueSnackbar} = useSnackbar()
     const [content, setContent] = useState(review.content)
@@ -27,15 +28,25 @@ export default function EditReview({
 
     const user = useSelector((state) => state.user)
 
+    const route = () => {
+        const payload = {
+            rating: selectedRating,
+            content: content,
+            approved: selectedApproved,
+            inappropriateReportUsers: inappropriateReports
+        }
+        return isManage ? ReviewAPI.patch(`/${review._id}`, payload) : ReviewAPI.post(`/${review.reviewedRecipe}`, payload)
+    }
     return (
-        <div className={'edit__container'}>
+        <div className={'edit__container edit__container__column edit__container__column--1'}>
+            <CustomRating rating={selectedRating} setRating={setSelectedRating}
+            />
+            {isManage && <TextField value={review.reviewedRecipeTitle}
+                                    className="edit__input"
+                                    textFieldClassName="edit__input"
+                                    label={'Reviewed Recipe Name'} disabled={true}/>}
 
-            <TextField value={review.reviewedRecipeTitle}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Reviewed Recipe Name'} disabled={true}/>
-
-            {userIsAdmin(user) && <>
+            {(userIsAdmin(user) && isManage) && <>
                 <TextField value={review._id}
                            className="edit__input"
                            textFieldClassName="edit__input"
@@ -58,44 +69,45 @@ export default function EditReview({
                        textFieldClassName="edit__input"
                        label={'Content'}/>
 
-            {userIsAdmin(user) &&
+            {(userIsAdmin(user) && isManage) &&
                 <TextField value={inappropriateReports} setValue={setInappropriateReports}
                            className="edit__input"
                            textFieldClassName="edit__input"
                            label={'Users who reported this review as inappropriate'}/>}
 
-            <RadioButtonGroup className={'edit__radio'}
-                              title={'Rating'}
-                              options={[-1, 0, 1]}
-                              selected={selectedRating}
-                              setSelected={(d) => {
-                                  setSelectedRating(d)
-                              }
-                              }/>
+            {/*<RadioButtonGroup className={'edit__radio'}*/}
+            {/*                  title={'Rating'}*/}
+            {/*                  options={ratings}*/}
+            {/*                  selected={selectedRating}*/}
+            {/*                  setSelected={(d) => {*/}
+            {/*                      setSelectedRating(d)*/}
+            {/*                  }*/}
+            {/*                  }/>*/}
+
+            {userIsAdmin(user) && <RadioButtonGroup
+                title={'Approved'}
+                options={["true", "false"]}
+                selected={selectedApproved}
+                setSelected={(d) => {
+                    setSelectedApproved(d)
+                }
+                }/>}
 
 
-            {userIsAdmin(user) && <RadioButtonGroup className={'edit__radio'}
-                                              title={'Approved'}
-                                              options={["true", "false"]}
-                                              selected={selectedApproved}
-                                              setSelected={(d) => {
-                                                  setSelectedApproved(d)
-                                              }
-                                              }/>}
+            {isManage && <>
+                <TextField value={review.upVotes}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Upvotes'} disabled={true}/>
 
 
-            <TextField value={review.upVotes}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Upvotes'} disabled={true}/>
+                <TextField value={review.downVotes}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Downvotes'} disabled={true}/>
+            </>}
 
-
-            <TextField value={review.downVotes}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Downvotes'} disabled={true}/>
-
-            {userIsAdmin(user) && <div className={"edit__grid-container input__box"}>
+            {(userIsAdmin(user) && isManage) && <div className={"edit__grid-container input__box"}>
                 <div className={"edit__grid-container__title"}>Voting on this review:</div>
                 <AdvancedGrid
                     searchableHeaders={['positivity', 'author', 'authorName']} displayData={review.userVotes}
@@ -105,23 +117,15 @@ export default function EditReview({
 
             <BlueBGButton className={'edit__action-button'}
                           onClick={async () => {
-                              await ReviewAPI.patch(`/${review._id}`, {
-                                  rating: selectedRating,
-                                  content: content,
-                                  approved: selectedApproved,
-                                  inappropriateReportUsers: inappropriateReports
-                              }).then(res => {
+                              await route().then(res => {
                                   enqueueSnackbar(`Successfully updated this review`,
                                       {
                                           variant: 'success',
                                           persist: false,
                                       })
-                              }).catch(error => {
-                                  enqueueSnackbar(`${error.response.data.message}`,
-                                      {
-                                          variant: 'error',
-                                          persist: false,
-                                      })
+                                  onClose()
+                              }).catch(e => {
+                                  snackBarHandleError(enqueueSnackbar, e)
                               })
                           }}>Save</BlueBGButton>
 
@@ -136,13 +140,9 @@ export default function EditReview({
                                                 variant: 'success',
                                                 persist: false,
                                             })
-                                        onDelete()
-                                    }).catch(error => {
-                                        enqueueSnackbar(`${error.response.data.message}`,
-                                            {
-                                                variant: 'error',
-                                                persist: false,
-                                            })
+                                        onClose()
+                                    }).catch(e => {
+                                        snackBarHandleError(enqueueSnackbar, e)
                                     })
                                 }}
             />

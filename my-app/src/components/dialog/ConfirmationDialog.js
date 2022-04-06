@@ -8,8 +8,12 @@ import Dialog from "./Dialog";
 import {BlueBGButton, RedBGButton} from "../input/Button";
 
 export default function ConfirmationDialog({
-                                               title, open, setOpen, content, onConfirm = async () => {
-    }
+                                               title,
+                                               open,
+                                               setOpen,
+                                               content = "You cannot undo this operation.",
+                                               onConfirm = async () => {
+                                               }
                                            }) {
     return (
         <Dialog size={'s'} title={title} open={open} onClose={() => setOpen(false)}

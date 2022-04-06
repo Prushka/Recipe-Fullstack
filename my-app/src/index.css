@@ -11,6 +11,8 @@
     --theme-dark-gray: #383838;
     --theme-purple: #8688BC;
     --theme-dark-purple: #404086;
+    --theme-d-green: #08b09a;
+    --theme-dd-green: #0b9186;
 }
 
 html {
@@ -27,8 +29,8 @@ html {
 .page-body {
     display: flex;
     margin: 0;
-    height: 100%;
     min-height: 0;
+    height: 100vh;
 }
 
 body {
@@ -86,13 +88,35 @@ right-pane {
     border-radius: 50%;
 }
 
+.input__container{
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .input__box {
     font-family: Roboto, serif;
-    font-weight: 600;
+    font-weight: 500;
     border: 2px solid black;
     border-radius: 8px;
     padding: 18px 20px;
     margin: 7px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.overflow{
+    overflow: auto;
 }
 
 @media (max-width: 900px) {

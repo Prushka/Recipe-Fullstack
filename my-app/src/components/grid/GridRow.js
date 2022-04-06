@@ -6,17 +6,7 @@ import * as React from 'react';
 import {setAddState} from "../../util";
 import {RiSortAsc, RiSortDesc} from "react-icons/ri";
 import {BiSortAlt2} from "react-icons/bi";
-
-class ClickEvent {
-    constructor(header, value, id, cellId, isHeader, entity) {
-        this.header = header
-        this.value = value
-        this.id = id
-        this.cellId = cellId
-        this.isHeader = isHeader
-        this.entity = entity
-    }
-}
+import {ClickEvent} from "./ClickEvent";
 
 export default function GridRow({
                                     sortValues, setSortValues,

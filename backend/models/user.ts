@@ -22,7 +22,8 @@ export interface IUser extends SessionUser, Document<ObjectId> {
 
 export enum Role {
     USER = 0,
-    ADMIN = 1
+    ADMIN = 1,
+    Guest = -1
 }
 
 interface UserModel extends Model<IUser> {

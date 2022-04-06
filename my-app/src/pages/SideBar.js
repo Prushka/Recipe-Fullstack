@@ -5,8 +5,7 @@ import SideBarButton from "../components/input/SideBarButton";
 import {MdManageAccounts, MdOutlinePreview} from "react-icons/md";
 import {IoFastFood} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
-import {logout, UserAPI} from "../axios/Axios";
-import {setUser} from "../redux/Redux";
+import {fetchUserSession, logout} from "../axios/Axios";
 import {useNavigate} from "react-router-dom";
 import {userIsAdmin} from "../util";
 import {BsFillStarFill} from "react-icons/bs";
@@ -16,17 +15,7 @@ function SideBar(props) {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     useEffect(() => {
-        async function fetchSession() {
-            if (!user._id) {
-                await UserAPI.get('', {withCredentials: true}).then(res => {
-                    dispatch(setUser(res.data))
-                }).catch(() => {
-                    navigate('/login')
-                })
-            }
-        }
-
-        fetchSession().then()
+        fetchUserSession(user, navigate, dispatch).then()
     }, [dispatch, navigate, user])
 
 
@@ -49,10 +38,10 @@ function SideBar(props) {
 
             <div className={'side-bar-top-group'}>
                 <WrappedSideBarButton title='Dashboard' path='/dashboard' icon={<CgHomeAlt/>}/>
-                <WrappedSideBarButton title='My Profile' path='/profile' icon={<CgProfile/>}/>
                 <WrappedSideBarButton title='Browse Recipes' path='/browse' icon={<CgSearch/>}/>
                 <WrappedSideBarButton title='Saved Recipes' path='/saved' icon={<CgHeart/>}/>
-                <WrappedSideBarButton title='Personal Recipes' path='/personal-recipes' icon={<CgPen/>}/>
+                <WrappedSideBarButton title='My Profile' path='/profile' icon={<CgProfile/>}/>
+                <WrappedSideBarButton title='My Recipes' path='/personal/recipes' icon={<CgPen/>}/>
                 {userIsAdmin(user) ? <>
                     <WrappedSideBarButton title='Manage Users' path='/manage/users' icon={<MdManageAccounts/>}/>
                     <WrappedSideBarButton title='Manage Recipes' path='/manage/recipes' icon={<IoFastFood/>}/>

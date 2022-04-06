@@ -17,7 +17,7 @@ export default function AdvancedGrid({
                                          cellCallback,
                                          searchableHeaders = [],
                                          excludeHeader = ['id'],
-    listArrayHeaders=[]
+    listArrayHeaders=[], customEntityRenderer, customEntityContainerClassName
                                      }) {
     let clickableHeader = []
     let cellCallbacks = []
@@ -108,7 +108,9 @@ export default function AdvancedGrid({
                 {
                     searchableHeaders.map((searchHeader) => {
                         return (
-                            <TextField value={searchValues[searchHeader]}
+                            <TextField
+                                textFieldClassName={'grid__text-field'}
+                                value={searchValues[searchHeader]}
                                        setValue={(value) => {
                                            setAddState(searchHeader, value, searchValues, setSearchValues)
                                        }}
@@ -120,8 +122,9 @@ export default function AdvancedGrid({
                   onClickHandler={(e) => {
                       cellCallbacks.forEach((callback) => callback(e))
                   }}
+                  customEntityRenderer={customEntityRenderer}
+                  customEntityContainerClassName={customEntityContainerClassName}
                   clickableHeader={clickableHeader}/>
-
         </>
     );
 }

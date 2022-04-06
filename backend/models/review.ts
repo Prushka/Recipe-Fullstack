@@ -1,4 +1,4 @@
-import {Document, Model, model, ObjectId, Schema} from "mongoose";
+import {Document, model, ObjectId, Schema} from "mongoose";
 
 type SimpleRating = 1 | 0 | -1
 
@@ -14,14 +14,14 @@ export interface IReview extends Document {
     content: string
     reviewedRecipe: ObjectId
     author: ObjectId
-    rating: SimpleRating // according to whoever that person is, we are doing thumbs up/down only
+    rating: 1 | 2 | 3 | 4 | 5
 }
 
 const ReviewSchema = new Schema<IReview>({
-    content: {type: String, required: true, default: ""},
+    content: {type: String, required: false, default: ""},
     reviewedRecipe: {type: String, required: true},
     rating: {
-        type: Number, required: true, default: 0, min: -1, max: 1,
+        type: Number, required: true, default: 1, min: 1, max: 5,
         get: (v: number) => Math.round(v),
         set: (v: number) => Math.round(v)
     },

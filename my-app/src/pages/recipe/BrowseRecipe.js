@@ -1,7 +1,7 @@
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {useState} from "react";
-import {useAsync, userIsAdmin} from "../../util";
-import {RecipeAPI, ReviewAPI} from "../../axios/Axios";
+import {snackBarHandleError, useAsync} from "../../util";
+import {RecipeAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 
 export default function BrowseRecipe({}) {
@@ -15,11 +15,7 @@ export default function BrowseRecipe({}) {
                 "/public")
             return response.data
         } catch (e) {
-            enqueueSnackbar(e.response.data.message,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+            snackBarHandleError(enqueueSnackbar, e)
         }
     }, (r) => {
         setRecipes(r)

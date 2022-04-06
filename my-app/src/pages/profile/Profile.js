@@ -6,10 +6,15 @@ import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "../../components/input/TextField";
 import {BlueBGButton, GreyBorderRedButton, RedBGButton} from "../../components/input/Button";
-import {getUserRoleDisplay, roles} from "../../util";
+import {getUserRoleDisplay, roles, snackBarHandleError, uploadFile, useAsync} from "../../util";
 import Dialog from "../../components/dialog/Dialog";
 import PasswordTextField from "../../components/input/PasswordTextField";
-import {FileUploadAPI, getAllFollowerUsers, getAllFollowingUsers, logout, UserAPI} from "../../axios/Axios";
+import {
+    getAllFollowerUsers,
+    getAllFollowingUsers,
+    logout,
+    UserAPI
+} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
@@ -20,7 +25,7 @@ import SingleFileField from "../../components/input/SingleFileField";
 
 export default function Profile({
                                     user, setEditingUser = () => {
-    }, onDelete = () => {
+    }, onClose = () => {
     }
                                 }) {
     const navigate = useNavigate()
@@ -30,6 +35,8 @@ export default function Profile({
     const [updatePasswordDialogOpen, setUpdatePasswordDialogOpen] = useState(false)
     const [followingUserDialogOpen, setFollowingUserDialogOpen] = useState(false)
     const [followersDialogOpen, setFollowersDialogOpen] = useState(false)
+    const [deleteFollowingUserOpen, setDeleteFollowingUserOpen] = useState(false)
+    const [unfollowUser, setUnfollowUser] = useState({})
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [passwordInputType, setPasswordInputType] = useState("password")
@@ -43,30 +50,20 @@ export default function Profile({
     const [deleteUserConfirmationOpen, setDeleteUserConfirmationOpen] = useState(false)
 
     const pronoun = editingMyProfile ? "this account" : "this user"
+
+    useAsync(async()=>{
+        return [await getAllFollowingUsers(user),
+            await getAllFollowerUsers(user)]
+    },([following, followers])=>{
+        setFollowing(following)
+        setFollowers(followers)
+    },[])
     const updateMyUserInfo = async () => {
         if (password !== repeatPassword) {
-            enqueueSnackbar(`Your passwords don't match (Repeat Password and Password)`,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+            snackBarHandleError(enqueueSnackbar,`Your passwords don't match (Repeat Password and Password)`)
             return
         }
-        let avatar = ""
-        if (selectedFile) {
-            const formData = new FormData();
-            formData.append("file", selectedFile);
-            try {
-                const response = await FileUploadAPI.post("", formData)
-                avatar = response.data['storeWith']
-            } catch (error) {
-                enqueueSnackbar(`${error.response.data.message}`,
-                    {
-                        variant: 'error',
-                        persist: false,
-                    })
-            }
-        }
+        let avatar = await uploadFile(selectedFile, enqueueSnackbar)
         let updatePayload = {"name": username, "email": email, "role": roles[selectedRole]}
         if (password) {
             updatePayload = {...updatePayload, "password": password}
@@ -85,21 +82,17 @@ export default function Profile({
                     variant: 'success',
                     persist: false,
                 })
-        }).catch(error => {
-            enqueueSnackbar(`${error.response.data.message}`,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+        }).catch(e => {
+            snackBarHandleError(enqueueSnackbar, e)
         })
     }
 
     return (
-        <div className={'edit__container'}>
+        <div className={'edit__container edit__container__column edit__container__column--1'}>
             <Dialog title={"Edit Password"} open={updatePasswordDialogOpen}
                     onClose={() => setUpdatePasswordDialogOpen(false)}
                     content={
-                        <>
+                        <div className={'edit__container edit__container__column'}>
                             <PasswordTextField password={password} setPassword={setPassword}
                                                passwordInputType={passwordInputType}
                                                className="auth__input" setPasswordInputType={setPasswordInputType}/>
@@ -107,8 +100,7 @@ export default function Profile({
                             <TextField value={repeatPassword} setValue={setRepeatPassword} type={passwordInputType}
                                        className="auth__input"
                                        label={'Repeat Password'}/>
-
-                        </>
+                        </div>
                     }
                     footer={<>
 
@@ -125,7 +117,13 @@ export default function Profile({
                     content={
                         <AdvancedGrid
                             searchableHeaders={['name']} displayData={following}
-                            excludeHeader={['_id', 'following', 'followers']}/>
+                            excludeHeader={['_id', 'following', 'followers']}
+                            cellCallback={(e) => {
+                                setUnfollowUser(e.entity)
+                                setDeleteFollowingUserOpen(true)
+                            }
+                            }
+                        />
                     }
                     footer={<>
                     </>
@@ -141,30 +139,45 @@ export default function Profile({
                     footer={<>
                     </>
                     }/>
+
+            <ConfirmationDialog open={deleteFollowingUserOpen}
+                                setOpen={setDeleteFollowingUserOpen}
+                                title={`Are you sure you want to unfollow ${unfollowUser.name}?`}
+                                onConfirm={async () => {
+                                    await UserAPI.delete(`/follow/${unfollowUser._id}`).then(res => {
+                                        enqueueSnackbar(`Successfully unfollowed ${unfollowUser.name}`,
+                                            {
+                                                variant: 'success',
+                                                persist: false,
+                                            })
+                                        setFollowing(following.filter(user => {
+                                            return user.name !== unfollowUser.name
+                                        }))
+                                    }).catch(e => {
+                                        snackBarHandleError(enqueueSnackbar, e)
+                                    })
+                                }}
+            />
+
             <div className={"avatar__container"}>
                 <img src={user.avatar} alt='avatar'/>
             </div>
 
-            <SingleFileField title={'Upload Avatar'} file={selectedFile} setFile={setSelectedFile}/>
             <div className={"edit__follow-container"}>
                 <GreyBorderRedButton
                     className={"edit__dialog__button"}
-                    onClick={async () => {
-                        getAllFollowerUsers(user).then(users => {
-                            setFollowers(users)
-                            setFollowersDialogOpen(true)
-                        })
-                    }}>Followers: {user.followers.length}</GreyBorderRedButton>
+                    onClick={() => {
+                        setFollowersDialogOpen(true)
+                    }}>Followers: {followers.length}</GreyBorderRedButton>
                 <GreyBorderRedButton
                     className={"edit__dialog__button"}
-                    onClick={async () => {
-                        getAllFollowingUsers(user).then(users => {
-                            setFollowing(users)
-                            setFollowingUserDialogOpen(true)
-                        })
+                    onClick={() => {
+                        setFollowingUserDialogOpen(true)
                     }}
-                >Following: {user.following.length}</GreyBorderRedButton>
+                >Following: {following.length}</GreyBorderRedButton>
             </div>
+
+            <SingleFileField title={'Upload Avatar'} file={selectedFile} setFile={setSelectedFile}/>
 
 
             <TextField value={username} setValue={setUsername}
@@ -183,14 +196,14 @@ export default function Profile({
                     className="edit__input"
                     textFieldClassName="edit__input"
                     label={'Role'}/> :
-                <RadioButtonGroup className={'edit__radio'}
-                                  title={'Role'}
-                                  options={Object.keys(roles)}
-                                  selected={selectedRole}
-                                  setSelected={(id) => {
-                                      setSelectedRole(id)
-                                  }
-                                  }/>
+                <RadioButtonGroup
+                    title={'Role'}
+                    options={Object.keys(roles)}
+                    selected={selectedRole}
+                    setSelected={(id) => {
+                        setSelectedRole(id)
+                    }
+                    }/>
             }
 
 
@@ -210,19 +223,14 @@ export default function Profile({
                                                 variant: 'success',
                                                 persist: false,
                                             })
-                                        onDelete()
+                                        onClose()
                                         if (editingMyProfile) {
                                             logout().then(() => {
                                                 navigate("/login")
                                             })
                                         }
-                                    }).catch(error => {
-                                        console.log(error)
-                                        enqueueSnackbar(`${error.response.data.message}`,
-                                            {
-                                                variant: 'error',
-                                                persist: false,
-                                            })
+                                    }).catch(e => {
+                                        snackBarHandleError(enqueueSnackbar, e)
                                     })
                                 }}
             />

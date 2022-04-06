@@ -12,6 +12,7 @@ import {UserAPI} from "../../axios/Axios";
 import {useState} from "react";
 import {useSnackbar} from "notistack";
 import PasswordTextField from "../../components/input/PasswordTextField";
+import {snackBarHandleError} from "../../util";
 
 export default function Login() {
     const {enqueueSnackbar} = useSnackbar()
@@ -33,12 +34,8 @@ export default function Login() {
                 })
             dispatch(setUser(res.data))
             navigate("/dashboard")
-        }).catch(error => {
-            enqueueSnackbar(`${error.response.data.message}`,
-                {
-                    variant: 'error',
-                    persist: false,
-                })
+        }).catch(e => {
+            snackBarHandleError(enqueueSnackbar, e)
         })
     }
 

@@ -110,7 +110,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/user/follow/6245d1007c62aca6306ec4ae",
+							"raw": "http://{{host}}:{{port}}/user/follow/624cd37dfe32ba5548849b6c",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -119,7 +119,7 @@
 							"path": [
 								"user",
 								"follow",
-								"6245d1007c62aca6306ec4ae"
+								"624cd37dfe32ba5548849b6c"
 							]
 						}
 					},
@@ -140,7 +140,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/user/follow/6245d1007c62aca6306ec4ae",
+							"raw": "http://{{host}}:{{port}}/user/follow/624cd58037324854096ff5c4",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -149,7 +149,7 @@
 							"path": [
 								"user",
 								"follow",
-								"6245d1007c62aca6306ec4ae"
+								"624cd58037324854096ff5c4"
 							]
 						}
 					},
@@ -464,6 +464,38 @@
 					"response": []
 				},
 				{
+					"name": "My Favorite (Saved) Recipes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/recipe/saved",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"recipe",
+								"saved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Recipe By Author Id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -523,7 +555,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test recipe3\",\r\n    \"content\": \"aha\",\r\n    \"tags\": [\"test\",\"test3\"],\r\n    \"approved\": false,\r\n    \"thumbnail\": \"624c92c1a4ac94242a2623c7.jpeg\"\r\n}",
+							"raw": "{\r\n    \"title\": \"test recipe3\",\r\n    \"content\": \"aha\",\r\n    \"tags\": [\"test\",\"test3\"],\r\n    \"ingredients\": [\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\",\"1 ts\", \"2ts\"],\r\n    \"diet\": \"Omnivore\",\r\n    \"category\": \"Unknown\",\r\n    \"approved\": true,\r\n    \"thumbnail\": \"624cd3a0fe32ba5548849b86.jpeg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -531,7 +563,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/recipe/624b5dbb1611513934ac7a53",
+							"raw": "http://{{host}}:{{port}}/recipe/624e0314e25dded2f44298a6",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -539,7 +571,36 @@
 							"port": "{{port}}",
 							"path": [
 								"recipe",
-								"624b5dbb1611513934ac7a53"
+								"624e0314e25dded2f44298a6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve  recipe by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"approved\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/recipe/624e0320e25dded2f44298a9",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"recipe",
+								"624e0320e25dded2f44298a9"
 							]
 						}
 					},
@@ -581,7 +642,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test recipe\",\r\n    \"content\": \"aha\",\r\n    \"tags\": [\"test\",\"test\"],\r\n    \"instructions\": \"test\",\r\n    \"thumbnail\": \"624ca13245803fb8cd581c73.jpeg\"\r\n}",
+							"raw": "{\r\n    \"title\": \"test recipe2\",\r\n    \"tags\": [\"test\",\"test\"],\r\n    \"instructions\": \"test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -608,7 +669,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://{{host}}:{{port}}/recipe/save/624b5de21611513934ac7a5d",
+							"raw": "http://{{host}}:{{port}}/recipe/save/624e0320e25dded2f44298a9",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -617,7 +678,7 @@
 							"path": [
 								"recipe",
 								"save",
-								"624b5de21611513934ac7a5d"
+								"624e0320e25dded2f44298a9"
 							]
 						}
 					},
@@ -629,7 +690,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{host}}:{{port}}/recipe/save/624b5de21611513934ac7a5d",
+							"raw": "http://{{host}}:{{port}}/recipe/save/624cda04efd88263cd2de578",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -638,7 +699,7 @@
 							"path": [
 								"recipe",
 								"save",
-								"624b5de21611513934ac7a5d"
+								"624cda04efd88263cd2de578"
 							]
 						}
 					},
@@ -650,13 +711,13 @@
 			"name": "Review",
 			"item": [
 				{
-					"name": "Upsert review",
+					"name": "Upsert review by recipe id",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"this is trash\",\r\n    \"rating\": -1,\r\n    \"reviewedRecipe\": \"624ca7905be6c5c4437ef1d4\"\r\n}",
+							"raw": "{\r\n    \"content\": \"this is trash smh\",\r\n    \"rating\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -664,14 +725,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/review",
+							"raw": "http://{{host}}:{{port}}/review/624e0320e25dded2f44298a9",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
-								"review"
+								"review",
+								"624e0320e25dded2f44298a9"
 							]
 						}
 					},
@@ -692,7 +754,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/review/624cabbc5be6c5c4437ef230",
+							"raw": "http://{{host}}:{{port}}/review/624e53ff7b4d4620f5e621b6",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -700,7 +762,7 @@
 							"port": "{{port}}",
 							"path": [
 								"review",
-								"624cabbc5be6c5c4437ef230"
+								"624e53ff7b4d4620f5e621b6"
 							]
 						}
 					},
@@ -817,7 +879,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/review/6249e7cc00ba241264b5e874",
+							"raw": "http://{{host}}:{{port}}/review/624f2baa8683ef7c1b9b4ccd",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -825,7 +887,7 @@
 							"port": "{{port}}",
 							"path": [
 								"review",
-								"6249e7cc00ba241264b5e874"
+								"624f2baa8683ef7c1b9b4ccd"
 							]
 						}
 					},
@@ -912,7 +974,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}:{{port}}/review/vote/624bbad2275495a41f54e90e",
+							"raw": "http://{{host}}:{{port}}/review/vote/624f2baa8683ef7c1b9b4ccd",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -921,7 +983,7 @@
 							"path": [
 								"review",
 								"vote",
-								"624bbad2275495a41f54e90e"
+								"624f2baa8683ef7c1b9b4ccd"
 							]
 						}
 					},
@@ -1003,7 +1065,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/M:/Pictures/Images/Design-Concepts/6.jpg"
+									"src": "/M:/Pictures/Images/Avatar/2(3).png"
 								}
 							]
 						},
@@ -1132,6 +1194,80 @@
 								"file",
 								"info",
 								"624c8660da49ca4bd07d23f4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Constants",
+			"item": [
+				{
+					"name": "Get all recipe categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}:{{port}}/constant/recipe/categories",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"constant",
+								"recipe",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all recipe diets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}:{{port}}/constant/recipe/diets",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"constant",
+								"recipe",
+								"diets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all routes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/constant/routes",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"constant",
+								"routes"
 							]
 						}
 					},

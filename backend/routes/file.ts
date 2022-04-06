@@ -11,6 +11,7 @@ import multer from "multer";
 import mongoose, {ObjectId} from "mongoose";
 import {EndpointError, throwError} from "../errors/errors";
 import {getFileIdWithExtension, getFileURLFromFile, requireIdAsObjectId, requireObjectIdFromPara} from "../utils/util";
+import {FileDownloadOutput, FileObjectId, FileInfoOutput} from "../business-schemas";
 
 export const fileRouter = express.Router()
 const storage = new GridFsStorage({
@@ -39,13 +40,21 @@ const requireNonEmptyFiles = (files: any) => {
 
 fileRouter.post("/", userRoute(async (req, res) => {
     upload.single('file')(req, res, () => {
-        const file: any = req.file
-        if (!file) {
-            res.status(400).send("File not found in form data")
-        } else {
-            res.send({...file, storeWith: getFileIdWithExtension(file)})
+        try {
+            const file: any = req.file
+            if (!file) {
+                throwError(EndpointError.NoInputFile)
+            } else {
+                res.send({...file, storeWith: getFileIdWithExtension(file)})
+            }
+        } catch (e) {
+            genericErrorChecker(res, e)
         }
     })
+}, {
+    description: "Upload file using form-data (GridFS implementation)",
+    possibleErrors: [EndpointError.NoInputFile], formData: {"file": {type: "file", required: true}},
+    returns: FileInfoOutput
 }))
 
 fileRouter.get("/:id", publicRoute(async (req, res) => {
@@ -65,6 +74,11 @@ fileRouter.get("/:id", publicRoute(async (req, res) => {
             genericErrorChecker(res, e)
         }
     });
+}, {
+    description: "Get/Download file by file id",
+    possibleErrors: [EndpointError.FileNotFound],
+    paramMapping: FileObjectId,
+    returns: FileDownloadOutput
 }))
 
 fileRouter.get("/info/:id", publicRoute(async (req, res) => {
@@ -78,6 +92,11 @@ fileRouter.get("/info/:id", publicRoute(async (req, res) => {
             genericErrorChecker(res, e)
         }
     });
+}, {
+    description: "Get file information by file id",
+    possibleErrors: [EndpointError.FileNotFound],
+    paramMapping: FileObjectId,
+    returns: FileInfoOutput
 }))
 
 fileRouter.get("/", adminRoute(async (req, res) => {
@@ -92,7 +111,7 @@ fileRouter.get("/", adminRoute(async (req, res) => {
             genericErrorChecker(res, e)
         }
     });
-}))
+}, {description: "Get all files' information", returns: FileInfoOutput, returnsArray: true}))
 
 fileRouter.delete('/:id', adminRoute(async (req, res) => {
     const id = requireObjectIdFromPara(req)
@@ -102,4 +121,4 @@ fileRouter.delete('/:id', adminRoute(async (req, res) => {
         }
         res.send("deleted");
     });
-}))
+}, {description: "Delete file by file id", paramMapping: FileObjectId, returns: FileInfoOutput}))

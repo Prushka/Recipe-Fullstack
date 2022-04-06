@@ -23,6 +23,16 @@ export function GreyBorderRedButton(props) {
     > {props.children} </Button>);
 }
 
+export function GreenBGButton(props) {
+    return (
+        <Button
+            {...props}
+            className={`button--green ${props.className}`}
+            shadowOnHover={false}
+        > {props.children} </Button>
+    );
+}
+
 export function BlueBGButton(props) {
     return (
         <Button

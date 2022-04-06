@@ -14,6 +14,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    min-height: 65px;
 }
 
 td {
@@ -37,11 +38,12 @@ th, td {
     min-width: 10px;
 }
 
-.table__row{
-    background-color: rgba(0,0,0,0);
+.table__row {
+    background-color: rgba(0, 0, 0, 0);
 }
-.table__row:hover{
-    background-color: rgba(245,245,245,1);
+
+.table__row:hover {
+    background-color: rgba(245, 245, 245, 1);
     cursor: pointer;
 }
 
@@ -92,6 +94,28 @@ table img {
 
 .grid-header-sorting {
     color: var(--theme-red);
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.grid__text-field {
+    width: 45% !important;
+}
+
+@media (min-width: 1000px) {
+    .grid__text-field {
+        width: 30% !important;
+    }
+}
+
+@media (min-width: 1500px) {
+    .grid__text-field {
+        width: 23% !important;
+    }
 }
 
 @media (max-width: 900px) {

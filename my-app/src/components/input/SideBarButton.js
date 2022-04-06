@@ -6,7 +6,7 @@ import React from 'react';
 import '../../styles/Sidebar.css';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {UserAPI} from "../../axios/Axios";
+import {fetchUserSession, updateUserInfo, UserAPI} from "../../axios/Axios";
 import {setUser} from "../../redux/Redux";
 
 export default function SideBarButton({
@@ -21,14 +21,13 @@ export default function SideBarButton({
                  onClick={async () => {
                      onClick()
                      if (path) {
-                         await UserAPI.get('').then(res => {
-                             dispatch(setUser(res.data))
-
+                         try{
+                             await updateUserInfo(dispatch)
                              setSideBarOpen(false)
                              navigate(path)
-                         }).catch(() => {
-                             navigate('/login')
-                         })
+                         }catch (e){
+
+                         }
                      }
                  }}>
                 <div className={'side-bar__icon'}>{icon}</div>

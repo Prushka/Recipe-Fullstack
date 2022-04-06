@@ -1,6 +1,6 @@
 import React from 'react';
-import '../SavedRecipe/SavedRecipe.css';
-import '../../styles/Sidebar.css';
+import './css';
+import '../../src/styles/Sidebar.css';
 import { Link } from 'react-router-dom';
 
 
