@@ -71,18 +71,24 @@ Note the following applies to every route:
 2. If any resource cannot be found, a 404 will be returned
 3. If any request is malformed in any way, a 400 will be returned
 
-For all errors returned, they shared the same structure. For example:
-* `{
+For all errors returned, they shared the same structure. **For example**:
+* ```json
+  {
   "error": "UserNotLoggedIn",
   "message": "Unauthorized (User not logged in)"
-  }`
-* `{
+  }
+  ```
+* ```json
+  {
   "error": "RecipeNotFound",
   "message": "Required recipe cannot be found"
-  }`
-* `{
+  }
+  ```
+* ```json
+  {
   "error": "NoPermission",
   "message": "Permission Denied"
-  }`
+  }
+  ```
 
 Errors can be found in `errors/error.ts`
