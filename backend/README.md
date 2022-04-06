@@ -28,6 +28,32 @@ Note you can access all routes in `/postman/CSC309 - Recipe.postman_collection.j
 1. Import the above file into postman
 2. Set environment variables `host` (e.g., `express.csc309.muddy.ca`) and `port` (e.g., `80`)
 
+There are a few routes that require extra instructions:
+
+1. `/file/upload` This route accepts a file in form-data with key `key` and returns the GridFS json. 
+It's required to store any file uploaded to this route using the property `storeWith`. 
+* For instance, after uploading a file, return format can be: 
+```json
+{
+    "fieldname": "file",
+    "originalname": "2(3).png",
+    "encoding": "7bit",
+    "mimetype": "image/png",
+    "id": "624ce45ffe32ba5548849c0d",
+    "filename": "68c8de1168b55dc06b7e79c6f49a5da4",
+    "metadata": null,
+    "bucketName": "fs",
+    "chunkSize": 261120,
+    "size": 43405,
+    "uploadDate": "2022-04-06T00:52:47.241Z",
+    "contentType": "image/png",
+    "storeWith": "624ce45ffe32ba5548849c0d.png"
+}
+```
+* You should store `624ce45ffe32ba5548849c0d.png` as thumbnail or avatar
+* This file will be stored as is. However, on return, this field will become `BASE_URL/file/624ce45ffe32ba5548849c0d.png`
+* You'll be able to access that file from the previous link (e.g., [https://express.csc309.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg](https://express.csc309.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg)).
+
 ## Error Handling
 
 Note the following applies to every route:
