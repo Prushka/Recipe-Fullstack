@@ -4,7 +4,6 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import SavedRecipe from "./components/SavedRecipe/SavedRecipe";
-import PersonalRecipes from "./components/PersonalRecipes";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, ManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
@@ -13,6 +12,7 @@ import Signup from "./pages/login/Signup";
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "./pages/profile/Profile";
 import BrowseRecipe from "./pages/recipe/BrowseRecipe";
+import PersonalRecipe from "./pages/recipe/PersonalRecipe";
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function App() {
                            element={<PageComponent path={"/browse"}><BrowseRecipe/></PageComponent>}/>
                     <Route path="/saved" element={<PageComponent path={"/saved"}><SavedRecipe/></PageComponent>}/>
                     <Route path="personal-recipes"
-                           element={<PageComponent path={"/personal-recipes"}><PersonalRecipes/></PageComponent>}/>
+                           element={<PageComponent path={"/personal-recipes"}><PersonalRecipe/></PageComponent>}/>
                     <Route path={"/reviews"}
                            element={<PageComponent path={"/reviews"}><ManageReviews/></PageComponent>}/>
                     <Route path={"/manage/users"}

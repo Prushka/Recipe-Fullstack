@@ -11,6 +11,12 @@
     align-self: center;
 }
 
+.edit__container img {
+    max-height: 200px;
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
 .edit__info {
     font-weight: 600;
     color: var(--theme-dark-gray);
@@ -41,21 +47,6 @@
     width: 100%;
 }
 
-.edit__upload-input {
-    border: 2px solid var(--theme-gray);
-    border-radius: 4px;
-    padding: 10px 17px;
-    margin-bottom: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.edit__upload-input span {
-    color: var(--theme-dark-gray);
-    margin-right: 10px;
-    font-weight: 700;
-}
 
 .edit__input-group {
     display: flex;

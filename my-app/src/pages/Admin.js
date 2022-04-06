@@ -19,7 +19,7 @@ import {useSnackbar} from "notistack";
 import Profile from "./profile/Profile";
 import {userInitialState} from "../redux/Redux";
 import Dialog from "../components/dialog/Dialog";
-import {useAsync, userIsAdmin} from "../util";
+import {initialReviewState, useAsync, userIsAdmin} from "../util";
 import EditReview from "./review/EditReview";
 
 class DialogWrapper {
@@ -190,11 +190,6 @@ function cellCallback(e) {
 
 export function ManageReviews() {
     const user = useSelector((state) => state.user)
-    const initialReviewState = {
-        rating: -1,
-        content: "",
-        recipe: ""
-    }
     const {enqueueSnackbar} = useSnackbar()
     const [editReviewDataDialogOpen, setEditReviewDataDialogOpen] = useState(false)
 

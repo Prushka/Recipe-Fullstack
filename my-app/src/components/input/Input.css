@@ -158,6 +158,10 @@
     display: flex;
 }
 
+.autocomplete {
+    box-sizing: border-box;
+}
+
 .textfield-section__input {
     width: 100%;
     padding: 16px 20px 15px 20px;
@@ -204,7 +208,6 @@
 
 
 .radio-section {
-    font-family: Roboto, serif;
     font-weight: 500;
     display: flex;
     flex-direction: column;
@@ -251,4 +254,17 @@ input[type="radio"] {
 input[type='radio']:checked {
     border: 7px solid var(--dgray-text);
     color: black;
+}
+
+
+.single-file-upload__container {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.single-file-upload__title {
+    color: var(--theme-dark-gray);
+    margin-right: 20px;
+    font-weight: 500;
 }

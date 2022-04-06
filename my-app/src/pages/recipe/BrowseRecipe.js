@@ -12,7 +12,7 @@ export default function BrowseRecipe({}) {
     useAsync(async () => {
         try {
             const response = await RecipeAPI.get(
-                "")
+                "/public")
             return response.data
         } catch (e) {
             enqueueSnackbar(e.response.data.message,

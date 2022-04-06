@@ -3,77 +3,77 @@
  */
 
 import '../Edit.css';
-import {TextField} from "../../components/input/TextField";
 import React, {useState} from "react";
 import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {useSelector} from "react-redux";
 import {BlueBGButton, RedBGButton} from "../../components/input/Button";
-import AdvancedGrid from "../../components/grid/AdvancedGrid";
 import {RecipeAPI} from "../../axios/Axios";
 import {useSnackbar} from "notistack";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
-import {roles as Role} from "../../util";
+import {categories, diets, userIsAdmin} from "../../util";
+import {Autocomplete, TextField as MuiTextField} from "@mui/material";
+
+import {TextField} from "../../components/input/TextField";
+import SingleFileField from "../../components/input/SingleFileField";
+import DropdownTextField from "../../components/input/DropdownTextField";
 
 export default function EditRecipe({
                                        recipe, setEditingRecipe, onDelete = () => {
     }
                                    }) {
+    console.log(recipe)
     const {enqueueSnackbar} = useSnackbar()
-    const [content, setContent] = useState(recipe.content)
-    const [inappropriateReports, setInappropriateReports] = useState(recipe.inappropriateReportUsers)
+    const [title, setTitle] = useState(recipe.title)
+    const [instructions, setInstructions] = useState(recipe.instructions)
     const [selectedApproved, setSelectedApproved] = useState(recipe.approved.toString())
-    const [selectedRating, setSelectedRating] = useState(recipe.rating)
+    const [category, setSelectedCategory] = useState(recipe.category)
+    const [diet, setSelectedDiet] = useState(recipe.diet)
     const [deleteRecipeConfirmationOpen, setDeleteRecipeConfirmationOpen] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null)
 
     const user = useSelector((state) => state.user)
-    const userIsAdmin = user.role > Role.User
 
     return (
         <div className={'edit__container'}>
 
-            <TextField value={recipe.recipeedRecipeTitle}
+            <img src={recipe.thumbnail} alt={'thumbnail'}/>
+
+            <SingleFileField className={'edit__input'} title={'Upload Recipe Thumbnail'} file={selectedFile} setFile={setSelectedFile}/>
+            <TextField value={title}
+                       setValue={setTitle}
                        className="edit__input"
                        textFieldClassName="edit__input"
-                       label={'Recipeed Recipe Name'} disabled={true}/>
+                       label={'Recipe Title'}/>
 
-            {userIsAdmin && <>
+
+            <TextField value={instructions}
+                       setValue={setInstructions}
+                       size={'m'}
+                       className="edit__input"
+                       textFieldClassName="edit__input"
+                       label={'Recipe Instructions'}/>
+
+            <DropdownTextField label={'Categories'} value={category} setValue={setSelectedCategory}
+            options={categories} className={'edit__input'} textFieldClassName="edit__input"/>
+
+            {userIsAdmin(user) && <>
+                <TextField value={recipe.authorName}
+                           className="edit__input"
+                           textFieldClassName="edit__input"
+                           label={'Recipe Author'} disabled={true}/>
                 <TextField value={recipe._id}
                            className="edit__input"
                            textFieldClassName="edit__input"
                            label={'Recipe Id'} disabled={true}/>
-
-                <TextField value={recipe.recipeedRecipe}
-                           className="edit__input"
-                           textFieldClassName="edit__input"
-                           label={'Recipeed Recipe'} disabled={true}/>
-
-                <TextField value={recipe.author}
-                           className="edit__input"
-                           textFieldClassName="edit__input"
-                           label={'Author'} disabled={true}/>
             </>}
-
-
-            <TextField size={'m'} value={content} setValue={setContent}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Content'}/>
-
-            {userIsAdmin &&
-                <TextField value={inappropriateReports} setValue={setInappropriateReports}
-                           className="edit__input"
-                           textFieldClassName="edit__input"
-                           label={'Users who reported this recipe as inappropriate'}/>}
-
             <RadioButtonGroup className={'edit__radio'}
-                              title={'Rating'}
-                              options={[-1, 0, 1]}
-                              selected={selectedRating}
+                              title={'Diet'}
+                              options={diets}
+                              selected={diet}
                               setSelected={(d) => {
-                                  setSelectedRating(d)
+                                  setSelectedDiet(d)
                               }
                               }/>
-
 
             {userIsAdmin && <RadioButtonGroup className={'edit__radio'}
                                               title={'Approved'}
@@ -85,33 +85,9 @@ export default function EditRecipe({
                                               }/>}
 
 
-            <TextField value={recipe.upVotes}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Upvotes'} disabled={true}/>
-
-
-            <TextField value={recipe.downVotes}
-                       className="edit__input"
-                       textFieldClassName="edit__input"
-                       label={'Downvotes'} disabled={true}/>
-
-            {userIsAdmin && <div className={"edit__grid-container input__box"}>
-                <div className={"edit__grid-container__title"}>Voting on this recipe:</div>
-                <AdvancedGrid
-                    searchableHeaders={['positivity', 'author', 'authorName']} displayData={recipe.userVotes}
-                    excludeHeader={['_id']}/>
-            </div>}
-
-
             <BlueBGButton className={'edit__action-button'}
                           onClick={async () => {
-                              await RecipeAPI.patch(`/${recipe._id}`, {
-                                  rating: selectedRating,
-                                  content: content,
-                                  approved: selectedApproved,
-                                  inappropriateReportUsers: inappropriateReports
-                              }).then(res => {
+                              await RecipeAPI.patch(`/${recipe._id}`, {}).then(res => {
                                   enqueueSnackbar(`Successfully updated this recipe`,
                                       {
                                           variant: 'success',
