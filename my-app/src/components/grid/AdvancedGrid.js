@@ -16,7 +16,8 @@ export default function AdvancedGrid({
                                          headerDialogs = [],
                                          cellCallback,
                                          searchableHeaders = [],
-                                         excludeHeader = ['id']
+                                         excludeHeader = ['id'],
+    listArrayHeaders=[]
                                      }) {
     let clickableHeader = []
     let cellCallbacks = []
@@ -115,7 +116,7 @@ export default function AdvancedGrid({
                     })
                 }
             </grid-search-bar>
-            <Grid sortValues={sortValues} setSortValues={setSortValues} headers={headers} tableData={localDisplayData}
+            <Grid listArrayHeaders={listArrayHeaders} sortValues={sortValues} setSortValues={setSortValues} headers={headers} tableData={localDisplayData}
                   onClickHandler={(e) => {
                       cellCallbacks.forEach((callback) => callback(e))
                   }}

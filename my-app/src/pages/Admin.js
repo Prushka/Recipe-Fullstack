@@ -204,8 +204,7 @@ export function ManageReviews() {
     useAsync(async () => {
         try {
             const response = await ReviewAPI.get(
-                userIsAdmin(user) ? "/admin/all" : "",
-                {})
+                userIsAdmin(user) ? "/admin/all" : "")
             return response.data
         } catch (e) {
             enqueueSnackbar(e.response.data.message,
@@ -241,7 +240,7 @@ export function ManageReviews() {
         <AdvancedGrid
             searchableHeaders=
                 {["authorName", "reviewedRecipeTitle", "rating", "content", "upVotes", "downVotes"]}
-            displayData={reviewData} setDisplayData={setReviewData}
+            displayData={reviewData}
             excludeHeader={['__v']}
             cellCallback={(e) => {
                 setEditingReview(e.entity)
@@ -291,7 +290,7 @@ export function AdminManageUsers() {
                 </>
                 }/>
         <AdvancedGrid searchableHeaders={["name", "email", "role", "_id"]}
-                      displayData={userData} setDisplayData={setUserData}
+                      displayData={userData}
                       excludeHeader={["__v"]}
                       cellCallback={(e) => {
                           setEditingUser(e.entity)
@@ -325,6 +324,5 @@ export function AdminManageRecipes() {
 
     return <AdvancedGrid excludeHeader={["__v"]}
                          searchableHeaders={['_id', 'title', 'category', 'instructions', 'ingredients', 'author', 'authorName', 'tags']}
-                         displayData={recipeData}
-                         setDisplayData={setRecipeData} cellCallback={cellCallback}/>
+                         displayData={recipeData} cellCallback={cellCallback}/>
 }

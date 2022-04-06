@@ -1,5 +1,5 @@
 import React from 'react'; 
-import "../../styles/Browse.css";
+import "../../src/styles/Browse.css";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from '@material-ui/icons/Search';
