@@ -20,6 +20,16 @@ A mongodb is required. I used a mongodb container (see `docker-compose.yml`). Fe
 | BASE_URL        | Backend base url (will be used to return formatted GridFS files url) | http://localhost:8000               |
 | ALLOWED_ORIGINS | CORS argument                                                        | http://localhost:3000               |
 
+## DB init
+
+4 users will be created if they don't exist:
+
+```js
+"admin@admin.com", "admin", "admin", Role.ADMIN
+"user@example.com", "user", "user", Role.USER
+"user1@example.com", "user1", "user1", Role.USER
+"user2@example.com", "user2", "user2", Role.USER
+```
 
 # Routes
 
