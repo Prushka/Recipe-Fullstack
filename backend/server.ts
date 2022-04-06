@@ -9,6 +9,10 @@ import {recipeRouter} from "./routes/recipe";
 import cors from 'cors';
 import {fileRouter} from "./routes/file";
 import {Role, User} from "./models/user";
+import {constantRoute} from "./routes/constants";
+import {publicRoute} from "./routes/route";
+import {getAllRoutes} from "./spec/generation";
+import * as util from "util";
 
 export const BASE_URL = process.env.BASE_URL ?? "http://localhost:8000"
 
@@ -48,6 +52,42 @@ app.use('/review', reviewRouter)
 app.use('/user', userRouter)
 app.use('/recipe', recipeRouter)
 app.use('/file', fileRouter)
+app.use('/constant', constantRoute)
+
+app.get("/routes", publicRoute(async (req, res)=>{
+    let routes = [];
+    let counter = 0;
+    app._router.stack.forEach(function(middleware) {
+        let regexp = middleware.regexp.toString();
+        regexp = regexp.slice(3);
+        const index = regexp.indexOf('/?(');
+        regexp = regexp.slice(0, index - 1);
+
+        if (middleware.route) {
+            routes.push({ child: middleware.route.path, parent: regexp });
+        } else if (middleware.name === 'router') {
+            middleware.handle.stack.forEach(function(handler) {
+                counter++;
+
+                if (counter % 2 === 1) {
+                    return;
+                }
+                let route = handler.route;
+                const methods = []
+                for (let method in route.methods) {
+                    if(route.methods[method]){
+                        methods.push(method)
+                    }
+                }
+                console.log(util.inspect(route.stack[0].handle))
+                route && routes.push({ child: route.path, parent: regexp,
+                methods: methods});
+            });
+        }
+    });
+
+    res.send(routes)
+}))
 
 
 export async function createUserIfNotExist(email: string, name: string, password: string, role: Role) {

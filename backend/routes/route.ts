@@ -5,17 +5,20 @@
 import {IUser, Role, SessionUser} from "../models/user";
 import {Request, Response} from "express";
 import {EndpointError, throwError} from "../errors/errors";
+import {getAllEnums} from "../utils/util";
+import {RecipeCategories, RecipeDiets} from "../models/recipe";
 
-function constructResponseErrorBody(e: EndpointError | string, message: string) {
+function constructResponseErrorBody(e: EndpointError | string, message: string, extra = {}) {
     return {
         error: e,
-        message: message
+        message: message,
+        ...extra
     }
 }
 
 export function genericErrorChecker(res: Response, e: any) {
-    const errorHandler = (code: number, message: string) => {
-        res.status(code).send(constructResponseErrorBody(e.name, message))
+    const errorHandler = (code: number, message: string, extra={}) => {
+        res.status(code).send(constructResponseErrorBody(e.name, message, extra))
     }
     if (e instanceof Error) {
         const name = e.name
@@ -62,6 +65,12 @@ export function genericErrorChecker(res: Response, e: any) {
             case EndpointError.NotImageFile:
                 errorHandler(400, "File is not an image")
                 break
+            case EndpointError.InvalidCategory:
+                errorHandler(400, `Category is invalid`, {"categories":getAllEnums(RecipeCategories)})
+                break
+            case EndpointError.InvalidDiet:
+                errorHandler(400, `Diet is invalid`,{"diets":getAllEnums(RecipeDiets)})
+                break
             default:
                 console.log(e)
                 res.status(500).send("Internal Server Error")
@@ -74,18 +83,20 @@ export function genericErrorChecker(res: Response, e: any) {
 }
 
 export function publicRoute(f: (req: Request, res: Response) => void) {
-    return async (req: Request, res: Response) => {
+    const _route = async (req: Request, res: Response) => {
         try {
             await f(req, res)
         } catch (e) {
             genericErrorChecker(res, e)
         }
     }
+    _route.permission = "public"
+    return _route
 }
 
 
 export function userRoute(f: (req: Request, res: Response, sessionUser: SessionUser) => void, minRole: Role = Role.USER) {
-    return async (req: Request, res: Response) => {
+    const _route =  async (req: Request, res: Response) => {
         try {
             const user = req.session.user
             if (!user) {
@@ -99,9 +110,13 @@ export function userRoute(f: (req: Request, res: Response, sessionUser: SessionU
             genericErrorChecker(res, e)
         }
     }
+    _route.permission = 'user'
+    return _route
 }
 
 
 export function adminRoute(f: (req: Request, res: Response, sessionUser: SessionUser) => void) {
-    return userRoute(f, Role.ADMIN)
+    const _route =  userRoute(f, Role.ADMIN)
+    _route.permission = "admin"
+    return _route
 }
