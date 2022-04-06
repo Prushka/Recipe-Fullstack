@@ -1,8 +1,112 @@
 # team36
+## Deployed URL: [https://recipe.muddy.ca](https://recipe.muddy.ca)
 
 ## Phase 2
 ## [Backend Instructions (Click)](backend/README.md)
+
+Backend is **complete** with following routes (**see above link for details**):
+* **User**
+     * Register
+     * Login
+     * Logout
+     * Get latest user info
+     * Get public user info
+     * Delete user themselves
+     * Update user themselves
+     * Follow user
+     * Unfollow user
+     * Admin get all user info
+     * Admin delete user
+     * Admin update user by user id
+* **Recipe**
+     * Create recipe
+     * Update my recipe by recipe id
+     * Get all public recipes
+     * Get my recipes
+     * Get recipe by author id
+     * Get recipe by recipe id
+     * Delete my recipe
+     * Save recipe as favorite
+     * Remove saved recipe
+     * Admin update any recipe by recipe id
+     * Admin delete any recipe by recipe id
+* **Review**
+     * Upsert a review on a recipe by recipe id
+     * Delete my review by review id
+     * Get my reviews
+     * Get review by review id
+     * Get reviews by recipe id
+     * Get reviews by user id
+     * Admin get all reviews
+     * Admin update any review by review id
+* **Review voting**
+     * Vote (upvote/downvote) review (upsert) by review id
+     * Report a review as inappropriate
+     * Delete my inappropriate report
+* **File (upload/retrieve/delete/view)**
+     * Upload a file (GridFS implementation)
+     * Get file by [file id] and [file id + extension]
+     * Get file info by file id
+     * Admin get all files info
+     * Admin delete file by file id
+
 ## [Frontend Instructions (Click)](my-app/README.md)
+
+**Please see above link for details.**
+
+Note that frontend doesn't do strict checking on permissions (this is handled by backend).
+
+However, all components are displayed properly given the logged-in user's permission. 
+
+If the user attempted to do something they don't have permission for or entered anything invalid, a snackbar with detailed error message will appear.
+
+The following has been implemented:
+
+* **User (every component used in any following pages is mobile friendly)**
+     * Login using [email or name] and password
+     * Register with email, name, password
+     * Logout on session expire or using the sidebar button at the bottom
+     * Display user info in sidebar and in my profile
+     * Edit my profile in `My Profile` tab
+       * Upload avatar
+       * Edit username
+       * Reset password
+       * Delete my account with confirmation
+       * Check users this user's following and this user's followers
+          * Sort and filter these users with their username
+     * Admin can manage all users in `Manage Users` tab
+       * Filter/Sort user by username, role, email
+       * Sort by user following users and followers
+       * Search user by user id
+       * (Click on a user row to) Edit this user
+          * Every action mentioned above in edit `My Profile` is supported
+          * Edit user role
+
+* **Reviews**
+     * User can manage all their reviews in `My Reviews` tab
+         * Sort/Filter by recipe title, review author, rating, content, upvotes, downvotes
+         * (Click on a review row to) Edit this review
+            * Edit rating
+            * Edit content
+            * Delete this review 
+     * Admin can manage all reviews in `Manage Reviews` tab
+          * Every action mentioned above in edit `My Reviews` is supported
+          * Edit users who reported this review
+          * Approve/Disapprove this review
+          * Check all users who voted on this review
+            * Sort/Filter by author name, author id, positivity
+
+* **Recipes**
+    * Admin can manage all recipes in `Manage Recipes` tab
+      * Sort/Filter by instructions, title, category, ingredients, author, author name, tags
+      * Someone else's implementing editing recipe component
+    * Dashboard
+      * Check user statistics
+      * Get all recipes
+      * Get top 3 recipes
+    * Personal Recipes
+      * Create new recipe
+      * Edit my recipes
 
 ## Phase 1
 ### Log-in page:
