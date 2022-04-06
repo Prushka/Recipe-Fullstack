@@ -53,6 +53,7 @@ class PersonalRecipes extends React.Component {
             showAddRecipeModal: !this.state.showAddRecipeModal,
             needUpdate: true
         })
+        this.forceUpdate()
     }
 
     filterRecipe = (e) => {
@@ -516,7 +517,7 @@ class EditRecipeModal extends React.Component {
         } else {
             return (
                 <div className="add-recipe-modal-container">
-                    <div className="edit-recipe-modal">
+                    <div className="add-recipe-modal">
                         <div className="add-recipe-modal-header">
                             <h3>Edit recipe</h3>
                             <button onClick={e => {this.onClose(e, true)}} className='no-style-button'>
