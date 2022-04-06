@@ -8,7 +8,8 @@ axios.defaults.withCredentials = true
 
 // the following doesn't accept env var in production build
 // AND I didn't find a way to pass it to docker build
-const BASE_URL = "https://express.csc309.muddy.ca"
+// const BASE_URL = "https://express.csc309.muddy.ca"
+const BASE_URL = "http://localhost:8000"
 
 export const API = axios.create({
     baseURL: `${BASE_URL}`
