@@ -153,7 +153,7 @@ export default function ViewRecipe({
                             onClickVote={async (entity, positivity) => {
                                 try {
                                     const preVote = getUserPreviousVoteOnReview(entity)
-                                    if (preVote.positivity.toString() === positivity.toString()) {
+                                    if (preVote && preVote.positivity.toString() === positivity.toString()) {
                                         positivity = 0
                                     }
                                     await ReviewAPI.post(`/vote/${entity._id}`, {positivity})
