@@ -8,7 +8,7 @@ import GridRow from "./GridRow";
 import {uid} from "react-uid";
 
 
-export default function Grid({
+export default function Grid({listArrayHeaders = [],
                                  headers, tableData, sortValues, setSortValues, onClickHandler,
                                  clickableHeader = []
                              }) {
@@ -22,7 +22,11 @@ export default function Grid({
                 const rowValues = []
                 headers.forEach((item) => {
                     if (Array.isArray(value[item])) {
-                        rowValues.push(`Count: ${value[item].length}`)
+                        if(listArrayHeaders.includes(item)){
+                            rowValues.push(`[${value[item].join(',')}]`)
+                        }else{
+                            rowValues.push(`Count: ${value[item].length}`)
+                        }
                     } else if (value[item] != null) {
                         rowValues.push(value[item].toString())
                     } else {

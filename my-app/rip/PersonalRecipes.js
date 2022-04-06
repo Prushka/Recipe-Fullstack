@@ -1,8 +1,8 @@
 import React from 'react'; 
-import '../styles/PersonalRecipes.css';
+import '../src/styles/PersonalRecipes.css';
 import {CgClose} from 'react-icons/cg';
-import {Button} from './input/Button';
-import {RecipeAPI, FileUploadAPI} from "../axios/Axios";
+import {Button} from '../src/components/input/Button';
+import {RecipeAPI, FileUploadAPI} from "../src/axios/Axios";
 
 class PersonalRecipes extends React.Component {
 

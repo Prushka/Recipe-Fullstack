@@ -3,21 +3,16 @@ import './index.css';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import BrowseRecipe from "./components/browse/BrowseRecipe";
 import SavedRecipe from "./components/SavedRecipe/SavedRecipe";
-import PersonalRecipes from "./components/PersonalRecipes";
 import SideBar from "./pages/SideBar";
 import {AdminManageRecipes, AdminManageUsers, ManageReviews} from "./pages/Admin";
 import TopBar from "./pages/TopBar";
-import RecipePage2 from './components/RecipePage/RecipePage2';
-import RecipePage1 from './components/RecipePage/RecipePage1';
-import RecipePage3 from './components/RecipePage/RecipePage3';
-import RecipePage4 from './components/RecipePage/RecipePage4';
-import RecipePage5 from './components/RecipePage/RecipePage5';
 import Login from "./pages/login/Login";
 import Signup from "./pages/login/Signup";
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "./pages/profile/Profile";
+import BrowseRecipe from "./pages/recipe/BrowseRecipe";
+import PersonalRecipe from "./pages/recipe/PersonalRecipe";
 
 export default function App() {
     const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -48,7 +43,7 @@ export default function App() {
                            element={<PageComponent path={"/browse"}><BrowseRecipe/></PageComponent>}/>
                     <Route path="/saved" element={<PageComponent path={"/saved"}><SavedRecipe/></PageComponent>}/>
                     <Route path="personal-recipes"
-                           element={<PageComponent path={"/personal-recipes"}><PersonalRecipes/></PageComponent>}/>
+                           element={<PageComponent path={"/personal-recipes"}><PersonalRecipe/></PageComponent>}/>
                     <Route path={"/reviews"}
                            element={<PageComponent path={"/reviews"}><ManageReviews/></PageComponent>}/>
                     <Route path={"/manage/users"}
@@ -57,16 +52,6 @@ export default function App() {
                            element={<PageComponent path={"/manage/recipes"}><AdminManageRecipes/></PageComponent>}/>
                     <Route path={"/manage/reviews"}
                            element={<PageComponent path={"/manage/reviews"}><ManageReviews/></PageComponent>}/>
-                    <Route path="recipe/1"
-                           element={<PageComponent path={"/manage/reviews"}><RecipePage1/></PageComponent>}/>
-                    <Route path="recipe/2"
-                           element={<PageComponent path={"/manage/reviews"}><RecipePage2/></PageComponent>}/>
-                    <Route path="recipe/3"
-                           element={<PageComponent path={"/manage/reviews"}><RecipePage3/></PageComponent>}/>
-                    <Route path="recipe/4"
-                           element={<PageComponent path={"/manage/reviews"}><RecipePage4/></PageComponent>}/>
-                    <Route path="recipe/5"
-                           element={<PageComponent path={"/manage/reviews"}><RecipePage5/></PageComponent>}/>
                 </Routes>
             </BrowserRouter>
         </>

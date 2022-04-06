@@ -1,6 +1,6 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom';
-import "../../styles/Browse.css";
+import "../../src/styles/Browse.css";
 
 
 class Result extends React.Component {

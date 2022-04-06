@@ -16,6 +16,7 @@ import {RadioButtonGroup} from "../../components/input/RadioButtonGroup";
 import {setUser} from "../../redux/Redux";
 import ConfirmationDialog from "../../components/dialog/ConfirmationDialog";
 import {useNavigate} from "react-router-dom";
+import SingleFileField from "../../components/input/SingleFileField";
 
 export default function Profile({
                                     user, setEditingUser = () => {
@@ -144,13 +145,7 @@ export default function Profile({
                 <img src={user.avatar} alt='avatar'/>
             </div>
 
-            <div className={'edit__upload-input'}>
-                <span>Upload Avatar: </span>
-                <input type="file" id="img" name="img" accept="image/*"
-                       onChange={(e) => {
-                           setSelectedFile(e.target.files[0])
-                       }}/>
-            </div>
+            <SingleFileField title={'Upload Avatar'} file={selectedFile} setFile={setSelectedFile}/>
             <div className={"edit__follow-container"}>
                 <GreyBorderRedButton
                     className={"edit__dialog__button"}

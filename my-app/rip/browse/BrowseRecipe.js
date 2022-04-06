@@ -1,7 +1,7 @@
 import React from 'react'; 
-import SideBar from '../../pages/SideBar.js'
+import SideBar from '../../src/pages/SideBar.js'
 import SearchBar from './SearchBar.js';
-import "../../styles/Browse.css";
+import "../../src/styles/Browse.css";
 import Result from './Result.js';
 
 class BrowseRecipe extends React.Component {

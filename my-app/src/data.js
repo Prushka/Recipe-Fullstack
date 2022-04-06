@@ -24,8 +24,5 @@ let allRecipes = [
                  img: "https://www.simplyrecipes.com/thmb/C7Etb8jckjadvA2euBiCQhItA94=/1600x1200/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2009__09__caesar-salad-horiz-a-1800-4a465eb53456465091e34138675259c2.jpg"}
             ]
 
-let categories = ['Japanese', 'Chinese', 'French', 'Italian', 'Vietnamese', 'Mexican', 'Indian', 'Pastry', 'Drinks', 'Korean']
 
 export default allRecipes;
-export {categories};
-            

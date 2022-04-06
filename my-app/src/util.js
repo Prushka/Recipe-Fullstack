@@ -8,6 +8,20 @@ export function setAddState(uid, value, state, setState) {
 
 export const roles = {"User": 0, "Admin": 1}
 
+export const diets = ['Omnivore', 'Pescatarian', 'Vegetarian', 'Unknown']
+export const categories = ['Japanese', 'Chinese', 'French', 'Italian', 'Vietnamese', 'Mexican', 'Indian', 'Pastry', 'Drinks', 'Korean', 'Unknown']
+
+
+export const initialReviewState = {
+    rating: -1,
+    content: "",
+    recipe: ""
+}
+
+export const initialRecipeState = {
+    title: ""
+}
+
 export function userIsAdmin(user) {
     return user.role > roles.User
 }
