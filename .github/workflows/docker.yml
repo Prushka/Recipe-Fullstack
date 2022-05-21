@@ -30,7 +30,7 @@ jobs:
           tags: meinya/csc309-recipe-backend:latest
 
   notify-always:
-    needs: [ build-and-push-image ]
+    needs: [ build-and-push-image-backend ]
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification
