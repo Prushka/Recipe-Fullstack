@@ -1,6 +1,9 @@
-# team36
+# CSC309H1S Recipe Web App (Course Project)
 
-## Deployed URL: [https://recipe.muddy.ca](https://recipe.muddy.ca)
+This is a fullstack app with express backend (mongodb as db and file storage) and react frontend.
+
+Deployed URL:
+**[https://recipe.muddy.ca](https://recipe.muddy.ca)**
 
 ## Phase 2
 
