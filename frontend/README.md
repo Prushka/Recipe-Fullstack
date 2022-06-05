@@ -1,7 +1,7 @@
 # Getting started
 
 Deployed URL: 
-**[https://recipe.muddy.ca](https://recipe.muddy.ca)**
+**~~[https://recipe.muddy.ca](https://recipe.muddy.ca)~~**
 
 ## Running the frontend
 
