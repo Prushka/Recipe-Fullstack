@@ -3,7 +3,9 @@
 This is a fullstack app with express backend (mongodb as db and file storage) and react frontend.
 
 Deployed URL:
-**[https://recipe.muddy.ca](https://recipe.muddy.ca)**
+**~~[https://recipe.muddy.ca](https://recipe.muddy.ca)~~**
+
+This project will no longer be deployed.
 
 ## Phase 2
 
