@@ -62,7 +62,7 @@ Backend is **complete** with following routes (**see above link for details**):
     * Get all recipe categories
     * Get all recipe diets
 
-## [Frontend Instructions (Click)](my-app/README.md)
+## [Frontend Instructions (Click)](frontend/README.md)
 
 **Please see above link for details.**
 
