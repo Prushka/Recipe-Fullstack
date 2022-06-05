@@ -1,5 +1,5 @@
 # Getting started
-#### Deployed URL: [https://express.csc309.muddy.ca](https://express.csc309.muddy.ca)
+#### Deployed URL: ~~[https://express.csc309.muddy.ca](https://express.csc309.muddy.ca)~~
 ## Running the backend
 
 Please run `npm install` first
