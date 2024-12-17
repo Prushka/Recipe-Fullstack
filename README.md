@@ -1,4 +1,4 @@
-# CSC309H1S Recipe Web App (Course Project)
+# Recipe Web App
 
 This is a fullstack app with express backend (mongodb as db and file storage) and react frontend.
 

@@ -1,5 +1,5 @@
 # Getting started
-#### Deployed URL: ~~[https://express.csc309.muddy.ca](https://express.csc309.muddy.ca)~~
+#### Deployed URL: [https://be-recipe.muddy.ca](https://be-recipe.muddy.ca)
 ## Running the backend
 
 Please run `npm install` first
@@ -31,10 +31,10 @@ A mongodb is required. I used a mongodb container (see `docker-compose.yml`). Fe
 
 # Routes
 
-Note you can access all routes in `/postman/CSC309 - Recipe.postman_collection.json`
+Note you can access all routes in `/postman/Recipe.postman_collection.json`
 
 1. Import the above file into postman
-2. Set environment variables `host` (e.g., `express.csc309.muddy.ca`) and `port` (e.g., `80`)
+2. Set environment variables `host` (e.g., `be-recipe.muddy.ca`) and `port` (e.g., `80`)
 
 There are a few routes that require extra instructions:
 
@@ -60,7 +60,7 @@ It's required to store any file uploaded to this route using the property `store
 ```
 * You should store `624ce45ffe32ba5548849c0d.png` as thumbnail or avatar
 * This file string will be stored as is. However, on return, this field will become `BASE_URL/file/624ce45ffe32ba5548849c0d.png`
-* You'll be able to access that file from the previous link (e.g., [https://express.csc309.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg](https://express.csc309.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg)).
+* You'll be able to access that file from the previous link (e.g., [https://be-recipe.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg](https://be-recipe.muddy.ca/file/624cd3a0fe32ba5548849b86.jpeg)).
 
 ## Error Handling
 

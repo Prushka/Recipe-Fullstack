@@ -1,7 +1,7 @@
 # Getting started
 
 Deployed URL: 
-**~~[https://recipe.muddy.ca](https://recipe.muddy.ca)~~**
+**[https://recipe.muddy.ca](https://recipe.muddy.ca)**
 
 ## Running the frontend
 
@@ -13,7 +13,7 @@ The frontend depends on a backend.
 
 Set the backend url in `/src/axios/Axios.js`: 
 ```js
-const BASE_URL = "https://express.csc309.muddy.ca"
+const BASE_URL = "https://be-recipe.muddy.ca"
 ```
 
 We didn't use environment variables since react embeds this to the production build (and our docker build wasn't working somehow with an env var).

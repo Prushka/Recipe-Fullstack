@@ -2,7 +2,7 @@ version: '3'
 
 services:
   frontend:
-    image: meinya/csc309-recipe-frontend
+    image: meinya/recipe-fe
     restart: unless-stopped
     ports:
       - "7120:80"
@@ -10,16 +10,16 @@ services:
       - "TZ=America/Toronto"
 
   backend:
-    image: meinya/csc309-recipe-backend
+    image: meinya/recipe-be
     restart: unless-stopped
     ports:
       - "9100:8000"
     environment:
       - "TZ=America/Toronto"
       - "PORT=8000"
-      - "MONGODB_URI=mongodb://root:SyX2A54rb6kw@mongo:27017/RecipeAPI?authSource=admin"
+      - "MONGODB_URI=mongodb://root:REPLACE_ME@mongo:27017/RecipeAPI?authSource=admin"
       - "ALLOWED_ORIGINS=http://localhost:3000,https://recipe.muddy.ca"
-      - "BASE_URL=https://express.csc309.muddy.ca"
+      - "BASE_URL=https://be-recipe.muddy.ca"
 
   mongo:
     image: mongo
@@ -28,7 +28,7 @@ services:
       - mongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: SyX2A54rb6kw
+      MONGO_INITDB_ROOT_PASSWORD: REPLACE_ME
 
 volumes:
   mongo:
